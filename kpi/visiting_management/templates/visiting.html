@@ -1,0 +1,107 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{{ visiting }}</h2>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Visitings dashboard" %}
+        </a>
+    </div>
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visitings' structure_slug=structure.slug %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Visitings for" %} {{ structure }}
+        </a>
+    </div>
+
+    <div class="pull-right d-inline">
+        <a role="button"
+           class="btn btn-warning"
+           href="{% url 'visiting:edit_structure_visiting' structure_slug=structure.slug visiting_pk=visiting.pk %}">
+                <svg class="icon icon-xs icon-white">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                </svg> {% trans "Edit" %}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block page_content %}
+<table class="table table-striped table-hover">
+    <tbody>
+        <tr>
+            <th scope="row">{% trans 'Visitor' %}</th>
+            <td>{{ visiting.visitor }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Role' %}</th>
+            <td>{{ visiting.role }}</td>
+        </tr>
+        {% if collaborations %}
+        <tr>
+            <th scope="row">{% trans 'Collaborations' %}</th>
+            <td>
+                <ul>
+                    {% for collaboration in collaborations %}
+                    <li>{{ collaboration.collab }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th scope="row">{% trans 'Departure' %}</th>
+            <td>{{ visiting.from_structure }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Destination' %}</th>
+            <td>{{ visiting.to_structure }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Mission' %}</th>
+            <td>
+                {% if visiting.mission %}
+                <svg class="icon icon-xs icon-success">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                </svg>
+                 {% else %}
+                <svg class="icon icon-xs icon-danger">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                </svg>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Start' %}</th>
+            <td>{{ visiting.start_date|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'End' %}</th>
+            <td>{{ visiting.end_date|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Didactic hours' %}</th>
+            <td>{{ visiting.didactic_hour }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Effective days' %}</th>
+            <td>{{ visiting.effective_days }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Notes' %}</th>
+            <td>{{ visiting.note|default:"-" }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock page_content %}

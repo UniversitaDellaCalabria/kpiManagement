@@ -52,11 +52,11 @@ coverage.xml
 .pytest_cache/
 
 # Translations
-*.mo
 *.pot
 
 # Django stuff:
 *.log
+settingslocal.py
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# project data
+
+kpi/saml2_sp/*
+kpi/data/*

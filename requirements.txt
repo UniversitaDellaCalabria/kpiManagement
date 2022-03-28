@@ -1,0 +1,7 @@
+django>=4.0.2
+django_countries
+django-rest-framework
+pillow
+git+https://github.com/UniversitaDellaCalabria/design-django-theme.git@github_page
+git+https://github.com/UniversitaDellaCalabria/django-unical-bootstrap-italia.git
+

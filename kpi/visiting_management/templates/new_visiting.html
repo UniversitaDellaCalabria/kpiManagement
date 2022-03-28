@@ -1,0 +1,30 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "New visiting for" %} {{ structure }}</h2>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Visitings dashboard" %}
+        </a>
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visitings' structure_slug=structure.slug %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Visitings for" %} {{ structure }}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block page_content %}
+{% include 'form_template.html' with form=form %}
+{% endblock page_content %}

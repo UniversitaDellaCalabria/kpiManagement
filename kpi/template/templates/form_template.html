@@ -1,0 +1,74 @@
+{% load i18n %}
+{% load static %}
+
+<form method="post" enctype="multipart/form-data">
+    {% for field in form %}
+        {% if field.field.widget.input_type != 'hidden' %}
+        <div style="padding: 0 0 1rem">
+            <b>{{ field.label_tag }}</b>
+            {% if field.field.required %}*{% endif %}
+        {% endif %}
+        {{ field }}
+        {% if field.help_text %}
+            <small class="form-text text-muted">
+                {{ field.help_text|safe }}
+            </small>
+        {% endif %}
+        {% if field.errors and field.field.widget.input_type != 'hidden' %}
+            <small class="text-danger">
+                {{ field.errors }}
+            </small>
+        {% endif %}
+
+        {% if field.field.widget.input_type != 'hidden' %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% csrf_token %}
+
+    <button class="btn btn-success btn-block"
+            type="button"
+            data-toggle="modal"
+            data-target="#action">
+        <svg class="icon icon-xs icon-white">
+            <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+        </svg>
+        {% trans "Submit" %}
+    </button>
+    <div class="modal fade"
+         tabindex="-1"
+         role="dialog"
+         id="action">
+        <div class="modal-dialog modal-dialog-centered"
+             role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {% trans "Confirm" %}
+                    </h5>
+                    <button class="close"
+                            type="button"
+                            data-dismiss="modal"
+                            aria-label="Close">
+                       <svg class="icon">
+                          <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                       </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% trans "Do you want to confirm the entered data?" %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-success"
+                           type="submit"
+                           id="submitForm"
+                           value="{% trans 'Yes, proceed' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{{ form.media }}

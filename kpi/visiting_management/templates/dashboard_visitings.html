@@ -1,0 +1,36 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "Visiting management" %}</h2>
+<p>{% trans "In this section you can choose the department for which to manage incoming visitors and outgoing missions" %}</p>
+{% endblock top_content %}
+
+{% block clean_content %}
+<div class="row mt-5">
+    {% for office in my_offices %}
+    <div class="col-12 col-lg-3">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ office.office.organizational_structure }}
+                    </h5>
+                    <a class="read-more" href="{% url 'visiting:structure_visitings' structure_slug=office.office.organizational_structure.slug %}">
+                        <span class="text">{% trans "Manage" %}</span>
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+    {% endfor %}
+</div>
+{% endblock clean_content %}

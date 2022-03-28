@@ -1,0 +1,88 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "Users" %}</h2>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-right d-inline">
+        <a role="button"
+           class="btn btn-success float-right"
+           href="{% url 'unical_accounts:users-new' %}">
+                <svg class="icon icon-xs icon-white">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                </svg> {% trans "Add new user" %}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block page_content %}
+{% include 'datatables_users/table.html' %}
+{% endblock page_content %}
+
+
+{% block extra_scripts %}
+    {% url 'unical_accounts:users' as var_url %}
+    {% url 'unical_accounts:users_json' as ajax_url %}
+    {% include 'datatables_users/datatable_script.html' with var_url=var_url ajax_url=ajax_url user_show_priority=user_show_priority %}
+{% endblock extra_scripts %}
+
+
+
+{% comment %}
+{% block centered_container %}
+
+<a role="button"
+   class="btn btn-success float-right"
+   href="{% url 'unical_accounts:users-new' %}">
+        <svg class="icon icon-xs icon-white">
+            <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+        </svg> {% trans "Add new user" %}
+</a>
+
+{% if users %}
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped">
+        <thead>
+            <tr>
+                <th>{% trans "Surname" %}</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Tax code" %}</th>
+                <th>{% trans "Email" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.codice_fiscale }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.created_by == request.user and not user.last_login %}
+                        <a href="{% url 'unical_accounts:users-edit' user_tax_code=user.codice_fiscale %}">
+                            <b>{% trans "Edit" %}</b>
+                        </a>
+                        <a href=""><b>{% trans "Delete" %}</b></a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+{% trans "No data" %}
+{% endif %}
+
+{% endblock centered_container %}
+{% endcomment %}

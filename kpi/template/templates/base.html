@@ -1,0 +1,43 @@
+{% extends 'base-setup.html' %}
+
+{% load i18n %}
+{% load static %}
+{% if debug %}{% load sass_tags %}{% endif %}
+
+{% block extra_head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}">
+{% if debug %}
+<link rel="stylesheet" href="{% sass_src 'css/kpi.scss' %}">
+{% else %}
+<link rel="stylesheet" href="{% static 'css/kpi.css' %}">
+{% endif %}
+{% endblock extra_head %}
+
+{% block menu_links %}
+<li class="nav-item">
+    <a class="nav-link" href="/">
+        <span>{% trans "Dashboard" %}</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'unical_accounts:users' %}">
+        <span>{% trans "Users" %}</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'visiting:dashboard' %}">
+        <span>{% trans "Visitings" %}</span>
+    </a>
+</li>
+{% endblock menu_links %}
+
+{% block header_slim_buttons %}
+<a href="logout">
+    <button class="btn btn-primary btn-sm btn-icon" type="button">
+        <svg class="icon icon-light icon-xs">
+          <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+        </svg> <span>{% trans "Esci" %}</span>
+    </button>
+</a>
+{% endblock header_slim_buttons %}

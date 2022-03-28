@@ -1,0 +1,486 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-28 12:16+0200\n"
+"PO-Revision-Date: 2022-03-28 12:17+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: organizational_area/decorators.py:34
+msgid "Access denied"
+msgstr "Accesso negato"
+
+#: organizational_area/models.py:32
+msgid "Organizational Structure type"
+msgstr ""
+
+#: organizational_area/models.py:33
+msgid "Organizational Structure types"
+msgstr ""
+
+#: organizational_area/models.py:49
+msgid "Lo slug deve contenere almeno un carattere alfabetico"
+msgstr ""
+
+#: organizational_area/models.py:68
+msgid "Organizational Structure"
+msgstr ""
+
+#: organizational_area/models.py:69
+msgid "Organizational Structures"
+msgstr ""
+
+#: organizational_area/models.py:111
+msgid "Organizational Structure function"
+msgstr ""
+
+#: organizational_area/models.py:112
+msgid "Organizational Structure functions"
+msgstr ""
+
+#: organizational_area/models.py:127
+msgid "Equipment Type"
+msgstr ""
+
+#: organizational_area/models.py:128
+msgid "Equipments Type"
+msgstr ""
+
+#: organizational_area/models.py:141
+msgid "riferimento spaziale coordinate"
+msgstr ""
+
+#: organizational_area/models.py:151
+msgid ""
+"Descrivere lo stato della struttura nella location. Esempio: Momentaneamente "
+"chiusa, allagata, problemi lavori in corso, previsioni"
+msgstr ""
+
+#: organizational_area/models.py:169
+msgid "Organizational Structure location"
+msgstr ""
+
+#: organizational_area/models.py:170
+msgid "Organizational Structure locations"
+msgstr ""
+
+#: organizational_area/models.py:192
+msgid "Organizational Structure Office"
+msgstr ""
+
+#: organizational_area/models.py:193
+msgid "Organizational Structure Offices"
+msgstr ""
+
+#: organizational_area/models.py:210
+msgid "Organizational Structure office location"
+msgstr ""
+
+#: organizational_area/models.py:211
+msgid "Organizational Structure office locations"
+msgstr ""
+
+#: organizational_area/models.py:231
+msgid "Organizational Structure Office Employee"
+msgstr ""
+
+#: organizational_area/models.py:232
+msgid "Organizational Structure Office Employees"
+msgstr ""
+
+#: template/templates/base.html:20
+msgid "Dashboard"
+msgstr "Pannello di controllo"
+
+#: template/templates/base.html:25 unical_accounts/templates/edit_user.html:19
+#: unical_accounts/templates/new_user.html:17
+#: unical_accounts/templates/users.html:8
+msgid "Users"
+msgstr "Utenti"
+
+#: template/templates/base.html:30
+msgid "Visitings"
+msgstr ""
+
+#: template/templates/base.html:40
+msgid "Esci"
+msgstr ""
+
+#: template/templates/custom_message.html:13
+msgid "Oops! C'è qualcosa che non va"
+msgstr ""
+
+#: template/templates/custom_message.html:19
+msgid "Torna indietro"
+msgstr ""
+
+#: template/templates/custom_message.html:23
+msgid "Torna alla Dashboard"
+msgstr ""
+
+#: template/templates/dashboard.html:8
+msgid "Key Performance Indicators"
+msgstr ""
+
+#: template/templates/dashboard.html:19
+msgid "Visiting"
+msgstr "Visiting"
+
+#: template/templates/dashboard.html:22
+#: visiting_management/templates/dashboard_visitings.html:24
+msgid "Manage"
+msgstr "Gestisci"
+
+#: template/templates/form_template.html:36
+msgid "Submit"
+msgstr "Invia"
+
+#: template/templates/form_template.html:47
+msgid "Confirm"
+msgstr "Conferma"
+
+#: template/templates/form_template.html:60
+msgid "Do you want to confirm the entered data?"
+msgstr "Desideri confermare i dati immessi?"
+
+#: template/templates/form_template.html:67
+msgid "Yes, proceed"
+msgstr "Si, procedi"
+
+#: unical_accounts/admin.py:20
+msgid "Angrafica"
+msgstr ""
+
+#: unical_accounts/admin.py:30
+msgid "Permissions"
+msgstr "Permessi"
+
+#: unical_accounts/admin.py:35
+msgid "Date accessi sistema"
+msgstr ""
+
+#: unical_accounts/models.py:11
+msgid "Maschio"
+msgstr ""
+
+#: unical_accounts/models.py:12
+msgid "Femmina"
+msgstr ""
+
+#: unical_accounts/models.py:13
+msgid "Altro"
+msgstr ""
+
+#: unical_accounts/models.py:16
+msgid "attivo"
+msgstr ""
+
+#: unical_accounts/models.py:18
+msgid "Matricola Dipendente"
+msgstr ""
+
+#: unical_accounts/models.py:22
+msgid "Matricola Studente"
+msgstr ""
+
+#: unical_accounts/models.py:26
+msgid "Nome"
+msgstr ""
+
+#: unical_accounts/models.py:27
+msgid "Cognome"
+msgstr ""
+
+#: unical_accounts/models.py:28
+msgid "Codice Fiscale"
+msgstr ""
+
+#: unical_accounts/models.py:31
+msgid "Genere"
+msgstr ""
+
+#: unical_accounts/models.py:47
+msgid "Utenti UNICAL"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:21
+#: visiting_management/templates/datatables_visiting/datatable_script.html:21
+msgid "Print"
+msgstr "Stampa"
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:28
+#: visiting_management/templates/datatables_visiting/datatable_script.html:28
+msgid "Nessun record presente"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:29
+#: unical_accounts/templates/datatables_users/datatable_script.html:30
+#: visiting_management/templates/datatables_visiting/datatable_script.html:29
+#: visiting_management/templates/datatables_visiting/datatable_script.html:30
+msgid "Visibili"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:29
+#: visiting_management/templates/datatables_visiting/datatable_script.html:29
+msgid "di"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:29
+#: visiting_management/templates/datatables_visiting/datatable_script.html:29
+msgid "record totali"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:30
+#: visiting_management/templates/datatables_visiting/datatable_script.html:30
+msgid "record"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:33
+#: visiting_management/templates/datatables_visiting/datatable_script.html:33
+msgid "Show"
+msgstr "Mostra"
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:36
+#: visiting_management/templates/datatables_visiting/datatable_script.html:36
+msgid "Nessun record trovato"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:38
+#: visiting_management/templates/datatables_visiting/datatable_script.html:38
+msgid "Prima"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:39
+#: visiting_management/templates/datatables_visiting/datatable_script.html:39
+msgid "Ultima"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:40
+#: visiting_management/templates/datatables_visiting/datatable_script.html:40
+msgid "Successiva"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/datatable_script.html:41
+#: visiting_management/templates/datatables_visiting/datatable_script.html:41
+msgid "Precedente"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/table_header.html:12
+msgid "Last name"
+msgstr "Cognome"
+
+#: unical_accounts/templates/datatables_users/table_header.html:13
+msgid "First name"
+msgstr "Nome"
+
+#: unical_accounts/templates/datatables_users/table_header.html:14
+msgid "Tax code"
+msgstr "Codice fiscale"
+
+#: unical_accounts/templates/datatables_users/table_header.html:15
+msgid "Email"
+msgstr ""
+
+#: unical_accounts/templates/datatables_users/top_filters.html:6
+#: visiting_management/templates/datatables_visiting/top_filters.html:31
+#: visiting_management/templates/datatables_visiting/top_filters.html:32
+msgid "Search"
+msgstr "Cerca"
+
+#: unical_accounts/templates/edit_user.html:8
+msgid "Edit user"
+msgstr "Modifica utente"
+
+#: unical_accounts/templates/new_user.html:8
+#: unical_accounts/templates/users.html:19
+msgid "Add new user"
+msgstr "Aggiungi nuovo utente"
+
+#: unical_accounts/views.py:48
+msgid "User created"
+msgstr "Utente creato"
+
+#: unical_accounts/views.py:71
+msgid "You haven't privileges to edit this user"
+msgstr "Non hai i privilegi necessari per modificare questo utente"
+
+#: unical_accounts/views.py:86
+msgid "User successfully updated"
+msgstr "Utente modificato con successo"
+
+#: visiting_management/forms.py:10
+msgid "Collaboration"
+msgstr "Collaborazione"
+
+#: visiting_management/forms.py:30 visiting_management/forms.py:32
+msgid "The departure or arrival facility must match your home facility"
+msgstr ""
+"La struttura di partenza o quella di arrivo deve coincidere con la struttura "
+"di appartenenza"
+
+#: visiting_management/forms.py:36 visiting_management/forms.py:38
+msgid "Structures must be different"
+msgstr "Le strutture devono essere differenti"
+
+#: visiting_management/forms.py:42 visiting_management/forms.py:44
+msgid "Start date is greater than end date"
+msgstr "La data  di inizio è successiva a quella di fine"
+
+#: visiting_management/templates/dashboard_visitings.html:8
+msgid "Visiting management"
+msgstr "Gestisci visiting"
+
+#: visiting_management/templates/dashboard_visitings.html:9
+msgid ""
+"In this section you can choose the department for which to manage incoming "
+"visitors and outgoing missions"
+msgstr ""
+"In questa sezione è possibile scegliere il dipartimento per il quale gestire "
+"i visiting in entrata e le missioni in uscita"
+
+#: visiting_management/templates/datatables_visiting/table_header.html:21
+#: visiting_management/templates/visiting.html:44
+msgid "Visitor"
+msgstr ""
+
+#: visiting_management/templates/datatables_visiting/table_header.html:22
+msgid "From"
+msgstr "Da"
+
+#: visiting_management/templates/datatables_visiting/table_header.html:23
+msgid "To"
+msgstr "A"
+
+#: visiting_management/templates/datatables_visiting/table_header.html:24
+#: visiting_management/templates/datatables_visiting/top_filters.html:20
+#: visiting_management/templates/visiting.html:72
+msgid "Mission"
+msgstr "Missione"
+
+#: visiting_management/templates/datatables_visiting/table_header.html:25
+#: visiting_management/templates/datatables_visiting/top_filters.html:7
+#: visiting_management/templates/visiting.html:86
+msgid "Start"
+msgstr "Inizio"
+
+#: visiting_management/templates/datatables_visiting/table_header.html:26
+#: visiting_management/templates/datatables_visiting/top_filters.html:13
+#: visiting_management/templates/visiting.html:90
+msgid "End"
+msgstr "Fine"
+
+#: visiting_management/templates/datatables_visiting/top_filters.html:22
+msgid "Select an option"
+msgstr "Seleziona un'opzione"
+
+#: visiting_management/templates/datatables_visiting/top_filters.html:23
+msgid "No"
+msgstr ""
+
+#: visiting_management/templates/datatables_visiting/top_filters.html:24
+msgid "Yes"
+msgstr ""
+
+#: visiting_management/templates/edit_visiting.html:8
+#: visiting_management/templates/visiting.html:34
+msgid "Edit"
+msgstr "Modifica"
+
+#: visiting_management/templates/edit_visiting.html:17
+#: visiting_management/templates/new_visiting collaboration.html:17
+#: visiting_management/templates/new_visiting.html:17
+#: visiting_management/templates/visiting.html:17
+#: visiting_management/templates/visitings.html:17
+msgid "Visitings dashboard"
+msgstr "Dashboard visiting"
+
+#: visiting_management/templates/edit_visiting.html:22
+#: visiting_management/templates/new_visiting collaboration.html:22
+#: visiting_management/templates/new_visiting.html:22
+#: visiting_management/templates/visiting.html:24
+#: visiting_management/templates/visitings.html:8
+msgid "Visitings for"
+msgstr "Visiting per"
+
+#: visiting_management/templates/edit_visiting.html:27
+#: visiting_management/templates/new_visiting collaboration.html:27
+msgid "Visiting details"
+msgstr "Dettagli visiting"
+
+#: visiting_management/templates/new_visiting collaboration.html:8
+msgid "New collaboration for"
+msgstr "Nuova collaborazione per"
+
+#: visiting_management/templates/new_visiting.html:8
+msgid "New visiting for"
+msgstr "Nuovo visiting per"
+
+#: visiting_management/templates/visiting.html:48
+msgid "Role"
+msgstr "Ruolo"
+
+#: visiting_management/templates/visiting.html:53
+msgid "Collaborations"
+msgstr "Collaborazioni"
+
+#: visiting_management/templates/visiting.html:64
+msgid "Departure"
+msgstr "Partenza"
+
+#: visiting_management/templates/visiting.html:68
+msgid "Destination"
+msgstr "Destinazione"
+
+#: visiting_management/templates/visiting.html:94
+msgid "Didactic hours"
+msgstr "Ore didattica"
+
+#: visiting_management/templates/visiting.html:98
+msgid "Effective days"
+msgstr "Giorni effettivi"
+
+#: visiting_management/templates/visiting.html:102
+msgid "Notes"
+msgstr "Note"
+
+#: visiting_management/templates/visitings.html:27
+msgid "Add new visiting"
+msgstr "Aggiungi nuovo visiting"
+
+#: visiting_management/views.py:97
+msgid "Visiting created"
+msgstr "Visiting creato"
+
+#: visiting_management/views.py:136
+msgid "Visiting edited"
+msgstr "Visiting modificato"
+
+#~ msgid "Last week"
+#~ msgstr "Ultima settimana"
+
+#~ msgid "Last month"
+#~ msgstr "Ultimo mese"
+
+#~ msgid "Internal"
+#~ msgstr "Interni"
+
+#~ msgid "You can insert visiting only for your own structure"
+#~ msgstr "Puoi inserire visiting solo per la tua struttura di appartenenza"
+
+#~ msgid "External"
+#~ msgstr "Esterni"
+
+#~ msgid "Both external and internal"
+#~ msgstr "Esterni e interni"

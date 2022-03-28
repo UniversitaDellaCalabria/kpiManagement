@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load kpi_tags %}
+
+<div class="row mt-3">
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label class="active" for="search_start">{% trans "Start" %}</label>
+            <input type="date" id="search_start" name="dateStandard">
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label class="active" for="search_end">{% trans "End" %}</label>
+            <input type="date" id="search_end" name="dateStandard">
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <div class="select-wrapper">
+                <label for="search_mission">{% trans "Mission" %}</label>
+                <select id="search_mission" name="search_mission">
+                    <option value="" selected>- {% trans "Select an option" %} -</option>
+                    <option value="0">{% trans "No" %}</option>
+                    <option value="1">{% trans "Yes" %}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label class="active" for="search_box">{% trans 'Search' %}</label>
+            <input type="text" class="form-control" id="search_box" placeholder="{% trans 'Search' %}...">
+        </div>
+    </div>
+</div>
