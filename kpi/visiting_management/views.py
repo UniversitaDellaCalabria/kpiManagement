@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
+from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
-
 
 from . decorators import can_manage_structure_visitings
 from . forms import VisitingForm
@@ -33,6 +33,7 @@ def _save_visiting(structure, form):
 
 
 @login_required
+@belongs_to_an_office
 def dashboard(request):
 
     template = 'dashboard_visitings.html'
