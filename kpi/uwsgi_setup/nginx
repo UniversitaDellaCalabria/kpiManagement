@@ -26,7 +26,7 @@ server {
 }
 
 server {
-    server_name kpi.testunical.it;
+    server_name kpi.unical.it;
     listen 443 ssl;
 
     ssl_certificate /opt/kpiManagement/kpi/certificates/public_key.pem;
@@ -54,7 +54,7 @@ server {
 
     # SSL HARDENING
     # disable poodle attack
-    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+    ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
     # openssl dhparam -out /etc/nginx/dhparam.pem 4096
     ssl_dhparam /etc/nginx/dhparam.pem;
