@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 # from rest_framework.documentation import include_docs_urls
@@ -39,7 +40,7 @@ if 'unical_accounts' in settings.INSTALLED_APPS:
                         namespace='unical_accounts')),
 
 if 'saml2_sp' in settings.INSTALLED_APPS:
-    from djangosaml2 import saml2_views
+    from djangosaml2 import views as saml2_views
 
     import saml2_sp.urls
 

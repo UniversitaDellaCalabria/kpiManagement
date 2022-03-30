@@ -14,7 +14,7 @@ class User(AbstractUser):
     )
 
     is_active = models.BooleanField(_('attivo'), default=True)
-    email = models.EmailField('email address', unique=True)
+    email = models.EmailField('email address')
     matricola_dipendente = models.CharField(_('Matricola Dipendente'),
                                             max_length=6,
                                             blank=True, null=True,
