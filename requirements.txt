@@ -2,6 +2,11 @@ django>=4.0.2
 django_countries
 django-rest-framework
 pillow
+
+# $ sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+mysqlclient
+
 git+https://github.com/UniversitaDellaCalabria/design-django-theme.git@github_page
 git+https://github.com/UniversitaDellaCalabria/django-unical-bootstrap-italia.git
 
+git+https://github.com/peppelinux/django-datatables-ajax.git
