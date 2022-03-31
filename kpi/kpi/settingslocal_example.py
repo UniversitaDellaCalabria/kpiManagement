@@ -9,6 +9,7 @@ SECRET_KEY = 'secret_key'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://fqdn',]
 INTERNAL_IPS = ['127.0.0.1']
 ADMIN_PATH = 'admin'
 
@@ -26,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
 
     'sass_processor',
 
@@ -42,7 +43,9 @@ INSTALLED_APPS = [
     'bootstrap_italia_template',
     'template',
 
-    'ajax_datatable',
+    # SAML2 SP
+    'djangosaml2',
+    'saml2_sp',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,93 @@ DEFAULT_DATETIME_FORMAT = f'{DEFAULT_DATE_FORMAT} {DEFAULT_TIME_FORMAT}'
 DATE_INPUT_FORMATS = ['%Y-%m-%d', DEFAULT_DATE_FORMAT]
 DATETIME_INPUT_FORMATS = [DEFAULT_DATETIME_FORMAT,
                           f'%Y-%m-%d {DEFAULT_TIME_FORMAT}']
+
+# Saml2
+# DjangoSAML2 conf
+if 'djangosaml2'  in INSTALLED_APPS:
+    from saml2_sp.settings import *
+    # pySAML2 SP mandatory
+    SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+    SAML2_URL_PREFIX = 'saml2'
+    LOGIN_URL = f'/{SAML2_URL_PREFIX}/login'
+    LOGOUT_URL = f'/{SAML2_URL_PREFIX}/logout'
+
+    AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'djangosaml2.backends.Saml2Backend',
+    )
+
+    MIDDLEWARE.append('djangosaml2.middleware.SamlSessionMiddleware')
+    SAML_SESSION_COOKIE_NAME = 'saml_session'
+else:
+    LOCAL_URL_PREFIX = 'local'
+    LOGIN_URL = f'/{LOCAL_URL_PREFIX}/login/'
+    LOGOUT_URL = f'/{LOCAL_URL_PREFIX}/logout/'
+
+LOGOUT_REDIRECT_URL=f'/'
+
+# smtp
+# Default to dummy email backend. Configure dev/production/local backend
+# as per https://docs.djangoproject.com/en/stable/topics/email/#email-backends
+# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_SENDER = 'mail@mail'
+DEFAULT_FROM_EMAIL = EMAIL_SENDER
+SERVER_EMAIL = 'mail@mail'
+EMAIL_HOST = 'smtp_host'
+# EMAIL_HOST_USER = 'myemail@hotmail.com'
+# EMAIL_HOST_PASSWORD = 'mypassword'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_SUBJECT_PREFIX = '[prefix] '
+
+# logging
+ADMINS = [
+    ('name', 'email'),
+]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'default': {
+            # exact format is not important, this is the minimum information
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+        'detailed': {
+            'format': '[%(asctime)s] %(message)s [(%(levelname)s)] %(args)s %(name)s %(filename)s.%(funcName)s:%(lineno)s]'
+        },
+        'json': {
+            'format': '{"timestamp": "%(asctime)s", "msg": %(message)s, "level": "%(levelname)s",  "name": "%(name)s", "path": "%(filename)s.%(funcName)s:%(lineno)s", "@source":"django-audit"}'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'formatter': 'detailed',
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'visiting_management': {
+            'handlers': ['mail_admins'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}
