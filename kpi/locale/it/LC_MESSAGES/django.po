@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-28 12:16+0200\n"
+"POT-Creation-Date: 2022-03-31 08:25+0200\n"
 "PO-Revision-Date: 2022-03-28 12:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -100,27 +100,27 @@ msgstr ""
 msgid "Organizational Structure Office Employees"
 msgstr ""
 
-#: template/templates/base.html:20
+#: template/templates/base.html:21
 msgid "Dashboard"
 msgstr "Pannello di controllo"
 
-#: template/templates/base.html:25 unical_accounts/templates/edit_user.html:19
+#: template/templates/base.html:26 unical_accounts/templates/edit_user.html:19
 #: unical_accounts/templates/new_user.html:17
 #: unical_accounts/templates/users.html:8
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:30
+#: template/templates/base.html:31
 msgid "Visitings"
 msgstr ""
 
-#: template/templates/base.html:40
-msgid "Esci"
-msgstr ""
+#: template/templates/base.html:42
+msgid "Logout"
+msgstr "Esci"
 
 #: template/templates/custom_message.html:13
-msgid "Oops! C'è qualcosa che non va"
-msgstr ""
+msgid "Oops! Something goes wrong"
+msgstr "Oops! C'è qualcosa che non va"
 
 #: template/templates/custom_message.html:19
 msgid "Torna indietro"
@@ -277,19 +277,19 @@ msgstr ""
 msgid "Precedente"
 msgstr ""
 
-#: unical_accounts/templates/datatables_users/table_header.html:12
+#: unical_accounts/templates/datatables_users/table_header.html:11
 msgid "Last name"
 msgstr "Cognome"
 
-#: unical_accounts/templates/datatables_users/table_header.html:13
+#: unical_accounts/templates/datatables_users/table_header.html:12
 msgid "First name"
 msgstr "Nome"
 
-#: unical_accounts/templates/datatables_users/table_header.html:14
+#: unical_accounts/templates/datatables_users/table_header.html:13
 msgid "Tax code"
 msgstr "Codice fiscale"
 
-#: unical_accounts/templates/datatables_users/table_header.html:15
+#: unical_accounts/templates/datatables_users/table_header.html:14
 msgid "Email"
 msgstr ""
 
@@ -459,11 +459,11 @@ msgstr "Note"
 msgid "Add new visiting"
 msgstr "Aggiungi nuovo visiting"
 
-#: visiting_management/views.py:97
+#: visiting_management/views.py:98
 msgid "Visiting created"
 msgstr "Visiting creato"
 
-#: visiting_management/views.py:136
+#: visiting_management/views.py:137
 msgid "Visiting edited"
 msgstr "Visiting modificato"
 
