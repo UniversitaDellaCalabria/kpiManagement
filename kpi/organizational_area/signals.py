@@ -23,7 +23,7 @@ def create_visiting_office(sender, instance, created, **kwargs):
     Help-desk Office created by default
     after Structure is created
     """
-    if created:
+    if created and instance.is_internal:
         OrganizationalStructureOffice.objects.create(name=visiting_settings.VISITING_OFFICE,
                                                      slug=visiting_settings.VISITING_OFFICE_SLUG,
                                                      description=visiting_settings.VISITING_OFFICE,
