@@ -41,7 +41,7 @@ def dashboard(request):
     # get offices that I'm able to manage
     offices = OrganizationalStructureOfficeEmployee.objects\
                                                    .filter(employee=request.user,
-                                                           office__slug=VISITING_OFFICE,
+                                                           office__slug=VISITING_OFFICE_SLUG,
                                                            office__is_active=True,
                                                            office__organizational_structure__is_active=True)\
                                                    .select_related('office')

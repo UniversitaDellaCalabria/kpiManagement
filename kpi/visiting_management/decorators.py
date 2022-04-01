@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from organizational_area.models import (OrganizationalStructure,
                                         OrganizationalStructureOfficeEmployee)
 
-from . settings import VISITING_OFFICE
+from . settings import VISITING_OFFICE_SLUG
 
 
 def can_manage_structure_visitings(func_to_decorate):
@@ -19,7 +19,7 @@ def can_manage_structure_visitings(func_to_decorate):
                                       is_active=True)
         office = get_object_or_404(OrganizationalStructureOfficeEmployee,
                                    employee=request.user,
-                                   office__slug=VISITING_OFFICE,
+                                   office__slug=VISITING_OFFICE_SLUG,
                                    office__is_active=True,
                                    office__organizational_structure=structure)
         original_kwargs['structure'] = structure
