@@ -1,1 +1,2 @@
-VISITING_OFFICE = 'visiting_management'
+VISITING_OFFICE = 'Visiting Management'
+VISITING_OFFICE_SLUG = 'visiting-management'
