@@ -23,8 +23,8 @@ class User(AbstractUser):
                                           max_length=6,
                                           blank=True, null=True,
                                           help_text="fonte Esse3")
-    first_name = models.CharField(_('Nome'), max_length=30)
-    last_name = models.CharField(_('Cognome'), max_length=30)
+    first_name = models.CharField(_('Nome'), max_length=100)
+    last_name = models.CharField(_('Cognome'), max_length=100)
     codice_fiscale = models.CharField(_('Codice Fiscale'),
                                       max_length=16,
                                       unique=True)
