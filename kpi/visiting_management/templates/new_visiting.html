@@ -22,6 +22,16 @@
             </svg> {% trans "Visitings for" %} {{ structure }}
         </a>
     </div>
+
+    <div class="pull-right d-inline">
+        <a role="button"
+           class="btn btn-success float-right"
+           href="{% url 'unical_accounts:users-new' %}">
+                <svg class="icon icon-xs icon-white">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                </svg> {% trans "Add new user" %}
+        </a>
+    </div>
 </div>
 {% endblock top_buttons %}
 
