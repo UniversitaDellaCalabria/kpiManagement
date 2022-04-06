@@ -189,7 +189,7 @@ class OrganizationalStructureOffice(models.Model):
 
     class Meta:
         unique_together = ('slug', 'organizational_structure')
-        ordering = ['name']
+        ordering = ['name', 'organizational_structure__name']
         verbose_name = _("Organizational Structure Office")
         verbose_name_plural = _("Organizational Structure Offices")
 
