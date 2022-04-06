@@ -24,6 +24,7 @@ class VisitingForm(forms.ModelForm):
         to_structure = cleaned_data.get('to_structure')
         start_date = cleaned_data.get('start_date')
         end_date = cleaned_data.get('end_date')
+        effective_days = cleaned_data.get('effective_days')
 
         if from_structure and from_structure != self.structure and to_structure != self.structure:
             self.add_error('from_structure',
@@ -42,6 +43,11 @@ class VisitingForm(forms.ModelForm):
                            _("Start date is greater than end date"))
             self.add_error('end_date',
                            _("Start date is greater than end date"))
+
+        delta = end_date - start_date
+        if effective_days > delta.days:
+            self.add_error('effective_days',
+                           _("Effective days are greater than difference bewteen dates")+ ": " + str(delta.days))
 
     class Meta:
         model = Visiting
