@@ -18,9 +18,14 @@
             <div class="card card-bg">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ office.organizational_structure }}
+                        {{ office.office.organizational_structure }}
                     </h5>
-                    <a class="read-more" href="{% url 'visiting:structure_visitings' structure_slug=office.organizational_structure.slug %}">
+                    <p class="card-text">
+                      <b>{% trans 'Outgoing visiting' %}:</b> {{ office.visiting_out }}
+                      <br>
+                      <b>{% trans 'Incoming visiting' %}:</b> {{ office.visiting_in }}
+                    </p>
+                    <a class="read-more" href="{% url 'visiting:structure_visitings' structure_slug=office.office.organizational_structure.slug %}">
                         <span class="text">{% trans "Manage" %}</span>
                         <svg class="icon">
                             <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>

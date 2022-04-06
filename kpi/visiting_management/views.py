@@ -54,7 +54,15 @@ def dashboard(request):
         for off in my_offices:
             offices.append(off.office)
 
-    d = {'my_offices': offices}
+    result = []
+    for off in offices:
+        visiting_out = Visiting.objects.filter(from_structure=off.organizational_structure).count()
+        visiting_in = Visiting.objects.filter(to_structure=off.organizational_structure).count()
+        result.append({'office': off,
+                        'visiting_in': visiting_in,
+                        'visiting_out': visiting_out})
+
+    d = {'my_offices': result}
 
     return render(request, template, d)
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-06 14:47+0200\n"
-"PO-Revision-Date: 2022-04-06 14:49+0200\n"
+"POT-Creation-Date: 2022-04-06 15:07+0200\n"
+"PO-Revision-Date: 2022-04-06 15:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -139,7 +139,7 @@ msgid "Visiting"
 msgstr "Visiting"
 
 #: template/templates/dashboard.html:22
-#: visiting_management/templates/dashboard_visitings.html:24
+#: visiting_management/templates/dashboard_visitings.html:29
 msgid "Manage"
 msgstr "Gestisci"
 
@@ -410,6 +410,14 @@ msgstr ""
 "In questa sezione è possibile scegliere il dipartimento per il quale gestire "
 "i visiting in entrata e le missioni in uscita"
 
+#: visiting_management/templates/dashboard_visitings.html:24
+msgid "Outgoing visiting"
+msgstr "Missioni"
+
+#: visiting_management/templates/dashboard_visitings.html:26
+msgid "Incoming visiting"
+msgstr "Visiting in entrata"
+
 #: visiting_management/templates/datatables_visiting/table_header.html:21
 #: visiting_management/templates/visiting.html:74
 msgid "Visitor"
@@ -495,15 +503,15 @@ msgstr "Desideri confermare i dati immessi?"
 msgid "Add new visiting"
 msgstr "Aggiungi nuovo visiting"
 
-#: visiting_management/views.py:107
+#: visiting_management/views.py:115
 msgid "Visiting created"
 msgstr "Visiting creato"
 
-#: visiting_management/views.py:146
+#: visiting_management/views.py:154
 msgid "Visiting edited"
 msgstr "Visiting modificato"
 
-#: visiting_management/views.py:175
+#: visiting_management/views.py:183
 msgid "Visiting status changed"
 msgstr "Stato del visiting aggiornato"
 
