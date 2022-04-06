@@ -139,7 +139,7 @@ $(function() {
         var start = $('#search_start').val();
         var end = $('#search_end').val();
         var mission = $('#search_mission').val();
-        var text = $('#search_box').val();
+        var text = $('#search_box').val().replaceAll('"', '').replaceAll('\\', '');
         var args = '{"start": "'+start+'", '+
                     '"end": "'+end+'", '+
                     '"text": "'+text+'", '+
