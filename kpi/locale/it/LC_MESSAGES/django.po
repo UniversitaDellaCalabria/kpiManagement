@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-31 08:25+0200\n"
-"PO-Revision-Date: 2022-03-28 12:17+0200\n"
+"POT-Creation-Date: 2022-04-06 14:47+0200\n"
+"PO-Revision-Date: 2022-04-06 14:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: organizational_area/decorators.py:34
+#: organizational_area/decorators.py:38
 msgid "Access denied"
 msgstr "Accesso negato"
 
@@ -34,87 +34,87 @@ msgstr ""
 msgid "Lo slug deve contenere almeno un carattere alfabetico"
 msgstr ""
 
-#: organizational_area/models.py:68
+#: organizational_area/models.py:69
 msgid "Organizational Structure"
 msgstr ""
 
-#: organizational_area/models.py:69
+#: organizational_area/models.py:70
 msgid "Organizational Structures"
 msgstr ""
 
-#: organizational_area/models.py:111
+#: organizational_area/models.py:112
 msgid "Organizational Structure function"
 msgstr ""
 
-#: organizational_area/models.py:112
+#: organizational_area/models.py:113
 msgid "Organizational Structure functions"
 msgstr ""
 
-#: organizational_area/models.py:127
+#: organizational_area/models.py:128
 msgid "Equipment Type"
 msgstr ""
 
-#: organizational_area/models.py:128
+#: organizational_area/models.py:129
 msgid "Equipments Type"
 msgstr ""
 
-#: organizational_area/models.py:141
+#: organizational_area/models.py:142
 msgid "riferimento spaziale coordinate"
 msgstr ""
 
-#: organizational_area/models.py:151
+#: organizational_area/models.py:152
 msgid ""
 "Descrivere lo stato della struttura nella location. Esempio: Momentaneamente "
 "chiusa, allagata, problemi lavori in corso, previsioni"
 msgstr ""
 
-#: organizational_area/models.py:169
+#: organizational_area/models.py:170
 msgid "Organizational Structure location"
 msgstr ""
 
-#: organizational_area/models.py:170
+#: organizational_area/models.py:171
 msgid "Organizational Structure locations"
 msgstr ""
 
-#: organizational_area/models.py:192
+#: organizational_area/models.py:193
 msgid "Organizational Structure Office"
 msgstr ""
 
-#: organizational_area/models.py:193
+#: organizational_area/models.py:194
 msgid "Organizational Structure Offices"
 msgstr ""
 
-#: organizational_area/models.py:210
+#: organizational_area/models.py:211
 msgid "Organizational Structure office location"
 msgstr ""
 
-#: organizational_area/models.py:211
+#: organizational_area/models.py:212
 msgid "Organizational Structure office locations"
 msgstr ""
 
-#: organizational_area/models.py:231
+#: organizational_area/models.py:232
 msgid "Organizational Structure Office Employee"
 msgstr ""
 
-#: organizational_area/models.py:232
+#: organizational_area/models.py:233
 msgid "Organizational Structure Office Employees"
 msgstr ""
 
-#: template/templates/base.html:21
+#: template/templates/base.html:24
 msgid "Dashboard"
 msgstr "Pannello di controllo"
 
-#: template/templates/base.html:26 unical_accounts/templates/edit_user.html:19
+#: template/templates/base.html:29 unical_accounts/templates/edit_user.html:19
 #: unical_accounts/templates/new_user.html:17
 #: unical_accounts/templates/users.html:8
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:31
+#: template/templates/base.html:34
 msgid "Visitings"
 msgstr ""
 
-#: template/templates/base.html:42
+#: template/templates/base.html:45
 msgid "Logout"
 msgstr "Esci"
 
@@ -132,7 +132,7 @@ msgstr ""
 
 #: template/templates/dashboard.html:8
 msgid "Key Performance Indicators"
-msgstr ""
+msgstr "Indicatori di performance"
 
 #: template/templates/dashboard.html:19
 msgid "Visiting"
@@ -148,6 +148,8 @@ msgid "Submit"
 msgstr "Invia"
 
 #: template/templates/form_template.html:47
+#: visiting_management/templates/visiting.html:147
+#: visiting_management/templates/visiting.html:169
 msgid "Confirm"
 msgstr "Conferma"
 
@@ -305,6 +307,7 @@ msgstr "Modifica utente"
 
 #: unical_accounts/templates/new_user.html:8
 #: unical_accounts/templates/users.html:19
+#: visiting_management/templates/new_visiting.html:32
 msgid "Add new user"
 msgstr "Aggiungi nuovo utente"
 
@@ -324,19 +327,76 @@ msgstr "Utente modificato con successo"
 msgid "Collaboration"
 msgstr "Collaborazione"
 
-#: visiting_management/forms.py:30 visiting_management/forms.py:32
+#: visiting_management/forms.py:31 visiting_management/forms.py:33
 msgid "The departure or arrival facility must match your home facility"
 msgstr ""
 "La struttura di partenza o quella di arrivo deve coincidere con la struttura "
 "di appartenenza"
 
-#: visiting_management/forms.py:36 visiting_management/forms.py:38
+#: visiting_management/forms.py:37 visiting_management/forms.py:39
 msgid "Structures must be different"
 msgstr "Le strutture devono essere differenti"
 
-#: visiting_management/forms.py:42 visiting_management/forms.py:44
+#: visiting_management/forms.py:43 visiting_management/forms.py:45
 msgid "Start date is greater than end date"
 msgstr "La data  di inizio è successiva a quella di fine"
+
+#: visiting_management/forms.py:50
+msgid "Effective days are greater than difference bewteen dates"
+msgstr ""
+"Il numero di giorni effettivi non può essere superiore alla differenza tra "
+"le due date"
+
+#: visiting_management/forms.py:69
+#: visiting_management/templates/visiting.html:78
+msgid "Role"
+msgstr "Ruolo"
+
+#: visiting_management/forms.py:70
+#: visiting_management/templates/datatables_visiting/table_header.html:22
+#: visiting_management/templates/visiting.html:9
+msgid "From"
+msgstr "Da"
+
+#: visiting_management/forms.py:71
+#: visiting_management/templates/datatables_visiting/table_header.html:23
+#: visiting_management/templates/visiting.html:10
+msgid "To"
+msgstr "A"
+
+#: visiting_management/forms.py:72
+#: visiting_management/templates/visiting.html:83
+msgid "Collaborations"
+msgstr "Collaborazioni"
+
+#: visiting_management/forms.py:73
+#: visiting_management/templates/datatables_visiting/table_header.html:25
+#: visiting_management/templates/datatables_visiting/top_filters.html:7
+#: visiting_management/templates/visiting.html:116
+msgid "Start"
+msgstr "Inizio"
+
+#: visiting_management/forms.py:74
+#: visiting_management/templates/datatables_visiting/table_header.html:26
+#: visiting_management/templates/datatables_visiting/top_filters.html:13
+#: visiting_management/templates/visiting.html:120
+msgid "End"
+msgstr "Fine"
+
+#: visiting_management/forms.py:75
+#: visiting_management/templates/visiting.html:124
+msgid "Didactic hours"
+msgstr "Ore didattica"
+
+#: visiting_management/forms.py:76
+#: visiting_management/templates/visiting.html:128
+msgid "Effective days"
+msgstr "Giorni effettivi"
+
+#: visiting_management/forms.py:77
+#: visiting_management/templates/visiting.html:132
+msgid "Notes"
+msgstr "Note"
 
 #: visiting_management/templates/dashboard_visitings.html:8
 msgid "Visiting management"
@@ -351,35 +411,15 @@ msgstr ""
 "i visiting in entrata e le missioni in uscita"
 
 #: visiting_management/templates/datatables_visiting/table_header.html:21
-#: visiting_management/templates/visiting.html:44
+#: visiting_management/templates/visiting.html:74
 msgid "Visitor"
 msgstr ""
 
-#: visiting_management/templates/datatables_visiting/table_header.html:22
-msgid "From"
-msgstr "Da"
-
-#: visiting_management/templates/datatables_visiting/table_header.html:23
-msgid "To"
-msgstr "A"
-
 #: visiting_management/templates/datatables_visiting/table_header.html:24
 #: visiting_management/templates/datatables_visiting/top_filters.html:20
-#: visiting_management/templates/visiting.html:72
+#: visiting_management/templates/visiting.html:102
 msgid "Mission"
 msgstr "Missione"
-
-#: visiting_management/templates/datatables_visiting/table_header.html:25
-#: visiting_management/templates/datatables_visiting/top_filters.html:7
-#: visiting_management/templates/visiting.html:86
-msgid "Start"
-msgstr "Inizio"
-
-#: visiting_management/templates/datatables_visiting/table_header.html:26
-#: visiting_management/templates/datatables_visiting/top_filters.html:13
-#: visiting_management/templates/visiting.html:90
-msgid "End"
-msgstr "Fine"
 
 #: visiting_management/templates/datatables_visiting/top_filters.html:22
 msgid "Select an option"
@@ -391,17 +431,17 @@ msgstr ""
 
 #: visiting_management/templates/datatables_visiting/top_filters.html:24
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: visiting_management/templates/edit_visiting.html:8
-#: visiting_management/templates/visiting.html:34
+#: visiting_management/templates/visiting.html:50
 msgid "Edit"
 msgstr "Modifica"
 
 #: visiting_management/templates/edit_visiting.html:17
 #: visiting_management/templates/new_visiting collaboration.html:17
 #: visiting_management/templates/new_visiting.html:17
-#: visiting_management/templates/visiting.html:17
+#: visiting_management/templates/visiting.html:19
 #: visiting_management/templates/visitings.html:17
 msgid "Visitings dashboard"
 msgstr "Dashboard visiting"
@@ -409,7 +449,7 @@ msgstr "Dashboard visiting"
 #: visiting_management/templates/edit_visiting.html:22
 #: visiting_management/templates/new_visiting collaboration.html:22
 #: visiting_management/templates/new_visiting.html:22
-#: visiting_management/templates/visiting.html:24
+#: visiting_management/templates/visiting.html:26
 #: visiting_management/templates/visitings.html:8
 msgid "Visitings for"
 msgstr "Visiting per"
@@ -427,45 +467,45 @@ msgstr "Nuova collaborazione per"
 msgid "New visiting for"
 msgstr "Nuovo visiting per"
 
-#: visiting_management/templates/visiting.html:48
-msgid "Role"
-msgstr "Ruolo"
+#: visiting_management/templates/visiting.html:38
+msgid "Disable"
+msgstr "Disabilita"
 
-#: visiting_management/templates/visiting.html:53
-msgid "Collaborations"
-msgstr "Collaborazioni"
+#: visiting_management/templates/visiting.html:42
+msgid "Enable"
+msgstr "Abilita"
 
-#: visiting_management/templates/visiting.html:64
+#: visiting_management/templates/visiting.html:60
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: visiting_management/templates/visiting.html:94
 msgid "Departure"
 msgstr "Partenza"
 
-#: visiting_management/templates/visiting.html:68
+#: visiting_management/templates/visiting.html:98
 msgid "Destination"
 msgstr "Destinazione"
 
-#: visiting_management/templates/visiting.html:94
-msgid "Didactic hours"
-msgstr "Ore didattica"
-
-#: visiting_management/templates/visiting.html:98
-msgid "Effective days"
-msgstr "Giorni effettivi"
-
-#: visiting_management/templates/visiting.html:102
-msgid "Notes"
-msgstr "Note"
+#: visiting_management/templates/visiting.html:160
+msgid "Do you want to change visiting status?"
+msgstr "Desideri confermare i dati immessi?"
 
 #: visiting_management/templates/visitings.html:27
 msgid "Add new visiting"
 msgstr "Aggiungi nuovo visiting"
 
-#: visiting_management/views.py:98
+#: visiting_management/views.py:107
 msgid "Visiting created"
 msgstr "Visiting creato"
 
-#: visiting_management/views.py:137
+#: visiting_management/views.py:146
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#: visiting_management/views.py:175
+msgid "Visiting status changed"
+msgstr "Stato del visiting aggiornato"
 
 #~ msgid "Last week"
 #~ msgstr "Ultima settimana"

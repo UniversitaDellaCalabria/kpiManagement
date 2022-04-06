@@ -5,7 +5,9 @@
 
 
 {% block top_content %}
-<h2>{{ visiting }}</h2>
+<h2>{{ visiting.visitor }}</h2>
+<h4>{% trans "From" %}: {{ visiting.from_structure }}</h4>
+<h4>{% trans "To" %}: {{ visiting.to_structure }}</h4>
 {% endblock top_content %}
 
 {% block top_buttons %}
@@ -27,9 +29,23 @@
 
     <div class="pull-right d-inline">
         <a role="button"
-           class="btn btn-warning"
+           class="btn {% if visiting.is_active %}btn-outline-danger{% else %}btn-outline-success{% endif %}"
+           data-toggle="modal"
+           data-target="#change_status">
+                {% if visiting.is_active %}
+                <svg class="icon icon-xs icon-danger">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                </svg> {% trans "Disable" %}
+                {% else %}
+                <svg class="icon icon-xs icon-success">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                </svg> {% trans "Enable" %}
+                {% endif %}
+        </a>
+        <a role="button"
+           class="btn btn-outline-primary"
            href="{% url 'visiting:edit_structure_visiting' structure_slug=structure.slug visiting_pk=visiting.pk %}">
-                <svg class="icon icon-xs icon-white">
+                <svg class="icon icon-xs">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
                 </svg> {% trans "Edit" %}
         </a>
@@ -40,6 +56,20 @@
 {% block page_content %}
 <table class="table table-striped table-hover">
     <tbody>
+        <tr>
+            <th scope="row">{% trans 'Enabled' %}</th>
+            <td>
+                {% if visiting.is_active %}
+                <svg class="icon icon-sm icon-success">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                </svg>
+                 {% else %}
+                <svg class="icon icon-sm icon-danger">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                </svg>
+                {% endif %}
+            </td>
+        </tr>
         <tr>
             <th scope="row">{% trans 'Visitor' %}</th>
             <td>{{ visiting.visitor }}</td>
@@ -72,11 +102,11 @@
             <th scope="row">{% trans 'Mission' %}</th>
             <td>
                 {% if visiting.mission %}
-                <svg class="icon icon-xs icon-success">
+                <svg class="icon icon-sm icon-success">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
                 </svg>
                  {% else %}
-                <svg class="icon icon-xs icon-danger">
+                <svg class="icon icon-sm icon-danger">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
                 </svg>
                 {% endif %}
@@ -104,4 +134,42 @@
         </tr>
     </tbody>
 </table>
+
+<div class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     id="change_status">
+    <div class="modal-dialog modal-dialog-centered"
+         role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {% trans "Confirm" %}
+                </h5>
+                <button class="close"
+                        type="button"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                   <svg class="icon">
+                      <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                   </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "Do you want to change visiting status?" %}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a role="button"
+                   class="btn btn-success"
+                   href="{% url 'visiting:change_status_structure_visiting' structure_slug=structure.slug visiting_pk=visiting.pk %}">
+                        <svg class="icon icon-xs icon-white">
+                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                        </svg> {% trans "Confirm" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock page_content %}

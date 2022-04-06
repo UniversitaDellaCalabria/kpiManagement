@@ -31,6 +31,7 @@ class Visiting(models.Model):
     didactic_hour = models.PositiveIntegerField()
     effective_days = models.PositiveIntegerField()
     note = models.TextField(blank=True, default='')
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return '{}-{}-{}'.format(self.visitor, self.from_structure, self.to_structure)
