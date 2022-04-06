@@ -25,6 +25,10 @@ def belongs_to_an_office(func_to_decorate):
     """
     def new_func(*original_args, **original_kwargs):
         request = original_args[0]
+
+        if request.user.is_superuser:
+            return func_to_decorate(*original_args, **original_kwargs)
+
         employee = OrganizationalStructureOfficeEmployee.objects.filter(employee=request.user,
                                                                         office__is_active=True,
                                                                         office__organizational_structure__is_active=True).first()

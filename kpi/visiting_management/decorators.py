@@ -17,11 +17,12 @@ def can_manage_structure_visitings(func_to_decorate):
         structure = get_object_or_404(OrganizationalStructure,
                                       slug=structure_slug,
                                       is_active=True)
-        office = get_object_or_404(OrganizationalStructureOfficeEmployee,
-                                   employee=request.user,
-                                   office__slug=VISITING_OFFICE_SLUG,
-                                   office__is_active=True,
-                                   office__organizational_structure=structure)
+        if not request.user.is_superuser:
+            office = get_object_or_404(OrganizationalStructureOfficeEmployee,
+                                       employee=request.user,
+                                       office__slug=VISITING_OFFICE_SLUG,
+                                       office__is_active=True,
+                                       office__organizational_structure=structure)
         original_kwargs['structure'] = structure
         return func_to_decorate(*original_args, **original_kwargs)
 

@@ -8,6 +8,7 @@ from .models import *
 class OrganizationalStructureOfficeModelForm(forms.ModelForm):
     class Meta:
         model = OrganizationalStructureOffice
+        search = ('namme',)
         fields = ('__all__')
 
 

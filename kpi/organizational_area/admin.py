@@ -25,6 +25,7 @@ class OrganizationalStructureAdmin(AbstractAdmin):
                     'description', 'is_active')
     list_filter = ('structure_type', 'is_active')
     list_editable = ('is_active',)
+    search_fields = ('name',)
     inlines = [OrganizationalStructureLocationInline,
                OrganizationalStructureOfficeInline,
                UserManageOrganizationalStructureInline]

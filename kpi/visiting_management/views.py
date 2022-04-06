@@ -37,14 +37,23 @@ def _save_visiting(structure, form):
 def dashboard(request):
 
     template = 'dashboard_visitings.html'
+    if request.user.is_superuser:
+        offices = OrganizationalStructureOffice.objects\
+                                               .filter(slug=VISITING_OFFICE_SLUG,
+                                                       is_active=True,
+                                                       organizational_structure__is_active=True)
+    else:
+        # get offices that I'm able to manage
+        my_offices = OrganizationalStructureOfficeEmployee.objects\
+                                                          .filter(employee=request.user,
+                                                                  office__slug=VISITING_OFFICE_SLUG,
+                                                                  office__is_active=True,
+                                                                  office__organizational_structure__is_active=True)\
+                                                          .select_related('office')
+        offices = []
+        for off in my_offices:
+            offices.append(off.office)
 
-    # get offices that I'm able to manage
-    offices = OrganizationalStructureOfficeEmployee.objects\
-                                                   .filter(employee=request.user,
-                                                           office__slug=VISITING_OFFICE_SLUG,
-                                                           office__is_active=True,
-                                                           office__organizational_structure__is_active=True)\
-                                                   .select_related('office')
     d = {'my_offices': offices}
 
     return render(request, template, d)
