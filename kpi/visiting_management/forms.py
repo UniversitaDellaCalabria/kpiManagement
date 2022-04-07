@@ -47,7 +47,7 @@ class VisitingForm(forms.ModelForm):
         delta = end_date - start_date
         if effective_days > delta.days:
             self.add_error('effective_days',
-                           _("Effective days are greater than difference bewteen dates")+ ": " + str(delta.days))
+                           _("Effective days are greater than difference bewteen dates") + ": " + str(delta.days))
 
     class Meta:
         model = Visiting
@@ -62,7 +62,7 @@ class VisitingForm(forms.ModelForm):
                   'didactic_hour',
                   'effective_days',
                   'note',
-
+                  'is_active',
                   ]
 
         labels = {
@@ -75,6 +75,7 @@ class VisitingForm(forms.ModelForm):
             'didactic_hour': _('Didactic hours'),
             'effective_days': _('Effective days'),
             'note': _('Notes'),
+            'is_active': _('Enabled'),
         }
 
         widgets = {'visitor': BootstrapItaliaSelectWidget,

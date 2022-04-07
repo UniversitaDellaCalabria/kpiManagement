@@ -9,7 +9,7 @@ SECRET_KEY = 'secret_key'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://fqdn',]
+CSRF_TRUSTED_ORIGINS = ['https://fqdn', ]
 INTERNAL_IPS = ['127.0.0.1']
 ADMIN_PATH = 'admin'
 
@@ -133,10 +133,10 @@ DATETIME_INPUT_FORMATS = [DEFAULT_DATETIME_FORMAT,
 
 # Saml2
 # DjangoSAML2 conf
-if 'djangosaml2'  in INSTALLED_APPS:
+if 'djangosaml2' in INSTALLED_APPS:
     from saml2_sp.settings import *
     # pySAML2 SP mandatory
-    SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
     SAML2_URL_PREFIX = 'saml2'
     LOGIN_URL = f'/{SAML2_URL_PREFIX}/login'
@@ -154,7 +154,7 @@ else:
     LOGIN_URL = f'/{LOCAL_URL_PREFIX}/login/'
     LOGOUT_URL = f'/{LOCAL_URL_PREFIX}/logout/'
 
-LOGOUT_REDIRECT_URL=f'/'
+LOGOUT_REDIRECT_URL = f'/'
 
 # smtp
 # Default to dummy email backend. Configure dev/production/local backend

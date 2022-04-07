@@ -1,10 +1,8 @@
 import logging
 
-from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
-from django.utils.text import slugify
 
 from visiting_management import settings as visiting_settings
 

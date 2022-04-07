@@ -13,7 +13,7 @@ from . models import Visiting
 
 
 _columns = ['pk', 'visitor', 'from_structure', 'to_structure',
-            'mission', 'start_date', 'end_date', ]
+            'mission', 'start_date', 'end_date', 'is_active']
 
 
 class VisitingDTD(DjangoDatatablesServerProc):
@@ -29,12 +29,15 @@ class VisitingDTD(DjangoDatatablesServerProc):
             end = params.get('end', '')
             text = params.get('text', '')
             mission = params.get('mission', '')
+            is_active = params.get('is_active', '')
             if start:
                 self.aqs = self.aqs.filter(start_date=start)
             if end:
                 self.aqs = self.aqs.filter(end_date=end)
             if mission:
                 self.aqs = self.aqs.filter(mission=mission)
+            if is_active:
+                self.aqs = self.aqs.filter(is_active=is_active)
             if text:
                 self.aqs = self.aqs.filter(
                     Q(visitor__last_name__icontains=text) |

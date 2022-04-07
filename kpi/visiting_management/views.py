@@ -1,13 +1,17 @@
 from django.contrib import messages
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
+from django.contrib.admin.utils import _get_changed_field_labels_from_form
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
 from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
+
+from template.utils import log_action
 
 from . decorators import can_manage_structure_visitings
 from . forms import VisitingForm
@@ -16,13 +20,22 @@ from . models import Visiting, VisitingCollaboration
 
 
 @transaction.atomic
-def _save_visiting(structure, form):
-
+def _save_visiting(structure, form, **kwargs):
+    """
+    Save visiting from form.
+    Passing additional fields in kwargs.
+    """
     visiting = form.save()
 
     visiting.mission = form.cleaned_data['to_structure'] != structure
-    visiting.save(update_fields=['mission'])
+    update_fields = ['mission']
 
+    # additional fields
+    for k, v in kwargs.items():
+        setattr(visiting, k, v)
+        update_fields.append(k)
+
+    visiting.save(update_fields=update_fields)
 
     # set new collaborations
     VisitingCollaboration.objects.filter(visiting=visiting).delete()
@@ -30,6 +43,7 @@ def _save_visiting(structure, form):
     for collab in collabs:
         VisitingCollaboration.objects.create(visiting=visiting,
                                              collab=collab)
+    return visiting
 
 
 @login_required
@@ -56,11 +70,13 @@ def dashboard(request):
 
     result = []
     for off in offices:
-        visiting_out = Visiting.objects.filter(from_structure=off.organizational_structure).count()
-        visiting_in = Visiting.objects.filter(to_structure=off.organizational_structure).count()
+        visiting_out = Visiting.objects.filter(
+            from_structure=off.organizational_structure).count()
+        visiting_in = Visiting.objects.filter(
+            to_structure=off.organizational_structure).count()
         result.append({'office': off,
-                        'visiting_in': visiting_in,
-                        'visiting_out': visiting_out})
+                       'visiting_in': visiting_in,
+                       'visiting_out': visiting_out})
 
     d = {'my_offices': result}
 
@@ -91,7 +107,11 @@ def structure_visiting(request, structure_slug, visiting_pk, structure=None):
 
     collaborations = VisitingCollaboration.objects.filter(visiting=visiting)
 
+    visiting_logs = LogEntry.objects.filter(content_type_id=ContentType.objects.get_for_model(visiting).pk,
+                                            object_id=visiting.pk)
+
     d = {'collaborations': collaborations,
+         'visiting_logs': visiting_logs,
          'visiting': visiting,
          'structure': structure}
     template = 'visiting.html'
@@ -109,7 +129,14 @@ def new_structure_visiting(request, structure_slug, structure=None):
         form = VisitingForm(request.POST, structure=structure)
         if form.is_valid():
 
-            _save_visiting(form=form, structure=structure)
+            visiting = _save_visiting(form=form,
+                                      structure=structure,
+                                      created_by=request.user)
+
+            log_action(user=request.user,
+                       obj=visiting,
+                       flag=ADDITION,
+                       msg=[{'added': {}}])
 
             messages.add_message(request, messages.SUCCESS,
                                  _("Visiting created"))
@@ -146,14 +173,23 @@ def edit_structure_visiting(request, structure_slug, visiting_pk, structure=None
                             initial={'collab': collaborations},
                             structure=structure,
                             data=request.POST)
+        changed_field_labels = _get_changed_field_labels_from_form(form,
+                                                                   form.changed_data)
         if form.is_valid():
+            visiting = _save_visiting(form=form,
+                                      structure=structure,
+                                      modified_by=request.user)
 
-            _save_visiting(form=form, structure=structure)
+            log_action(user=request.user,
+                       obj=visiting,
+                       flag=CHANGE,
+                       msg=[{'changed': {"fields": changed_field_labels}}])
 
             messages.add_message(request, messages.SUCCESS,
                                  _("Visiting edited"))
-            return redirect('visiting:structure_visitings',
-                            structure_slug=structure_slug)
+            return redirect('visiting:structure_visiting',
+                            structure_slug=structure_slug,
+                            visiting_pk=visiting.pk)
         else:  # pragma: no cover
             for k, v in form.errors.items():
                 messages.add_message(request, messages.ERROR,
@@ -178,7 +214,12 @@ def change_status_structure_visiting(request, structure_slug, visiting_pk, struc
                                  pk=visiting_pk,)
     visiting.is_active = not visiting.is_active
     visiting.save()
-
+    changed_field_labels = _get_changed_field_labels_from_form(VisitingForm(structure=structure),
+                                                               ['is_active'])
+    log_action(user=request.user,
+                       obj=visiting,
+                       flag=CHANGE,
+                       msg=[{'changed': {"fields": changed_field_labels}}])
     messages.add_message(request, messages.SUCCESS,
                          _("Visiting status changed"))
     return redirect('visiting:structure_visiting',

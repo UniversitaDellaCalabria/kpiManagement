@@ -102,6 +102,15 @@ $(function() {
                 className: "desktop",
                 orderable: true,
             },
+            {
+                targets: [ 7 ],
+                className: "desktop text-center",
+                orderable: true,
+                render: function (data, type, row ) {
+                    if(row[7] == "True") return "<svg class='icon icon-sm icon-success'><use xlink:href='/static/svg/sprite.svg#it-check-circle'></use></svg>";
+                    return "<svg class='icon icon-sm icon-danger'><use xlink:href='/static/svg/sprite.svg#it-close-circle'></use></svg>";
+                }
+            },
     ];
 
     var datatable = $('.datatable-responsive-serverside').DataTable({
@@ -131,18 +140,21 @@ $(function() {
                 $('#search_start').val(json_search['start']).change();
                 $('#search_end').val(json_search['end']).change();
                 $('#search_mission').val(json_search['mission']).change();
+                $('#search_is_active').val(json_search['is_active']).change();
             }
         }
     });
 
-    $('#search_start, #search_end, #search_mission, #search_box').on('change keyup', function () {
+    $('#search_start, #search_end, #search_mission, #search_is_active, #search_box').on('change keyup', function () {
         var start = $('#search_start').val();
         var end = $('#search_end').val();
         var mission = $('#search_mission').val();
+        var is_active = $('#search_is_active').val();
         var text = $('#search_box').val().replaceAll('"', '').replaceAll('\\', '');
         var args = '{"start": "'+start+'", '+
                     '"end": "'+end+'", '+
                     '"text": "'+text+'", '+
+                    '"is_active": "'+is_active+'", '+
                     '"mission": "'+mission+'"}';
         datatable.search(args).draw();
     } );

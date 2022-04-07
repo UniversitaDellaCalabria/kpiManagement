@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from organizational_area.models import OrganizationalStructure
+from template.models import CreatedModifiedBy, TimeStampedModel
 
 
 class Role(models.Model):
@@ -18,7 +19,7 @@ class Collaboration(models.Model):
         return '{}'.format(self.collab_type)
 
 
-class Visiting(models.Model):
+class Visiting(CreatedModifiedBy, TimeStampedModel):
     visitor = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
     from_structure = models.ForeignKey(
         OrganizationalStructure, on_delete=models.PROTECT, related_name='from_structure')
@@ -37,7 +38,7 @@ class Visiting(models.Model):
         return '{}-{}-{}'.format(self.visitor, self.from_structure, self.to_structure)
 
 
-class VisitingCollaboration(models.Model):
+class VisitingCollaboration(TimeStampedModel):
     visiting = models.ForeignKey(Visiting, on_delete=models.CASCADE)
     collab = models.ForeignKey(Collaboration, on_delete=models.CASCADE)
 

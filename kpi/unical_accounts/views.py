@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 from organizational_area.decorators import belongs_to_an_office
 
-from template.utils import custom_message
 
 from . forms import UserForm
 from . models import User

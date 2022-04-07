@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='organizationalstructureoffice',
-            options={'ordering': ['name', 'organizational_structure__name'], 'verbose_name': 'Organizational Structure Office', 'verbose_name_plural': 'Organizational Structure Offices'},
+            options={'ordering': ['name', 'organizational_structure__name'],
+                     'verbose_name': 'Organizational Structure Office', 'verbose_name_plural': 'Organizational Structure Offices'},
         ),
     ]

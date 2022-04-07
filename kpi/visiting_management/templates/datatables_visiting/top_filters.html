@@ -28,6 +28,18 @@
     </div>
     <div class="col-lg-3">
         <div class="form-group">
+            <div class="select-wrapper">
+                <label for="search_is_active">{% trans "Enabled" %}</label>
+                <select id="search_is_active" name="search_is_active">
+                    <option value="" selected>- {% trans "Select an option" %} -</option>
+                    <option value="0">{% trans "No" %}</option>
+                    <option value="1">{% trans "Yes" %}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group">
             <label class="active" for="search_box">{% trans 'Search' %}</label>
             <input type="text" class="form-control" id="search_box" placeholder="{% trans 'Search' %}...">
         </div>

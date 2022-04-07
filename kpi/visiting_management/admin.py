@@ -1,11 +1,13 @@
 from django.contrib import admin
 
+from template.admin import AbstractCreatedModifiedBy
+
 from .admin_inline import *
 from .models import *
 
 
 @admin.register(Visiting)
-class VisitingAdmin(admin.ModelAdmin):
+class VisitingAdmin(AbstractCreatedModifiedBy):
     list_display = ('visitor', 'from_structure', 'to_structure', 'role')
     search_fields = ('visitor__last_name',)
     list_filter = ('from_structure', 'to_structure', 'role__role_type')
