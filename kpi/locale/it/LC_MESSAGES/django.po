@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-06 15:11+0200\n"
-"PO-Revision-Date: 2022-04-06 15:11+0200\n"
+"POT-Creation-Date: 2022-04-07 23:17+0200\n"
+"PO-Revision-Date: 2022-04-07 23:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: organizational_area/decorators.py:38
 msgid "Access denied"
-msgstr "Accesso negato"
+msgstr "fstatAccesso negato"
 
 #: organizational_area/models.py:32
 msgid "Organizational Structure type"
@@ -100,22 +100,22 @@ msgstr ""
 msgid "Organizational Structure Office Employees"
 msgstr ""
 
-#: template/templates/base.html:24
+#: template/templates/base.html:19
 msgid "Dashboard"
 msgstr "Pannello di controllo"
 
-#: template/templates/base.html:29 unical_accounts/templates/edit_user.html:19
+#: template/templates/base.html:24 unical_accounts/templates/edit_user.html:19
 #: unical_accounts/templates/new_user.html:17
 #: unical_accounts/templates/users.html:8
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:34
+#: template/templates/base.html:29
 #: visiting_management/templates/visitings.html:8
 msgid "Visitings"
 msgstr "Visiting"
 
-#: template/templates/base.html:45
+#: template/templates/base.html:40
 msgid "Logout"
 msgstr "Esci"
 
@@ -135,11 +135,16 @@ msgstr ""
 msgid "Key Performance Indicators"
 msgstr "Indicatori di performance"
 
-#: template/templates/dashboard.html:19
-msgid "Visiting"
-msgstr "Visiting"
-
 #: template/templates/dashboard.html:22
+#: visiting_management/templates/dashboard_visitings.html:8
+msgid "Visiting management"
+msgstr "Gestione visiting"
+
+#: template/templates/dashboard.html:25
+msgid "Example text"
+msgstr ""
+
+#: template/templates/dashboard.html:28
 #: visiting_management/templates/dashboard_visitings.html:29
 msgid "Manage"
 msgstr "Gestisci"
@@ -149,8 +154,6 @@ msgid "Submit"
 msgstr "Invia"
 
 #: template/templates/form_template.html:47
-#: visiting_management/templates/visiting.html:147
-#: visiting_management/templates/visiting.html:169
 msgid "Confirm"
 msgstr "Conferma"
 
@@ -161,6 +164,14 @@ msgstr "Desideri confermare i dati immessi?"
 #: template/templates/form_template.html:67
 msgid "Yes, proceed"
 msgstr "Si, procedi"
+
+#: template/templates/obj_logs.html:9
+msgid "Status updates (Logs)"
+msgstr "Aggiornamenti di stato (Log)"
+
+#: template/templates/obj_logs.html:32
+msgid "There isn't any log"
+msgstr "Nessun log presente"
 
 #: unical_accounts/admin.py:20
 msgid "Angrafica"
@@ -297,8 +308,8 @@ msgid "Email"
 msgstr ""
 
 #: unical_accounts/templates/datatables_users/top_filters.html:6
-#: visiting_management/templates/datatables_visiting/top_filters.html:31
-#: visiting_management/templates/datatables_visiting/top_filters.html:32
+#: visiting_management/templates/datatables_visiting/top_filters.html:43
+#: visiting_management/templates/datatables_visiting/top_filters.html:44
 msgid "Search"
 msgstr "Cerca"
 
@@ -312,15 +323,15 @@ msgstr "Modifica utente"
 msgid "Add new user"
 msgstr "Aggiungi nuovo utente"
 
-#: unical_accounts/views.py:48
+#: unical_accounts/views.py:47
 msgid "User created"
 msgstr "Utente creato"
 
-#: unical_accounts/views.py:71
+#: unical_accounts/views.py:70
 msgid "You haven't privileges to edit this user"
 msgstr "Non hai i privilegi necessari per modificare questo utente"
 
-#: unical_accounts/views.py:86
+#: unical_accounts/views.py:85
 msgid "User successfully updated"
 msgstr "Utente modificato con successo"
 
@@ -349,7 +360,7 @@ msgstr ""
 "le due date"
 
 #: visiting_management/forms.py:69
-#: visiting_management/templates/visiting.html:78
+#: visiting_management/templates/visiting.html:64
 msgid "Role"
 msgstr "Ruolo"
 
@@ -366,42 +377,45 @@ msgid "To"
 msgstr "A"
 
 #: visiting_management/forms.py:72
-#: visiting_management/templates/visiting.html:83
+#: visiting_management/templates/visiting.html:69
 msgid "Collaborations"
 msgstr "Collaborazioni"
 
 #: visiting_management/forms.py:73
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
-#: visiting_management/templates/visiting.html:116
+#: visiting_management/templates/visiting.html:102
 msgid "Start"
 msgstr "Inizio"
 
 #: visiting_management/forms.py:74
 #: visiting_management/templates/datatables_visiting/table_header.html:26
 #: visiting_management/templates/datatables_visiting/top_filters.html:13
-#: visiting_management/templates/visiting.html:120
+#: visiting_management/templates/visiting.html:106
 msgid "End"
 msgstr "Fine"
 
 #: visiting_management/forms.py:75
-#: visiting_management/templates/visiting.html:124
+#: visiting_management/templates/visiting.html:110
 msgid "Didactic hours"
 msgstr "Ore didattica"
 
 #: visiting_management/forms.py:76
-#: visiting_management/templates/visiting.html:128
+#: visiting_management/templates/visiting.html:114
 msgid "Effective days"
 msgstr "Giorni effettivi"
 
 #: visiting_management/forms.py:77
-#: visiting_management/templates/visiting.html:132
+#: visiting_management/templates/visiting.html:118
 msgid "Notes"
 msgstr "Note"
 
-#: visiting_management/templates/dashboard_visitings.html:8
-msgid "Visiting management"
-msgstr "Gestisci visiting"
+#: visiting_management/forms.py:78
+#: visiting_management/templates/datatables_visiting/table_header.html:27
+#: visiting_management/templates/datatables_visiting/top_filters.html:32
+#: visiting_management/templates/visiting.html:46
+msgid "Enabled"
+msgstr "Abilitato"
 
 #: visiting_management/templates/dashboard_visitings.html:9
 msgid ""
@@ -420,30 +434,33 @@ msgid "Incoming visiting"
 msgstr "Visiting in entrata"
 
 #: visiting_management/templates/datatables_visiting/table_header.html:21
-#: visiting_management/templates/visiting.html:74
+#: visiting_management/templates/visiting.html:60
 msgid "Visitor"
 msgstr ""
 
 #: visiting_management/templates/datatables_visiting/table_header.html:24
 #: visiting_management/templates/datatables_visiting/top_filters.html:20
-#: visiting_management/templates/visiting.html:102
+#: visiting_management/templates/visiting.html:88
 msgid "Mission"
 msgstr "Missione"
 
 #: visiting_management/templates/datatables_visiting/top_filters.html:22
+#: visiting_management/templates/datatables_visiting/top_filters.html:34
 msgid "Select an option"
 msgstr "Seleziona un'opzione"
 
 #: visiting_management/templates/datatables_visiting/top_filters.html:23
+#: visiting_management/templates/datatables_visiting/top_filters.html:35
 msgid "No"
 msgstr ""
 
 #: visiting_management/templates/datatables_visiting/top_filters.html:24
+#: visiting_management/templates/datatables_visiting/top_filters.html:36
 msgid "Yes"
 msgstr "Si"
 
 #: visiting_management/templates/edit_visiting.html:8
-#: visiting_management/templates/visiting.html:50
+#: visiting_management/templates/visiting.html:36
 msgid "Edit"
 msgstr "Modifica"
 
@@ -475,45 +492,40 @@ msgstr "Nuova collaborazione per"
 msgid "New visiting for"
 msgstr "Nuovo visiting per"
 
-#: visiting_management/templates/visiting.html:38
-msgid "Disable"
-msgstr "Disabilita"
-
-#: visiting_management/templates/visiting.html:42
-msgid "Enable"
-msgstr "Abilita"
-
-#: visiting_management/templates/visiting.html:60
-msgid "Enabled"
-msgstr "Abilitato"
-
-#: visiting_management/templates/visiting.html:94
+#: visiting_management/templates/visiting.html:80
 msgid "Departure"
 msgstr "Partenza"
 
-#: visiting_management/templates/visiting.html:98
+#: visiting_management/templates/visiting.html:84
 msgid "Destination"
 msgstr "Destinazione"
-
-#: visiting_management/templates/visiting.html:160
-msgid "Do you want to change visiting status?"
-msgstr "Desideri confermare i dati immessi?"
 
 #: visiting_management/templates/visitings.html:28
 msgid "Add new visiting"
 msgstr "Aggiungi nuovo visiting"
 
-#: visiting_management/views.py:115
+#: visiting_management/views.py:142
 msgid "Visiting created"
 msgstr "Visiting creato"
 
-#: visiting_management/views.py:154
+#: visiting_management/views.py:189
 msgid "Visiting edited"
 msgstr "Visiting modificato"
 
-#: visiting_management/views.py:183
-msgid "Visiting status changed"
-msgstr "Stato del visiting aggiornato"
+#~ msgid "Visiting"
+#~ msgstr "Visiting"
+
+#~ msgid "Disable"
+#~ msgstr "Disabilita"
+
+#~ msgid "Enable"
+#~ msgstr "Abilita"
+
+#~ msgid "Do you want to change visiting status?"
+#~ msgstr "Desideri confermare i dati immessi?"
+
+#~ msgid "Visiting status changed"
+#~ msgstr "Stato del visiting aggiornato"
 
 #~ msgid "Last week"
 #~ msgstr "Ultima settimana"

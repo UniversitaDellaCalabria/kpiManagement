@@ -16,8 +16,14 @@
             <div class="card card-bg">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {% trans "Visiting" %}
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprite.svg' %}#it-exchange-circle"></use>
+                        </svg>
+                        {% trans "Visiting management" %}
                     </h5>
+                    <p class="card-text">
+                        {% trans 'Example text' %}
+                    </p>
                     <a class="read-more" href="{% url 'visiting:dashboard' %}">
                         <span class="text">{% trans "Manage" %}</span>
                         <svg class="icon">
