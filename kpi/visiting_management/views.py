@@ -200,33 +200,3 @@ def edit_structure_visiting(request, structure_slug, visiting_pk, structure=None
          'visiting': visiting}
     template = 'edit_visiting.html'
     return render(request, template, d)
-
-
-@login_required
-@can_manage_structure_visitings
-def change_status_structure_visiting(request, structure_slug, visiting_pk, structure=None):
-    """
-    param structure comes from @can_manage_structure_visitings
-    """
-    visiting = get_object_or_404(Visiting,
-                                 Q(from_structure=structure) |
-                                 Q(to_structure=structure),
-                                 pk=visiting_pk,)
-    visiting.is_active = not visiting.is_active
-    visiting.save()
-    changed_field_labels = _get_changed_field_labels_from_form(VisitingForm(structure=structure),
-                                                               ['is_active'])
-    log_action(user=request.user,
-                       obj=visiting,
-                       flag=CHANGE,
-                       msg=[{'changed': {"fields": changed_field_labels}}])
-    messages.add_message(request, messages.SUCCESS,
-                         _("Visiting status changed"))
-    return redirect('visiting:structure_visiting',
-                    structure_slug=structure_slug,
-                    visiting_pk=visiting_pk)
-
-    d = {'structure': structure,
-         'visiting': visiting}
-    template = 'visiting.html'
-    return render(request, template, d)
