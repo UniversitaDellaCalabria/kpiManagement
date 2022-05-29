@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-30 00:12+0200\n"
-"PO-Revision-Date: 2022-05-30 00:12+0200\n"
+"POT-Creation-Date: 2022-05-30 00:16+0200\n"
+"PO-Revision-Date: 2022-05-30 00:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: organizational_area/decorators.py:38
 msgid "Access denied"
-msgstr "fstatAccesso negato"
+msgstr "Accesso negato"
 
 #: organizational_area/models.py:32
 msgid "Organizational Structure type"
@@ -314,7 +314,7 @@ msgstr "Modifica utente"
 
 #: unical_accounts/templates/new_user.html:8
 #: unical_accounts/templates/users.html:19
-#: visiting_management/templates/new_visiting.html:32
+#: visiting_management/templates/new_visiting.html:33
 msgid "Add new user"
 msgstr "Aggiungi nuovo utente"
 
@@ -415,7 +415,7 @@ msgstr "Abilitato"
 #: visiting_management/templates/dashboard_visitings.html:8
 #: visiting_management/templates/edit_visiting.html:32
 #: visiting_management/templates/new_visiting collaboration.html:17
-#: visiting_management/templates/new_visiting.html:17
+#: visiting_management/templates/new_visiting.html:18
 #: visiting_management/templates/visiting.html:17
 #: visiting_management/templates/visitings.html:18
 msgid "Visiting/Teacher mobility management"
@@ -470,7 +470,7 @@ msgstr "Modifica"
 
 #: visiting_management/templates/edit_visiting.html:37
 #: visiting_management/templates/new_visiting collaboration.html:22
-#: visiting_management/templates/new_visiting.html:22
+#: visiting_management/templates/new_visiting.html:23
 #: visiting_management/templates/visiting.html:24
 msgid "Back to"
 msgstr "Torna a"
@@ -485,8 +485,8 @@ msgid "New collaboration for"
 msgstr "Nuova collaborazione per"
 
 #: visiting_management/templates/new_visiting.html:8
-msgid "New visiting/teacher mobility for"
-msgstr "Nuovo visiting/mobilità docente per"
+msgid "New visiting/teacher mobility"
+msgstr "Nuovo visiting/mobilità docente"
 
 #: visiting_management/templates/visiting.html:8
 msgid "Visiting/Teacher mobility details"
