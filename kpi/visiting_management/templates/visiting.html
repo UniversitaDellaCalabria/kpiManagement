@@ -5,9 +5,7 @@
 
 
 {% block top_content %}
-<h2>{{ visiting.visitor }}</h2>
-<h4>{% trans "From" %}: {{ visiting.from_structure }}</h4>
-<h4>{% trans "To" %}: {{ visiting.to_structure }}</h4>
+<h2>{% trans "Visiting/Teacher mobility details" %}</h2>
 {% endblock top_content %}
 
 {% block top_buttons %}
@@ -16,20 +14,20 @@
         <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
             <svg class="icon icon-xs">
                 <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Visitings dashboard" %}
+            </svg> {% trans "Visiting/Teacher mobility management" %}
         </a>
     </div>
     <div class="pull-left d-inline">
         <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visitings' structure_slug=structure.slug %}">
             <svg class="icon icon-xs">
                 <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Visitings for" %} {{ structure }}
+            </svg> {% trans "Back to" %} {{ structure }}
         </a>
     </div>
 
     <div class="pull-right d-inline">
         <a role="button"
-           class="btn btn-outline-primary"
+           class="btn btn-outline-secondary"
            href="{% url 'visiting:edit_structure_visiting' structure_slug=structure.slug visiting_pk=visiting.pk %}">
                 <svg class="icon icon-xs">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>

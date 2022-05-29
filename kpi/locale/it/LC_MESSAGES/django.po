@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-07 23:17+0200\n"
-"PO-Revision-Date: 2022-04-07 23:18+0200\n"
+"POT-Creation-Date: 2022-05-30 00:12+0200\n"
+"PO-Revision-Date: 2022-05-30 00:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -110,10 +110,10 @@ msgstr "Pannello di controllo"
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:29
+#: template/templates/base.html:29 template/templates/dashboard.html:22
 #: visiting_management/templates/visitings.html:8
-msgid "Visitings"
-msgstr "Visiting"
+msgid "Visiting/Teacher mobility"
+msgstr "Visiting/Mobilità docenti"
 
 #: template/templates/base.html:40
 msgid "Logout"
@@ -135,14 +135,9 @@ msgstr ""
 msgid "Key Performance Indicators"
 msgstr "Indicatori di performance"
 
-#: template/templates/dashboard.html:22
-#: visiting_management/templates/dashboard_visitings.html:8
-msgid "Visiting management"
-msgstr "Gestione visiting"
-
 #: template/templates/dashboard.html:25
-msgid "Example text"
-msgstr ""
+msgid "Data collection of indicators on incoming and outgoing teachers"
+msgstr "Raccolta dati di indicatori sui docenti in entrata e in uscita"
 
 #: template/templates/dashboard.html:28
 #: visiting_management/templates/dashboard_visitings.html:29
@@ -360,87 +355,96 @@ msgstr ""
 "le due date"
 
 #: visiting_management/forms.py:69
-#: visiting_management/templates/visiting.html:64
+#: visiting_management/templates/visiting.html:62
 msgid "Role"
 msgstr "Ruolo"
 
 #: visiting_management/forms.py:70
 #: visiting_management/templates/datatables_visiting/table_header.html:22
-#: visiting_management/templates/visiting.html:9
+#: visiting_management/templates/edit_visiting.html:19
 msgid "From"
 msgstr "Da"
 
 #: visiting_management/forms.py:71
 #: visiting_management/templates/datatables_visiting/table_header.html:23
-#: visiting_management/templates/visiting.html:10
+#: visiting_management/templates/edit_visiting.html:21
 msgid "To"
 msgstr "A"
 
 #: visiting_management/forms.py:72
-#: visiting_management/templates/visiting.html:69
+#: visiting_management/templates/visiting.html:67
 msgid "Collaborations"
 msgstr "Collaborazioni"
 
 #: visiting_management/forms.py:73
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
-#: visiting_management/templates/visiting.html:102
+#: visiting_management/templates/visiting.html:100
 msgid "Start"
 msgstr "Inizio"
 
 #: visiting_management/forms.py:74
 #: visiting_management/templates/datatables_visiting/table_header.html:26
 #: visiting_management/templates/datatables_visiting/top_filters.html:13
-#: visiting_management/templates/visiting.html:106
+#: visiting_management/templates/visiting.html:104
 msgid "End"
 msgstr "Fine"
 
 #: visiting_management/forms.py:75
-#: visiting_management/templates/visiting.html:110
+#: visiting_management/templates/visiting.html:108
 msgid "Didactic hours"
 msgstr "Ore didattica"
 
 #: visiting_management/forms.py:76
-#: visiting_management/templates/visiting.html:114
+#: visiting_management/templates/visiting.html:112
 msgid "Effective days"
 msgstr "Giorni effettivi"
 
 #: visiting_management/forms.py:77
-#: visiting_management/templates/visiting.html:118
+#: visiting_management/templates/visiting.html:116
 msgid "Notes"
 msgstr "Note"
 
 #: visiting_management/forms.py:78
 #: visiting_management/templates/datatables_visiting/table_header.html:27
 #: visiting_management/templates/datatables_visiting/top_filters.html:32
-#: visiting_management/templates/visiting.html:46
+#: visiting_management/templates/visiting.html:44
 msgid "Enabled"
 msgstr "Abilitato"
+
+#: visiting_management/templates/dashboard_visitings.html:8
+#: visiting_management/templates/edit_visiting.html:32
+#: visiting_management/templates/new_visiting collaboration.html:17
+#: visiting_management/templates/new_visiting.html:17
+#: visiting_management/templates/visiting.html:17
+#: visiting_management/templates/visitings.html:18
+msgid "Visiting/Teacher mobility management"
+msgstr "Gestione visiting/mobilità docenti"
 
 #: visiting_management/templates/dashboard_visitings.html:9
 msgid ""
 "In this section you can choose the department for which to manage incoming "
-"visitors and outgoing missions"
+"and outgoing teachers"
 msgstr ""
-"In questa sezione è possibile scegliere il dipartimento per il quale gestire "
-"i visiting in entrata e le missioni in uscita"
+"In questa sezione puoi scegliere il dipartimento per il quale gestire i "
+"docenti in entrata e in uscita"
 
 #: visiting_management/templates/dashboard_visitings.html:24
-msgid "Outgoing visiting"
-msgstr "Missioni"
+msgid "Outgoing"
+msgstr "In uscita"
 
 #: visiting_management/templates/dashboard_visitings.html:26
-msgid "Incoming visiting"
-msgstr "Visiting in entrata"
+msgid "Incoming"
+msgstr "In entrata"
 
 #: visiting_management/templates/datatables_visiting/table_header.html:21
-#: visiting_management/templates/visiting.html:60
+#: visiting_management/templates/visiting.html:58
 msgid "Visitor"
 msgstr ""
 
 #: visiting_management/templates/datatables_visiting/table_header.html:24
 #: visiting_management/templates/datatables_visiting/top_filters.html:20
-#: visiting_management/templates/visiting.html:88
+#: visiting_management/templates/visiting.html:86
 msgid "Mission"
 msgstr "Missione"
 
@@ -460,49 +464,45 @@ msgid "Yes"
 msgstr "Si"
 
 #: visiting_management/templates/edit_visiting.html:8
-#: visiting_management/templates/visiting.html:36
+#: visiting_management/templates/visiting.html:34
 msgid "Edit"
 msgstr "Modifica"
 
-#: visiting_management/templates/edit_visiting.html:17
-#: visiting_management/templates/new_visiting collaboration.html:17
-#: visiting_management/templates/new_visiting.html:17
-#: visiting_management/templates/visiting.html:19
-#: visiting_management/templates/visitings.html:18
-msgid "Visitings dashboard"
-msgstr "Dashboard visiting"
-
-#: visiting_management/templates/edit_visiting.html:22
+#: visiting_management/templates/edit_visiting.html:37
 #: visiting_management/templates/new_visiting collaboration.html:22
 #: visiting_management/templates/new_visiting.html:22
-#: visiting_management/templates/visiting.html:26
-msgid "Visitings for"
-msgstr "Visiting per"
+#: visiting_management/templates/visiting.html:24
+msgid "Back to"
+msgstr "Torna a"
 
-#: visiting_management/templates/edit_visiting.html:27
+#: visiting_management/templates/edit_visiting.html:42
 #: visiting_management/templates/new_visiting collaboration.html:27
-msgid "Visiting details"
-msgstr "Dettagli visiting"
+msgid "Back to details"
+msgstr "Torma ai dettagli"
 
 #: visiting_management/templates/new_visiting collaboration.html:8
 msgid "New collaboration for"
 msgstr "Nuova collaborazione per"
 
 #: visiting_management/templates/new_visiting.html:8
-msgid "New visiting for"
-msgstr "Nuovo visiting per"
+msgid "New visiting/teacher mobility for"
+msgstr "Nuovo visiting/mobilità docente per"
 
-#: visiting_management/templates/visiting.html:80
+#: visiting_management/templates/visiting.html:8
+msgid "Visiting/Teacher mobility details"
+msgstr "Dettagli visiting/mobilità docente"
+
+#: visiting_management/templates/visiting.html:78
 msgid "Departure"
 msgstr "Partenza"
 
-#: visiting_management/templates/visiting.html:84
+#: visiting_management/templates/visiting.html:82
 msgid "Destination"
 msgstr "Destinazione"
 
 #: visiting_management/templates/visitings.html:28
-msgid "Add new visiting"
-msgstr "Aggiungi nuovo visiting"
+msgid "Add new"
+msgstr "Aggiungi nuovo"
 
 #: visiting_management/views.py:142
 msgid "Visiting created"
@@ -511,6 +511,24 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:189
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Visitings"
+#~ msgstr "Visiting"
+
+#~ msgid "Visitings dashboard"
+#~ msgstr "Dashboard visiting"
+
+#~ msgid "Visitings for"
+#~ msgstr "Visiting per"
+
+#~ msgid "Visiting details"
+#~ msgstr "Dettagli visiting"
+
+#~ msgid "New visiting for"
+#~ msgstr "Nuovo visiting per"
+
+#~ msgid "Add new visiting"
+#~ msgstr "Aggiungi nuovo visiting"
 
 #~ msgid "Visiting"
 #~ msgstr "Visiting"

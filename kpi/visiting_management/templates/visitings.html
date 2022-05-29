@@ -5,7 +5,7 @@
 
 
 {% block top_content %}
-<h2>{% trans "Visitings" %}</h2>
+<h2>{% trans "Visiting/Teacher mobility" %}</h2>
 <h4>{{ structure }}</h4>
 {% endblock top_content %}
 
@@ -15,7 +15,7 @@
         <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
             <svg class="icon icon-xs">
                 <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Visitings dashboard" %}
+            </svg> {% trans "Visiting/Teacher mobility management" %}
         </a>
     </div>
 
@@ -25,7 +25,7 @@
            href="{% url 'visiting:new_structure_visiting' structure_slug=structure.slug %}">
                 <svg class="icon icon-xs icon-white">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
-                </svg> {% trans "Add new visiting" %}
+                </svg> {% trans "Add new" %}
         </a>
     </div>
 </div>

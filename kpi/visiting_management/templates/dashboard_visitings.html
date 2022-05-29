@@ -5,8 +5,8 @@
 
 
 {% block top_content %}
-<h2>{% trans "Visiting management" %}</h2>
-<p>{% trans "In this section you can choose the department for which to manage incoming visitors and outgoing missions" %}</p>
+<h2>{% trans "Visiting/Teacher mobility management" %}</h2>
+<p>{% trans "In this section you can choose the department for which to manage incoming and outgoing teachers" %}</p>
 {% endblock top_content %}
 
 {% block clean_content %}
@@ -21,9 +21,9 @@
                         {{ office.office.organizational_structure }}
                     </h5>
                     <p class="card-text">
-                      <b>{% trans 'Outgoing visiting' %}:</b> {{ office.visiting_out }}
+                      <b>{% trans 'Outgoing' %}:</b> {{ office.visiting_out }}
                       <br>
-                      <b>{% trans 'Incoming visiting' %}:</b> {{ office.visiting_in }}
+                      <b>{% trans 'Incoming' %}:</b> {{ office.visiting_in }}
                     </p>
                     <a class="read-more" href="{% url 'visiting:structure_visitings' structure_slug=office.office.organizational_structure.slug %}">
                         <span class="text">{% trans "Manage" %}</span>
