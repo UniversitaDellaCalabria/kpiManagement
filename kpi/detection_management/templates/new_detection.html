@@ -1,0 +1,29 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block top_content %}
+<h2>Nuova Rilevazione di {{ structure.name }}</h2>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'detection:dashboard' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> Dashboard Rilevazioni
+        </a>
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'detection:structure_detections' structure_slug=structure.slug %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> Rilevazioni di {{ structure.name }}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block page_content %}
+{% include 'form_template.html' with form=form %}
+{% endblock page_content %}
