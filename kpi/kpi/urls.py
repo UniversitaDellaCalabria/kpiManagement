@@ -32,6 +32,10 @@ if 'visiting_management' in settings.INSTALLED_APPS:
     urlpatterns += path('', include('visiting_management.urls',
                         namespace='visiting')),
 
+if 'detection_management' in settings.INSTALLED_APPS:
+    urlpatterns += path('', include('detection_management.urls',
+                        namespace='detection')),
+
 if 'template' in settings.INSTALLED_APPS:
     urlpatterns += path('', include('template.urls', namespace='template')),
 
