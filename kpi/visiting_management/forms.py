@@ -45,9 +45,10 @@ class VisitingForm(forms.ModelForm):
                            _("Start date is greater than end date"))
 
         delta = end_date - start_date
-        if effective_days > delta.days:
+        delta_days = delta.days + 1
+        if effective_days > delta_days:
             self.add_error('effective_days',
-                           _("Effective days are greater than difference bewteen dates") + ": " + str(delta.days))
+                           _("Effective days are greater than difference bewteen dates") + ": " + str(delta_days))
 
     class Meta:
         model = Visiting
