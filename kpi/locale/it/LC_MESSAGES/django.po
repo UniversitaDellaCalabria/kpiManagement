@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-28 15:08+0200\n"
-"PO-Revision-Date: 2022-07-28 15:09+0200\n"
+"POT-Creation-Date: 2022-07-28 15:20+0200\n"
+"PO-Revision-Date: 2022-07-28 15:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -28,7 +28,7 @@ msgstr "Questo codice è stato disabilitato"
 
 #: detection_management/forms.py:21
 msgid "Reference date is greater than detection date"
-msgstr "La data di riferimento è successiva alla data di rilevamento"
+msgstr "La data di riferimento è successiva alla data di rilevazione"
 
 #: detection_management/forms.py:35
 #: detection_management/templates/datatables_detection/table_header.html:10
@@ -46,7 +46,7 @@ msgstr "Data di riferimento"
 #: detection_management/templates/datatables_detection/table_header.html:12
 #: detection_management/templates/detection.html:53
 msgid "Detection date"
-msgstr "Data di rilevamento"
+msgstr "Data di rilevazione"
 
 #: detection_management/forms.py:38
 #: detection_management/templates/datatables_detection/table_header.html:13
@@ -74,6 +74,19 @@ msgstr "Note"
 #: visiting_management/templates/visiting.html:44
 msgid "Enabled"
 msgstr "Abilitato"
+
+#: detection_management/templates/dashboard_detections.html:8
+#: template/templates/base.html:34 template/templates/dashboard.html:22
+msgid "Enabling factors"
+msgstr "Fattori abilitanti"
+
+#: detection_management/templates/dashboard_detections.html:9
+msgid ""
+"In this section it is possible to find out about the enabling factors of the "
+"University structures"
+msgstr ""
+"In questa sezione è possibile le rilevazioni riguardanti i fattori "
+"abilitanti delle strutture di Ateneo"
 
 #: detection_management/templates/dashboard_detections.html:27
 #: template/templates/dashboard.html:28 template/templates/dashboard.html:53
@@ -349,7 +362,7 @@ msgstr "Utenti"
 msgid "Visiting/Teacher mobility"
 msgstr "Visiting/Mobilità docenti"
 
-#: template/templates/base.html:40
+#: template/templates/base.html:45
 msgid "Logout"
 msgstr "Esci"
 
@@ -368,10 +381,6 @@ msgstr ""
 #: template/templates/dashboard.html:8
 msgid "Key Performance Indicators"
 msgstr "Indicatori di performance"
-
-#: template/templates/dashboard.html:22
-msgid "Enabling factors"
-msgstr "Fattori abilitanti"
 
 #: template/templates/dashboard.html:25
 msgid "Detections data"
@@ -634,7 +643,7 @@ msgid "Visiting edited"
 msgstr "Visiting modificato"
 
 #~ msgid "Detection created"
-#~ msgstr "Rilevamento creato"
+#~ msgstr "Rilevazione creata"
 
 #, fuzzy
 #~| msgid "Visiting edited"
@@ -642,7 +651,7 @@ msgstr "Visiting modificato"
 #~ msgstr "Visiting modificato"
 
 #~ msgid "Detection date is greater than reference date"
-#~ msgstr "La data di rilevamento è su"
+#~ msgstr "La data di rilevazione è su"
 
 #~ msgid "Visitings"
 #~ msgstr "Visiting"
