@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
     'organizational_area',
     'visiting_management',
-
+    'detection_management',
 
     'django_unical_bootstrap_italia',
     'bootstrap_italia_template',
@@ -214,6 +214,11 @@ LOGGING = {
             'propagate': True,
         },
         'visiting_management': {
+            'handlers': ['mail_admins'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'detection_management': {
             'handlers': ['mail_admins'],
             'level': 'DEBUG',
             'propagate': True,
