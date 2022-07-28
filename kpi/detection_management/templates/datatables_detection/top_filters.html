@@ -22,7 +22,7 @@
                 <select id="search_code" name="search_code">
                     <option value="" selected>- {% trans "Select an option" %} -</option>
                     {% for code in codes %}
-                        <option value="{{ code.id }}">{{ code.code }}</option>
+                        <option value="{{ code.id }}">{{ code }}</option>
                     {% endfor %}
                 </select>
             </div>
