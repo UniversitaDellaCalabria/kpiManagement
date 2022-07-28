@@ -1,0 +1,49 @@
+{% load i18n %}
+{% load kpi_tags %}
+
+
+<div class="row mt-3">
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label class="active" for="search_start">{% trans "From" %}</label>
+            <input type="date" id="search_start" name="dateStandard">
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label class="active" for="search_end">{% trans "To" %}</label>
+            <input type="date" id="search_end" name="dateStandard">
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <div class="select-wrapper">
+                <label for="search_code">{% trans "Codes" %}</label>
+                <select id="search_code" name="search_code">
+                    <option value="" selected>- {% trans "Select an option" %} -</option>
+                    {% for code in codes %}
+                        <option value="{{ code.id }}">{{ code.code }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <div class="select-wrapper">
+                <label for="search_is_active">{% trans "Enabled" %}</label>
+                <select id="search_is_active" name="search_is_active">
+                    <option value="" selected>- {% trans "Select an option" %} -</option>
+                    <option value="0">{% trans "No" %}</option>
+                    <option value="1">{% trans "Yes" %}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label class="active" for="search_box">{% trans 'Search' %}</label>
+            <input type="text" class="form-control" id="search_box" placeholder="{% trans 'Search' %}...">
+        </div>
+    </div>
+</div>

@@ -28,6 +28,10 @@ urlpatterns = [
     # path('schema/', get_schema_view(title=API_TITLE)),
 ]
 
+if 'detection_management' in settings.INSTALLED_APPS:
+    urlpatterns += path('', include('detection_management.urls',
+                        namespace='detection')),
+
 if 'visiting_management' in settings.INSTALLED_APPS:
     urlpatterns += path('', include('visiting_management.urls',
                         namespace='visiting')),

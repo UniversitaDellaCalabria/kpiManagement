@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-30 00:16+0200\n"
-"PO-Revision-Date: 2022-05-30 00:16+0200\n"
+"POT-Creation-Date: 2022-07-28 15:08+0200\n"
+"PO-Revision-Date: 2022-07-28 15:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -16,7 +16,241 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: detection_management/decorators.py:18 visiting_management/decorators.py:17
+msgid "Structure slug missing"
+msgstr "Slug struttura mancante"
+
+#: detection_management/decorators.py:43
+msgid "Detection code is disabled"
+msgstr "Questo codice è stato disabilitato"
+
+#: detection_management/forms.py:21
+msgid "Reference date is greater than detection date"
+msgstr "La data di riferimento è successiva alla data di rilevamento"
+
+#: detection_management/forms.py:35
+#: detection_management/templates/datatables_detection/table_header.html:10
+#: detection_management/templates/detection.html:45
+msgid "Code"
+msgstr "Codice"
+
+#: detection_management/forms.py:36
+#: detection_management/templates/datatables_detection/table_header.html:11
+#: detection_management/templates/detection.html:49
+msgid "Reference date"
+msgstr "Data di riferimento"
+
+#: detection_management/forms.py:37
+#: detection_management/templates/datatables_detection/table_header.html:12
+#: detection_management/templates/detection.html:53
+msgid "Detection date"
+msgstr "Data di rilevamento"
+
+#: detection_management/forms.py:38
+#: detection_management/templates/datatables_detection/table_header.html:13
+#: detection_management/templates/detection.html:57
+msgid "Numerator"
+msgstr "Numeratore"
+
+#: detection_management/forms.py:39
+#: detection_management/templates/datatables_detection/table_header.html:14
+#: detection_management/templates/detection.html:61
+msgid "Denominator"
+msgstr "Denominatore"
+
+#: detection_management/forms.py:40 visiting_management/forms.py:78
+#: visiting_management/templates/visiting.html:116
+msgid "Notes"
+msgstr "Note"
+
+#: detection_management/forms.py:41
+#: detection_management/templates/datatables_detection/table_header.html:16
+#: detection_management/templates/datatables_detection/top_filters.html:34
+#: visiting_management/forms.py:79
+#: visiting_management/templates/datatables_visiting/table_header.html:27
+#: visiting_management/templates/datatables_visiting/top_filters.html:32
+#: visiting_management/templates/visiting.html:44
+msgid "Enabled"
+msgstr "Abilitato"
+
+#: detection_management/templates/dashboard_detections.html:27
+#: template/templates/dashboard.html:28 template/templates/dashboard.html:53
+#: visiting_management/templates/dashboard_visitings.html:29
+msgid "Manage"
+msgstr "Gestisci"
+
+#: detection_management/templates/datatables_detection/datatable_script.html:21
+#: unical_accounts/templates/datatables_users/datatable_script.html:21
+#: visiting_management/templates/datatables_visiting/datatable_script.html:21
+msgid "Print"
+msgstr "Stampa"
+
+#: detection_management/templates/datatables_detection/datatable_script.html:28
+#: unical_accounts/templates/datatables_users/datatable_script.html:28
+#: visiting_management/templates/datatables_visiting/datatable_script.html:28
+msgid "Nessun record presente"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:29
+#: detection_management/templates/datatables_detection/datatable_script.html:30
+#: unical_accounts/templates/datatables_users/datatable_script.html:29
+#: unical_accounts/templates/datatables_users/datatable_script.html:30
+#: visiting_management/templates/datatables_visiting/datatable_script.html:29
+#: visiting_management/templates/datatables_visiting/datatable_script.html:30
+msgid "Visibili"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:29
+#: unical_accounts/templates/datatables_users/datatable_script.html:29
+#: visiting_management/templates/datatables_visiting/datatable_script.html:29
+msgid "di"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:29
+#: unical_accounts/templates/datatables_users/datatable_script.html:29
+#: visiting_management/templates/datatables_visiting/datatable_script.html:29
+msgid "record totali"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:30
+#: unical_accounts/templates/datatables_users/datatable_script.html:30
+#: visiting_management/templates/datatables_visiting/datatable_script.html:30
+msgid "record"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:33
+#: unical_accounts/templates/datatables_users/datatable_script.html:33
+#: visiting_management/templates/datatables_visiting/datatable_script.html:33
+msgid "Show"
+msgstr "Mostra"
+
+#: detection_management/templates/datatables_detection/datatable_script.html:36
+#: unical_accounts/templates/datatables_users/datatable_script.html:36
+#: visiting_management/templates/datatables_visiting/datatable_script.html:36
+msgid "Nessun record trovato"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:38
+#: unical_accounts/templates/datatables_users/datatable_script.html:38
+#: visiting_management/templates/datatables_visiting/datatable_script.html:38
+msgid "Prima"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:39
+#: unical_accounts/templates/datatables_users/datatable_script.html:39
+#: visiting_management/templates/datatables_visiting/datatable_script.html:39
+msgid "Ultima"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:40
+#: unical_accounts/templates/datatables_users/datatable_script.html:40
+#: visiting_management/templates/datatables_visiting/datatable_script.html:40
+msgid "Successiva"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/datatable_script.html:41
+#: unical_accounts/templates/datatables_users/datatable_script.html:41
+#: visiting_management/templates/datatables_visiting/datatable_script.html:41
+msgid "Precedente"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/table_header.html:15
+#, python-format
+msgid "Value %%"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/top_filters.html:8
+#: visiting_management/forms.py:71
+#: visiting_management/templates/datatables_visiting/table_header.html:22
+#: visiting_management/templates/edit_visiting.html:19
+msgid "From"
+msgstr "Da"
+
+#: detection_management/templates/datatables_detection/top_filters.html:14
+#: visiting_management/forms.py:72
+#: visiting_management/templates/datatables_visiting/table_header.html:23
+#: visiting_management/templates/edit_visiting.html:21
+msgid "To"
+msgstr "A"
+
+#: detection_management/templates/datatables_detection/top_filters.html:21
+msgid "Codes"
+msgstr "Codici"
+
+#: detection_management/templates/datatables_detection/top_filters.html:23
+#: detection_management/templates/datatables_detection/top_filters.html:36
+#: visiting_management/templates/datatables_visiting/top_filters.html:22
+#: visiting_management/templates/datatables_visiting/top_filters.html:34
+msgid "Select an option"
+msgstr "Seleziona un'opzione"
+
+#: detection_management/templates/datatables_detection/top_filters.html:37
+#: visiting_management/templates/datatables_visiting/top_filters.html:23
+#: visiting_management/templates/datatables_visiting/top_filters.html:35
+msgid "No"
+msgstr ""
+
+#: detection_management/templates/datatables_detection/top_filters.html:38
+#: visiting_management/templates/datatables_visiting/top_filters.html:24
+#: visiting_management/templates/datatables_visiting/top_filters.html:36
+msgid "Yes"
+msgstr "Si"
+
+#: detection_management/templates/datatables_detection/top_filters.html:45
+#: detection_management/templates/datatables_detection/top_filters.html:46
+#: unical_accounts/templates/datatables_users/top_filters.html:6
+#: visiting_management/templates/datatables_visiting/top_filters.html:43
+#: visiting_management/templates/datatables_visiting/top_filters.html:44
+msgid "Search"
+msgstr "Cerca"
+
+#: detection_management/templates/detection.html:18
+#: detection_management/templates/detections.html:17
+#: detection_management/templates/edit_detection.html:17
+#: detection_management/templates/new_detection.html:16
+msgid "Enabling factors management"
+msgstr "Gestione fattori abilitanti"
+
+#: detection_management/templates/detection.html:25
+#: detection_management/templates/detections.html:8
+#: detection_management/templates/edit_detection.html:22
+#: detection_management/templates/new_detection.html:21
+msgid "Enabling factors for"
+msgstr "Fattori abilitanti per"
+
+#: detection_management/templates/detection.html:35
+#: detection_management/templates/edit_detection.html:8
+#: visiting_management/templates/edit_visiting.html:8
+#: visiting_management/templates/visiting.html:34
+msgid "Edit"
+msgstr "Modifica"
+
+#: detection_management/templates/detection.html:65
+msgid "KPI value"
+msgstr "Valore KPI"
+
+#: detection_management/templates/detections.html:27
+#: visiting_management/templates/visitings.html:28
+msgid "Add new"
+msgstr "Aggiungi nuovo"
+
+#: detection_management/templates/edit_detection.html:27
+msgid "Enabling factor details"
+msgstr "Dettagli fattore abilitante"
+
+#: detection_management/templates/new_detection.html:7
+msgid "New enabling factor for"
+msgstr "Nuovo fattore abilitante per"
+
+#: detection_management/views.py:114
+msgid "Enabling factor created"
+msgstr "Fattore abilitante creato"
+
+#: detection_management/views.py:163
+msgid "Enabling factor edited"
+msgstr "Fattore abilitante modificato"
 
 #: organizational_area/decorators.py:38
 msgid "Access denied"
@@ -110,7 +344,7 @@ msgstr "Pannello di controllo"
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:29 template/templates/dashboard.html:22
+#: template/templates/base.html:29 template/templates/dashboard.html:47
 #: visiting_management/templates/visitings.html:8
 msgid "Visiting/Teacher mobility"
 msgstr "Visiting/Mobilità docenti"
@@ -135,14 +369,17 @@ msgstr ""
 msgid "Key Performance Indicators"
 msgstr "Indicatori di performance"
 
+#: template/templates/dashboard.html:22
+msgid "Enabling factors"
+msgstr "Fattori abilitanti"
+
 #: template/templates/dashboard.html:25
+msgid "Detections data"
+msgstr "Dati dei rilevamenti"
+
+#: template/templates/dashboard.html:50
 msgid "Data collection of indicators on incoming and outgoing teachers"
 msgstr "Raccolta dati di indicatori sui docenti in entrata e in uscita"
-
-#: template/templates/dashboard.html:28
-#: visiting_management/templates/dashboard_visitings.html:29
-msgid "Manage"
-msgstr "Gestisci"
 
 #: template/templates/form_template.html:36
 msgid "Submit"
@@ -224,68 +461,6 @@ msgstr ""
 msgid "Utenti UNICAL"
 msgstr ""
 
-#: unical_accounts/templates/datatables_users/datatable_script.html:21
-#: visiting_management/templates/datatables_visiting/datatable_script.html:21
-msgid "Print"
-msgstr "Stampa"
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:28
-#: visiting_management/templates/datatables_visiting/datatable_script.html:28
-msgid "Nessun record presente"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:29
-#: unical_accounts/templates/datatables_users/datatable_script.html:30
-#: visiting_management/templates/datatables_visiting/datatable_script.html:29
-#: visiting_management/templates/datatables_visiting/datatable_script.html:30
-msgid "Visibili"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:29
-#: visiting_management/templates/datatables_visiting/datatable_script.html:29
-msgid "di"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:29
-#: visiting_management/templates/datatables_visiting/datatable_script.html:29
-msgid "record totali"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:30
-#: visiting_management/templates/datatables_visiting/datatable_script.html:30
-msgid "record"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:33
-#: visiting_management/templates/datatables_visiting/datatable_script.html:33
-msgid "Show"
-msgstr "Mostra"
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:36
-#: visiting_management/templates/datatables_visiting/datatable_script.html:36
-msgid "Nessun record trovato"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:38
-#: visiting_management/templates/datatables_visiting/datatable_script.html:38
-msgid "Prima"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:39
-#: visiting_management/templates/datatables_visiting/datatable_script.html:39
-msgid "Ultima"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:40
-#: visiting_management/templates/datatables_visiting/datatable_script.html:40
-msgid "Successiva"
-msgstr ""
-
-#: unical_accounts/templates/datatables_users/datatable_script.html:41
-#: visiting_management/templates/datatables_visiting/datatable_script.html:41
-msgid "Precedente"
-msgstr ""
-
 #: unical_accounts/templates/datatables_users/table_header.html:11
 msgid "Last name"
 msgstr "Cognome"
@@ -301,12 +476,6 @@ msgstr "Codice fiscale"
 #: unical_accounts/templates/datatables_users/table_header.html:14
 msgid "Email"
 msgstr ""
-
-#: unical_accounts/templates/datatables_users/top_filters.html:6
-#: visiting_management/templates/datatables_visiting/top_filters.html:43
-#: visiting_management/templates/datatables_visiting/top_filters.html:44
-msgid "Search"
-msgstr "Cerca"
 
 #: unical_accounts/templates/edit_user.html:8
 msgid "Edit user"
@@ -348,69 +517,45 @@ msgstr "Le strutture devono essere differenti"
 msgid "Start date is greater than end date"
 msgstr "La data  di inizio è successiva a quella di fine"
 
-#: visiting_management/forms.py:50
+#: visiting_management/forms.py:51
 msgid "Effective days are greater than difference bewteen dates"
 msgstr ""
 "Il numero di giorni effettivi non può essere superiore alla differenza tra "
 "le due date"
 
-#: visiting_management/forms.py:69
+#: visiting_management/forms.py:70
 #: visiting_management/templates/visiting.html:62
 msgid "Role"
 msgstr "Ruolo"
 
-#: visiting_management/forms.py:70
-#: visiting_management/templates/datatables_visiting/table_header.html:22
-#: visiting_management/templates/edit_visiting.html:19
-msgid "From"
-msgstr "Da"
-
-#: visiting_management/forms.py:71
-#: visiting_management/templates/datatables_visiting/table_header.html:23
-#: visiting_management/templates/edit_visiting.html:21
-msgid "To"
-msgstr "A"
-
-#: visiting_management/forms.py:72
+#: visiting_management/forms.py:73
 #: visiting_management/templates/visiting.html:67
 msgid "Collaborations"
 msgstr "Collaborazioni"
 
-#: visiting_management/forms.py:73
+#: visiting_management/forms.py:74
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
 #: visiting_management/templates/visiting.html:100
 msgid "Start"
 msgstr "Inizio"
 
-#: visiting_management/forms.py:74
+#: visiting_management/forms.py:75
 #: visiting_management/templates/datatables_visiting/table_header.html:26
 #: visiting_management/templates/datatables_visiting/top_filters.html:13
 #: visiting_management/templates/visiting.html:104
 msgid "End"
 msgstr "Fine"
 
-#: visiting_management/forms.py:75
+#: visiting_management/forms.py:76
 #: visiting_management/templates/visiting.html:108
 msgid "Didactic hours"
 msgstr "Ore didattica"
 
-#: visiting_management/forms.py:76
+#: visiting_management/forms.py:77
 #: visiting_management/templates/visiting.html:112
 msgid "Effective days"
 msgstr "Giorni effettivi"
-
-#: visiting_management/forms.py:77
-#: visiting_management/templates/visiting.html:116
-msgid "Notes"
-msgstr "Note"
-
-#: visiting_management/forms.py:78
-#: visiting_management/templates/datatables_visiting/table_header.html:27
-#: visiting_management/templates/datatables_visiting/top_filters.html:32
-#: visiting_management/templates/visiting.html:44
-msgid "Enabled"
-msgstr "Abilitato"
 
 #: visiting_management/templates/dashboard_visitings.html:8
 #: visiting_management/templates/edit_visiting.html:32
@@ -448,26 +593,6 @@ msgstr ""
 msgid "Mission"
 msgstr "Missione"
 
-#: visiting_management/templates/datatables_visiting/top_filters.html:22
-#: visiting_management/templates/datatables_visiting/top_filters.html:34
-msgid "Select an option"
-msgstr "Seleziona un'opzione"
-
-#: visiting_management/templates/datatables_visiting/top_filters.html:23
-#: visiting_management/templates/datatables_visiting/top_filters.html:35
-msgid "No"
-msgstr ""
-
-#: visiting_management/templates/datatables_visiting/top_filters.html:24
-#: visiting_management/templates/datatables_visiting/top_filters.html:36
-msgid "Yes"
-msgstr "Si"
-
-#: visiting_management/templates/edit_visiting.html:8
-#: visiting_management/templates/visiting.html:34
-msgid "Edit"
-msgstr "Modifica"
-
 #: visiting_management/templates/edit_visiting.html:37
 #: visiting_management/templates/new_visiting collaboration.html:22
 #: visiting_management/templates/new_visiting.html:23
@@ -500,17 +625,24 @@ msgstr "Partenza"
 msgid "Destination"
 msgstr "Destinazione"
 
-#: visiting_management/templates/visitings.html:28
-msgid "Add new"
-msgstr "Aggiungi nuovo"
-
-#: visiting_management/views.py:142
+#: visiting_management/views.py:143
 msgid "Visiting created"
 msgstr "Visiting creato"
 
-#: visiting_management/views.py:189
+#: visiting_management/views.py:190
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Detection created"
+#~ msgstr "Rilevamento creato"
+
+#, fuzzy
+#~| msgid "Visiting edited"
+#~ msgid "Detection edited"
+#~ msgstr "Visiting modificato"
+
+#~ msgid "Detection date is greater than reference date"
+#~ msgstr "La data di rilevamento è su"
 
 #~ msgid "Visitings"
 #~ msgstr "Visiting"

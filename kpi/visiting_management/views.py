@@ -28,14 +28,15 @@ def _save_visiting(structure, form, **kwargs):
     visiting = form.save()
 
     visiting.mission = form.cleaned_data['to_structure'] != structure
-    update_fields = ['mission']
+    # update_fields = ['mission']
 
     # additional fields
     for k, v in kwargs.items():
         setattr(visiting, k, v)
-        update_fields.append(k)
+        # update_fields.append(k)
 
-    visiting.save(update_fields=update_fields)
+    # visiting.save(update_fields=update_fields)
+    visiting.save()
 
     # set new collaborations
     VisitingCollaboration.objects.filter(visiting=visiting).delete()

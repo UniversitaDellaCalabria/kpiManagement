@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext_lazy as _
 
 from organizational_area.models import (OrganizationalStructure,
                                         OrganizationalStructureOfficeEmployee)
@@ -13,7 +14,7 @@ def can_manage_structure_visitings(func_to_decorate):
         request = original_args[0]
         structure_slug = original_kwargs['structure_slug']
         if not structure_slug:
-            raise Exception
+            raise Exception(_("Structure slug missing"))
         structure = get_object_or_404(OrganizationalStructure,
                                       slug=structure_slug,
                                       is_active=True)

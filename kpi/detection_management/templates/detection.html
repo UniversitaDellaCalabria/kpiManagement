@@ -1,0 +1,73 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{{ detection.code }} - {{ detection.code.description }}</h2>
+<h4>{{ detection.reference_date }}</h4>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'detection:dashboard' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Enabling factors management" %}
+        </a>
+    </div>
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'detection:structure_detections' structure_slug=structure.slug %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Enabling factors for" %} {{ structure.name }}
+        </a>
+    </div>
+
+    <div class="pull-right d-inline">
+        <a role="button"
+           class="btn btn-warning"
+           href="{% url 'detection:edit_structure_detection' structure_slug=structure.slug detection_pk=detection.pk %}">
+                <svg class="icon icon-xs icon-white">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                </svg> {% trans "Edit" %}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block page_content %}
+<table class="table table-striped table-hover">
+    <tbody>
+        <tr>
+            <th scope="row">{% trans "Code" %}</th>
+            <td>{{ detection.code }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans "Reference date" %}</th>
+            <td>{{ detection.reference_date|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans "Detection date" %}</th>
+            <td>{{ detection.detection_date|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans "Numerator" %}</th>
+            <td>{{ detection.num }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans "Denominator" %}</th>
+            <td>{{ detection.den }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans "KPI value" %}</th>
+            <td>{{ detection.value }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% include "obj_logs.html" with logs=detection_logs %}
+
+{% endblock page_content %}
