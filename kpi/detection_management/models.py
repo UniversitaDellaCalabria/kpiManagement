@@ -16,6 +16,16 @@ class DetectionCode(models.Model):
         return f'{self.code} - {self.description}'
 
 
+class StructureDetectionCode(models.Model):
+    code = models.ForeignKey(DetectionCode, on_delete=models.CASCADE)
+    structure = models.ForeignKey(OrganizationalStructure,
+                                  on_delete=models.CASCADE,
+                                  limit_choices_to={'is_internal': True},)
+
+    def __str__(self):
+        return f'{self.code} - {self.structure}'
+
+
 class Detection(CreatedModifiedBy, TimeStampedModel):
     structure = models.ForeignKey(OrganizationalStructure,
                                   on_delete=models.PROTECT,

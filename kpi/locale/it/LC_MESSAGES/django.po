@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-28 15:20+0200\n"
-"PO-Revision-Date: 2022-07-28 15:20+0200\n"
+"POT-Creation-Date: 2022-08-23 13:30+0200\n"
+"PO-Revision-Date: 2022-08-23 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -26,46 +26,50 @@ msgstr "Slug struttura mancante"
 msgid "Detection code is disabled"
 msgstr "Questo codice è stato disabilitato"
 
-#: detection_management/forms.py:21
+#: detection_management/forms.py:26
+msgid "Choosen code can be applied to this structure"
+msgstr "Il codice scelto non può essere associato a questa struttura"
+
+#: detection_management/forms.py:33
 msgid "Reference date is greater than detection date"
 msgstr "La data di riferimento è successiva alla data di rilevazione"
 
-#: detection_management/forms.py:35
+#: detection_management/forms.py:47
 #: detection_management/templates/datatables_detection/table_header.html:10
 #: detection_management/templates/detection.html:45
 msgid "Code"
 msgstr "Codice"
 
-#: detection_management/forms.py:36
+#: detection_management/forms.py:48
 #: detection_management/templates/datatables_detection/table_header.html:11
 #: detection_management/templates/detection.html:49
 msgid "Reference date"
 msgstr "Data di riferimento"
 
-#: detection_management/forms.py:37
+#: detection_management/forms.py:49
 #: detection_management/templates/datatables_detection/table_header.html:12
 #: detection_management/templates/detection.html:53
 msgid "Detection date"
 msgstr "Data di rilevazione"
 
-#: detection_management/forms.py:38
+#: detection_management/forms.py:50
 #: detection_management/templates/datatables_detection/table_header.html:13
 #: detection_management/templates/detection.html:57
 msgid "Numerator"
 msgstr "Numeratore"
 
-#: detection_management/forms.py:39
+#: detection_management/forms.py:51
 #: detection_management/templates/datatables_detection/table_header.html:14
 #: detection_management/templates/detection.html:61
 msgid "Denominator"
 msgstr "Denominatore"
 
-#: detection_management/forms.py:40 visiting_management/forms.py:78
+#: detection_management/forms.py:52 visiting_management/forms.py:78
 #: visiting_management/templates/visiting.html:116
 msgid "Notes"
 msgstr "Note"
 
-#: detection_management/forms.py:41
+#: detection_management/forms.py:53
 #: detection_management/templates/datatables_detection/table_header.html:16
 #: detection_management/templates/datatables_detection/top_filters.html:34
 #: visiting_management/forms.py:79

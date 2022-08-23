@@ -15,3 +15,8 @@ class DetectionAdmin(AbstractCreatedModifiedBy):
 @admin.register(DetectionCode)
 class DetectionCodeAdmin(admin.ModelAdmin):
     list_display = ('code', 'is_active')
+
+
+@admin.register(StructureDetectionCode)
+class StructureDetectionCodeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'structure')

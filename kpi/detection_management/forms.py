@@ -13,6 +13,18 @@ class DetectionForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        # if code has changed then check if is available for
+        # the structure
+        # else if it's not changed ignore check (compatibility)
+        if 'code' in self.changed_data:
+            code = cleaned_data.get('code')
+            str_code = StructureDetectionCode.objects.filter(structure=self.structure,
+                                                             code=code).first()
+            if not str_code:
+                self.add_error('code',
+                               _("Choosen code can be applied to this structure"))
+
         reference_date = cleaned_data.get('reference_date')
         detection_date = cleaned_data.get('detection_date')
 
