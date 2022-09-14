@@ -48,12 +48,16 @@ def dashboard(request):
                                                        organizational_structure__is_active=True)
     else:
         # get offices that I'm able to manage
-        offices = OrganizationalStructureOfficeEmployee.objects\
-                                                       .filter(employee=request.user,
-                                                               office__slug=DETECTION_OFFICE_SLUG,
-                                                               office__is_active=True,
-                                                               office__organizational_structure__is_active=True)\
-                                                       .select_related('office').order_by('office__name')
+        offices = []
+        office_employees = OrganizationalStructureOfficeEmployee.objects\
+                           .filter(employee=request.user,
+                                   office__slug=DETECTION_OFFICE_SLUG,
+                                   office__is_active=True,
+                                   office__organizational_structure__is_active=True)\
+                           .select_related('office').order_by('office__name')
+        for office_employee in office_employees:
+            offices.append(office_employee.office)
+
     d = {'my_offices': offices}
     return render(request, template, d)
 
