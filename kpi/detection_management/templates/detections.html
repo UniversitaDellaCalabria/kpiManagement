@@ -20,9 +20,9 @@
 
     <div class="pull-right d-inline">
         <a role="button"
-           class="btn btn-success float-right"
+           class="btn btn-outline-success float-right"
            href="{% url 'detection:new_structure_detection' structure_slug=structure.slug %}">
-                <svg class="icon icon-xs icon-white">
+                <svg class="icon icon-xs">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
                 </svg> {% trans "Add new" %}
         </a>

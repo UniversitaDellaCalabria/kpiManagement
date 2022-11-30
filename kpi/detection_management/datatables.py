@@ -13,7 +13,7 @@ from . models import Detection
 
 
 _columns = ['pk', 'code', 'reference_date',
-            'detection_date', 'num', 'den', 'value', 'is_active' ]
+            'detection_date', 'num', 'den', 'value', 'is_active']
 
 
 class DetectionDTD(DjangoDatatablesServerProc):
@@ -42,6 +42,7 @@ class DetectionDTD(DjangoDatatablesServerProc):
                 self.aqs = self.aqs.filter(
                     Q(code__description__icontains=text) |
                     Q(code__code__icontains=text))
+
 
 @csrf_exempt
 @login_required

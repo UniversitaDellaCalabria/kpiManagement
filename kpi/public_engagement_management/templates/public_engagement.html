@@ -1,0 +1,226 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "Public Engagement details" %}</h2>
+<h4>{{ structure }} - {{ public_engagement.subject }}</h4>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:dashboard' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Public Engagement management" %}
+        </a>
+    </div>
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:structure_public_engagements' structure_slug=structure.slug %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Back to" %} {{ structure }}
+        </a>
+    </div>
+
+    <div class="pull-right d-inline">
+        <a role="button"
+           class="btn btn-outline-warning"
+           href="{% url 'public_engagement:structure_public_engagement_edit' structure_slug=structure.slug public_engagement_pk=public_engagement.pk %}">
+                <svg class="icon icon-xs">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                </svg> {% trans "Edit" %}
+        </a>
+        <a role="button"
+           class="btn btn-outline-success"
+           href="{% url 'public_engagement:structure_public_engagement_partner_add' structure_slug=structure.slug public_engagement_pk=public_engagement.pk %}">
+                <svg class="icon icon-xs">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                </svg> {% trans "Add partner" %}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block clean_content %}
+<div class="row">
+    <div class="col">
+        <div class="card-space card-wrapper">
+            <div class="card card-bg no-after">
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            <tr>
+                                <th scope="row">{% trans 'Enabled' %}</th>
+                                <td>
+                                    {% if public_engagement.is_active %}
+                                    <svg class="icon icon-sm icon-success">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                    </svg>
+                                     {% else %}
+                                    <svg class="icon icon-sm icon-danger">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                    </svg>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Subject' %}</th>
+                                <td>{{ public_engagement.subject }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Subscription Date' %}</th>
+                                <td>{{ public_engagement.subscription_date }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Duration (Months)' %}</th>
+                                <td>{{ public_engagement.duration }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Goals AGENDA ONU 2030' %}</th>
+                                <td>{{ public_engagement.goal }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Non-profit activity (No production of profit)' %}</th>
+                                <td>
+                                    {% if public_engagement.requirements_one %}
+                                    <svg class="icon icon-sm icon-success">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                    </svg>
+                                     {% else %}
+                                    <svg class="icon icon-sm icon-danger">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                    </svg>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Activities aimed at non-academic audiences' %}</th>
+                                <td>
+                                    {% if public_engagement.requirements_two %}
+                                    <svg class="icon icon-sm icon-success">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                    </svg>
+                                     {% else %}
+                                    <svg class="icon icon-sm icon-danger">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                    </svg>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Social value (social inclusion, fight against inequalities, etc.)' %}</th>
+                                <td>
+                                    {% if public_engagement.requirements_three %}
+                                    <svg class="icon icon-sm icon-success">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                    </svg>
+                                     {% else %}
+                                    <svg class="icon icon-sm icon-danger">
+                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                    </svg>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans 'Note' %}</th>
+                                <td>{{ public_engagement.note }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% include "obj_logs.html" with logs=public_engagement_logs %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if partners %}
+<hr>
+<h4>{% trans "Partner" %}</h4>
+<div class="row">
+    <div class="col">
+        <div class="card-space card-wrapper">
+            <div class="card card-bg no-after">
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                            <tr>
+                                <th>{% trans "Name" %}</th>
+                                <th>{% trans "Is head" %}</th>
+                                <th></th>
+                            </tr>
+                            {% for partner in partners %}
+                            <tr>
+                                <td>{{ partner.partner.name }}</td>
+                                <td>
+                                    {% if partner.is_head %}
+                                        <svg class="icon icon-sm icon-success">
+                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                        </svg>
+                                         {% else %}
+                                        <svg class="icon icon-sm icon-danger">
+                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                        </svg>
+                                        {% endif %}
+                                </td>
+                                <td class="text-right">
+                                    <a href="{% url 'public_engagement:structure_public_engagement_partner_edit' structure_slug=structure.slug public_engagement_pk=public_engagement.pk partner_pk=partner.pk %}" class="btn btn-primary btn-xs">
+                                        <svg class="icon icon-xs icon-white">
+                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                                        </svg> {% trans "Edit" %}
+                                    </a>
+                                    <a href="" class="btn btn-danger btn-xs"
+                                       data-toggle="modal"
+                                       data-target="#delete_partner_{{ partner.pk }}">
+                                        <svg class="icon icon-xs icon-white">
+                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-delete"></use>
+                                        </svg> {% trans "Remove" %}
+                                    </a>
+                                    <div class="modal fade"
+                                         tabindex="-1"
+                                         role="dialog"
+                                         id="delete_partner_{{ partner.pk }}">
+                                        <div class="modal-dialog modal-dialog-centered"
+                                             role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        {% trans "Confirm" %}
+                                                    </h5>
+                                                    <button class="close"
+                                                            type="button"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close">
+                                                       <svg class="icon">
+                                                          <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                                                       </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>
+                                                        {% trans "Do you want to delete choosen partner?" %}
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-success btn-sm" href="{% url 'public_engagement:structure_public_engagement_partner_delete' structure_slug=structure.slug public_engagement_pk=public_engagement.pk partner_pk=partner.pk %}">
+                                                        {% trans 'Yes, proceed' %}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock clean_content %}

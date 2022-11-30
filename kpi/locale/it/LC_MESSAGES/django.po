@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-23 13:30+0200\n"
-"PO-Revision-Date: 2022-08-23 13:30+0200\n"
+"POT-Creation-Date: 2022-11-30 14:21+0100\n"
+"PO-Revision-Date: 2022-11-30 14:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -16,9 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.1\n"
 
-#: detection_management/decorators.py:18 visiting_management/decorators.py:17
+#: detection_management/decorators.py:18
+#: public_engagement_management/decorators.py:17
+#: visiting_management/decorators.py:17
 msgid "Structure slug missing"
 msgstr "Slug struttura mancante"
 
@@ -26,52 +28,57 @@ msgstr "Slug struttura mancante"
 msgid "Detection code is disabled"
 msgstr "Questo codice è stato disabilitato"
 
-#: detection_management/forms.py:26
+#: detection_management/forms.py:27
 msgid "Choosen code can be applied to this structure"
 msgstr "Il codice scelto non può essere associato a questa struttura"
 
-#: detection_management/forms.py:33
+#: detection_management/forms.py:34
 msgid "Reference date is greater than detection date"
 msgstr "La data di riferimento è successiva alla data di rilevazione"
 
-#: detection_management/forms.py:47
+#: detection_management/forms.py:48
 #: detection_management/templates/datatables_detection/table_header.html:10
 #: detection_management/templates/detection.html:45
 msgid "Code"
 msgstr "Codice"
 
-#: detection_management/forms.py:48
+#: detection_management/forms.py:49
 #: detection_management/templates/datatables_detection/table_header.html:11
 #: detection_management/templates/detection.html:49
 msgid "Reference date"
 msgstr "Data di riferimento"
 
-#: detection_management/forms.py:49
+#: detection_management/forms.py:50
 #: detection_management/templates/datatables_detection/table_header.html:12
 #: detection_management/templates/detection.html:53
 msgid "Detection date"
 msgstr "Data di rilevazione"
 
-#: detection_management/forms.py:50
+#: detection_management/forms.py:51
 #: detection_management/templates/datatables_detection/table_header.html:13
 #: detection_management/templates/detection.html:57
 msgid "Numerator"
 msgstr "Numeratore"
 
-#: detection_management/forms.py:51
+#: detection_management/forms.py:52
 #: detection_management/templates/datatables_detection/table_header.html:14
 #: detection_management/templates/detection.html:61
 msgid "Denominator"
 msgstr "Denominatore"
 
-#: detection_management/forms.py:52 visiting_management/forms.py:78
+#: detection_management/forms.py:53 public_engagement_management/forms.py:33
+#: visiting_management/forms.py:78
 #: visiting_management/templates/visiting.html:116
 msgid "Notes"
 msgstr "Note"
 
-#: detection_management/forms.py:53
+#: detection_management/forms.py:54
 #: detection_management/templates/datatables_detection/table_header.html:16
 #: detection_management/templates/datatables_detection/top_filters.html:34
+#: public_engagement_management/forms.py:34
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:27
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:20
+#: public_engagement_management/templates/public_engagement.html:56
 #: visiting_management/forms.py:79
 #: visiting_management/templates/datatables_visiting/table_header.html:27
 #: visiting_management/templates/datatables_visiting/top_filters.html:32
@@ -80,7 +87,7 @@ msgid "Enabled"
 msgstr "Abilitato"
 
 #: detection_management/templates/dashboard_detections.html:8
-#: template/templates/base.html:34 template/templates/dashboard.html:22
+#: template/templates/base.html:34 template/templates/dashboard.html:19
 msgid "Enabling factors"
 msgstr "Fattori abilitanti"
 
@@ -93,18 +100,22 @@ msgstr ""
 "abilitanti delle strutture di Ateneo"
 
 #: detection_management/templates/dashboard_detections.html:27
-#: template/templates/dashboard.html:28 template/templates/dashboard.html:53
+#: public_engagement_management/templates/dashboard_public_engagements.html:27
+#: template/templates/dashboard.html:25 template/templates/dashboard.html:47
+#: template/templates/dashboard.html:69
 #: visiting_management/templates/dashboard_visitings.html:29
 msgid "Manage"
 msgstr "Gestisci"
 
 #: detection_management/templates/datatables_detection/datatable_script.html:21
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:21
 #: unical_accounts/templates/datatables_users/datatable_script.html:21
 #: visiting_management/templates/datatables_visiting/datatable_script.html:21
 msgid "Print"
 msgstr "Stampa"
 
 #: detection_management/templates/datatables_detection/datatable_script.html:28
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:28
 #: unical_accounts/templates/datatables_users/datatable_script.html:28
 #: visiting_management/templates/datatables_visiting/datatable_script.html:28
 msgid "Nessun record presente"
@@ -112,6 +123,8 @@ msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:29
 #: detection_management/templates/datatables_detection/datatable_script.html:30
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:29
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:30
 #: unical_accounts/templates/datatables_users/datatable_script.html:29
 #: unical_accounts/templates/datatables_users/datatable_script.html:30
 #: visiting_management/templates/datatables_visiting/datatable_script.html:29
@@ -120,54 +133,63 @@ msgid "Visibili"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:29
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:29
 #: unical_accounts/templates/datatables_users/datatable_script.html:29
 #: visiting_management/templates/datatables_visiting/datatable_script.html:29
 msgid "di"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:29
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:29
 #: unical_accounts/templates/datatables_users/datatable_script.html:29
 #: visiting_management/templates/datatables_visiting/datatable_script.html:29
 msgid "record totali"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:30
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:30
 #: unical_accounts/templates/datatables_users/datatable_script.html:30
 #: visiting_management/templates/datatables_visiting/datatable_script.html:30
 msgid "record"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:33
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:33
 #: unical_accounts/templates/datatables_users/datatable_script.html:33
 #: visiting_management/templates/datatables_visiting/datatable_script.html:33
 msgid "Show"
 msgstr "Mostra"
 
 #: detection_management/templates/datatables_detection/datatable_script.html:36
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:36
 #: unical_accounts/templates/datatables_users/datatable_script.html:36
 #: visiting_management/templates/datatables_visiting/datatable_script.html:36
 msgid "Nessun record trovato"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:38
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:38
 #: unical_accounts/templates/datatables_users/datatable_script.html:38
 #: visiting_management/templates/datatables_visiting/datatable_script.html:38
 msgid "Prima"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:39
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:39
 #: unical_accounts/templates/datatables_users/datatable_script.html:39
 #: visiting_management/templates/datatables_visiting/datatable_script.html:39
 msgid "Ultima"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:40
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:40
 #: unical_accounts/templates/datatables_users/datatable_script.html:40
 #: visiting_management/templates/datatables_visiting/datatable_script.html:40
 msgid "Successiva"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/datatable_script.html:41
+#: public_engagement_management/templates/datatables_public_engagement/datatable_script.html:41
 #: unical_accounts/templates/datatables_users/datatable_script.html:41
 #: visiting_management/templates/datatables_visiting/datatable_script.html:41
 msgid "Precedente"
@@ -179,6 +201,7 @@ msgid "Value %%"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/top_filters.html:8
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:7
 #: visiting_management/forms.py:71
 #: visiting_management/templates/datatables_visiting/table_header.html:22
 #: visiting_management/templates/edit_visiting.html:19
@@ -186,6 +209,7 @@ msgid "From"
 msgstr "Da"
 
 #: detection_management/templates/datatables_detection/top_filters.html:14
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:13
 #: visiting_management/forms.py:72
 #: visiting_management/templates/datatables_visiting/table_header.html:23
 #: visiting_management/templates/edit_visiting.html:21
@@ -198,18 +222,21 @@ msgstr "Codici"
 
 #: detection_management/templates/datatables_detection/top_filters.html:23
 #: detection_management/templates/datatables_detection/top_filters.html:36
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:22
 #: visiting_management/templates/datatables_visiting/top_filters.html:22
 #: visiting_management/templates/datatables_visiting/top_filters.html:34
 msgid "Select an option"
 msgstr "Seleziona un'opzione"
 
 #: detection_management/templates/datatables_detection/top_filters.html:37
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:23
 #: visiting_management/templates/datatables_visiting/top_filters.html:23
 #: visiting_management/templates/datatables_visiting/top_filters.html:35
 msgid "No"
 msgstr ""
 
 #: detection_management/templates/datatables_detection/top_filters.html:38
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:24
 #: visiting_management/templates/datatables_visiting/top_filters.html:24
 #: visiting_management/templates/datatables_visiting/top_filters.html:36
 msgid "Yes"
@@ -217,6 +244,8 @@ msgstr "Si"
 
 #: detection_management/templates/datatables_detection/top_filters.html:45
 #: detection_management/templates/datatables_detection/top_filters.html:46
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:31
+#: public_engagement_management/templates/datatables_public_engagement/top_filters.html:32
 #: unical_accounts/templates/datatables_users/top_filters.html:6
 #: visiting_management/templates/datatables_visiting/top_filters.html:43
 #: visiting_management/templates/datatables_visiting/top_filters.html:44
@@ -239,6 +268,9 @@ msgstr "Fattori abilitanti per"
 
 #: detection_management/templates/detection.html:35
 #: detection_management/templates/edit_detection.html:8
+#: public_engagement_management/templates/edit_public_engagement.html:8
+#: public_engagement_management/templates/public_engagement.html:34
+#: public_engagement_management/templates/public_engagement.html:176
 #: visiting_management/templates/edit_visiting.html:8
 #: visiting_management/templates/visiting.html:34
 msgid "Edit"
@@ -249,6 +281,7 @@ msgid "KPI value"
 msgstr "Valore KPI"
 
 #: detection_management/templates/detections.html:27
+#: public_engagement_management/templates/public_engagements.html:28
 #: visiting_management/templates/visitings.html:28
 msgid "Add new"
 msgstr "Aggiungi nuovo"
@@ -261,11 +294,11 @@ msgstr "Dettagli fattore abilitante"
 msgid "New enabling factor for"
 msgstr "Nuovo fattore abilitante per"
 
-#: detection_management/views.py:114
+#: detection_management/views.py:116
 msgid "Enabling factor created"
 msgstr "Fattore abilitante creato"
 
-#: detection_management/views.py:163
+#: detection_management/views.py:165
 msgid "Enabling factor edited"
 msgstr "Fattore abilitante modificato"
 
@@ -351,6 +384,187 @@ msgstr ""
 msgid "Organizational Structure Office Employees"
 msgstr ""
 
+#: public_engagement_management/forms.py:26
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:22
+#: public_engagement_management/templates/public_engagement.html:74
+msgid "Subscription Date"
+msgstr "Data di sottoscrizione"
+
+#: public_engagement_management/forms.py:27
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:23
+#: public_engagement_management/templates/public_engagement.html:78
+msgid "Duration (Months)"
+msgstr "Durata (mesi)"
+
+#: public_engagement_management/forms.py:28
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:21
+#: public_engagement_management/templates/public_engagement.html:70
+msgid "Subject"
+msgstr "Oggetto"
+
+#: public_engagement_management/forms.py:29
+#: public_engagement_management/templates/public_engagement.html:86
+msgid "Goals AGENDA ONU 2030"
+msgstr "Obiettivi AGENDA ONU 2030"
+
+#: public_engagement_management/forms.py:30
+#: public_engagement_management/templates/public_engagement.html:90
+msgid "Non-profit activity (No production of profit)"
+msgstr "Attività senza scopo di lucro (Nessuna produzione di profitto)"
+
+#: public_engagement_management/forms.py:31
+#: public_engagement_management/templates/public_engagement.html:104
+msgid "Activities aimed at non-academic audiences"
+msgstr "Attività rivolte a un pubblico non accademico"
+
+#: public_engagement_management/forms.py:32
+#: public_engagement_management/templates/public_engagement.html:118
+msgid "Social value (social inclusion, fight against inequalities, etc.)"
+msgstr "Valore sociale (inclusione sociale, lotta alle disuguaglianze, ecc.)"
+
+#: public_engagement_management/forms.py:38
+msgid ""
+"Obiettivo 1 - Porre fine alla povertà, in tutte le sue forme <br> Obiettivo "
+"2 -  Porre fine alla fame, raggiungere la sicurezza alimentare, migliorare "
+"la nutrizione e promuovere un’agricoltura sostenibile <br> Obiettivo 3 - "
+"Assicurare la salute e il benessere per tutti e per tutte le età <br> "
+"Obiettivo 4 -  Assicurare un’istruzione di qualità, equa ed inclusiva, e "
+"promuovere opportunità di apprendimento permanente per tutti <br> Obiettivo "
+"5 - Raggiungere l’uguaglianza di genere e l’empowerment di tutte le donne e "
+"le ragazze <br> Obiettivo 10 - Ridurre l’ineguaglianza all’interno di e fra "
+"le Nazioni <br> Obiettivo 16 - Promuovere società pacifiche e più inclusive "
+"per uno sviluppo sostenibile; offrire l’accesso alla giustizia per tutti e "
+"creare organismi efficienti, responsabili e inclusivi a tutti i livelli."
+msgstr ""
+
+#: public_engagement_management/forms.py:64
+#: public_engagement_management/templates/public_engagement.html:145
+msgid "Partner"
+msgstr ""
+
+#: public_engagement_management/forms.py:65
+msgid "Head"
+msgstr "Capofila"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:8
+msgid "Public Engagement Management"
+msgstr "Gestione public engagement"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:9
+msgid ""
+"In this section you can choose the department for which to manage public "
+"engagement"
+msgstr ""
+"In questa sezione puoi scegliere il dipartimento per il quale gestire i "
+"public engagement"
+
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:25
+#: public_engagement_management/templates/edit_public_engagement.html:19
+#: public_engagement_management/templates/public_engagement.html:82
+msgid "Structure"
+msgstr "Struttura"
+
+#: public_engagement_management/templates/edit_public_engagement.html:30
+#: public_engagement_management/templates/new_public_engagement.html:18
+#: public_engagement_management/templates/public_engagement.html:17
+#: public_engagement_management/templates/public_engagement_partner.html:24
+#: public_engagement_management/templates/public_engagements.html:18
+msgid "Public Engagement management"
+msgstr "Gestione public engagement"
+
+#: public_engagement_management/templates/edit_public_engagement.html:35
+#: public_engagement_management/templates/new_public_engagement.html:23
+#: public_engagement_management/templates/public_engagement.html:24
+#: public_engagement_management/templates/public_engagement_partner.html:29
+#: visiting_management/templates/edit_visiting.html:37
+#: visiting_management/templates/new_visiting collaboration.html:22
+#: visiting_management/templates/new_visiting.html:23
+#: visiting_management/templates/visiting.html:24
+msgid "Back to"
+msgstr "Torna a"
+
+#: public_engagement_management/templates/edit_public_engagement.html:40
+#: public_engagement_management/templates/public_engagement_partner.html:34
+#: visiting_management/templates/edit_visiting.html:42
+#: visiting_management/templates/new_visiting collaboration.html:27
+msgid "Back to details"
+msgstr "Torma ai dettagli"
+
+#: public_engagement_management/templates/new_public_engagement.html:8
+msgid "New Public Engagement"
+msgstr "Nuovo public engagement"
+
+#: public_engagement_management/templates/public_engagement.html:8
+msgid "Public Engagement details"
+msgstr "Dettagli public engagement"
+
+#: public_engagement_management/templates/public_engagement.html:41
+msgid "Add partner"
+msgstr "Aggiungi partner"
+
+#: public_engagement_management/templates/public_engagement.html:132
+msgid "Note"
+msgstr "Note"
+
+#: public_engagement_management/templates/public_engagement.html:154
+msgid "Name"
+msgstr "Denominazione"
+
+#: public_engagement_management/templates/public_engagement.html:155
+msgid "Is head"
+msgstr "Capofila"
+
+#: public_engagement_management/templates/public_engagement.html:183
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: public_engagement_management/templates/public_engagement.html:194
+#: template/templates/form_template.html:47
+msgid "Confirm"
+msgstr "Conferma"
+
+#: public_engagement_management/templates/public_engagement.html:207
+msgid "Do you want to delete choosen partner?"
+msgstr "Desideri eliminare il partner selezionato?"
+
+#: public_engagement_management/templates/public_engagement.html:212
+#: template/templates/form_template.html:67
+msgid "Yes, proceed"
+msgstr "Si, procedi"
+
+#: public_engagement_management/templates/public_engagement_partner.html:10
+msgid "Edit partner"
+msgstr "Modifica partner"
+
+#: public_engagement_management/templates/public_engagement_partner.html:12
+msgid "New partner"
+msgstr "Nuovo partner"
+
+#: public_engagement_management/templates/public_engagements.html:8
+#: template/templates/base.html:39 template/templates/dashboard.html:41
+msgid "Public Engagement"
+msgstr ""
+
+#: public_engagement_management/views.py:151
+msgid "Public Engagement created"
+msgstr "Public engagement creato"
+
+#: public_engagement_management/views.py:196
+msgid "Public Engagement edited"
+msgstr "Public engagement modificato"
+
+#: public_engagement_management/views.py:242
+msgid "Public Engagement partner created"
+msgstr "Partner del public engagement creato"
+
+#: public_engagement_management/views.py:287
+msgid "Public Engagement partner edited"
+msgstr "Partner del public engagement modificato"
+
+#: public_engagement_management/views.py:326
+msgid "Public Engagement partner deleted"
+msgstr "Partner del public engagement eliminato"
+
 #: template/templates/base.html:19
 msgid "Dashboard"
 msgstr "Pannello di controllo"
@@ -361,12 +575,12 @@ msgstr "Pannello di controllo"
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:29 template/templates/dashboard.html:47
+#: template/templates/base.html:29 template/templates/dashboard.html:63
 #: visiting_management/templates/visitings.html:8
 msgid "Visiting/Teacher mobility"
 msgstr "Visiting/Mobilità docenti"
 
-#: template/templates/base.html:45
+#: template/templates/base.html:50
 msgid "Logout"
 msgstr "Esci"
 
@@ -386,11 +600,15 @@ msgstr ""
 msgid "Key Performance Indicators"
 msgstr "Indicatori di performance"
 
-#: template/templates/dashboard.html:25
+#: template/templates/dashboard.html:22
 msgid "Detections data"
 msgstr "Dati dei rilevamenti"
 
-#: template/templates/dashboard.html:50
+#: template/templates/dashboard.html:44
+msgid "Data collection of indicators on public engagements"
+msgstr "Raccolta dati di indicatori sul public engagement"
+
+#: template/templates/dashboard.html:66
 msgid "Data collection of indicators on incoming and outgoing teachers"
 msgstr "Raccolta dati di indicatori sui docenti in entrata e in uscita"
 
@@ -398,17 +616,9 @@ msgstr "Raccolta dati di indicatori sui docenti in entrata e in uscita"
 msgid "Submit"
 msgstr "Invia"
 
-#: template/templates/form_template.html:47
-msgid "Confirm"
-msgstr "Conferma"
-
 #: template/templates/form_template.html:60
 msgid "Do you want to confirm the entered data?"
 msgstr "Desideri confermare i dati immessi?"
-
-#: template/templates/form_template.html:67
-msgid "Yes, proceed"
-msgstr "Si, procedi"
 
 #: template/templates/obj_logs.html:9
 msgid "Status updates (Logs)"
@@ -606,18 +816,6 @@ msgstr ""
 msgid "Mission"
 msgstr "Missione"
 
-#: visiting_management/templates/edit_visiting.html:37
-#: visiting_management/templates/new_visiting collaboration.html:22
-#: visiting_management/templates/new_visiting.html:23
-#: visiting_management/templates/visiting.html:24
-msgid "Back to"
-msgstr "Torna a"
-
-#: visiting_management/templates/edit_visiting.html:42
-#: visiting_management/templates/new_visiting collaboration.html:27
-msgid "Back to details"
-msgstr "Torma ai dettagli"
-
 #: visiting_management/templates/new_visiting collaboration.html:8
 msgid "New collaboration for"
 msgstr "Nuova collaborazione per"
@@ -645,6 +843,20 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:190
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Requirement Non-profit activity (No production of profit)"
+#~ msgstr ""
+#~ "Requisito Attività senza scopo di lucro (Nessuna produzione di profitto)"
+
+#~ msgid "Requirement Activities aimed at non-academic audiences"
+#~ msgstr "Requisiti Attività rivolte a un pubblico non accademico"
+
+#~ msgid ""
+#~ "Requirement Social value (social inclusion, fight against inequalities, "
+#~ "etc.)"
+#~ msgstr ""
+#~ "Requisito Valore sociale (inclusione sociale, lotta alle disuguaglianze, "
+#~ "ecc.)"
 
 #~ msgid "Detection created"
 #~ msgstr "Rilevazione creata"

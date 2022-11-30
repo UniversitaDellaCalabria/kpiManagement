@@ -1,0 +1,39 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "Public Engagement Management" %}</h2>
+<p>{% trans "In this section you can choose the department for which to manage public engagement" %}</p>
+{% endblock top_content %}
+
+{% block clean_content %}
+<div class="row mt-5">
+    {% for office in my_offices %}
+    <div class="col-12 col-lg-3">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ office.organizational_structure.name }}
+                    </h5>
+                    <p>
+                        {{ office.organizational_structure.description }}
+                    </p>
+                    <a class="read-more" href="{% url 'public_engagement:structure_public_engagements' structure_slug=office.organizational_structure.slug %}">
+                        <span class="text">{% trans "Manage" %}</span>
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+    {% endfor %}
+</div>
+{% endblock clean_content %}

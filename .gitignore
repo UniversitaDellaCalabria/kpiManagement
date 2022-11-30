@@ -133,3 +133,6 @@ dmypy.json
 
 kpi/saml2_sp/*
 kpi/data/*
+
+#idea
+.idea/

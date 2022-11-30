@@ -4,9 +4,7 @@ from django.contrib.admin.utils import _get_changed_field_labels_from_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
-from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
 from detection_management.decorators import *
@@ -50,11 +48,11 @@ def dashboard(request):
         # get offices that I'm able to manage
         offices = []
         office_employees = OrganizationalStructureOfficeEmployee.objects\
-                           .filter(employee=request.user,
-                                   office__slug=DETECTION_OFFICE_SLUG,
-                                   office__is_active=True,
-                                   office__organizational_structure__is_active=True)\
-                           .select_related('office').order_by('office__name')
+            .filter(employee=request.user,
+                    office__slug=DETECTION_OFFICE_SLUG,
+                    office__is_active=True,
+                    office__organizational_structure__is_active=True)\
+            .select_related('office').order_by('office__name')
         for office_employee in office_employees:
             offices.append(office_employee.office)
 
@@ -102,7 +100,7 @@ def new_structure_detection(request, structure_slug, structure=None):
     """
     form = DetectionForm(structure=structure)
     if request.POST:
-        form.fields['code']=structure.name
+        form.fields['code'] = structure.name
         form = DetectionForm(request.POST, structure=structure)
         if form.is_valid():
             detection = _save_detection(form=form,

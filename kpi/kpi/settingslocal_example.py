@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'organizational_area',
     'visiting_management',
     'detection_management',
+    'public_engagement_management',
 
     'django_unical_bootstrap_italia',
     'bootstrap_italia_template',
@@ -135,6 +136,7 @@ DATETIME_INPUT_FORMATS = [DEFAULT_DATETIME_FORMAT,
 # DjangoSAML2 conf
 if 'djangosaml2' in INSTALLED_APPS:
     from saml2_sp.settings import *
+
     # pySAML2 SP mandatory
     SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 

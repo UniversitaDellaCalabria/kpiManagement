@@ -35,7 +35,6 @@ def structure_detection_is_accessible(func_to_decorate):
     """
     """
     def new_func(*original_args, **original_kwargs):
-        request = original_args[0]
         detection = get_object_or_404(Detection,
                                       structure=original_kwargs['structure'],
                                       pk=original_kwargs['detection_pk'])

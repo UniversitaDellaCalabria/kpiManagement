@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from bootstrap_italia_template.widgets import BootstrapItaliaDateWidget, BootstrapItaliaSelectWidget, HiddenInput
-from . models import *
+from bootstrap_italia_template.widgets import BootstrapItaliaDateWidget
+from . models import Detection, DetectionCode, StructureDetectionCode
 
 
 class DetectionForm(forms.ModelForm):
@@ -9,7 +9,8 @@ class DetectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.structure = kwargs.pop('structure')
         super().__init__(*args, **kwargs)
-        self.fields['code'].queryset = DetectionCode.objects.filter(is_active=True)
+        self.fields['code'].queryset = DetectionCode.objects.filter(
+            is_active=True)
 
     def clean(self):
         cleaned_data = super().clean()

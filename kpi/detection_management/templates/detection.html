@@ -28,9 +28,9 @@
 
     <div class="pull-right d-inline">
         <a role="button"
-           class="btn btn-warning"
+           class="btn btn-outline-warning"
            href="{% url 'detection:edit_structure_detection' structure_slug=structure.slug detection_pk=detection.pk %}">
-                <svg class="icon icon-xs icon-white">
+                <svg class="icon icon-xs">
                     <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
                 </svg> {% trans "Edit" %}
         </a>
