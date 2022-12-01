@@ -127,7 +127,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">{% trans 'Note' %}</th>
-                                <td>{{ public_engagement.note }}</td>
+                                <td>{{ public_engagement.note|default:"-" }}</td>
                             </tr>
                         </tbody>
                     </table>
