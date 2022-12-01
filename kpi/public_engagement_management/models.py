@@ -18,7 +18,7 @@ class PublicEngagement(CreatedModifiedBy, TimeStampedModel):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return '{}-{}-{}'.format(self.subject, self.structure, self.note)
+        return '{} - {}'.format(self.structure, self.subject)
 
 
 class PublicEngagementPartner(TimeStampedModel):
