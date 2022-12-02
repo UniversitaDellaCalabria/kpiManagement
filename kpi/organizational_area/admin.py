@@ -27,7 +27,11 @@ class OrganizationalStructureAdmin(AbstractAdmin):
                     'is_public_engagement_enabled',
                     'is_internal',
                     'is_active')
-    list_filter = ('structure_type', 'is_active')
+    list_filter = ('structure_type',
+                   'is_visiting_enabled',
+                   'is_public_engagement_enabled',
+                   'is_internal',
+                   'is_active')
     list_editable = ('is_visiting_enabled',
                      'is_public_engagement_enabled',
                      'is_internal',
