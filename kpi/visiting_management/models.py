@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-
 from organizational_area.models import OrganizationalStructure
 from template.models import CreatedModifiedBy, TimeStampedModel
 
@@ -22,9 +21,15 @@ class Collaboration(models.Model):
 class Visiting(CreatedModifiedBy, TimeStampedModel):
     visitor = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
     from_structure = models.ForeignKey(
-        OrganizationalStructure, on_delete=models.PROTECT, related_name='from_structure')
+        OrganizationalStructure,
+        on_delete=models.PROTECT,
+        related_name='from_structure',
+        limit_choices_to={'is_visiting_enabled': True})
     to_structure = models.ForeignKey(
-        OrganizationalStructure, on_delete=models.PROTECT, related_name='to_structure')
+        OrganizationalStructure,
+        on_delete=models.PROTECT,
+        related_name='to_structure',
+        limit_choices_to={'is_visiting_enabled': True})
     role = models.ForeignKey(Role, on_delete=models.PROTECT)
     mission = models.BooleanField(default=True)
     start_date = models.DateField()

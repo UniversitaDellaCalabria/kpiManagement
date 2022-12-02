@@ -25,7 +25,8 @@ class PublicEngagementPartner(TimeStampedModel):
     public_engagement = models.ForeignKey(PublicEngagement,
                                           on_delete=models.CASCADE)
     partner = models.ForeignKey(OrganizationalStructure,
-                                on_delete=models.PROTECT)
+                                on_delete=models.PROTECT,
+                                limit_choices_to={'is_public_engagement_enabled': True})
     is_head = models.BooleanField(default=False)
 
     class Meta:
