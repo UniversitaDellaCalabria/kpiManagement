@@ -148,7 +148,7 @@ def structure_public_engagement_new(request, structure_slug, structure=None):
                        msg=[{'added': {}}])
 
             messages.add_message(request, messages.SUCCESS,
-                                 _("Public Engagement created"))
+                                 _("Social Engagement created"))
             return redirect('public_engagement:structure_public_engagements',
                             structure_slug=structure_slug)
         else:  # pragma: no cover
@@ -193,7 +193,7 @@ def structure_public_engagement_edit(request, structure_slug, public_engagement_
                        msg=[{'changed': {"fields": changed_field_labels}}])
 
             messages.add_message(request, messages.SUCCESS,
-                                 _("Public Engagement edited"))
+                                 _("Social Engagement edited"))
             return redirect('public_engagement:structure_public_engagement',
                             structure_slug=structure_slug,
                             public_engagement_pk=public_engagement.pk)
@@ -239,7 +239,7 @@ def structure_public_engagement_partner_add(request,
                        msg=f"Added new partner {partner}")
 
             messages.add_message(request, messages.SUCCESS,
-                                 _("Public Engagement partner created"))
+                                 _("Social Engagement partner created"))
             return redirect('public_engagement:structure_public_engagement',
                             structure_slug=structure_slug,
                             public_engagement_pk=public_engagement_pk)
@@ -284,7 +284,7 @@ def structure_public_engagement_partner_edit(request,
                        msg=f"Edited partner {partner}")
 
             messages.add_message(request, messages.SUCCESS,
-                                 _("Public Engagement partner edited"))
+                                 _("Social Engagement partner edited"))
             return redirect('public_engagement:structure_public_engagement',
                             structure_slug=structure_slug,
                             public_engagement_pk=public_engagement_pk)
@@ -323,7 +323,7 @@ def structure_public_engagement_partner_delete(request,
                msg=f"Deleted partner {partner}")
     partner.delete()
     messages.add_message(request, messages.SUCCESS,
-                        _("Public Engagement partner deleted"))
+                        _("Social Engagement partner deleted"))
     return redirect('public_engagement:structure_public_engagement',
                     structure_slug=structure_slug,
                     public_engagement_pk=public_engagement_pk)

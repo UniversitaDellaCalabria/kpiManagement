@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         (
             "organizational_area",
-            "0005_alter_organizationalstructure_is_public_engagement_enabled_and_more",
+            "0004_organizationalstructure_is_public_engagement_enabled_and_more",
         ),
         (
             "visiting_management",

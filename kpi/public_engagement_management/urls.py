@@ -8,7 +8,7 @@ app_name = 'public_engagement'
 
 
 # app prefix
-prefix = 'public_engagement'
+prefix = 'social-engagement'
 
 urlpatterns = [
 

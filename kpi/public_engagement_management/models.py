@@ -7,13 +7,13 @@ from template.models import CreatedModifiedBy, TimeStampedModel
 class PublicEngagement(CreatedModifiedBy, TimeStampedModel):
     subscription_date = models.DateField()
     duration = models.PositiveIntegerField()
-    subject = models.TextField(blank=True, default='')
+    subject = models.TextField()
     structure = models.ForeignKey(OrganizationalStructure,
                                   on_delete=models.PROTECT)
     goal = models.TextField(blank=True, default='')
-    requirements_one = models.BooleanField(default=True)
-    requirements_two = models.BooleanField(default=True)
-    requirements_three = models.BooleanField(default=True)
+    requirements_one = models.BooleanField(default=False)
+    requirements_two = models.BooleanField(default=False)
+    requirements_three = models.BooleanField(default=False)
     note = models.TextField(blank=True, default='')
     is_active = models.BooleanField(default=True)
 

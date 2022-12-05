@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-30 14:21+0100\n"
-"PO-Revision-Date: 2022-11-30 14:24+0100\n"
+"POT-Creation-Date: 2022-12-05 16:19+0100\n"
+"PO-Revision-Date: 2022-12-05 16:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: detection_management/decorators.py:18
 #: public_engagement_management/decorators.py:17
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Structure slug missing"
 msgstr "Slug struttura mancante"
 
-#: detection_management/decorators.py:43
+#: detection_management/decorators.py:42
 msgid "Detection code is disabled"
 msgstr "Questo codice è stato disabilitato"
 
@@ -78,7 +78,7 @@ msgstr "Note"
 #: public_engagement_management/forms.py:34
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:27
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:20
-#: public_engagement_management/templates/public_engagement.html:56
+#: public_engagement_management/templates/public_engagement.html:57
 #: visiting_management/forms.py:79
 #: visiting_management/templates/datatables_visiting/table_header.html:27
 #: visiting_management/templates/datatables_visiting/top_filters.html:32
@@ -269,8 +269,8 @@ msgstr "Fattori abilitanti per"
 #: detection_management/templates/detection.html:35
 #: detection_management/templates/edit_detection.html:8
 #: public_engagement_management/templates/edit_public_engagement.html:8
-#: public_engagement_management/templates/public_engagement.html:34
-#: public_engagement_management/templates/public_engagement.html:176
+#: public_engagement_management/templates/public_engagement.html:35
+#: public_engagement_management/templates/public_engagement.html:173
 #: visiting_management/templates/edit_visiting.html:8
 #: visiting_management/templates/visiting.html:34
 msgid "Edit"
@@ -318,111 +318,117 @@ msgstr ""
 msgid "Lo slug deve contenere almeno un carattere alfabetico"
 msgstr ""
 
-#: organizational_area/models.py:69
+#: organizational_area/models.py:71
 msgid "Organizational Structure"
 msgstr ""
 
-#: organizational_area/models.py:70
+#: organizational_area/models.py:72
 msgid "Organizational Structures"
 msgstr ""
 
-#: organizational_area/models.py:112
+#: organizational_area/models.py:114
 msgid "Organizational Structure function"
 msgstr ""
 
-#: organizational_area/models.py:113
+#: organizational_area/models.py:115
 msgid "Organizational Structure functions"
 msgstr ""
 
-#: organizational_area/models.py:128
+#: organizational_area/models.py:130
 msgid "Equipment Type"
 msgstr ""
 
-#: organizational_area/models.py:129
+#: organizational_area/models.py:131
 msgid "Equipments Type"
 msgstr ""
 
-#: organizational_area/models.py:142
+#: organizational_area/models.py:144
 msgid "riferimento spaziale coordinate"
 msgstr ""
 
-#: organizational_area/models.py:152
+#: organizational_area/models.py:154
 msgid ""
 "Descrivere lo stato della struttura nella location. Esempio: Momentaneamente "
 "chiusa, allagata, problemi lavori in corso, previsioni"
 msgstr ""
 
-#: organizational_area/models.py:170
+#: organizational_area/models.py:172
 msgid "Organizational Structure location"
 msgstr ""
 
-#: organizational_area/models.py:171
+#: organizational_area/models.py:173
 msgid "Organizational Structure locations"
 msgstr ""
 
-#: organizational_area/models.py:193
+#: organizational_area/models.py:195
 msgid "Organizational Structure Office"
 msgstr ""
 
-#: organizational_area/models.py:194
+#: organizational_area/models.py:196
 msgid "Organizational Structure Offices"
 msgstr ""
 
-#: organizational_area/models.py:211
+#: organizational_area/models.py:213
 msgid "Organizational Structure office location"
 msgstr ""
 
-#: organizational_area/models.py:212
+#: organizational_area/models.py:214
 msgid "Organizational Structure office locations"
 msgstr ""
 
-#: organizational_area/models.py:232
+#: organizational_area/models.py:234
 msgid "Organizational Structure Office Employee"
 msgstr ""
 
-#: organizational_area/models.py:233
+#: organizational_area/models.py:235
 msgid "Organizational Structure Office Employees"
 msgstr ""
 
 #: public_engagement_management/forms.py:26
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:22
-#: public_engagement_management/templates/public_engagement.html:74
+#: public_engagement_management/templates/public_engagement.html:75
 msgid "Subscription Date"
 msgstr "Data di sottoscrizione"
 
 #: public_engagement_management/forms.py:27
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:23
-#: public_engagement_management/templates/public_engagement.html:78
+#: public_engagement_management/templates/public_engagement.html:79
 msgid "Duration (Months)"
 msgstr "Durata (mesi)"
 
 #: public_engagement_management/forms.py:28
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:21
-#: public_engagement_management/templates/public_engagement.html:70
+#: public_engagement_management/templates/public_engagement.html:71
 msgid "Subject"
 msgstr "Oggetto"
 
 #: public_engagement_management/forms.py:29
-#: public_engagement_management/templates/public_engagement.html:86
+#: public_engagement_management/templates/public_engagement.html:83
 msgid "Goals AGENDA ONU 2030"
 msgstr "Obiettivi AGENDA ONU 2030"
 
 #: public_engagement_management/forms.py:30
-#: public_engagement_management/templates/public_engagement.html:90
+#: public_engagement_management/templates/public_engagement.html:87
 msgid "Non-profit activity (No production of profit)"
 msgstr "Attività senza scopo di lucro (Nessuna produzione di profitto)"
 
 #: public_engagement_management/forms.py:31
-#: public_engagement_management/templates/public_engagement.html:104
+#: public_engagement_management/templates/public_engagement.html:101
 msgid "Activities aimed at non-academic audiences"
 msgstr "Attività rivolte a un pubblico non accademico"
 
 #: public_engagement_management/forms.py:32
-#: public_engagement_management/templates/public_engagement.html:118
+#: public_engagement_management/templates/public_engagement.html:115
 msgid "Social value (social inclusion, fight against inequalities, etc.)"
 msgstr "Valore sociale (inclusione sociale, lotta alle disuguaglianze, ecc.)"
 
 #: public_engagement_management/forms.py:38
+#: public_engagement_management/forms.py:39
+#: public_engagement_management/forms.py:40
+msgid "If this option is not selected the entry will not be evaluated"
+msgstr "Se questa opzione non è selezionata l'inserimento non sarà valutato"
+
+#: public_engagement_management/forms.py:41
 msgid ""
 "Obiettivo 1 - Porre fine alla povertà, in tutte le sue forme <br> Obiettivo "
 "2 -  Porre fine alla fame, raggiungere la sicurezza alimentare, migliorare "
@@ -437,45 +443,45 @@ msgid ""
 "creare organismi efficienti, responsabili e inclusivi a tutti i livelli."
 msgstr ""
 
-#: public_engagement_management/forms.py:64
-#: public_engagement_management/templates/public_engagement.html:145
+#: public_engagement_management/forms.py:67
+#: public_engagement_management/templates/public_engagement.html:142
 msgid "Partner"
 msgstr ""
 
-#: public_engagement_management/forms.py:65
+#: public_engagement_management/forms.py:68
 msgid "Head"
 msgstr "Capofila"
 
 #: public_engagement_management/templates/dashboard_public_engagements.html:8
-msgid "Public Engagement Management"
-msgstr "Gestione public engagement"
+msgid "Social Engagement Management"
+msgstr "Gestione social engagement"
 
 #: public_engagement_management/templates/dashboard_public_engagements.html:9
 msgid ""
-"In this section you can choose the department for which to manage public "
+"In this section you can choose the department for which to manage social "
 "engagement"
 msgstr ""
 "In questa sezione puoi scegliere il dipartimento per il quale gestire i "
-"public engagement"
+"social engagement"
 
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:25
 #: public_engagement_management/templates/edit_public_engagement.html:19
-#: public_engagement_management/templates/public_engagement.html:82
 msgid "Structure"
 msgstr "Struttura"
 
 #: public_engagement_management/templates/edit_public_engagement.html:30
 #: public_engagement_management/templates/new_public_engagement.html:18
-#: public_engagement_management/templates/public_engagement.html:17
-#: public_engagement_management/templates/public_engagement_partner.html:24
+#: public_engagement_management/templates/public_engagement.html:18
+#: public_engagement_management/templates/public_engagement_partner.html:23
 #: public_engagement_management/templates/public_engagements.html:18
-msgid "Public Engagement management"
-msgstr "Gestione public engagement"
+msgid "Social Engagement management"
+msgstr "Gestione social engagement"
 
 #: public_engagement_management/templates/edit_public_engagement.html:35
 #: public_engagement_management/templates/new_public_engagement.html:23
-#: public_engagement_management/templates/public_engagement.html:24
-#: public_engagement_management/templates/public_engagement_partner.html:29
+#: public_engagement_management/templates/public_engagement.html:25
+#: public_engagement_management/templates/public_engagement_partner.html:28
+#: public_engagement_management/templates/public_engagement_partner.html:33
 #: visiting_management/templates/edit_visiting.html:37
 #: visiting_management/templates/new_visiting collaboration.html:22
 #: visiting_management/templates/new_visiting.html:23
@@ -484,50 +490,49 @@ msgid "Back to"
 msgstr "Torna a"
 
 #: public_engagement_management/templates/edit_public_engagement.html:40
-#: public_engagement_management/templates/public_engagement_partner.html:34
 #: visiting_management/templates/edit_visiting.html:42
 #: visiting_management/templates/new_visiting collaboration.html:27
 msgid "Back to details"
 msgstr "Torma ai dettagli"
 
 #: public_engagement_management/templates/new_public_engagement.html:8
-msgid "New Public Engagement"
-msgstr "Nuovo public engagement"
+msgid "New Social Engagement"
+msgstr "Nuovo social engagement"
 
 #: public_engagement_management/templates/public_engagement.html:8
-msgid "Public Engagement details"
-msgstr "Dettagli public engagement"
+msgid "Social Engagement details"
+msgstr "Dettagli social engagement"
 
-#: public_engagement_management/templates/public_engagement.html:41
+#: public_engagement_management/templates/public_engagement.html:42
 msgid "Add partner"
 msgstr "Aggiungi partner"
 
-#: public_engagement_management/templates/public_engagement.html:132
+#: public_engagement_management/templates/public_engagement.html:129
 msgid "Note"
 msgstr "Note"
 
-#: public_engagement_management/templates/public_engagement.html:154
+#: public_engagement_management/templates/public_engagement.html:151
 msgid "Name"
 msgstr "Denominazione"
 
-#: public_engagement_management/templates/public_engagement.html:155
+#: public_engagement_management/templates/public_engagement.html:152
 msgid "Is head"
 msgstr "Capofila"
 
-#: public_engagement_management/templates/public_engagement.html:183
+#: public_engagement_management/templates/public_engagement.html:180
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: public_engagement_management/templates/public_engagement.html:194
+#: public_engagement_management/templates/public_engagement.html:191
 #: template/templates/form_template.html:47
 msgid "Confirm"
 msgstr "Conferma"
 
-#: public_engagement_management/templates/public_engagement.html:207
+#: public_engagement_management/templates/public_engagement.html:204
 msgid "Do you want to delete choosen partner?"
 msgstr "Desideri eliminare il partner selezionato?"
 
-#: public_engagement_management/templates/public_engagement.html:212
+#: public_engagement_management/templates/public_engagement.html:209
 #: template/templates/form_template.html:67
 msgid "Yes, proceed"
 msgstr "Si, procedi"
@@ -542,28 +547,28 @@ msgstr "Nuovo partner"
 
 #: public_engagement_management/templates/public_engagements.html:8
 #: template/templates/base.html:39 template/templates/dashboard.html:41
-msgid "Public Engagement"
+msgid "Social Engagement"
 msgstr ""
 
 #: public_engagement_management/views.py:151
-msgid "Public Engagement created"
-msgstr "Public engagement creato"
+msgid "Social Engagement created"
+msgstr "Social engagement creato"
 
 #: public_engagement_management/views.py:196
-msgid "Public Engagement edited"
-msgstr "Public engagement modificato"
+msgid "Social Engagement edited"
+msgstr "Social engagement modificato"
 
 #: public_engagement_management/views.py:242
-msgid "Public Engagement partner created"
-msgstr "Partner del public engagement creato"
+msgid "Social Engagement partner created"
+msgstr "Social del public engagement creato"
 
 #: public_engagement_management/views.py:287
-msgid "Public Engagement partner edited"
-msgstr "Partner del public engagement modificato"
+msgid "Social Engagement partner edited"
+msgstr "Social del public engagement modificato"
 
 #: public_engagement_management/views.py:326
-msgid "Public Engagement partner deleted"
-msgstr "Partner del public engagement eliminato"
+msgid "Social Engagement partner deleted"
+msgstr "Partner del social engagement eliminato"
 
 #: template/templates/base.html:19
 msgid "Dashboard"
@@ -605,8 +610,10 @@ msgid "Detections data"
 msgstr "Dati dei rilevamenti"
 
 #: template/templates/dashboard.html:44
+#, fuzzy
+#| msgid "Data collection of indicators on social engagements"
 msgid "Data collection of indicators on public engagements"
-msgstr "Raccolta dati di indicatori sul public engagement"
+msgstr "Raccolta dati di indicatori sul social engagement"
 
 #: template/templates/dashboard.html:66
 msgid "Data collection of indicators on incoming and outgoing teachers"

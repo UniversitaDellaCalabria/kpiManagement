@@ -35,6 +35,9 @@ class PublicEngagementForm(forms.ModelForm):
         }
 
         help_texts = {
+            'requirements_one': _('If this option is not selected the entry will not be evaluated'),
+            'requirements_two': _('If this option is not selected the entry will not be evaluated'),
+            'requirements_three': _('If this option is not selected the entry will not be evaluated'),
             'goal': _('Obiettivo 1 - Porre fine alla povertà, in tutte le sue forme <br> '
                       'Obiettivo 2 -  Porre fine alla fame, raggiungere la sicurezza alimentare, migliorare la nutrizione e promuovere un’agricoltura sostenibile <br> '
                       'Obiettivo 3 - Assicurare la salute e il benessere per tutti e per tutte le età <br> '
