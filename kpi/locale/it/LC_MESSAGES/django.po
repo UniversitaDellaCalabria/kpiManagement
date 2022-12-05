@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-05 16:19+0100\n"
-"PO-Revision-Date: 2022-12-05 16:19+0100\n"
+"PO-Revision-Date: 2022-12-05 16:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -610,9 +610,7 @@ msgid "Detections data"
 msgstr "Dati dei rilevamenti"
 
 #: template/templates/dashboard.html:44
-#, fuzzy
-#| msgid "Data collection of indicators on social engagements"
-msgid "Data collection of indicators on public engagements"
+msgid "Data collection of indicators on social engagements"
 msgstr "Raccolta dati di indicatori sul social engagement"
 
 #: template/templates/dashboard.html:66
