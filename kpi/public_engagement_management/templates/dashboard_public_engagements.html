@@ -7,6 +7,12 @@
 {% block top_content %}
 <h2>{% trans "Social Engagement Management" %}</h2>
 <p>{% trans "In this section you can choose the department for which to manage social engagement" %}</p>
+<a class="read-more" href="{% url 'public_engagement:info'%}">
+    <span class="text">{% trans "More Info" %}</span>
+    <svg class="icon">
+        <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+    </svg>
+</a>
 {% endblock top_content %}
 
 {% block clean_content %}

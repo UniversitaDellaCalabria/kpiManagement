@@ -3,18 +3,22 @@ from django.db import models
 from organizational_area.models import OrganizationalStructure
 from template.models import CreatedModifiedBy, TimeStampedModel
 
+class Goal(models.Model):
+    goal_type = models.CharField(max_length=256)
+    def __str__(self):
+        return '{}'.format(self.goal_type)
+
 
 class PublicEngagement(CreatedModifiedBy, TimeStampedModel):
     subscription_date = models.DateField()
     duration = models.PositiveIntegerField()
-    subject = models.TextField()
+    subject = models.TextField(max_length=500)
     structure = models.ForeignKey(OrganizationalStructure,
                                   on_delete=models.PROTECT)
-    goal = models.TextField(blank=True, default='')
     requirements_one = models.BooleanField(default=False)
     requirements_two = models.BooleanField(default=False)
     requirements_three = models.BooleanField(default=False)
-    note = models.TextField(blank=True, default='')
+    note = models.TextField(blank=True, default='', max_length=500)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -35,3 +39,11 @@ class PublicEngagementPartner(TimeStampedModel):
 
     def __str__(self):
         return self.partner.name
+
+class PublicEngagementGoal(TimeStampedModel):
+    public_engagement = models.ForeignKey(PublicEngagement,
+                                          on_delete=models.CASCADE)
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('public_engagement', 'goal')

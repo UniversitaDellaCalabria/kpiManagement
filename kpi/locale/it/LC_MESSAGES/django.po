@@ -390,17 +390,30 @@ msgstr ""
 msgid "Subscription Date"
 msgstr "Data di sottoscrizione"
 
+msgid "Subscription Date of the Protocol"
+msgstr "Data di sottoscrizione del Protocollo"
+
 #: public_engagement_management/forms.py:27
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:23
 #: public_engagement_management/templates/public_engagement.html:79
 msgid "Duration (Months)"
 msgstr "Durata (mesi)"
 
+msgid "Duration (Months) of the Protocol"
+msgstr "Durata (mesi) del Protocollo"
+
 #: public_engagement_management/forms.py:28
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:21
 #: public_engagement_management/templates/public_engagement.html:71
 msgid "Subject"
 msgstr "Oggetto"
+
+msgid "Subject of the Protocol"
+msgstr "Oggetto del Protocollo"
+
+msgid "Subject of the Protocol (briefly describe max 500 characters)"
+msgstr "Oggetto del Protocollo (descrivere brevemente max 500 caratteri)"
+
 
 #: public_engagement_management/forms.py:29
 #: public_engagement_management/templates/public_engagement.html:83
@@ -409,24 +422,32 @@ msgstr "Obiettivi AGENDA ONU 2030"
 
 #: public_engagement_management/forms.py:30
 #: public_engagement_management/templates/public_engagement.html:87
-msgid "Non-profit activity (No production of profit)"
-msgstr "Attività senza scopo di lucro (Nessuna produzione di profitto)"
+msgid "Involves non-profit activity (No production of profit for the department)"
+msgstr "Prevede attività senza scopo di lucro (Nessuna produzione di profitto per il dipartimento)"
 
 #: public_engagement_management/forms.py:31
 #: public_engagement_management/templates/public_engagement.html:101
-msgid "Activities aimed at non-academic audiences"
-msgstr "Attività rivolte a un pubblico non accademico"
+msgid "Involves activities aimed at non-academic audiences (even outside the university campus)"
+msgstr "Prevede attività rivolte a un pubblico non accademico (anche fuori dal campus universitario)"
 
 #: public_engagement_management/forms.py:32
 #: public_engagement_management/templates/public_engagement.html:115
-msgid "Social value (social inclusion, fight against inequalities, etc.)"
-msgstr "Valore sociale (inclusione sociale, lotta alle disuguaglianze, ecc.)"
+msgid "Has a social value (meets one or more social objectives of the Agenda 2030 of ONU or pursues other social purposes)"
+msgstr "Ha un valore sociale (risponde a uno o più obiettivi sociali dell’Agenda 2030 ONU o persegue altre finalità sociali)"
 
 #: public_engagement_management/forms.py:38
 #: public_engagement_management/forms.py:39
 #: public_engagement_management/forms.py:40
 msgid "If this option is not selected the entry will not be evaluated"
 msgstr "Se questa opzione non è selezionata l'inserimento non sarà valutato"
+
+#: public_engagement_management/forms.py:41
+msgid "Additional Notes of the Protocol"
+msgstr "Note aggiuntive del Protocollo"
+
+msgid "Any additional notes on the registered Protocol (report briefly below max 500 characters)"
+msgstr "Eventuali note aggiuntive sul Protocollo registrato (riportare brevemente di seguito max 500 caratteri)"
+
 
 #: public_engagement_management/forms.py:41
 msgid ""
@@ -924,3 +945,9 @@ msgstr "Visiting modificato"
 
 #~ msgid "Both external and internal"
 #~ msgstr "Esterni e interni"
+
+#~ msgid "More Info"
+#~ msgstr "Maggiori Informazioni"
+
+#~ msgid "Date"
+#~ msgstr "Data"

@@ -1,0 +1,46 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "More Info" %}</h2>
+{% endblock top_content %}
+
+{% block top_buttons %}
+<div class="pb-4 clearfix mt-5">
+    <div class="pull-left d-inline">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:dashboard' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+            </svg> {% trans "Social Engagement management" %}
+        </a>
+    </div>
+</div>
+{% endblock top_buttons %}
+
+{% block clean_content %}
+<div class="row mt-5">
+    <p>Il Piano Strategico d'Ateneo prevede la rilevazione delle informazioni relative a protocolli di intesa, convenzioni, accordi di collaborazione siglati ogni anno da ciascun Dipartimento/Centro universitario con soggetti esterni all'Ateneo e aventi ad oggetto attività di Social engagement/Impegno sociale (TM.2-I.2).</p>
+    <p>Queste ultime sono attività rivolte all'inclusione sociale e allo sviluppo equo e socialmente sostenibile delle persone e delle comunità. Vi rientrano, per esempio, le attività di contrasto alle povertà e alle disuguaglianze (lavorative, di reddito, abitative, educative, sanitarie, ecc.).</p>
+    <p>Un utile riferimento può trovarsi negli obiettivi sociali dell’Agenda 2030 dell’ONU, di seguito elencati:</p>
+    <ul>
+        <li>Obiettivo 1. Porre fine ad ogni forma di povertà nel mondo</li>
+        <li>Obiettivo 3. Assicurare la salute e il benessere per tutti e per tutte le età</li>
+        <li>Obiettivo 4. Fornire un’educazione di qualità, equa ed inclusiva, e opportunità di apprendimento per tutti</li>
+        <li>Obiettivo 5. Raggiungere l’uguaglianza di genere ed emancipare tutte le donne e le ragazze</li>
+        <li>Obiettivo 8. Incentivare una crescita economica duratura, inclusiva e sostenibile, un’occupazione piena e produttiva ed un lavoro dignitoso per tutti</li>
+        <li>Obiettivo 10. Ridurre le disuguaglianze all'interno dei e fra i Paesi</li>
+        <li>Obiettivo 16. Promuovere società pacifiche e inclusive per uno sviluppo sostenibile</li>
+    </ul>
+    <p>Per approfondire:</p>
+    <p><a href="https://www.europarl.europa.eu/RegData/etudes/STUD/2020/648782/IPOL_STU(2020)648782_EN.pdf">Social Sustainability. Concepts and Benchmarks.</a></p>
+    <p><a href="https://welforum.it/la-sostenibilita-sociale-nellagenda-2030/">La sostenibilità sociale nell’Agenda 2030.</a></p>
+    <p>Il termine della compilazione è fissato al 31 gennaio 2023 e riguarda ciascun atto (Protocollo di intesa/Accordo/Convenzione) siglato dall’1 gennaio al 31 dicembre 2022.</p>
+    <p>Per chiarimenti o supporto, contattate l'ufficio all'indirizzo: <a href= "mailto:lio.monitoraggiope@unical.it">lio.monitoraggiope@unical.it</a></p>
+</div>
+{% endblock clean_content %}
+
+
+

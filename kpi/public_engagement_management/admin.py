@@ -11,4 +11,9 @@ class PublicEngagementAdmin(AbstractCreatedModifiedBy):
     list_display = ('subscription_date', 'duration', 'subject', 'structure')
     search_fields = ('subscription_date',)
     list_filter = ('structure',)
-    inlines = (PublicEngagementPartnerAdminInline,)
+    inlines = (PublicEngagementPartnerAdminInline, PublicEngagementGoalAdminInline, )
+
+@admin.register(Goal)
+class GoalAdmin(admin.ModelAdmin):
+    list_display = ('goal_type',)
+

@@ -68,23 +68,31 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">{% trans 'Subject' %}</th>
+                                <th scope="row">{% trans 'Subject of the Protocol' %}</th>
                                 <td>{{ public_engagement.subject }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">{% trans 'Subscription Date' %}</th>
+                                <th scope="row">{% trans 'Subscription Date of the Protocol' %}</th>
                                 <td>{{ public_engagement.subscription_date }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">{% trans 'Duration (Months)' %}</th>
+                                <th scope="row">{% trans 'Duration (Months) of the Protocol' %}</th>
                                 <td>{{ public_engagement.duration }}</td>
                             </tr>
+                            {% if goals %}
                             <tr>
                                 <th scope="row">{% trans 'Goals AGENDA ONU 2030' %}</th>
-                                <td>{{ public_engagement.goal }}</td>
+                                <td>
+                                    <ul>
+                                        {% for goal in goals %}
+                                        <li>{{ goal.goal }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
                             </tr>
+                            {% endif %}
                             <tr>
-                                <th scope="row">{% trans 'Non-profit activity (No production of profit)' %}</th>
+                                <th scope="row">{% trans 'Involves non-profit activity (No production of profit for the department)' %}</th>
                                 <td>
                                     {% if public_engagement.requirements_one %}
                                     <svg class="icon icon-sm icon-success">
@@ -98,7 +106,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">{% trans 'Activities aimed at non-academic audiences' %}</th>
+                                <th scope="row">{% trans 'Involves activities aimed at non-academic audiences (even outside the university campus)' %}</th>
                                 <td>
                                     {% if public_engagement.requirements_two %}
                                     <svg class="icon icon-sm icon-success">
@@ -112,7 +120,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">{% trans 'Social value (social inclusion, fight against inequalities, etc.)' %}</th>
+                                <th scope="row">{% trans 'Has a social value (meets one or more social objectives of the Agenda 2030 of ONU or pursues other social purposes)' %}</th>
                                 <td>
                                     {% if public_engagement.requirements_three %}
                                     <svg class="icon icon-sm icon-success">
@@ -126,7 +134,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">{% trans 'Note' %}</th>
+                                <th scope="row">{% trans 'Additional Notes of the Protocol' %}</th>
                                 <td>{{ public_engagement.note|default:"-" }}</td>
                             </tr>
                         </tbody>

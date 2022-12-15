@@ -3,10 +3,19 @@ from django.utils.translation import gettext_lazy as _
 
 from bootstrap_italia_template.widgets import BootstrapItaliaDateWidget, BootstrapItaliaSelectWidget
 
-from .models import PublicEngagement, PublicEngagementPartner
+from .models import PublicEngagement, PublicEngagementPartner, Goal
 
 
 class PublicEngagementForm(forms.ModelForm):
+
+    goal = forms.ModelMultipleChoiceField(label=_('Goals AGENDA ONU 2030'),
+                                            required=True,
+                                            queryset=None,
+                                            widget=forms.CheckboxSelectMultiple())
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['goal'].queryset = Goal.objects.all()
 
     class Meta:
         model = PublicEngagement
@@ -23,14 +32,13 @@ class PublicEngagementForm(forms.ModelForm):
         ]
 
         labels = {
-            'subscription_date': _('Subscription Date'),
-            'duration': _('Duration (Months)'),
-            'subject': _('Subject'),
-            'goal': _('Goals AGENDA ONU 2030'),
-            'requirements_one': _('Non-profit activity (No production of profit)'),
-            'requirements_two': _('Activities aimed at non-academic audiences'),
-            'requirements_three': _('Social value (social inclusion, fight against inequalities, etc.)'),
-            'note': _('Notes'),
+            'subscription_date': _('Subscription Date of the Protocol'),
+            'duration': _('Duration (Months) of the Protocol'),
+            'subject': _('Subject of the Protocol (briefly describe max 500 characters)'),
+            'requirements_one': _('Involves non-profit activity (No production of profit for the department)'),
+            'requirements_two': _('Involves activities aimed at non-academic audiences (even outside the university campus)'),
+            'requirements_three': _('Has a social value (meets one or more social objectives of the Agenda 2030 of ONU or pursues other social purposes)'),
+            'note': _('Any additional notes on the registered Protocol (report briefly below max 500 characters)'),
             'is_active': _('Enabled'),
         }
 
@@ -38,19 +46,11 @@ class PublicEngagementForm(forms.ModelForm):
             'requirements_one': _('If this option is not selected the entry will not be evaluated'),
             'requirements_two': _('If this option is not selected the entry will not be evaluated'),
             'requirements_three': _('If this option is not selected the entry will not be evaluated'),
-            'goal': _('Obiettivo 1 - Porre fine alla povertà, in tutte le sue forme <br> '
-                      'Obiettivo 2 -  Porre fine alla fame, raggiungere la sicurezza alimentare, migliorare la nutrizione e promuovere un’agricoltura sostenibile <br> '
-                      'Obiettivo 3 - Assicurare la salute e il benessere per tutti e per tutte le età <br> '
-                      'Obiettivo 4 -  Assicurare un’istruzione di qualità, equa ed inclusiva, e promuovere opportunità di apprendimento permanente per tutti <br> '
-                      'Obiettivo 5 - Raggiungere l’uguaglianza di genere e l’empowerment di tutte le donne e le ragazze <br> '
-                      'Obiettivo 10 - Ridurre l’ineguaglianza all’interno di e fra le Nazioni <br> '
-                      'Obiettivo 16 - Promuovere società pacifiche e più inclusive per uno sviluppo sostenibile; offrire l’accesso alla giustizia per tutti e creare organismi efficienti, responsabili e inclusivi a tutti i livelli.'),
         }
 
         widgets = {
             'subscription_date': BootstrapItaliaDateWidget,
             'subject': forms.Textarea(attrs={'rows': 2}),
-            'goal': forms.Textarea(attrs={'rows': 2}),
             'note': forms.Textarea(attrs={'rows': 2})
         }
 

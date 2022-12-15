@@ -34,13 +34,12 @@ def _save_public_engagement(structure, form, **kwargs):
 
     public_engagement.save()
 
-    """
-    # set new collaborations
-    PublicEngagementPartner.objects.filter(public_engagement=public_engagement).delete()
-    partners = form.cleaned_data['partners']
-    for partner in partners:
-        PublicEngagementPartner.objects.create(public_engagement=public_engagement, partner=partner)
-    """
+
+    # set new goals
+    PublicEngagementGoal.objects.filter(public_engagement=public_engagement).delete()
+    goals = form.cleaned_data['goal']
+    for goal in goals:
+        PublicEngagementGoal.objects.create(public_engagement=public_engagement, goal=goal)
 
     return public_engagement
 
@@ -89,6 +88,13 @@ def dashboard(request):
 
     return render(request, template, d)
 
+@login_required
+def info(request):
+
+    template = 'info_tm2i2.html'
+    d = {}
+    return render(request, template, d)
+
 
 @login_required
 @can_manage_structure_public_engagements
@@ -112,6 +118,8 @@ def structure_public_engagement(request, structure_slug,
                                           structure=structure,
                                           pk=public_engagement_pk)
 
+    goals = PublicEngagementGoal.objects.filter(public_engagement=public_engagement)
+
     partners = PublicEngagementPartner.objects\
                                       .filter(public_engagement=public_engagement)\
                                       .select_related('partner')
@@ -119,7 +127,8 @@ def structure_public_engagement(request, structure_slug,
     public_engagement_logs = LogEntry.objects.filter(content_type_id=ContentType.objects.get_for_model(public_engagement).pk,
                                                      object_id=public_engagement.pk)
 
-    d = {'partners': partners,
+    d = {'goals': goals,
+         'partners': partners,
          'public_engagement_logs': public_engagement_logs,
          'public_engagement': public_engagement,
          'structure': structure}
@@ -172,13 +181,18 @@ def structure_public_engagement_edit(request, structure_slug, public_engagement_
                                           structure=structure,
                                           pk=public_engagement_pk)
 
+    goals = PublicEngagementGoal.objects.filter(
+        public_engagement=public_engagement).values_list('goal', flat=True)
+
     partners = PublicEngagementPartner.objects.filter(public_engagement=public_engagement)\
                                               .values_list('partner')
 
-    form = PublicEngagementForm(instance=public_engagement)
+    form = PublicEngagementForm(instance=public_engagement,
+                                initial={'goal': goals})
 
     if request.POST:
         form = PublicEngagementForm(instance=public_engagement,
+                                    initial={'goal': goals},
                                     data=request.POST)
         changed_field_labels = _get_changed_field_labels_from_form(form,
                                                                    form.changed_data)
