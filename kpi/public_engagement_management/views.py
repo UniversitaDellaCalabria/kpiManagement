@@ -91,7 +91,7 @@ def dashboard(request):
 @login_required
 def info(request):
 
-    template = 'info_tm2i2.html'
+    template = 'info_public_engagement.html'
     d = {}
     return render(request, template, d)
 
