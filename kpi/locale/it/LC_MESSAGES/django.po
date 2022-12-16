@@ -485,6 +485,11 @@ msgstr ""
 "In questa sezione puoi scegliere il dipartimento per il quale gestire i "
 "social engagement"
 
+#: public_engagement_management/templates/dashboard_public_engagements.html:11
+#: public_engagement_management/templates/info_public_engagements.html:8
+#~ msgid "More Info"
+#~ msgstr "Maggiori Informazioni"
+
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:25
 #: public_engagement_management/templates/edit_public_engagement.html:19
 msgid "Structure"
@@ -945,9 +950,3 @@ msgstr "Visiting modificato"
 
 #~ msgid "Both external and internal"
 #~ msgstr "Esterni e interni"
-
-#~ msgid "More Info"
-#~ msgstr "Maggiori Informazioni"
-
-#~ msgid "Date"
-#~ msgstr "Data"
