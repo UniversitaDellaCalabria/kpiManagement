@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-20 13:56+0100\n"
-"PO-Revision-Date: 2022-12-20 13:57+0100\n"
+"POT-Creation-Date: 2022-12-20 14:02+0100\n"
+"PO-Revision-Date: 2022-12-20 14:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -296,10 +296,8 @@ msgstr "Nuovo fattore abilitante per"
 
 #: detection_management/views.py:47 public_engagement_management/views.py:123
 #: public_engagement_management/views.py:152 visiting_management/views.py:61
-#, fuzzy
-#| msgid "Permissions"
 msgid "Permission denied"
-msgstr "Permessi"
+msgstr "Permesso negato"
 
 #: detection_management/views.py:107
 msgid "Enabling factor created"
@@ -579,15 +577,11 @@ msgid "Subject"
 msgstr "Oggetto"
 
 #: public_engagement_management/views.py:42
-#, fuzzy
-#| msgid "Duration (Months)"
 msgid "Duration"
 msgstr "Durata (mesi)"
 
 #: public_engagement_management/views.py:43
-#, fuzzy
-#| msgid "Subscription Date"
-msgid "Subscription_date"
+msgid "Subscription date"
 msgstr "Data di sottoscrizione"
 
 #: public_engagement_management/views.py:44

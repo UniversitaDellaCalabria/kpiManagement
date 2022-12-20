@@ -40,7 +40,7 @@ def _export_csv(data):
     writer.writerow([_('Structure'),
                      _('Subject'),
                      _('Duration'),
-                     _('Subscription_date'),
+                     _('Subscription date'),
                      _('Req 1'),
                      _('Req 2'),
                      _('Req 3'),
