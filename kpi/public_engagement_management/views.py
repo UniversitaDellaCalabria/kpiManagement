@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
 
-from template.utils import log_action
+from template.utils import check_user_permission_on_object, log_action
 
 from . decorators import can_manage_structure_public_engagements
 from . forms import *

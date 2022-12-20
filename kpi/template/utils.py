@@ -27,3 +27,13 @@ def log_action(user, obj, flag, msg):
                                 object_repr=obj.__str__(),
                                 action_flag=flag,
                                 change_message=msg)
+
+
+def check_user_permission_on_object(user, obj, permission='view'):
+    # check for locks on object
+    content_type = ContentType.objects.get_for_model(obj)
+    app_name = content_type.__dict__['app_label']
+    model = content_type.__dict__['model']
+
+    # get Django permissions on object
+    return user.has_perm(f'{app_name}.{permission}_{model}')
