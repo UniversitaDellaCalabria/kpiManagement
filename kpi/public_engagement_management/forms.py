@@ -1,7 +1,11 @@
 from django import forms
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from bootstrap_italia_template.widgets import BootstrapItaliaDateWidget, BootstrapItaliaSelectWidget
+from bootstrap_italia_template.widgets import (BootstrapItaliaDateWidget,
+                                               BootstrapItaliaSelectWidget)
+
+from organizational_area.models import OrganizationalStructure
 
 from .models import PublicEngagement, PublicEngagementPartner, Goal
 
@@ -67,3 +71,11 @@ class PublicEngagementPartnerForm(forms.ModelForm):
 
     class Media:
         js = ('js/textarea-autosize.js',)
+
+
+class PublicEngagementExportCSVForm(forms.Form):
+    year = forms.IntegerField(initial=timezone.localtime().year)
+    structure = forms.ModelChoiceField(widget=BootstrapItaliaSelectWidget(),
+                                       required=False,
+                                       queryset=OrganizationalStructure.objects.filter(is_active=True,
+                                                                                       is_internal=True))

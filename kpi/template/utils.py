@@ -33,9 +33,9 @@ def log_action(user, obj, flag, msg):
 
 def check_user_permission_on_model(user, model, permission='view'):
     # get Django permissions on object
-    app_name = model._meta['app_name']
-    model_name = model._meta['model_name']
-    return user.has_perm(f'{app_name}.{permission}_{model_name}')
+    app_label = model._meta.__dict__['app_label']
+    model_name = model._meta.__dict__['model_name']
+    return user.has_perm(f'{app_label}.{permission}_{model_name}')
 
 
 def check_user_permission_on_dashboard(user, main_model, office_slug):

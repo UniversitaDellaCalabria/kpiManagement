@@ -1,21 +1,69 @@
+import csv
+
 from django.contrib import messages
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.admin.utils import _get_changed_field_labels_from_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import gettext_lazy as _
 
 # from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
 
-from template.utils import check_user_permission_on_dashboard, log_action
+from template.utils import *
 
 from . decorators import *
 from . forms import *
 from . models import *
 from . settings import *
+
+
+def _export_csv(data):
+    # Create the HttpResponse object with the appropriate CSV header.
+    name = f'social_engagement_{data["structure"]}_{data["year"]}.csv' if data['structure'] else f'social_engagement_{data["year"]}.csv'
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': f'attachment; filename="{name}"'},
+    )
+
+    writer = csv.writer(response, delimiter='$')
+    entries = PublicEngagement.objects.filter(subscription_date__year=data['year'],
+                                              is_active=True)\
+                                      .order_by('subscription_date')
+    if data['structure']:
+        entries = entries.filter(structure=data['structure'])
+
+
+    writer.writerow([_('Structure'),
+                     _('Subject'),
+                     _('Duration'),
+                     _('Subscription_date'),
+                     _('Req 1'),
+                     _('Req 2'),
+                     _('Req 3'),
+                     _('Note'),
+                     _('Partners'),
+                     _('Partners number'),
+                     _('Goals')])
+
+    for e in entries:
+        partners = PublicEngagementPartner.objects.filter(public_engagement=e).values_list('partner__name', flat=True)
+        goals = PublicEngagementGoal.objects.filter(public_engagement=e).values_list('goal__name', flat=True)
+        writer.writerow([e.structure,
+                         e.subject,
+                         e.duration,
+                         e.subscription_date,
+                         e.requirements_one,
+                         e.requirements_two,
+                         e.requirements_three,
+                         e.note,
+                         list(partners),
+                         partners.count(),
+                         list(goals)])
+    return response
 
 
 @transaction.atomic
@@ -75,8 +123,23 @@ def dashboard(request):
                              _("Permission denied"))
         return redirect('template:dashboard')
 
-    d = {'my_offices': offices}
+    form = PublicEngagementExportCSVForm()
 
+    if request.POST:
+        if not check_user_permission_on_model(request.user, PublicEngagement):
+            messages.add_message(request, messages.ERROR, _("POST denied!"))
+        else:
+            form = PublicEngagementExportCSVForm(data=request.POST)
+            if form.is_valid():
+                year = form.cleaned_data['year']
+                structure = form.cleaned_data['structure']
+                return _export_csv({'year': year, 'structure': structure})
+            else:  # pragma: no cover
+                for k, v in form.errors.items():
+                    messages.add_message(request, messages.ERROR,
+                                         f"<b>{form.fields[k].label}</b>: {v}")
+
+    d = {'form': form, 'my_offices': offices}
     return render(request, template, d)
 
 @login_required
