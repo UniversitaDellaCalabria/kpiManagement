@@ -21,7 +21,7 @@ def can_view_structure_public_engagements(func_to_decorate):
         structure = get_object_or_404(OrganizationalStructure,
                                       slug=structure_slug,
                                       is_active=True)
-        if not request.user.is_superuser:
+        if not request.user.is_superuser and not check_user_permission_on_model(request.user, PublicEngagement):
             office = get_object_or_404(OrganizationalStructureOfficeEmployee,
                                        employee=request.user,
                                        office__slug=PUBLIC_ENGAGEMENT_OFFICE_SLUG,
