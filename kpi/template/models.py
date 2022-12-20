@@ -2,6 +2,13 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 
+class ActivableModel(models.Model):
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+
 class CreatedModifiedBy(models.Model):
     created_by = models.ForeignKey(get_user_model(),
                                    null=True, blank=True,

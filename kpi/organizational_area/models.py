@@ -5,6 +5,8 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext as _
 
+from template.models import ActivableModel
+
 from . settings import LOGOS_FOLDER, STRUCTURES_FOLDER
 
 STRUCTURES_FOLDER = getattr(settings, 'STRUCTURES_FOLDER', STRUCTURES_FOLDER)
@@ -36,7 +38,7 @@ class OrganizationalStructureType(models.Model):
         return '{}'.format(self.name)
 
 
-class OrganizationalStructure(models.Model):
+class OrganizationalStructure(ActivableModel):
     """
     Department, structure
     """
@@ -64,7 +66,6 @@ class OrganizationalStructure(models.Model):
     is_internal = models.BooleanField(default=False)
     is_visiting_enabled = models.BooleanField(default=False)
     is_public_engagement_enabled = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['name']
@@ -134,7 +135,7 @@ class EquipmentType(models.Model):
         return '{}'.format(self.name)
 
 
-class AbstractLocation(models.Model):
+class AbstractLocation(ActivableModel):
     """
     Location
     """
@@ -154,7 +155,6 @@ class AbstractLocation(models.Model):
                             help_text=_("Descrivere lo stato della struttura nella location."
                                         " Esempio: Momentaneamente chiusa, allagata, problemi"
                                         " lavori in corso, previsioni"))
-    is_active = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
@@ -176,7 +176,7 @@ class OrganizationalStructureLocation(AbstractLocation):
         return '{} - {}'.format(self.organizational_structure, self.address)
 
 
-class OrganizationalStructureOffice(models.Model):
+class OrganizationalStructureOffice(ActivableModel):
     """
     Organizational structure office
     """
@@ -187,7 +187,6 @@ class OrganizationalStructureOffice(models.Model):
                                                  on_delete=models.CASCADE)
     description = models.TextField(max_length=1024, null=True, blank=True)
     is_default = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('slug', 'organizational_structure')

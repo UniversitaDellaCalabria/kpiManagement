@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+
 from organizational_area.models import OrganizationalStructure
-from template.models import CreatedModifiedBy, TimeStampedModel
+
+from template.models import *
 
 
 class Role(models.Model):
@@ -18,7 +20,7 @@ class Collaboration(models.Model):
         return '{}'.format(self.collab_type)
 
 
-class Visiting(CreatedModifiedBy, TimeStampedModel):
+class Visiting(ActivableModel, CreatedModifiedBy, TimeStampedModel):
     visitor = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
     from_structure = models.ForeignKey(
         OrganizationalStructure,
@@ -37,7 +39,6 @@ class Visiting(CreatedModifiedBy, TimeStampedModel):
     didactic_hour = models.PositiveIntegerField()
     effective_days = models.PositiveIntegerField()
     note = models.TextField(blank=True, default='')
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return '{}-{}-{}'.format(self.visitor, self.from_structure, self.to_structure)
