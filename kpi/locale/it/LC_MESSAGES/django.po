@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-05 16:19+0100\n"
-"PO-Revision-Date: 2022-12-05 16:25+0100\n"
+"POT-Creation-Date: 2022-12-20 09:21+0100\n"
+"PO-Revision-Date: 2022-12-20 09:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -66,8 +66,7 @@ msgstr "Numeratore"
 msgid "Denominator"
 msgstr "Denominatore"
 
-#: detection_management/forms.py:53 public_engagement_management/forms.py:33
-#: visiting_management/forms.py:78
+#: detection_management/forms.py:53 visiting_management/forms.py:78
 #: visiting_management/templates/visiting.html:116
 msgid "Notes"
 msgstr "Note"
@@ -75,8 +74,8 @@ msgstr "Note"
 #: detection_management/forms.py:54
 #: detection_management/templates/datatables_detection/table_header.html:16
 #: detection_management/templates/datatables_detection/top_filters.html:34
-#: public_engagement_management/forms.py:34
-#: public_engagement_management/templates/datatables_public_engagement/table_header.html:27
+#: public_engagement_management/forms.py:38
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:23
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:20
 #: public_engagement_management/templates/public_engagement.html:57
 #: visiting_management/forms.py:79
@@ -100,7 +99,7 @@ msgstr ""
 "abilitanti delle strutture di Ateneo"
 
 #: detection_management/templates/dashboard_detections.html:27
-#: public_engagement_management/templates/dashboard_public_engagements.html:27
+#: public_engagement_management/templates/dashboard_public_engagements.html:33
 #: template/templates/dashboard.html:25 template/templates/dashboard.html:47
 #: template/templates/dashboard.html:69
 #: visiting_management/templates/dashboard_visitings.html:29
@@ -270,7 +269,7 @@ msgstr "Fattori abilitanti per"
 #: detection_management/templates/edit_detection.html:8
 #: public_engagement_management/templates/edit_public_engagement.html:8
 #: public_engagement_management/templates/public_engagement.html:35
-#: public_engagement_management/templates/public_engagement.html:173
+#: public_engagement_management/templates/public_engagement.html:181
 #: visiting_management/templates/edit_visiting.html:8
 #: visiting_management/templates/visiting.html:34
 msgid "Edit"
@@ -306,47 +305,47 @@ msgstr "Fattore abilitante modificato"
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: organizational_area/models.py:32
+#: organizational_area/models.py:34
 msgid "Organizational Structure type"
 msgstr ""
 
-#: organizational_area/models.py:33
+#: organizational_area/models.py:35
 msgid "Organizational Structure types"
 msgstr ""
 
-#: organizational_area/models.py:49
+#: organizational_area/models.py:51
 msgid "Lo slug deve contenere almeno un carattere alfabetico"
 msgstr ""
 
-#: organizational_area/models.py:71
+#: organizational_area/models.py:72
 msgid "Organizational Structure"
 msgstr ""
 
-#: organizational_area/models.py:72
+#: organizational_area/models.py:73
 msgid "Organizational Structures"
 msgstr ""
 
-#: organizational_area/models.py:114
+#: organizational_area/models.py:115
 msgid "Organizational Structure function"
 msgstr ""
 
-#: organizational_area/models.py:115
+#: organizational_area/models.py:116
 msgid "Organizational Structure functions"
 msgstr ""
 
-#: organizational_area/models.py:130
+#: organizational_area/models.py:131
 msgid "Equipment Type"
 msgstr ""
 
-#: organizational_area/models.py:131
+#: organizational_area/models.py:132
 msgid "Equipments Type"
 msgstr ""
 
-#: organizational_area/models.py:144
+#: organizational_area/models.py:145
 msgid "riferimento spaziale coordinate"
 msgstr ""
 
-#: organizational_area/models.py:154
+#: organizational_area/models.py:155
 msgid ""
 "Descrivere lo stato della struttura nella location. Esempio: Momentaneamente "
 "chiusa, allagata, problemi lavori in corso, previsioni"
@@ -360,116 +359,97 @@ msgstr ""
 msgid "Organizational Structure locations"
 msgstr ""
 
-#: organizational_area/models.py:195
+#: organizational_area/models.py:194
 msgid "Organizational Structure Office"
 msgstr ""
 
-#: organizational_area/models.py:196
+#: organizational_area/models.py:195
 msgid "Organizational Structure Offices"
 msgstr ""
 
-#: organizational_area/models.py:213
+#: organizational_area/models.py:212
 msgid "Organizational Structure office location"
 msgstr ""
 
-#: organizational_area/models.py:214
+#: organizational_area/models.py:213
 msgid "Organizational Structure office locations"
 msgstr ""
 
-#: organizational_area/models.py:234
+#: organizational_area/models.py:233
 msgid "Organizational Structure Office Employee"
 msgstr ""
 
-#: organizational_area/models.py:235
+#: organizational_area/models.py:234
 msgid "Organizational Structure Office Employees"
 msgstr ""
 
-#: public_engagement_management/forms.py:26
-#: public_engagement_management/templates/datatables_public_engagement/table_header.html:22
-#: public_engagement_management/templates/public_engagement.html:75
-msgid "Subscription Date"
-msgstr "Data di sottoscrizione"
-
-msgid "Subscription Date of the Protocol"
-msgstr "Data di sottoscrizione del Protocollo"
-
-#: public_engagement_management/forms.py:27
-#: public_engagement_management/templates/datatables_public_engagement/table_header.html:23
-#: public_engagement_management/templates/public_engagement.html:79
-msgid "Duration (Months)"
-msgstr "Durata (mesi)"
-
-msgid "Duration (Months) of the Protocol"
-msgstr "Durata (mesi) del Protocollo"
-
-#: public_engagement_management/forms.py:28
-#: public_engagement_management/templates/datatables_public_engagement/table_header.html:21
-#: public_engagement_management/templates/public_engagement.html:71
-msgid "Subject"
-msgstr "Oggetto"
-
-msgid "Subject of the Protocol"
-msgstr "Oggetto del Protocollo"
-
-msgid "Subject of the Protocol (briefly describe max 500 characters)"
-msgstr "Oggetto del Protocollo (descrivere brevemente max 500 caratteri)"
-
-
-#: public_engagement_management/forms.py:29
-#: public_engagement_management/templates/public_engagement.html:83
+#: public_engagement_management/forms.py:11
+#: public_engagement_management/templates/public_engagement.html:84
 msgid "Goals AGENDA ONU 2030"
 msgstr "Obiettivi AGENDA ONU 2030"
 
-#: public_engagement_management/forms.py:30
-#: public_engagement_management/templates/public_engagement.html:87
-msgid "Involves non-profit activity (No production of profit for the department)"
-msgstr "Prevede attività senza scopo di lucro (Nessuna produzione di profitto per il dipartimento)"
-
 #: public_engagement_management/forms.py:31
-#: public_engagement_management/templates/public_engagement.html:101
-msgid "Involves activities aimed at non-academic audiences (even outside the university campus)"
-msgstr "Prevede attività rivolte a un pubblico non accademico (anche fuori dal campus universitario)"
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:21
+#: public_engagement_management/templates/public_engagement.html:75
+msgid "Subscription Date of the Protocol"
+msgstr "Data di sottoscrizione del Protocollo"
 
 #: public_engagement_management/forms.py:32
-#: public_engagement_management/templates/public_engagement.html:115
-msgid "Has a social value (meets one or more social objectives of the Agenda 2030 of ONU or pursues other social purposes)"
-msgstr "Ha un valore sociale (risponde a uno o più obiettivi sociali dell’Agenda 2030 ONU o persegue altre finalità sociali)"
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:22
+#: public_engagement_management/templates/public_engagement.html:79
+msgid "Duration (Months) of the Protocol"
+msgstr "Durata (mesi) del Protocollo"
 
-#: public_engagement_management/forms.py:38
-#: public_engagement_management/forms.py:39
-#: public_engagement_management/forms.py:40
+#: public_engagement_management/forms.py:33
+msgid "Subject of the Protocol (briefly describe max 500 characters)"
+msgstr "Oggetto del Protocollo (descrivere brevemente max 500 caratteri)"
+
+#: public_engagement_management/forms.py:34
+#: public_engagement_management/templates/public_engagement.html:95
+msgid ""
+"Involves non-profit activity (No production of profit for the department)"
+msgstr ""
+"Prevede attività senza scopo di lucro (Nessuna produzione di profitto per il "
+"dipartimento)"
+
+#: public_engagement_management/forms.py:35
+#: public_engagement_management/templates/public_engagement.html:109
+msgid ""
+"Involves activities aimed at non-academic audiences (even outside the "
+"university campus)"
+msgstr ""
+"Prevede attività rivolte a un pubblico non accademico (anche fuori dal "
+"campus universitario)"
+
+#: public_engagement_management/forms.py:36
+#: public_engagement_management/templates/public_engagement.html:123
+msgid ""
+"Has a social value (meets one or more social objectives of the Agenda 2030 "
+"of ONU or pursues other social purposes)"
+msgstr ""
+"Ha un valore sociale (risponde a uno o più obiettivi sociali dell’Agenda "
+"2030 ONU o persegue altre finalità sociali)"
+
+#: public_engagement_management/forms.py:37
+msgid ""
+"Any additional notes on the registered Protocol (report briefly below max "
+"500 characters)"
+msgstr ""
+"Eventuali note aggiuntive sul Protocollo registrato (riportare brevemente di "
+"seguito max 500 caratteri)"
+
+#: public_engagement_management/forms.py:42
+#: public_engagement_management/forms.py:43
+#: public_engagement_management/forms.py:44
 msgid "If this option is not selected the entry will not be evaluated"
 msgstr "Se questa opzione non è selezionata l'inserimento non sarà valutato"
 
-#: public_engagement_management/forms.py:41
-msgid "Additional Notes of the Protocol"
-msgstr "Note aggiuntive del Protocollo"
-
-msgid "Any additional notes on the registered Protocol (report briefly below max 500 characters)"
-msgstr "Eventuali note aggiuntive sul Protocollo registrato (riportare brevemente di seguito max 500 caratteri)"
-
-
-#: public_engagement_management/forms.py:41
-msgid ""
-"Obiettivo 1 - Porre fine alla povertà, in tutte le sue forme <br> Obiettivo "
-"2 -  Porre fine alla fame, raggiungere la sicurezza alimentare, migliorare "
-"la nutrizione e promuovere un’agricoltura sostenibile <br> Obiettivo 3 - "
-"Assicurare la salute e il benessere per tutti e per tutte le età <br> "
-"Obiettivo 4 -  Assicurare un’istruzione di qualità, equa ed inclusiva, e "
-"promuovere opportunità di apprendimento permanente per tutti <br> Obiettivo "
-"5 - Raggiungere l’uguaglianza di genere e l’empowerment di tutte le donne e "
-"le ragazze <br> Obiettivo 10 - Ridurre l’ineguaglianza all’interno di e fra "
-"le Nazioni <br> Obiettivo 16 - Promuovere società pacifiche e più inclusive "
-"per uno sviluppo sostenibile; offrire l’accesso alla giustizia per tutti e "
-"creare organismi efficienti, responsabili e inclusivi a tutti i livelli."
-msgstr ""
-
-#: public_engagement_management/forms.py:67
-#: public_engagement_management/templates/public_engagement.html:142
+#: public_engagement_management/forms.py:63
+#: public_engagement_management/templates/public_engagement.html:150
 msgid "Partner"
 msgstr ""
 
-#: public_engagement_management/forms.py:68
+#: public_engagement_management/forms.py:64
 msgid "Head"
 msgstr "Capofila"
 
@@ -486,16 +466,21 @@ msgstr ""
 "social engagement"
 
 #: public_engagement_management/templates/dashboard_public_engagements.html:11
-#: public_engagement_management/templates/info_public_engagements.html:8
-#~ msgid "More Info"
-#~ msgstr "Maggiori Informazioni"
+#: public_engagement_management/templates/info_public_engagement.html:8
+msgid "More Info"
+msgstr "Maggiori Informazioni"
 
-#: public_engagement_management/templates/datatables_public_engagement/table_header.html:25
+#: public_engagement_management/templates/datatables_public_engagement/table_header.html:20
+#: public_engagement_management/templates/public_engagement.html:71
+msgid "Subject of the Protocol"
+msgstr "Oggetto del Protocollo"
+
 #: public_engagement_management/templates/edit_public_engagement.html:19
 msgid "Structure"
 msgstr "Struttura"
 
 #: public_engagement_management/templates/edit_public_engagement.html:30
+#: public_engagement_management/templates/info_public_engagement.html:17
 #: public_engagement_management/templates/new_public_engagement.html:18
 #: public_engagement_management/templates/public_engagement.html:18
 #: public_engagement_management/templates/public_engagement_partner.html:23
@@ -533,32 +518,32 @@ msgstr "Dettagli social engagement"
 msgid "Add partner"
 msgstr "Aggiungi partner"
 
-#: public_engagement_management/templates/public_engagement.html:129
-msgid "Note"
-msgstr "Note"
+#: public_engagement_management/templates/public_engagement.html:137
+msgid "Additional Notes of the Protocol"
+msgstr "Note aggiuntive del Protocollo"
 
-#: public_engagement_management/templates/public_engagement.html:151
+#: public_engagement_management/templates/public_engagement.html:159
 msgid "Name"
 msgstr "Denominazione"
 
-#: public_engagement_management/templates/public_engagement.html:152
+#: public_engagement_management/templates/public_engagement.html:160
 msgid "Is head"
 msgstr "Capofila"
 
-#: public_engagement_management/templates/public_engagement.html:180
+#: public_engagement_management/templates/public_engagement.html:188
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: public_engagement_management/templates/public_engagement.html:191
+#: public_engagement_management/templates/public_engagement.html:199
 #: template/templates/form_template.html:47
 msgid "Confirm"
 msgstr "Conferma"
 
-#: public_engagement_management/templates/public_engagement.html:204
+#: public_engagement_management/templates/public_engagement.html:212
 msgid "Do you want to delete choosen partner?"
 msgstr "Desideri eliminare il partner selezionato?"
 
-#: public_engagement_management/templates/public_engagement.html:209
+#: public_engagement_management/templates/public_engagement.html:217
 #: template/templates/form_template.html:67
 msgid "Yes, proceed"
 msgstr "Si, procedi"
@@ -576,23 +561,23 @@ msgstr "Nuovo partner"
 msgid "Social Engagement"
 msgstr ""
 
-#: public_engagement_management/views.py:151
+#: public_engagement_management/views.py:160
 msgid "Social Engagement created"
 msgstr "Social engagement creato"
 
-#: public_engagement_management/views.py:196
+#: public_engagement_management/views.py:210
 msgid "Social Engagement edited"
 msgstr "Social engagement modificato"
 
-#: public_engagement_management/views.py:242
+#: public_engagement_management/views.py:256
 msgid "Social Engagement partner created"
 msgstr "Social del public engagement creato"
 
-#: public_engagement_management/views.py:287
+#: public_engagement_management/views.py:301
 msgid "Social Engagement partner edited"
 msgstr "Social del public engagement modificato"
 
-#: public_engagement_management/views.py:326
+#: public_engagement_management/views.py:340
 msgid "Social Engagement partner deleted"
 msgstr "Partner del social engagement eliminato"
 
@@ -620,12 +605,12 @@ msgid "Oops! Something goes wrong"
 msgstr "Oops! C'è qualcosa che non va"
 
 #: template/templates/custom_message.html:19
-msgid "Torna indietro"
-msgstr ""
+msgid "Back"
+msgstr "Torna indietro"
 
 #: template/templates/custom_message.html:23
-msgid "Torna alla Dashboard"
-msgstr ""
+msgid "Back to Dashboard"
+msgstr "Torna alla dashboard"
 
 #: template/templates/dashboard.html:8
 msgid "Key Performance Indicators"
@@ -671,47 +656,47 @@ msgstr "Permessi"
 msgid "Date accessi sistema"
 msgstr ""
 
-#: unical_accounts/models.py:11
+#: unical_accounts/models.py:9
 msgid "Maschio"
 msgstr ""
 
-#: unical_accounts/models.py:12
+#: unical_accounts/models.py:10
 msgid "Femmina"
 msgstr ""
 
-#: unical_accounts/models.py:13
+#: unical_accounts/models.py:11
 msgid "Altro"
 msgstr ""
 
-#: unical_accounts/models.py:16
+#: unical_accounts/models.py:14
 msgid "attivo"
 msgstr ""
 
-#: unical_accounts/models.py:18
+#: unical_accounts/models.py:16
 msgid "Matricola Dipendente"
 msgstr ""
 
-#: unical_accounts/models.py:22
+#: unical_accounts/models.py:20
 msgid "Matricola Studente"
 msgstr ""
 
-#: unical_accounts/models.py:26
+#: unical_accounts/models.py:24
 msgid "Nome"
 msgstr ""
 
-#: unical_accounts/models.py:27
+#: unical_accounts/models.py:25
 msgid "Cognome"
 msgstr ""
 
-#: unical_accounts/models.py:28
+#: unical_accounts/models.py:26
 msgid "Codice Fiscale"
 msgstr ""
 
-#: unical_accounts/models.py:31
+#: unical_accounts/models.py:29
 msgid "Genere"
 msgstr ""
 
-#: unical_accounts/models.py:47
+#: unical_accounts/models.py:45
 msgid "Utenti UNICAL"
 msgstr ""
 
@@ -874,6 +859,18 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:190
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Subscription Date"
+#~ msgstr "Data di sottoscrizione"
+
+#~ msgid "Duration (Months)"
+#~ msgstr "Durata (mesi)"
+
+#~ msgid "Subject"
+#~ msgstr "Oggetto"
+
+#~ msgid "Note"
+#~ msgstr "Note"
 
 #~ msgid "Requirement Non-profit activity (No production of profit)"
 #~ msgstr ""
