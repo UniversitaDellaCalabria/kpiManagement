@@ -5,10 +5,12 @@ from organizational_area.models import OrganizationalStructure
 from template.models import *
 
 
-class Goal(models.Model):
-    goal_type = models.CharField(max_length=256)
+class Goal(ActivableModel):
+    name = models.CharField(max_length=255)
+    description = models.TextField(default='', null=True)
+
     def __str__(self):
-        return '{}'.format(self.goal_type)
+        return f'{self.name} - {self.description}' if self.description else self.name
 
 
 class PublicEngagement(ActivableModel, CreatedModifiedBy, TimeStampedModel):
@@ -44,7 +46,7 @@ class PublicEngagementPartner(TimeStampedModel):
 class PublicEngagementGoal(TimeStampedModel):
     public_engagement = models.ForeignKey(PublicEngagement,
                                           on_delete=models.CASCADE)
-    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+    goal = models.ForeignKey(Goal, on_delete=models.PROTECT)
 
     class Meta:
         unique_together = ('public_engagement', 'goal')

@@ -7,14 +7,14 @@ from template.models import *
 
 
 class Role(models.Model):
-    role_type = models.CharField(max_length=256)
+    role_type = models.CharField(max_length=255)
 
     def __str__(self):
         return '{}'.format(self.role_type)
 
 
 class Collaboration(models.Model):
-    collab_type = models.CharField(max_length=256)
+    collab_type = models.CharField(max_length=255)
 
     def __str__(self):
         return '{}'.format(self.collab_type)

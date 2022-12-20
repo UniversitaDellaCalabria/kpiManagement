@@ -9,13 +9,9 @@ from .models import PublicEngagement, PublicEngagementPartner, Goal
 class PublicEngagementForm(forms.ModelForm):
 
     goal = forms.ModelMultipleChoiceField(label=_('Goals AGENDA ONU 2030'),
-                                            required=True,
-                                            queryset=None,
-                                            widget=forms.CheckboxSelectMultiple())
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['goal'].queryset = Goal.objects.all()
+                                          required=True,
+                                          queryset=Goal.objects.filter(is_active=True),
+                                          widget=forms.CheckboxSelectMultiple())
 
     class Meta:
         model = PublicEngagement

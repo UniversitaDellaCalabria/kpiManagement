@@ -15,5 +15,5 @@ class PublicEngagementAdmin(AbstractCreatedModifiedBy):
 
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
-    list_display = ('goal_type',)
+    list_display = ('name', 'description', 'is_active')
 
