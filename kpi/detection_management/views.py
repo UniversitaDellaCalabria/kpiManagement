@@ -7,15 +7,15 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import gettext_lazy as _
 
-from detection_management.decorators import *
-from detection_management.forms import DetectionForm
-from detection_management.settings import *
-from detection_management.models import *
-
-from organizational_area.decorators import belongs_to_an_office
+# from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
 
-from template.utils import log_action
+from template.utils import check_user_permission_on_dashboard, log_action
+
+from . decorators import *
+from . forms import DetectionForm
+from . models import *
+from . settings import *
 
 
 @transaction.atomic
@@ -34,34 +34,25 @@ def _save_detection(structure, form, **kwargs):
 
 
 @login_required
-@belongs_to_an_office
+# @belongs_to_an_office
 def dashboard(request):
 
     template = 'dashboard_detections.html'
 
-    if request.user.is_superuser:
-        offices = OrganizationalStructureOffice.objects\
-                                               .filter(slug=DETECTION_OFFICE_SLUG,
-                                                       is_active=True,
-                                                       organizational_structure__is_active=True)
-    else:
-        # get offices that I'm able to manage
-        offices = []
-        office_employees = OrganizationalStructureOfficeEmployee.objects\
-            .filter(employee=request.user,
-                    office__slug=DETECTION_OFFICE_SLUG,
-                    office__is_active=True,
-                    office__organizational_structure__is_active=True)\
-            .select_related('office').order_by('office__name')
-        for office_employee in office_employees:
-            offices.append(office_employee.office)
+    offices = check_user_permission_on_dashboard(request.user,
+                                                 Detection,
+                                                 DETECTION_OFFICE_SLUG)
+    if not offices:
+        messages.add_message(request, messages.ERROR,
+                             _("Permission denied"))
+        return redirect('template:dashboard')
 
     d = {'my_offices': offices}
     return render(request, template, d)
 
 
 @login_required
-@can_manage_structure_detections
+@can_view_structure_detections
 def structure_detections(request, structure_slug, structure=None):
     """
     param structure comes from @can_manage_structure_detections
@@ -74,7 +65,7 @@ def structure_detections(request, structure_slug, structure=None):
 
 
 @login_required
-@can_manage_structure_detections
+@can_view_structure_detections
 @structure_detection_is_accessible
 def structure_detection(request, structure_slug, detection_pk,
                         structure=None, detection=None):

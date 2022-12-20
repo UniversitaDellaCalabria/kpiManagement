@@ -7,12 +7,12 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import gettext_lazy as _
 
-from organizational_area.decorators import belongs_to_an_office
+# from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
 
-from template.utils import check_user_permission_on_object, log_action
+from template.utils import check_user_permission_on_dashboard, log_action
 
-from . decorators import can_manage_structure_public_engagements
+from . decorators import *
 from . forms import *
 from . models import *
 from . settings import *
@@ -63,26 +63,17 @@ def _save_public_engagement_partner(public_engagement, form, **kwargs):
 
 
 @login_required
-@belongs_to_an_office
+# @belongs_to_an_office
 def dashboard(request):
 
     template = 'dashboard_public_engagements.html'
-    if request.user.is_superuser:
-        offices = OrganizationalStructureOffice.objects\
-                                               .filter(slug=PUBLIC_ENGAGEMENT_OFFICE_SLUG,
-                                                       is_active=True,
-                                                       organizational_structure__is_active=True)
-    else:
-        # get offices that I'm able to manage
-        my_offices = OrganizationalStructureOfficeEmployee.objects\
-                                                          .filter(employee=request.user,
-                                                                  office__slug=PUBLIC_ENGAGEMENT_OFFICE_SLUG,
-                                                                  office__is_active=True,
-                                                                  office__organizational_structure__is_active=True)\
-                                                          .select_related('office')
-        offices = []
-        for off in my_offices:
-            offices.append(off.office)
+    offices = check_user_permission_on_dashboard(request.user,
+                                                 PublicEngagement,
+                                                 PUBLIC_ENGAGEMENT_OFFICE_SLUG)
+    if not offices:
+        messages.add_message(request, messages.ERROR,
+                             _("Permission denied"))
+        return redirect('template:dashboard')
 
     d = {'my_offices': offices}
 
@@ -90,14 +81,20 @@ def dashboard(request):
 
 @login_required
 def info(request):
+    offices = check_user_permission_on_dashboard(request.user,
+                                                 PublicEngagement,
+                                                 PUBLIC_ENGAGEMENT_OFFICE_SLUG)
+    if not offices:
+        messages.add_message(request, messages.ERROR,
+                             _("Permission denied"))
+        return redirect('template:dashboard')
 
     template = 'info_public_engagement.html'
-    d = {}
-    return render(request, template, d)
+    return render(request, template, {})
 
 
 @login_required
-@can_manage_structure_public_engagements
+@can_view_structure_public_engagements
 def structure_public_engagements(request, structure_slug, structure=None):
     """
     param structure comes from @can_manage_structure_public_engagements
@@ -108,7 +105,7 @@ def structure_public_engagements(request, structure_slug, structure=None):
 
 
 @login_required
-@can_manage_structure_public_engagements
+@can_view_structure_public_engagements
 def structure_public_engagement(request, structure_slug,
                                 public_engagement_pk, structure=None):
     """

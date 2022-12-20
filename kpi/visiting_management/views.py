@@ -8,12 +8,12 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import gettext_lazy as _
 
-from organizational_area.decorators import belongs_to_an_office
+# from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
 
-from template.utils import log_action
+from template.utils import check_user_permission_on_dashboard, log_action
 
-from . decorators import can_manage_structure_visitings
+from . decorators import *
 from . forms import VisitingForm
 from . settings import *
 from . models import Visiting, VisitingCollaboration
@@ -48,26 +48,18 @@ def _save_visiting(structure, form, **kwargs):
 
 
 @login_required
-@belongs_to_an_office
+# @belongs_to_an_office
 def dashboard(request):
 
     template = 'dashboard_visitings.html'
-    if request.user.is_superuser:
-        offices = OrganizationalStructureOffice.objects\
-                                               .filter(slug=VISITING_OFFICE_SLUG,
-                                                       is_active=True,
-                                                       organizational_structure__is_active=True)
-    else:
-        # get offices that I'm able to manage
-        my_offices = OrganizationalStructureOfficeEmployee.objects\
-                                                          .filter(employee=request.user,
-                                                                  office__slug=VISITING_OFFICE_SLUG,
-                                                                  office__is_active=True,
-                                                                  office__organizational_structure__is_active=True)\
-                                                          .select_related('office')
-        offices = []
-        for off in my_offices:
-            offices.append(off.office)
+
+    offices = check_user_permission_on_dashboard(request.user,
+                                                 Visiting,
+                                                 VISITING_OFFICE_SLUG)
+    if not offices:
+        messages.add_message(request, messages.ERROR,
+                             _("Permission denied"))
+        return redirect('template:dashboard')
 
     result = []
     for off in offices:
@@ -85,7 +77,7 @@ def dashboard(request):
 
 
 @login_required
-@can_manage_structure_visitings
+@can_view_structure_visitings
 def structure_visitings(request, structure_slug, structure=None):
     """
     param structure comes from @can_manage_structure_visitings
@@ -96,7 +88,7 @@ def structure_visitings(request, structure_slug, structure=None):
 
 
 @login_required
-@can_manage_structure_visitings
+@can_view_structure_visitings
 def structure_visiting(request, structure_slug, visiting_pk, structure=None):
     """
     param structure comes from @can_manage_structure_visitings

@@ -1,9 +1,11 @@
 import datetime
 
 from django.contrib.admin.models import LogEntry
-from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.utils import timezone
+
+from organizational_area.models import (OrganizationalStructureOffice,
+                                        OrganizationalStructureOfficeEmployee)
 
 
 def get_datetime_delta(days):
@@ -29,11 +31,28 @@ def log_action(user, obj, flag, msg):
                                 change_message=msg)
 
 
-def check_user_permission_on_object(user, obj, permission='view'):
-    # check for locks on object
-    content_type = ContentType.objects.get_for_model(obj)
-    app_name = content_type.__dict__['app_label']
-    model = content_type.__dict__['model']
-
+def check_user_permission_on_model(user, model, permission='view'):
     # get Django permissions on object
-    return user.has_perm(f'{app_name}.{permission}_{model}')
+    app_name = model._meta['app_name']
+    model_name = model._meta['model_name']
+    return user.has_perm(f'{app_name}.{permission}_{model_name}')
+
+
+def check_user_permission_on_dashboard(user, main_model, office_slug):
+    if user.is_superuser or check_user_permission_on_model(request.user, main_model):
+        offices = OrganizationalStructureOffice.objects\
+                                               .filter(slug=office_slug,
+                                                       is_active=True,
+                                                       organizational_structure__is_active=True)
+    else:
+        # get offices that I'm able to manage
+        my_offices = OrganizationalStructureOfficeEmployee.objects\
+                                                          .filter(employee=user,
+                                                                  office__slug=office_slug,
+                                                                  office__is_active=True,
+                                                                  office__organizational_structure__is_active=True)\
+                                                          .select_related('office')
+        offices = []
+        for off in my_offices:
+            offices.append(off.office)
+    return offices

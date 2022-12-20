@@ -13,7 +13,7 @@ prefix = 'social-engagement'
 urlpatterns = [
 
     path(f'{prefix}/', dashboard, name='dashboard'),
-    path(f'{prefix}/info', info, name='info'),
+    path(f'{prefix}/info/', info, name='info'),
 
     # datatables
     path(f'{prefix}/<str:structure_slug>/public_engagements.json',
