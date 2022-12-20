@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.utils import timezone
 
