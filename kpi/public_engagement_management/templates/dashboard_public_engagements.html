@@ -28,14 +28,14 @@
                         <div class="collapse-header" id="heading1">
                             <button data-toggle="collapse"
                                     data-target="#collapse1"
-                                    aria-expanded="false"
+                                    aria-expanded="{% if date_start or date_end %}true{% else %}false{% endif %}"
                                     aria-controls="collapse1">
                                 {% trans "Statistics filters" %}
                             </button>
                         </div>
 
                         <div id="collapse1"
-                             class="collapse"
+                             class="collapse {% if date_start or date_end %}show{% endif %}"
                              role="tabpanel"
                              aria-labelledby="heading1">
                             <div class="collapse-body pt-4 pb-0">
