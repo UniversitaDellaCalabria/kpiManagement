@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-21 09:16+0100\n"
-"PO-Revision-Date: 2022-12-21 09:17+0100\n"
+"POT-Creation-Date: 2022-12-21 09:25+0100\n"
+"PO-Revision-Date: 2022-12-21 09:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -100,7 +100,7 @@ msgstr ""
 "abilitanti delle strutture di Ateneo"
 
 #: detection_management/templates/dashboard_detections.html:27
-#: public_engagement_management/templates/dashboard_public_engagements.html:144
+#: public_engagement_management/templates/dashboard_public_engagements.html:150
 #: template/templates/dashboard.html:25 template/templates/dashboard.html:47
 #: template/templates/dashboard.html:69
 #: visiting_management/templates/dashboard_visitings.html:29
@@ -507,7 +507,15 @@ msgstr "Data fine"
 msgid "Execute"
 msgstr "Esegui"
 
-#: public_engagement_management/templates/dashboard_public_engagements.html:115
+#: public_engagement_management/templates/dashboard_public_engagements.html:97
+msgid "Social engagement for goals achieved"
+msgstr "Social engagement per obiettivi raggiunti"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:103
+msgid "Social engagement for structure"
+msgstr "Social engagement per struttura"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:121
 msgid "Export data in CSV"
 msgstr ""
 
