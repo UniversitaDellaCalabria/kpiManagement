@@ -16,7 +16,7 @@ class Goal(ActivableModel):
 class PublicEngagement(ActivableModel, CreatedModifiedBy, TimeStampedModel):
     subscription_date = models.DateField()
     duration = models.PositiveIntegerField()
-    subject = models.TextField(max_length=500)
+    subject = models.TextField()
     structure = models.ForeignKey(OrganizationalStructure,
                                   on_delete=models.PROTECT)
     requirements_one = models.BooleanField(default=False)
