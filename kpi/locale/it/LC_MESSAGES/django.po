@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-20 14:02+0100\n"
-"PO-Revision-Date: 2022-12-20 14:03+0100\n"
+"POT-Creation-Date: 2022-12-21 09:16+0100\n"
+"PO-Revision-Date: 2022-12-21 09:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -100,7 +100,7 @@ msgstr ""
 "abilitanti delle strutture di Ateneo"
 
 #: detection_management/templates/dashboard_detections.html:27
-#: public_engagement_management/templates/dashboard_public_engagements.html:55
+#: public_engagement_management/templates/dashboard_public_engagements.html:144
 #: template/templates/dashboard.html:25 template/templates/dashboard.html:47
 #: template/templates/dashboard.html:69
 #: visiting_management/templates/dashboard_visitings.html:29
@@ -294,8 +294,8 @@ msgstr "Dettagli fattore abilitante"
 msgid "New enabling factor for"
 msgstr "Nuovo fattore abilitante per"
 
-#: detection_management/views.py:47 public_engagement_management/views.py:123
-#: public_engagement_management/views.py:152 visiting_management/views.py:61
+#: detection_management/views.py:47 public_engagement_management/views.py:126
+#: public_engagement_management/views.py:197 visiting_management/views.py:61
 msgid "Permission denied"
 msgstr "Permesso negato"
 
@@ -412,6 +412,7 @@ msgstr "Oggetto del Protocollo (descrivere brevemente max 500 caratteri)"
 
 #: public_engagement_management/forms.py:38
 #: public_engagement_management/templates/public_engagement.html:95
+#: public_engagement_management/views.py:45
 msgid ""
 "Involves non-profit activity (No production of profit for the department)"
 msgstr ""
@@ -420,6 +421,7 @@ msgstr ""
 
 #: public_engagement_management/forms.py:39
 #: public_engagement_management/templates/public_engagement.html:109
+#: public_engagement_management/views.py:46
 msgid ""
 "Involves activities aimed at non-academic audiences (even outside the "
 "university campus)"
@@ -429,6 +431,7 @@ msgstr ""
 
 #: public_engagement_management/forms.py:40
 #: public_engagement_management/templates/public_engagement.html:123
+#: public_engagement_management/views.py:47
 msgid ""
 "Has a social value (meets one or more social objectives of the Agenda 2030 "
 "of ONU or pursues other social purposes)"
@@ -459,6 +462,16 @@ msgstr ""
 msgid "Head"
 msgstr "Capofila"
 
+#: public_engagement_management/forms.py:77
+msgid "Year"
+msgstr "Anno"
+
+#: public_engagement_management/forms.py:78
+#: public_engagement_management/templates/edit_public_engagement.html:19
+#: public_engagement_management/views.py:41
+msgid "Structure"
+msgstr "Struttura"
+
 #: public_engagement_management/templates/dashboard_public_engagements.html:8
 msgid "Social Engagement Management"
 msgstr "Gestione social engagement"
@@ -476,7 +489,25 @@ msgstr ""
 msgid "More Info"
 msgstr "Maggiori Informazioni"
 
-#: public_engagement_management/templates/dashboard_public_engagements.html:27
+#: public_engagement_management/templates/dashboard_public_engagements.html:33
+msgid "Statistics filters"
+msgstr "Filtri sulle statistiche"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:49
+#: public_engagement_management/templates/dashboard_public_engagements.html:55
+msgid "Start date"
+msgstr "Data inizio"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:59
+#: public_engagement_management/templates/dashboard_public_engagements.html:65
+msgid "End date"
+msgstr "Data fine"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:75
+msgid "Execute"
+msgstr "Esegui"
+
+#: public_engagement_management/templates/dashboard_public_engagements.html:115
 msgid "Export data in CSV"
 msgstr ""
 
@@ -484,11 +515,6 @@ msgstr ""
 #: public_engagement_management/templates/public_engagement.html:71
 msgid "Subject of the Protocol"
 msgstr "Oggetto del Protocollo"
-
-#: public_engagement_management/templates/edit_public_engagement.html:19
-#: public_engagement_management/views.py:40
-msgid "Structure"
-msgstr "Struttura"
 
 #: public_engagement_management/templates/edit_public_engagement.html:30
 #: public_engagement_management/templates/info_public_engagement.html:17
@@ -572,67 +598,51 @@ msgstr "Nuovo partner"
 msgid "Social Engagement"
 msgstr ""
 
-#: public_engagement_management/views.py:41
+#: public_engagement_management/views.py:42
 msgid "Subject"
 msgstr "Oggetto"
 
-#: public_engagement_management/views.py:42
+#: public_engagement_management/views.py:43
 msgid "Duration"
 msgstr "Durata (mesi)"
 
-#: public_engagement_management/views.py:43
+#: public_engagement_management/views.py:44
 msgid "Subscription date"
 msgstr "Data di sottoscrizione"
 
-#: public_engagement_management/views.py:44
-msgid "Req 1"
-msgstr ""
-
-#: public_engagement_management/views.py:45
-msgid "Req 2"
-msgstr ""
-
-#: public_engagement_management/views.py:46
-msgid "Req 3"
-msgstr ""
-
-#: public_engagement_management/views.py:47
+#: public_engagement_management/views.py:48
 msgid "Note"
 msgstr "Note"
 
-#: public_engagement_management/views.py:48
+#: public_engagement_management/views.py:49
 msgid "Partners"
 msgstr "Soggetti coinvolti"
 
-#: public_engagement_management/views.py:49
+#: public_engagement_management/views.py:50
 msgid "Partners number"
 msgstr "N. soggetti coinvolti"
 
-#: public_engagement_management/views.py:50
+#: public_engagement_management/views.py:51
 msgid "Goals"
 msgstr "Obiettivi"
 
-#: public_engagement_management/views.py:130
-msgid "POST denied!"
-msgstr "POST negato!"
-
-#: public_engagement_management/views.py:220
+#: public_engagement_management/views.py:265
 msgid "Social Engagement created"
 msgstr "Social engagement creato"
 
-#: public_engagement_management/views.py:270
+#: public_engagement_management/views.py:315
 msgid "Social Engagement edited"
 msgstr "Social engagement modificato"
 
-#: public_engagement_management/views.py:316
+#: public_engagement_management/views.py:361
 msgid "Social Engagement partner created"
 msgstr "Social del public engagement creato"
 
-#: public_engagement_management/views.py:361
+#: public_engagement_management/views.py:406
 msgid "Social Engagement partner edited"
 msgstr "Social del public engagement modificato"
 
-#: public_engagement_management/views.py:400
+#: public_engagement_management/views.py:445
 msgid "Social Engagement partner deleted"
 msgstr "Partner del social engagement eliminato"
 
@@ -914,6 +924,9 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:182
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "POST denied!"
+#~ msgstr "POST negato!"
 
 #~ msgid "Requirement Non-profit activity (No production of profit)"
 #~ msgstr ""

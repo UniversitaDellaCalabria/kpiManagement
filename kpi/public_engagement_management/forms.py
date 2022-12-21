@@ -74,8 +74,9 @@ class PublicEngagementPartnerForm(forms.ModelForm):
 
 
 class PublicEngagementExportCSVForm(forms.Form):
-    year = forms.IntegerField(initial=timezone.localtime().year)
-    structure = forms.ModelChoiceField(widget=BootstrapItaliaSelectWidget(),
+    year = forms.IntegerField(label=_('Year'), initial=timezone.localtime().year)
+    structure = forms.ModelChoiceField(label=_('Structure'),
+                                       widget=BootstrapItaliaSelectWidget(),
                                        required=False,
                                        queryset=OrganizationalStructure.objects.filter(is_active=True,
                                                                                        is_internal=True))

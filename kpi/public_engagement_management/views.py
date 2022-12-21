@@ -1,4 +1,5 @@
 import csv
+import datetime
 
 from django.contrib import messages
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
@@ -114,6 +115,8 @@ def _save_public_engagement_partner(public_engagement, form, **kwargs):
 # @belongs_to_an_office
 def dashboard(request):
 
+    is_manager = request.user.is_superuser or check_user_permission_on_model(request.user, PublicEngagement)
+
     template = 'dashboard_public_engagements.html'
     offices = check_user_permission_on_dashboard(request.user,
                                                  PublicEngagement,
@@ -125,10 +128,13 @@ def dashboard(request):
 
     form = PublicEngagementExportCSVForm()
 
-    if request.POST:
-        if not check_user_permission_on_model(request.user, PublicEngagement):
-            messages.add_message(request, messages.ERROR, _("POST denied!"))
-        else:
+    d = {'form': form,
+         'my_offices': offices,
+         'is_manager': is_manager}
+
+    if is_manager:
+
+        if request.POST:
             form = PublicEngagementExportCSVForm(data=request.POST)
             if form.is_valid():
                 year = form.cleaned_data['year']
@@ -139,8 +145,47 @@ def dashboard(request):
                     messages.add_message(request, messages.ERROR,
                                          f"<b>{form.fields[k].label}</b>: {v}")
 
-    d = {'form': form, 'my_offices': offices}
+        date_start = request.GET.get('date_start', None)
+        date_end = request.GET.get('date_end', None)
+        start = None
+        end = None
+        try:
+            if date_start: start = datetime.datetime.strptime(date_start, "%Y-%m-%d").date()
+            if date_end: end = datetime.datetime.strptime(date_end, "%Y-%m-%d").date()
+        except:
+            start = None
+            end = None
+
+        all_public_engagements = PublicEngagement.objects.filter(is_active=True)
+        if start: all_public_engagements = all_public_engagements.filter(subscription_date__gte=start)
+        if end: all_public_engagements = all_public_engagements.filter(subscription_date__lte=end)
+
+        internal_str = OrganizationalStructure.objects\
+                                              .filter(is_active=True,
+                                                      is_internal=True)
+        str_engagements = []
+        for struct in internal_str:
+            str_engagements.append(all_public_engagements.filter(structure=struct).count())
+
+
+        goals_list = Goal.objects.filter(is_active=True)
+        all_goals_results = PublicEngagementGoal.objects.filter(goal__is_active=True,
+                                                                public_engagement__is_active=True)
+        goals_results = []
+        for goal in goals_list:
+            if start: all_goals_results = all_goals_results.filter(public_engagement__subscription_date__gte=start)
+            if end: all_goals_results = all_goals_results.filter(public_engagement__subscription_date__lte=end)
+            goals_results.append(all_goals_results.filter(goal=goal).count())
+
+        d.update({'date_start': date_start,
+                  'date_end': date_end,
+                  'goals_list': list(goals_list.values_list('name', flat=True)),
+                  'goals_results': goals_results,
+                  'internal_str': list(internal_str.values_list('name', flat=True)),
+                  'str_engagements': str_engagements})
+
     return render(request, template, d)
+
 
 @login_required
 def info(request):
