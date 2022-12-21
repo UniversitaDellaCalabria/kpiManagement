@@ -40,7 +40,7 @@ def check_user_permission_on_model(user, model, permission='view'):
 
 
 def check_user_permission_on_dashboard(user, main_model, office_slug):
-    if user.is_superuser or check_user_permission_on_model(request.user, main_model):
+    if user.is_superuser or check_user_permission_on_model(user, main_model):
         offices = OrganizationalStructureOffice.objects\
                                                .filter(slug=office_slug,
                                                        is_active=True,
