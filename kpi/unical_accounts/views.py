@@ -15,7 +15,11 @@ from . models import User
 @belongs_to_an_office
 def users(request):
     template = 'users.html'
-    users = User.objects.filter(is_active=True)
+    if request.user.is_superuser:
+        users = User.objects.filter(is_active=True)
+    else:
+        users = User.objects.filter(is_active=True,
+                                    created_by=request.user)
     data = {'users': users}
     return render(request, template, data)
 
