@@ -73,7 +73,7 @@ class VisitingForm(forms.ModelForm):
             'collab': _('Collaborations'),
             'start_date': _('Start'),
             'end_date': _('End'),
-            'didactic_hour': _('Didactic hours'),
+            'didactic_hour': _('Teaching/research/seminar hours'),
             'effective_days': _('Effective days'),
             'note': _('Notes'),
             'is_active': _('Enabled'),

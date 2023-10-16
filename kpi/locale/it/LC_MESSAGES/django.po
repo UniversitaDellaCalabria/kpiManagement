@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-21 09:25+0100\n"
-"PO-Revision-Date: 2022-12-21 09:26+0100\n"
+"POT-Creation-Date: 2023-10-16 09:51+0200\n"
+"PO-Revision-Date: 2023-10-16 09:52+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #: detection_management/decorators.py:20 detection_management/decorators.py:43
 #: public_engagement_management/decorators.py:20
@@ -799,15 +799,15 @@ msgstr "Modifica utente"
 msgid "Add new user"
 msgstr "Aggiungi nuovo utente"
 
-#: unical_accounts/views.py:47
+#: unical_accounts/views.py:51
 msgid "User created"
 msgstr "Utente creato"
 
-#: unical_accounts/views.py:70
+#: unical_accounts/views.py:74
 msgid "You haven't privileges to edit this user"
 msgstr "Non hai i privilegi necessari per modificare questo utente"
 
-#: unical_accounts/views.py:85
+#: unical_accounts/views.py:89
 msgid "User successfully updated"
 msgstr "Utente modificato con successo"
 
@@ -861,8 +861,8 @@ msgstr "Fine"
 
 #: visiting_management/forms.py:76
 #: visiting_management/templates/visiting.html:108
-msgid "Didactic hours"
-msgstr "Ore didattica"
+msgid "Teaching/research/seminar hours"
+msgstr "Ore didattica/ricerca/seminari"
 
 #: visiting_management/forms.py:77
 #: visiting_management/templates/visiting.html:112
@@ -932,6 +932,9 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:182
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Didactic hours"
+#~ msgstr "Ore didattica"
 
 #~ msgid "POST denied!"
 #~ msgstr "POST negato!"
