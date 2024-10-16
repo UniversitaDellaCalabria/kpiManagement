@@ -31,4 +31,9 @@ urlpatterns = [
     path(f'{prefix}/', users, name='users'),
     path(f'{prefix}/new/', new_user, name='users-new'),
     path(f'{prefix}/<str:user_tax_code>/edit/', edit_user, name='users-edit'),
+
+    path('account/', account, name='account'),
+    path('account/edit/', changeData, name='change_data'),
+    path('account/edit/confirm-email/', confirmEmail, name='confirm_email'),
+
 ]
