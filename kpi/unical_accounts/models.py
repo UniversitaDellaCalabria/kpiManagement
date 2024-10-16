@@ -12,7 +12,7 @@ class User(AbstractUser):
     )
 
     is_active = models.BooleanField(_('attivo'), default=True)
-    email = models.EmailField('email address')
+    email = models.EmailField('email address', blank=False, null=True,)
     matricola_dipendente = models.CharField(_('Matricola Dipendente'),
                                             max_length=6,
                                             blank=True, null=True,
@@ -21,8 +21,8 @@ class User(AbstractUser):
                                           max_length=6,
                                           blank=True, null=True,
                                           help_text="fonte Esse3")
-    first_name = models.CharField(_('Nome'), max_length=100)
-    last_name = models.CharField(_('Cognome'), max_length=100)
+    first_name = models.CharField(_('Nome'), max_length=100, blank=False, null=True)
+    last_name = models.CharField(_('Cognome'), max_length=100, blank=False, null=True)
     codice_fiscale = models.CharField(_('Codice Fiscale'),
                                       max_length=16,
                                       unique=True)
@@ -34,6 +34,7 @@ class User(AbstractUser):
                                   null=True, blank=True)
     created_by = models.ForeignKey(
         'self', null=True, blank=True, on_delete=models.SET_NULL)
+    manual_user_update = models.DateTimeField(_('Ultimo aggiornamento manuale dei dati'), blank=True, null=True)
 
     # short_description = models.CharField(_('Descrizione breve'), max_length=33, blank=True, null=True)
     # bio = models.TextField('Biografia, note', max_length=2048, blank=True, null=True)

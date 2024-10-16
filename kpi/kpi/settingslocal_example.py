@@ -8,6 +8,7 @@ SECRET_KEY = 'secret_key'
 
 DEBUG = True
 
+DEFAULT_HOST = 'your.host'
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://fqdn', ]
 INTERNAL_IPS = ['127.0.0.1']
@@ -227,3 +228,10 @@ LOGGING = {
         },
     }
 }
+
+# email notification on error 500
+DEFAULT_FROM_EMAIL = 'your@email.org'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+EMAIL_HOST = 'your.server.org'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
