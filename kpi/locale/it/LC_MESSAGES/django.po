@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-16 09:51+0200\n"
-"PO-Revision-Date: 2023-10-16 09:52+0200\n"
+"POT-Creation-Date: 2024-10-16 16:59+0200\n"
+"PO-Revision-Date: 2024-10-16 17:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #: detection_management/decorators.py:20 detection_management/decorators.py:43
 #: public_engagement_management/decorators.py:20
@@ -271,6 +271,7 @@ msgstr "Fattori abilitanti per"
 #: public_engagement_management/templates/edit_public_engagement.html:8
 #: public_engagement_management/templates/public_engagement.html:35
 #: public_engagement_management/templates/public_engagement.html:181
+#: unical_accounts/templates/account.html:34 unical_accounts/views.py:119
 #: visiting_management/templates/edit_visiting.html:8
 #: visiting_management/templates/visiting.html:34
 msgid "Edit"
@@ -654,7 +655,8 @@ msgstr "Social del public engagement modificato"
 msgid "Social Engagement partner deleted"
 msgstr "Partner del social engagement eliminato"
 
-#: template/templates/base.html:19
+#: template/templates/base.html:19 unical_accounts/views.py:108
+#: unical_accounts/views.py:117
 msgid "Dashboard"
 msgstr "Pannello di controllo"
 
@@ -669,7 +671,12 @@ msgstr "Utenti"
 msgid "Visiting/Teacher mobility"
 msgstr "Visiting/Mobilità docenti"
 
-#: template/templates/base.html:50
+#: template/templates/base.html:44 unical_accounts/templates/account.html:10
+#: unical_accounts/views.py:109 unical_accounts/views.py:118
+msgid "Account"
+msgstr ""
+
+#: template/templates/base.html:55
 msgid "Logout"
 msgstr "Esci"
 
@@ -709,6 +716,22 @@ msgstr "Invia"
 msgid "Do you want to confirm the entered data?"
 msgstr "Desideri confermare i dati immessi?"
 
+#: template/templates/login.html:10
+msgid "Effettua l'accesso"
+msgstr ""
+
+#: template/templates/login.html:20
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: template/templates/login.html:31
+msgid "Remember Me"
+msgstr ""
+
+#: template/templates/login.html:34
+msgid "Login"
+msgstr ""
+
 #: template/templates/obj_logs.html:9
 msgid "Status updates (Logs)"
 msgstr "Aggiornamenti di stato (Log)"
@@ -728,6 +751,10 @@ msgstr "Permessi"
 #: unical_accounts/admin.py:35
 msgid "Date accessi sistema"
 msgstr ""
+
+#: unical_accounts/middlewares.py:23
+msgid "Complete your profile to be able to use the system"
+msgstr "Completa il tuo profilo per poter utilizzare il sistema"
 
 #: unical_accounts/models.py:9
 msgid "Maschio"
@@ -769,25 +796,73 @@ msgstr ""
 msgid "Genere"
 msgstr ""
 
-#: unical_accounts/models.py:45
+#: unical_accounts/models.py:37
+msgid "Ultimo aggiornamento manuale dei dati"
+msgstr ""
+
+#: unical_accounts/models.py:46
 msgid "Utenti UNICAL"
 msgstr ""
 
-#: unical_accounts/templates/datatables_users/table_header.html:11
-msgid "Last name"
-msgstr "Cognome"
+#: unical_accounts/settings.py:24
+#, python-brace-format
+msgid ""
+"Dear user,\n"
+"this message was sent by {hostname}.\n"
+"Please do not reply to this email.\n"
+"\n"
+"-------------------\n"
+"\n"
+msgstr ""
+"Gentile utente,\n"
+"questo messaggio è stato inviato da {hostname}.\n"
+"Si prega di non rispondere a questa email.\n"
+"\n"
+"-------------------\n"
+"\n"
 
+#: unical_accounts/settings.py:38
+msgid ""
+"\n"
+"\n"
+"-------------------\n"
+"\n"
+"For technical problems contact our staff.\n"
+"Best regards.\n"
+msgstr ""
+"\n"
+"\n"
+"-------------------\n"
+"\n"
+"Per problemi tecnici contatta il nostro staff.\n"
+"Cordiali saluti.\n"
+
+#: unical_accounts/templates/account.html:14
 #: unical_accounts/templates/datatables_users/table_header.html:12
 msgid "First name"
 msgstr "Nome"
 
-#: unical_accounts/templates/datatables_users/table_header.html:13
-msgid "Tax code"
-msgstr "Codice fiscale"
+#: unical_accounts/templates/account.html:18
+#: unical_accounts/templates/datatables_users/table_header.html:11
+msgid "Last name"
+msgstr "Cognome"
 
+#: unical_accounts/templates/account.html:22
 #: unical_accounts/templates/datatables_users/table_header.html:14
 msgid "Email"
 msgstr ""
+
+#: unical_accounts/templates/account.html:26
+msgid "Taxpayer ID"
+msgstr "Codice fiscale"
+
+#: unical_accounts/templates/change_user_data.html:8
+msgid "Edit user data"
+msgstr "Modifica dati utente"
+
+#: unical_accounts/templates/datatables_users/table_header.html:13
+msgid "Tax code"
+msgstr "Codice fiscale"
 
 #: unical_accounts/templates/edit_user.html:8
 msgid "Edit user"
@@ -799,17 +874,61 @@ msgstr "Modifica utente"
 msgid "Add new user"
 msgstr "Aggiungi nuovo utente"
 
-#: unical_accounts/views.py:51
+#: unical_accounts/views.py:57
 msgid "User created"
 msgstr "Utente creato"
 
-#: unical_accounts/views.py:74
+#: unical_accounts/views.py:80
 msgid "You haven't privileges to edit this user"
 msgstr "Non hai i privilegi necessari per modificare questo utente"
 
-#: unical_accounts/views.py:89
+#: unical_accounts/views.py:95
 msgid "User successfully updated"
 msgstr "Utente modificato con successo"
+
+#: unical_accounts/views.py:137
+msgid "Data saved successfully"
+msgstr "Dati salvati con successo"
+
+#: unical_accounts/views.py:150
+msgid "Confirm your email by clicking here {}"
+msgstr "Conferma la tua email facendo clic qui {}"
+
+#: unical_accounts/views.py:153
+msgid "Email confirmation"
+msgstr "Conferma email"
+
+#: unical_accounts/views.py:160
+msgid ""
+"An email has been sent to the address you indicated. Click on the link in "
+"the message to confirm the new data"
+msgstr ""
+"Una email è stata inviata all'indirizzo da te indicato. Cliccare sul "
+"collegamento presente nel messaggio per confermare i nuovi dati"
+
+#: unical_accounts/views.py:165
+msgid "Wrong data"
+msgstr "Dati errati"
+
+#: unical_accounts/views.py:169
+msgid "Edit personal data"
+msgstr "Modifica dati personali"
+
+#: unical_accounts/views.py:179
+msgid "Missing token"
+msgstr "Token mancante"
+
+#: unical_accounts/views.py:188
+msgid "Invalid token"
+msgstr "Token non valido"
+
+#: unical_accounts/views.py:205
+msgid "Expired token"
+msgstr "Token scaduto"
+
+#: unical_accounts/views.py:213
+msgid "Email updated successfully"
+msgstr "Email aggiornata con successo"
 
 #: visiting_management/forms.py:10
 msgid "Collaboration"

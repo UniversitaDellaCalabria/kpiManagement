@@ -10,3 +10,5 @@ git+https://github.com/UniversitaDellaCalabria/design-django-theme.git@github_pa
 git+https://github.com/UniversitaDellaCalabria/django-unical-bootstrap-italia.git
 
 git+https://github.com/peppelinux/django-datatables-ajax.git
+
+cryptojwt
