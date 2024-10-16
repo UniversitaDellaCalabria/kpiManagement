@@ -1,11 +1,12 @@
-from django import forms
+from django.forms import ModelForm
 
 from bootstrap_italia_template.widgets import BootstrapItaliaSelectWidget
 
 from . models import User
+from . settings import EDITABLE_FIELDS, REQUIRED_FIELDS
 
 
-class UserForm(forms.ModelForm):
+class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ['first_name',
@@ -24,3 +25,24 @@ class UserForm(forms.ModelForm):
 
     # class Media:
         # js = ('js/textarea-autosize.js',)
+
+
+class UserDataForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in EDITABLE_FIELDS:
+            if field in REQUIRED_FIELDS:
+                self.fields[field].required = True
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if 'email' in EDITABLE_FIELDS:
+            instance.email = self.initial['email']
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = User
+        fields = EDITABLE_FIELDS
+        labels = {'email': 'E-mail'}
