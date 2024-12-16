@@ -40,6 +40,10 @@ if 'public_engagement_management' in settings.INSTALLED_APPS:
     urlpatterns += path('', include('public_engagement_management.urls',
                         namespace='public_engagement')),
 
+if 'public_engagement_monitoring' in settings.INSTALLED_APPS:
+    urlpatterns += path('', include('public_engagement_monitoring.urls',
+                        namespace='public_engagement_monitoring')),
+
 if 'template' in settings.INSTALLED_APPS:
     urlpatterns += path('', include('template.urls', namespace='template')),
 

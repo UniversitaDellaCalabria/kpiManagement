@@ -57,3 +57,14 @@ def check_user_permission_on_dashboard(user, main_model, office_slug):
         for off in my_offices:
             offices.append(off.office)
     return offices
+
+
+def check_user_linked_to_office(user, office_slug_list=[]):
+    if not office_slug_list: return False
+    for slug in office_slug_list:
+        employee = OrganizationalStructureOfficeEmployee.objects.filter(employee=user,
+                                                                        office__is_active=True,
+                                                                        office__slug=slug,
+                                                                        office__organizational_structure__is_active=True).exists()
+        if employee: return True
+    return False

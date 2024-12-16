@@ -32,13 +32,24 @@
     {% endblock clean_content %}
 {% endblock centered_container %}
 
+{% comment %}
 {% block bottom_scripts %}
 {{ block.super }}
 <script>
 <!-- Close modal window on submit first click -->
-$('.modal :submit').on('click', function(e){
-    $('.modal').removeClass('show');
-    $('.modal-backdrop.fade').css('opacity', 0);
+document.querySelectorAll('.modal input[type="submit"]').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        // Rimuove la classe "show" dagli elementi con la classe "modal"
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            modal.classList.remove('show');
+        });
+
+        // Cambia l'opacità degli elementi con la classe "modal-backdrop fade"
+        document.querySelectorAll('.modal-backdrop.fade').forEach(function(backdrop) {
+            backdrop.style.opacity = '0';
+        });
+    });
 });
 </script>
 {% endblock bottom_scripts %}
+{% endcomment %}

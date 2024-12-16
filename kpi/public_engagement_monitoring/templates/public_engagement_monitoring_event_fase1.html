@@ -1,0 +1,13 @@
+{% extends 'base_page.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>Edit - {{ event.title }}</h2>
+{% endblock top_content %}
+
+{% block clean_content %}
+{% include "form_template.html" with form=form %}
+{% endblock clean_content %}

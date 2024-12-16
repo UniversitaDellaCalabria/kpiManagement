@@ -6,9 +6,9 @@ from django.utils.translation import gettext as _
 
 class User(AbstractUser):
     GENDER = (
-        ('male', _('Maschio')),
-        ('female', _('Femmina')),
-        ('other', _('Altro')),
+        ('M', _('Maschio')),
+        ('F', _('Femmina')),
+        ('O', _('Altro')),
     )
 
     is_active = models.BooleanField(_('attivo'), default=True)

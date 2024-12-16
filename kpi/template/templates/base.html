@@ -6,6 +6,8 @@
 
 {% block extra_head %}
 {{ block.super }}
+<script src="{% static 'js/vue.3.4.31.prod.js' %}"></script>
+<script src="{% static 'js/axios.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/datatables.css' %}">
 <link rel="stylesheet" href="{% static 'css/kpi.css' %}">
 {% endblock extra_head %}
