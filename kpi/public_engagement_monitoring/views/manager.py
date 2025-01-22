@@ -62,8 +62,7 @@ def events(request, structure_slug):
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
                    '#': f'{structure_slug}'}
-    api_url = request.build_absolute_uri(reverse(
-        'public_engagement_monitoring:api_manager_events', kwargs={'structure_slug': structure_slug}))
+    api_url = reverse('public_engagement_monitoring:api_manager_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'api_url': api_url,
                                       'breadcrumbs': breadcrumbs,
                                       'events': events,

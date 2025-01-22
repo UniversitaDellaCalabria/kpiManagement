@@ -53,8 +53,7 @@ def events(request, structure_slug):
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
                    '#': structure_slug}
-    api_url = request.build_absolute_uri(reverse(
-        'public_engagement_monitoring:api_patronage_operator_events', kwargs={'structure_slug': structure_slug}))
+    api_url = reverse('public_engagement_monitoring:api_patronage_operator_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url,
                                       'structure_slug': structure_slug})

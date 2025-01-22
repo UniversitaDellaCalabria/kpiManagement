@@ -33,8 +33,7 @@ def events(request):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    '#': _('Events')}
-    api_url = request.build_absolute_uri(
-        reverse('public_engagement_monitoring:api_user_events'))
+    api_url = reverse('public_engagement_monitoring:api_user_events')
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url})
 
