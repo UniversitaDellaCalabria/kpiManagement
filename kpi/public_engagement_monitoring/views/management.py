@@ -25,14 +25,14 @@ def event_basic_info(request, structure_slug, event_id, by_manager=False, event=
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('General informations')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('General informations')}
 
@@ -51,14 +51,15 @@ def event_basic_info(request, structure_slug, event_id, by_manager=False, event=
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=f'{structure_slug}: {_("modified general informations")}')
+                       msg='{}: {}'.format(structure_slug, _('modified general informations')))
 
             messages.add_message(request, messages.SUCCESS,
                                  _("Modified general informations successfully"))
 
             # invia email al referente/compilatore
-            subject = f'{_("Public engagement")} - "{event.title}" - {_("data modified")}'
-            body = f"{request.user} {_('has modified the data of the event')}."
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
+
             send_email_to_event_referents(event, subject, body)
 
             # invia email agli operatori dipartimentali
@@ -69,7 +70,7 @@ def event_basic_info(request, structure_slug, event_id, by_manager=False, event=
 
         else:  # pragma: no cover
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 '<b>{}</b>: {}'.format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form})
 
 
@@ -78,14 +79,14 @@ def event_data(request, structure_slug, event_id, by_manager=False, event=None):
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Event data')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Event data')}
 
@@ -108,14 +109,15 @@ def event_data(request, structure_slug, event_id, by_manager=False, event=None):
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=f'{structure_slug}: {_("data modified")}')
+                       msg='{}: {}'.format(structure_slug, _('data modified')))
 
             messages.add_message(request, messages.SUCCESS,
                                  _("Data updated successfully"))
 
             # invia email al referente/compilatore
-            subject = f'{_("Public engagement")} - "{event.title}" - {_("data modified")}'
-            body = f"{request.user} {_('has modified the data of the event')}."
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
+
             send_email_to_event_referents(event, subject, body)
 
             # invia email agli operatori dipartimentali
@@ -125,7 +127,7 @@ def event_data(request, structure_slug, event_id, by_manager=False, event=None):
             return True
         else:
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 '<b>{}</b>: {}'.format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'event': event,
                                       'form': form,
@@ -140,14 +142,14 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Involved personnel')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Involved personnel')}
 
@@ -157,11 +159,11 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
         person_id = request.POST.get('person_id')
         if not person_id:
             raise PermissionDenied()
-        decrypted_id = requests.post(f'{API_DECRYPTED_ID}/',
+        decrypted_id = requests.post('{}{}'.format(API_DECRYPTED_ID, '/'),
                                      data={'id': request.POST['person_id']},
-                                     headers={'Authorization': f'Token {settings.STORAGE_TOKEN}'})
-        response = requests.get(f'{API_ADDRESSBOOK_FULL}{decrypted_id.json()}/', headers={
-                                'Authorization': f'Token {settings.STORAGE_TOKEN}'})
+                                     headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
+        response = requests.get('{}{}'.format(API_ADDRESSBOOK_FULL, decrypted_id.json()), headers={
+                                'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
             raise PermissionDenied()
         person_data = response.json()['results']
@@ -182,7 +184,7 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
                                                      gender=person_data['Gender'])
         if data.person.filter(pk=person.pk).exists():
             messages.add_message(request, messages.ERROR,
-                                 f"{person} {_('already exists')}")
+                                 '{} {}'.format(person, _('already exists')))
         else:
             data.person.add(person)
             data.modified_by = request.user
@@ -193,14 +195,14 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=f'{structure_slug}: {_("added")} {person.first_name} {person.last_name} {_("in involved personnel")}')
+                       msg='{}: {} {} {} {}'.format(structure_slug, _('added'), person.first_name, person.last_name, _('in involved personnel')))
 
             messages.add_message(request, messages.SUCCESS,
-                                 f"{person} {_('addedd successfully')}")
+                                 '{} {}'.format(person, _('added successfully')))
 
             # invia email al referente/compilatore
-            subject = f'{_("Public engagement")} - "{event.title}" - {_("data modified")}'
-            body = f"{request.user} {_('has modified the data of the event')}."
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
             send_email_to_event_referents(event, subject, body)
 
             # invia email agli operatori dipartimentali
@@ -227,15 +229,15 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
         event.save()
 
         log_action(user=request.user,
-                       obj=event,
-                       flag=CHANGE,
-                       msg=f'{structure_slug}: {_("removed")} {person.first_name} {person.last_name} {_("from involved personnel")}')
+                   obj=event,
+                   flag=CHANGE,
+                   msg='{}: {} {} {} {}'.format(structure_slug, _('removed'), person.first_name, person.last_name, _('from involved personnel')))
 
-        messages.add_message(request, messages.SUCCESS, _("Successfully removed"))
+        messages.add_message(request, messages.SUCCESS, _('Successfully removed'))
 
         # invia email al referente/compilatore
-        subject = f'{_("Public engagement")} - "{event.title}" - {_("data modified")}'
-        body = f"{request.user} {_('has modified the data of the event')}."
+        subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+        body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
         send_email_to_event_referents(event, subject, body)
 
         # invia email agli operatori dipartimentali

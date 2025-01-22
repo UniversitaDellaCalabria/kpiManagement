@@ -57,17 +57,17 @@ def new_event_choose_referent(request):
 
         # se il referente non sono io, recupero la matricola in chiaro
         if not user_is_referent:
-            referent_id = requests.post(f'{API_DECRYPTED_ID}/',
+            referent_id = requests.post('{}/'.format(API_DECRYPTED_ID),
                                         data={
                                             'id': request.POST['referent_id']},
-                                        headers={'Authorization': f'Token {settings.STORAGE_TOKEN}'})
+                                        headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
             if referent_id.status_code != 200:
                 return custom_message(request, _("Access denied"), 403)
 
         # recupero dati completi del referente (in entrambi i casi)
         # es: genere
-        response = requests.get(f'{API_ADDRESSBOOK_FULL}{referent_id.json()}/',
-                                headers={'Authorization': f'Token {settings.STORAGE_TOKEN}'})
+        response = requests.get('{}{}/'.format(API_ADDRESSBOOK_FULL, referent_id.json()),
+                                headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
             return custom_message(request, _("Access denied"), 403)
 
@@ -129,7 +129,8 @@ def new_event_basic_info(request):
             # check sull'anno di inizio dell'evento
             if not PublicEngagementAnnualMonitoring.year_is_active(year):
                 messages.add_message(
-                    request, messages.ERROR, f"<b>{_('Alert')}</b>: {_('Monitoring activity year')} {year} {_('has been disabled')}")
+                    request, messages.ERROR, "<b>{}</b>: {} {} {}".format(
+                        _('Alert'), _('Monitoring activity year'), year, _('has been disabled')))
             else:
                 event = form.save(commit=False)
                 event.created_by = request.user
@@ -151,7 +152,7 @@ def new_event_basic_info(request):
                                 event_id=event.pk)
         else:  # pragma: no cover
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'form': form})
 
 
@@ -209,7 +210,7 @@ def event_basic_info(request, event_id, event=None):
                             event_id=event.pk)
         else:  # pragma: no cover
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'event': event,
                                       'form': form})
@@ -230,7 +231,6 @@ def event_data(request, event_id, event=None):
                    '#': _("Event data")}
 
     if request.method == 'POST':
-
         form = PublicEngagementEventDataForm(instance=instance,
                                              data=request.POST,
                                              files=request.FILES)
@@ -262,7 +262,7 @@ def event_data(request, event_id, event=None):
                             event_id=event.pk)
         else:
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form})
 
 
@@ -273,7 +273,7 @@ def event_people(request, event_id, event=None):
     data = getattr(event, 'data', None)
     if not data:
         messages.add_message(request, messages.ERROR,
-                             f"<b>{_('Alert')}</b>: {_('event data required')}")
+                             "<b>{}</b>: {}".format(_('Alert'), _('event data required')))
         return redirect("public_engagement_monitoring:user_event",
                         event_id=event.pk)
 
@@ -285,16 +285,14 @@ def event_people(request, event_id, event=None):
                    '#': _('Involved personnel')}
 
     if request.method == 'POST':
-        # recupero dati completi del referente (in entrambi i casi)
-        # es: genere
         person_id = request.POST.get('person_id')
         if not person_id:
             return custom_message(request, _("Access denied"), 403)
-        decrypted_id = requests.post(f'{API_DECRYPTED_ID}/',
+        decrypted_id = requests.post("{}/".format(API_DECRYPTED_ID),
                                      data={'id': request.POST['person_id']},
-                                     headers={'Authorization': f'Token {settings.STORAGE_TOKEN}'})
-        response = requests.get(f'{API_ADDRESSBOOK_FULL}{decrypted_id.json()}/', headers={
-                                'Authorization': f'Token {settings.STORAGE_TOKEN}'})
+                                     headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
+        response = requests.get("{}{}/".format(API_ADDRESSBOOK_FULL, decrypted_id.json()), headers={
+                                'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
             return custom_message(request, _("Access denied"), 403)
         person_data = response.json()['results']
@@ -315,7 +313,7 @@ def event_people(request, event_id, event=None):
                                                      gender=person_data['Gender'])
         if data.person.filter(pk=person.pk).exists():
             messages.add_message(request, messages.ERROR,
-                                 f"{person} {_('already exists')}")
+                                 "{} {}".format(person, _('already exists')))
         else:
             data.person.add(person)
             data.modified_by = request.user
@@ -326,10 +324,10 @@ def event_people(request, event_id, event=None):
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=f'{_("added")} {person.first_name} {person.last_name} {_("in involved personnel")}')
+                       msg="{} {} {} {}".format(_('added'), person.first_name, person.last_name, _('in involved personnel')))
 
             messages.add_message(request, messages.SUCCESS,
-                                 f"{person} {_('addedd successfully')}")
+                                 "{} {}".format(person, _('added successfully')))
         return redirect("public_engagement_monitoring:user_event",
                         event_id=event.pk)
     return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event})
@@ -352,12 +350,11 @@ def event_people_delete(request, event_id, person_id, event=None):
         event.save()
 
         log_action(user=request.user,
-                       obj=event,
-                       flag=CHANGE,
-                       msg=f'{_("Removed")} {person.first_name} {person.last_name} {_("from involved personnel")}')
+                   obj=event,
+                   flag=CHANGE,
+                   msg="{} {} {} {}".format(_('Removed'), person.first_name, person.last_name, _('from involved personnel')))
 
-        messages.add_message(request, messages.SUCCESS,
-                             _("Successfully removed"))
+        messages.add_message(request, messages.SUCCESS, _("Successfully removed"))
     return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
 
 
@@ -380,7 +377,6 @@ def event_report(request, event_id, event=None):
                                                event=event,
                                                data=request.POST)
         if form.is_valid():
-
             report = form.save(commit=False)
             report.event = event
             report.modified_by = request.user
@@ -391,26 +387,16 @@ def event_report(request, event_id, event=None):
             event.modified_by = request.user
             event.save()
 
-            if not instance:
-                log_action(user=request.user,
-                           obj=event,
-                           flag=CHANGE,
-                           msg=_('Monitoring data loaded'))
-            else:
-                changed_field_labels = _get_changed_field_labels_from_form(form,
-                                                                           form.changed_data)
-                log_action(user=request.user,
-                           obj=event,
-                           flag=CHANGE,
-                           msg=_('Monitoring data modified'))
+            log_action(user=request.user,
+                       obj=event,
+                       flag=CHANGE,
+                       msg=_('Monitoring data modified' if instance else 'Monitoring data loaded'))
 
-            messages.add_message(request, messages.SUCCESS,
-                                 _('Monitoring data modified successfully'))
-            return redirect("public_engagement_monitoring:user_event",
-                            event_id=event.pk)
+            messages.add_message(request, messages.SUCCESS, _('Monitoring data modified successfully'))
+            return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
         else:
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form})
 
 
@@ -429,20 +415,19 @@ def event_request_evaluation(request, event_id, event=None):
                    flag=CHANGE,
                    msg=_('Evaluation request sent'))
 
-        messages.add_message(request, messages.SUCCESS,
-                             _('Evaluation request sent'))
+        messages.add_message(request, messages.SUCCESS, _('Evaluation request sent'))
 
-        # invia email agli operatori del dipartimento
-        subject = f'{_("Public engagement")} - "{event.title}" - {_("Evaluation request sent")}'
-        body = f"{request.user} {_('requested the evaluation of the event')}. {_('Click here')}: {request.build_absolute_uri(reverse('public_engagement_monitoring:operator_event', kwargs={'structure_slug': event.structure.slug, 'event_id': event.pk}))}"
-        send_email_to_operators(structure=event.structure,
-                                subject=subject,
-                                body=body)
+        subject = "{} - \"{}\" - {}".format(_('Public engagement'), event.title, _('Evaluation request sent'))
+        body = "{} {}. {}: {}".format(request.user, _('requested the evaluation of the event'),
+                                      _('Click here'),
+                                      request.build_absolute_uri(
+                                          reverse('public_engagement_monitoring:operator_event',
+                                                  kwargs={'structure_slug': event.structure.slug, 'event_id': event.pk})))
+        send_email_to_operators(structure=event.structure, subject=subject, body=body)
     else:
         messages.add_message(request, messages.ERROR,
-                             f"<b>{_('Alert')}</b>: {_('evaluation conditions are not satisfied')}")
-    return redirect("public_engagement_monitoring:user_event",
-                    event_id=event.pk)
+                             "<b>{}</b>: {}".format(_('Alert'), _('evaluation conditions are not satisfied')))
+    return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
 
 
 @login_required
@@ -456,22 +441,17 @@ def event_request_evaluation_cancel(request, event_id, event=None):
     event.save()
 
     log_action(user=request.user,
-                   obj=event,
-                   flag=CHANGE,
-                   msg=_('Evaluation request cancelled'))
+               obj=event,
+               flag=CHANGE,
+               msg=_('Evaluation request cancelled'))
 
-    messages.add_message(request, messages.SUCCESS,
-                         _('Evaluation request cancelled'))
+    messages.add_message(request, messages.SUCCESS, _('Evaluation request cancelled'))
 
-    # invia email agli operatori del dipartimento
-    subject = f'{_("Public engagement")} - "{event.title}" - {_("Evaluation request cancelled")}'
-    body = f"{request.user} {_('has cancelled the evaluation request')}"
-    send_email_to_operators(structure=event.structure,
-                            subject=subject,
-                            body=body)
+    subject = "{} - \"{}\" - {}".format(_('Public engagement'), event.title, _('Evaluation request cancelled'))
+    body = "{} {}".format(request.user, _('has cancelled the evaluation request'))
+    send_email_to_operators(structure=event.structure, subject=subject, body=body)
 
-    return redirect("public_engagement_monitoring:user_event",
-                    event_id=event.pk)
+    return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
 
 
 @login_required
@@ -504,7 +484,7 @@ def event_clone(request, event_id, event=None):
     new_data.promo_tool.set(event.data.promo_tool.all())
 
     messages.add_message(request, messages.SUCCESS,
-                         f"{_('Event')} {event.title} {_('duplicated')}")
+                         "{} {} {}".format(_('Event'), event.title, _('duplicated')))
     return redirect("public_engagement_monitoring:user_event", event_id=new_event.pk)
 
 
@@ -515,6 +495,6 @@ def event_delete(request, event_id, event=None):
         return custom_message(request, _("Access denied"), 403)
 
     messages.add_message(request, messages.SUCCESS,
-                         f"{_('Event')} {event.title} {_('removed')}")
+                         "{} {} {}".format(_('Event'), event.title, _('removed')))
     event.delete()
     return redirect("public_engagement_monitoring:user_events")

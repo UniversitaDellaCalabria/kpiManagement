@@ -19,12 +19,12 @@
                 <fieldset class="mb-3">
                     <div class="form-check">
                         <input name="user_is_referent" type="radio" id="radio1" value="true" checked v-model="user_is_referent">
-                        <label for="radio1">Sono io</label>
+                        <label for="radio1">{% trans "It's me" %}</label>
                     </div>
                     <div class="form-check">
                         <input name="user_is_referent" type="radio" id="radio2" value="false" v-model="user_is_referent">
                         <label for="radio2">
-                            Sto compilando per conto del referente
+                            {% trans "I'm referent delegate" %}
                         </label>
                     </div>
                 </fieldset>
@@ -61,7 +61,7 @@
                 {% else %}
                 <button type="submit" class="btn btn-success" v-if="referent_id != ''">
                 {% endif %}
-                    Prosegui
+                    {% trans "Next step" %}
                 </button>
             </form>
             {% if compiled_by_user %}

@@ -68,13 +68,13 @@ def event(request, structure_slug, event_id):
                                                  data__patronage_requested=True).first()
     if not event:
         messages.add_message(request, messages.ERROR,
-                             f"<b>{_('Alert')}</b>: {_('URL access is not allowed')}")
+                             "<b>{}</b>: {}".format(_('Alert'), _('URL access is not allowed')))
         return redirect('public_engagement_monitoring:patronage_operator_events', structure_slug=structure_slug)
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                    '#': event.title}
     template = 'pem/patronage/event.html'
 
@@ -108,14 +108,14 @@ def take_event(request, structure_slug, event_id):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg=f'{structure_slug}: {_("taken")}')
+               msg='{}: {}'.format(structure_slug, _('taken')))
 
     messages.add_message(request, messages.SUCCESS,
                          _("Event taken successfully"))
 
     # invia email al referente/compilatore
-    subject = f'{_("Public engagement")} - "{event.title}" - {_("taken")}'
-    body = f"{request.user} {_('is evaluating the event')}."
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('taken'))
+    body = "{} {} {}".format(request.user, _('is evaluating the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
     return redirect('public_engagement_monitoring:patronage_operator_event',
@@ -142,8 +142,8 @@ def event_evaluation(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
-                   reverse('public_engagement_monitoring:patronage_operator_event', kwargs={'structure_slug': structure_slug, 'event_id': event_id}): f'{event.title}',
+                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:patronage_operator_event', kwargs={'structure_slug': structure_slug, 'event_id': event_id}): '{}'.format(event.title),
                    '#': _('Evaluation')}
 
     if request.method == 'POST':
@@ -159,9 +159,9 @@ def event_evaluation(request, structure_slug, event_id):
             messages.add_message(request, messages.SUCCESS, _("Patronage evaluation completed"))
 
             result = _('approved') if form.cleaned_data['success'] else _('not approved')
-            msg = f'{structure_slug} - {_("patronage evaluation completed")}: {result}'
+            msg = '{} - {}: {}'.format(structure_slug, _('patronage evaluation completed'), result)
             if not form.cleaned_data['success']:
-                msg += f' {operator_notes}'
+                msg += ' {}'.format(operator_notes)
 
             log_action(user=request.user,
                        obj=event,
@@ -169,8 +169,8 @@ def event_evaluation(request, structure_slug, event_id):
                        msg=msg)
 
             # invia email al referente/compilatore
-            subject = f'{_("Public engagement")} - "{event.title}" - {_("Patronage evaluation completed")}'
-            body = f"{request.user} {_('has evaluated the event with the result')}: {result}."
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Patronage evaluation completed'))
+            body = "{} {} {}".format(request.user, _('has evaluated the event with the result'), result)
             send_email_to_event_referents(event, subject, body)
 
             # invia email ai manager
@@ -181,7 +181,7 @@ def event_evaluation(request, structure_slug, event_id):
                             event_id=event_id)
         else:
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'event': event, 'form': form, 'structure_slug': structure_slug})
 
 
@@ -205,13 +205,13 @@ def event_reopen_evaluation(request, structure_slug, event_id):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg=f'{structure_slug}:  {_("patronage evaluation reopened")}')
+               msg='{}:  {}'.format(structure_slug, _('patronage evaluation reopened')))
 
     messages.add_message(request, messages.SUCCESS, _("Evaluation reopened"))
 
     # email
-    subject = f'{_("Public engagement")} - "{event.title}" - {_("patronage evaluation reopened")}'
-    body = f"{request.user} {_('has reopened patronage evaluation of the event')}."
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('patronage evaluation reopened'))
+    body = "{} {} {}".format(request.user, _('has reopened patronage evaluation of the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
     # invia email ai manager

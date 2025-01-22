@@ -15,7 +15,7 @@ from . utils import user_is_manager
 
 class PublicEngagementReferentForm(forms.Form):
     event_owner = forms.BooleanField(
-        label=_('Sono io il referenete dell\'iniziativa'))
+        label=_("I'm the event referent"))
 
 
 class PublicEngagementEventForm(forms.ModelForm):

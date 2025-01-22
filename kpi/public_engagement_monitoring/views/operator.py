@@ -51,7 +51,7 @@ def events(request, structure_slug):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                   '#': f'{structure_slug}'}
+                   '#': '{}'.format(structure_slug)}
     api_url = reverse('public_engagement_monitoring:api_evaluation_operator_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url,
@@ -66,7 +66,7 @@ def new_event_choose_referent(request, structure_slug):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                    '#': _('New')}
 
     if request.method == 'POST':
@@ -74,14 +74,14 @@ def new_event_choose_referent(request, structure_slug):
         referent_id = requests.post(f'{API_DECRYPTED_ID}/',
                                     data={
                                         'id': request.POST['referent_id']},
-                                    headers={'Authorization': f'Token {settings.STORAGE_TOKEN}'})
+                                    headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if referent_id.status_code != 200:
             return custom_message(request, _("Access denied"), 403)
 
         # recupero dati completi del referente (in entrambi i casi)
         # es: genere
         response = requests.get(f'{API_ADDRESSBOOK_FULL}{referent_id.json()}/',
-                                headers={'Authorization': f'Token {settings.STORAGE_TOKEN}'})
+                                headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
             return custom_message(request, _("Access denied"), 403)
 
@@ -132,7 +132,7 @@ def new_event_basic_info(request, structure_slug):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                    reverse('public_engagement_monitoring:operator_new_event_choose_referent'): _('New'),
                    '#': _('General informations')}
 
@@ -147,7 +147,7 @@ def new_event_basic_info(request, structure_slug):
             # check sull'anno di inizio dell'evento
             if not PublicEngagementAnnualMonitoring.year_is_active(year):
                 messages.add_message(
-                    request, messages.ERROR, f"<b>{_('Alert')}</b>: {_('Monitoring activity year')} {year} {_('has been disabled')}")
+                    request, messages.ERROR, "<b>{}</b>: {} {}".format(_('Alert'), _('Monitoring activity year'), year, _('has been disabled')))
             else:
                 event = form.save(commit=False)
                 event.created_by = request.user
@@ -162,7 +162,7 @@ def new_event_basic_info(request, structure_slug):
                 log_action(user=request.user,
                            obj=event,
                            flag=ADDITION,
-                           msg=f'{structure_slug}: {_("added")}')
+                           msg='{}: {}'.format(structure_slug, _('added')))
 
                 messages.add_message(
                     request, messages.SUCCESS, _("First step completed successfully. Now proceed to enter the data"))
@@ -173,7 +173,7 @@ def new_event_basic_info(request, structure_slug):
                                 event_id=event.pk)
         else:  # pragma: no cover
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'form': form})
 
 
@@ -184,13 +184,13 @@ def event(request, structure_slug, event_id):
                                                  structure__slug=structure_slug).first()
     if not event:
         messages.add_message(request, messages.ERROR,
-                             f"<b>Attenzione</b>: non hai accesso all'URL digitato")
+                             "<b>{}</b>: {}".format(_('Alert'), _('URL access is not allowed')))
         return redirect('public_engagement_monitoring:operator_events', structure_slug=structure_slug)
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                    '#': event.title}
     template = 'pem/operator/event.html'
 
@@ -221,11 +221,11 @@ def take_event(request, structure_slug, event_id):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg=f'{structure_slug}: {_("taken")}')
+               msg='{}: {}'.format(structure_slug, _('taken')))
 
     # invia email al referente/compilatore
-    subject = f'{_("Public engagement")} - "{event.title}" - {_("taken")}'
-    body = f"{request.user} {_('is evaluating the event')}."
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('taken'))
+    body = "{} {} {}".format(request.user, _('is evaluating the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
     return redirect('public_engagement_monitoring:operator_event',
@@ -312,7 +312,7 @@ def event_evaluation(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): f'{structure_slug}',
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
                    reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                    '#': _('Evaluation')}
 
@@ -327,9 +327,9 @@ def event_evaluation(request, structure_slug, event_id):
             event.save()
 
             result = _('approved') if form.cleaned_data['success'] else _('not approved')
-            msg = f'{structure_slug} - {_("evaluation completed")}: {result}'
+            msg = '{} - {}: {}'.format(structure_slug, _('evaluation completed'), result)
             if not form.cleaned_data['success']:
-                msg += f' {operator_notes}'
+                msg += ' {}'.format(operator_notes)
 
             log_action(user=request.user,
                        obj=event,
@@ -339,8 +339,8 @@ def event_evaluation(request, structure_slug, event_id):
             messages.add_message(request, messages.SUCCESS, _("Evaluation completed"))
 
             # email
-            subject = f'{_("Public engagement")} - "{event.title}" - {_("Evaluation completed")}'
-            body = f"{request.user} {_('has evaluated the event with the result')}: {result}."
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation completed'))
+            body = "{} {} {}".format(request.user, _('has evaluated the event with the result'), result)
             send_email_to_event_referents(event, subject, body)
 
             if form.cleaned_data['success']:
@@ -355,7 +355,7 @@ def event_evaluation(request, structure_slug, event_id):
                             event_id=event_id)
         else:
             messages.add_message(request, messages.ERROR,
-                                 f"<b>{_('Alert')}</b>: {_('the errors in the form below need to be fixed')}")
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form, 'structure_slug': structure_slug})
 
 
@@ -377,13 +377,13 @@ def event_reopen_evaluation(request, structure_slug, event_id):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg=f'{structure_slug}: {_("evaluation reopened")}')
+               msg='{}: {}'.format(structure_slug, _('evaluation reopened')))
 
     messages.add_message(request, messages.SUCCESS, _("Evaluation reopened"))
 
     # email
-    subject = f'{_("Public engagement")} - "{event.title}" - {_("evaluation reopened")}'
-    body = f"{request.user} {_('has reopened evaluation of the event')}."
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('evaluation reopened'))
+    body = "{} {} {}".format(request.user, _('has reopened evaluation of the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
     if event.data.patronage_requested:
