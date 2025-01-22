@@ -10,27 +10,12 @@
 
 {% block top_buttons %}
 <div class="pb-4 clearfix mt-5">
-    <div class="pull-left d-inline">
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Visiting/Teacher mobility management" %}
-        </a>
-    </div>
-    <div class="pull-left d-inline">
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visitings' structure_slug=structure.slug %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Back to" %} {{ structure }}
-        </a>
-    </div>
-
-    <div class="pull-right d-inline">
+    <div class="float-lg-end d-inline">
         <a role="button"
            class="btn btn-outline-secondary"
            href="{% url 'visiting:edit_structure_visiting' structure_slug=structure.slug visiting_pk=visiting.pk %}">
                 <svg class="icon icon-xs">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-pencil"></use>
                 </svg> {% trans "Edit" %}
         </a>
     </div>
@@ -45,18 +30,18 @@
             <td>
                 {% if visiting.is_active %}
                 <svg class="icon icon-sm icon-success">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                 </svg>
                  {% else %}
                 <svg class="icon icon-sm icon-danger">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                 </svg>
                 {% endif %}
             </td>
         </tr>
         <tr>
             <th scope="row">{% trans 'Visitor' %}</th>
-            <td>{{ visiting.visitor }}</td>
+            <td>{{ visiting.visitor.first_name }} {{ visiting.visitor.last_name }} ({{ visiting.visitor.codice_fiscale }})</td>
         </tr>
         <tr>
             <th scope="row">{% trans 'Role' %}</th>
@@ -87,11 +72,11 @@
             <td>
                 {% if visiting.mission %}
                 <svg class="icon icon-sm icon-success">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                 </svg>
                  {% else %}
                 <svg class="icon icon-sm icon-danger">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                 </svg>
                 {% endif %}
             </td>

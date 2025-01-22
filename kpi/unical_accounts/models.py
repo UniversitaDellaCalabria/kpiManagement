@@ -46,6 +46,4 @@ class User(AbstractUser):
         verbose_name_plural = _("Utenti UNICAL")
 
     def __str__(self):
-        return '{} {} - {}'.format(self.first_name,
-                                   self.last_name,
-                                   self.codice_fiscale)
+        return '{} {}'.format(self.last_name,  self.first_name)

@@ -10,12 +10,12 @@
 
 {% block top_buttons %}
 <div class="pb-4 clearfix mt-5">
-    <div class="pull-right d-inline">
+    <div class="float-lg-end d-inline">
         <a role="button"
-           class="btn btn-success float-right"
+           class="btn btn-success"
            href="{% url 'unical_accounts:users-new' %}">
                 <svg class="icon icon-xs icon-white">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-plus-circle"></use>
                 </svg> {% trans "Add new user" %}
         </a>
     </div>
@@ -42,7 +42,7 @@
    class="btn btn-success float-right"
    href="{% url 'unical_accounts:users-new' %}">
         <svg class="icon icon-xs icon-white">
-            <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+            <use xlink:href="{% static 'svg/sprites.svg' %}#it-plus-circle"></use>
         </svg> {% trans "Add new user" %}
 </a>
 

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
@@ -21,18 +21,23 @@ from . settings import *
 @belongs_to_an_office
 def users(request):
     template = 'users.html'
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   '#': _('Users')}
     if request.user.is_superuser:
         users = User.objects.filter(is_active=True)
     else:
         users = User.objects.filter(is_active=True,
                                     created_by=request.user)
-    data = {'users': users}
+    data = {'breadcrumbs': breadcrumbs, 'users': users}
     return render(request, template, data)
 
 
 @login_required
 @belongs_to_an_office
 def new_user(request):
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('unical_accounts:users'): _('Users'),
+                   '#': _('Nuovo')}
     template = 'new_user.html'
     form = UserForm()
 
@@ -61,7 +66,7 @@ def new_user(request):
             for k, v in form.errors.items():
                 messages.add_message(request, messages.ERROR,
                                      f"<b>{form.fields[k].label}</b>: {strip_tags(v)}")
-    data = {'form': form}
+    data = {'breadcrumbs': breadcrumbs, 'form': form}
     return render(request, template, data)
 
 
@@ -74,6 +79,12 @@ def edit_user(request, user_tax_code):
     user = get_object_or_404(User,
                              is_active=True,
                              codice_fiscale=user_tax_code)
+
+    breadcrumbs = {
+        reverse('template:dashboard'): _('Dashboard'),
+        reverse('unical_accounts:users'): _('Users'),
+        '#': user
+    }
 
     if user.created_by != request.user or user.last_login:
         messages.add_message(request, messages.ERROR,
@@ -99,7 +110,7 @@ def edit_user(request, user_tax_code):
             for k, v in form.errors.items():
                 messages.add_message(request, messages.ERROR,
                                      f"<b>{form.fields[k].label}</b>: {strip_tags(v)}")
-    data = {'form': form}
+    data = {'breadcrumbs': breadcrumbs, 'form': form}
     return render(request, template, data)
 
 
@@ -144,9 +155,6 @@ def changeData(request):
                 token = f'{request.user.id}|{email}|{timezone.now()}'
                 encrypted_data = encrypt_to_jwe(token)
                 url = f'{base_url}?token={encrypted_data}'
-
-                print(url)
-
                 body=_("Confirm your email by clicking here {}").format(url)
                 msg_body = f'{MSG_HEADER.format(hostname=settings.DEFAULT_HOST)}{body}{MSG_FOOTER}'
                 result = send_mail(

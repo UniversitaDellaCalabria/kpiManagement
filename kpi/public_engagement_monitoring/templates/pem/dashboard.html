@@ -1,0 +1,103 @@
+{% extends 'pem/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "Public engagement management" %}</h2>
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+    sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+{% endblock top_content %}
+
+{% block clean_content %}
+<div class="row mt-5">
+    <div class="col-12 col-lg-4">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprites.svg' %}#it-user"></use>
+                        </svg>
+                        {% trans 'Referent/Delegate' %}
+                    </h5>
+                    <p class="card-text">
+                        {% trans 'To insert or modify your events' %}
+                    </p>
+                    <a class="read-more" href="{% url 'public_engagement_monitoring:user_events'%}">
+                        <span class="text text-primary">{% trans "Manage" %}</span>
+                        <svg class="icon">
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+    <div class="col-12 col-lg-4">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprites.svg' %}#it-box"></use>
+                        </svg>
+                        {% trans 'Structure operator' %}
+                    </h5>
+                    <p class="card-text">
+                        {% trans 'To manager your structure events' %}
+                    </p>
+                    <a class="read-more" href="{% url 'public_engagement_monitoring:operator_dashboard'%}">
+                        <span class="text text-primary">{% trans "Evaluator" %}</span>
+                        <svg class="icon">
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
+                        </svg>
+                    </a>
+                    <a class="read-more" style="left: 50%" href="{% url 'public_engagement_monitoring:patronage_operator_dashboard'%}">
+                        <span class="text text-primary">{% trans "Patronage" %}</span>
+                        <svg class="icon">
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+    <div class="col-12 col-lg-4">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprites.svg' %}#it-pa"></use>
+                        </svg>
+                        {% trans 'Manager' %}
+                    </h5>
+                    <p class="card-text">
+                        {% trans 'To all events' %}
+                    </p>
+                    <a class="read-more" href="{% url 'public_engagement_monitoring:manager_dashboard'%}">
+                        <span class="text text-primary">{% trans "Manage" %}</span>
+                        <svg class="icon">
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+</div>
+{% endblock clean_content %}

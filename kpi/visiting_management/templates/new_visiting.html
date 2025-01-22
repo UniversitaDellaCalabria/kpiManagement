@@ -6,30 +6,17 @@
 
 {% block top_content %}
 <h2>{% trans "New visiting/teacher mobility" %}</h2>
-<h4>{{ structure }}</h4>
+<h3 style="font-weight: lighter">{{ structure }}</h3>
 {% endblock top_content %}
 
 {% block top_buttons %}
 <div class="pb-4 clearfix mt-5">
-    <div class="pull-left d-inline">
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Visiting/Teacher mobility management" %}
-        </a>
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visitings' structure_slug=structure.slug %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Back to" %} {{ structure }}
-        </a>
-    </div>
-
-    <div class="pull-right d-inline">
+    <div class="float-lg-end d-inline">
         <a role="button"
-           class="btn btn-success float-right"
+           class="btn btn-success"
            href="{% url 'unical_accounts:users-new' %}">
                 <svg class="icon icon-xs icon-white">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-plus-circle"></use>
                 </svg> {% trans "Add new user" %}
         </a>
     </div>

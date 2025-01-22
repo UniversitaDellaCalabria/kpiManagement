@@ -1,5 +1,6 @@
 from django.urls import path
 
+from . api.views import *
 from . datatables import *
 from . views import *
 
@@ -13,6 +14,10 @@ prefix = 'visiting'
 urlpatterns = [
 
     path(f'{prefix}/', dashboard, name='dashboard'),
+    path(f'{prefix}/api/structures/', OrganizationalStructureList.as_view(), name='api_structures'),
+    path(f'{prefix}/api/structures/<int:pk>/', OrganizationalStructureDetail.as_view(), name='api_structure'),
+    path(f'{prefix}/api/users/', VisitingUserList.as_view(), name='api_users'),
+    path(f'{prefix}/api/users/<int:pk>/', VisitingUserDetail.as_view(), name='api_user'),
 
     # datatables
     path(f'{prefix}/<str:structure_slug>/visitings.json',

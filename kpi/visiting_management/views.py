@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils.translation import gettext_lazy as _
 
 # from organizational_area.decorators import belongs_to_an_office
@@ -14,7 +14,7 @@ from organizational_area.models import *
 from template.utils import check_user_permission_on_dashboard, log_action
 
 from . decorators import *
-from . forms import VisitingForm
+from . forms import *
 from . settings import *
 from . models import Visiting, VisitingCollaboration
 
@@ -50,8 +50,10 @@ def _save_visiting(structure, form, **kwargs):
 @login_required
 # @belongs_to_an_office
 def dashboard(request):
-
     template = 'dashboard_visitings.html'
+
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   '#': 'Visiting/Mobilità docenti'}
 
     offices = check_user_permission_on_dashboard(request.user,
                                                  Visiting,
@@ -71,7 +73,7 @@ def dashboard(request):
                        'visiting_in': visiting_in,
                        'visiting_out': visiting_out})
 
-    d = {'my_offices': result}
+    d = {'breadcrumbs': breadcrumbs, 'my_offices': result}
 
     return render(request, template, d)
 
@@ -82,7 +84,10 @@ def structure_visitings(request, structure_slug, structure=None):
     """
     param structure comes from @can_manage_structure_visitings
     """
-    d = {'structure': structure}
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('visiting:dashboard'): 'Visiting/Mobilità docenti',
+                   '#': structure.name }
+    d = {'breadcrumbs': breadcrumbs, 'structure': structure}
     template = 'visitings.html'
     return render(request, template, d)
 
@@ -98,12 +103,18 @@ def structure_visiting(request, structure_slug, visiting_pk, structure=None):
                                  Q(to_structure=structure),
                                  pk=visiting_pk,)
 
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('visiting:dashboard'): 'Visiting/Mobilità docenti',
+                   reverse('visiting:structure_visitings', kwargs={'structure_slug': structure_slug}): structure.name,
+                   '#': visiting.pk}
+
     collaborations = VisitingCollaboration.objects.filter(visiting=visiting)
 
     visiting_logs = LogEntry.objects.filter(content_type_id=ContentType.objects.get_for_model(visiting).pk,
                                             object_id=visiting.pk)
 
-    d = {'collaborations': collaborations,
+    d = {'breadcrumbs': breadcrumbs,
+         'collaborations': collaborations,
          'visiting_logs': visiting_logs,
          'visiting': visiting,
          'structure': structure}
@@ -118,6 +129,10 @@ def new_structure_visiting(request, structure_slug, structure=None):
     param structure comes from @can_manage_structure_visitings
     """
     form = VisitingForm(structure=structure)
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('visiting:dashboard'): 'Visiting/Mobilità docenti',
+                   reverse('visiting:structure_visitings', kwargs={'structure_slug': structure_slug}): structure.name,
+                   '#': 'Nuovo' }
     if request.POST:
         form = VisitingForm(request.POST, structure=structure)
         if form.is_valid():
@@ -136,11 +151,11 @@ def new_structure_visiting(request, structure_slug, structure=None):
             return redirect('visiting:structure_visitings',
                             structure_slug=structure_slug)
         else:  # pragma: no cover
-            for k, v in form.errors.items():
-                messages.add_message(request, messages.ERROR,
-                                     f"<b>{form.fields[k].label}</b>: {v}")
+            messages.add_message(request, messages.ERROR,
+                                 f"<b>Attenzione</b>: correggi gli errori nel form")
 
-    d = {'form': form,
+    d = {'breadcrumbs': breadcrumbs,
+         'form': form,
          'structure': structure}
     template = 'new_visiting.html'
     return render(request, template, d)
@@ -156,6 +171,12 @@ def edit_structure_visiting(request, structure_slug, visiting_pk, structure=None
                                  Q(from_structure=structure) |
                                  Q(to_structure=structure),
                                  pk=visiting_pk,)
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('visiting:dashboard'): 'Visiting/Mobilità docenti',
+                   reverse('visiting:structure_visitings', kwargs={'structure_slug': structure_slug}): structure.name,
+                   reverse('visiting:structure_visiting', kwargs={'structure_slug': structure_slug, 'visiting_pk': visiting_pk}): visiting.pk,
+                   '#': 'Modifica' }
+
     collaborations = VisitingCollaboration.objects.filter(
         visiting=visiting).values_list('collab', flat=True)
     form = VisitingForm(instance=visiting,
@@ -184,11 +205,11 @@ def edit_structure_visiting(request, structure_slug, visiting_pk, structure=None
                             structure_slug=structure_slug,
                             visiting_pk=visiting.pk)
         else:  # pragma: no cover
-            for k, v in form.errors.items():
-                messages.add_message(request, messages.ERROR,
-                                     f"<b>{form.fields[k].label}</b>: {v}")
+            messages.add_message(request, messages.ERROR,
+                                 f"<b>Attenzione</b>: correggi gli errori nel form")
 
-    d = {'form': form,
+    d = {'breadcrumbs': breadcrumbs,
+         'form': form,
          'structure': structure,
          'visiting': visiting}
     template = 'edit_visiting.html'

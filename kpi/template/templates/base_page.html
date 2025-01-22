@@ -3,6 +3,12 @@
 {% load i18n %}
 {% load static %}
 
+
+{% block header_wrapper %}
+{{ block.super }}
+{% include "breadcrumbs.html" %}
+{% endblock header_wrapper %}
+
 {% block centered_container %}
     {% block top_content %}
     {% endblock top_content %}

@@ -6,6 +6,7 @@
 
 {% block extra_head %}
 {{ block.super }}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="{% static 'js/vue.3.4.31.prod.js' %}"></script>
 <script src="{% static 'js/axios.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/datatables.css' %}">
@@ -37,8 +38,8 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{% url 'public_engagement:dashboard' %}">
-        <span>{% trans "Social Engagement" %}</span>
+    <a class="nav-link" href="{% url 'public_engagement_monitoring:dashboard' %}">
+        <span>{% trans "Public Engagement" %}</span>
     </a>
 </li>
 <li class="nav-item">
@@ -53,11 +54,14 @@
 <a href="{{ logout_url }}">
     <button class="btn btn-primary btn-sm btn-icon" type="button">
         <svg class="icon icon-light icon-xs">
-          <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+          <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
         </svg> <span>{% trans "Logout" %}</span>
     </button>
 </a>
 {% endblock header_slim_buttons %}
+
+{% block header_slim_sub_menu %}
+{% endblock header_slim_sub_menu %}
 
 {% block footer_menu_section %}
 {% endblock footer_menu_section %}

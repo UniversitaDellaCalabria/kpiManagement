@@ -1,13 +1,16 @@
-{% extends "base.html" %}
+{% extends "base_page.html" %}
 
 {% load i18n %}
 {% load static %}
 
 
-{% block centered_container %}
+{% block top_content %}
 <h2>{% trans "Edit user data" %}</h2>
+{% endblock top_content %}
+
+{% block page_content %}
 {% include 'form_template.html' with form=form %}
-{% endblock centered_container %}
+{% endblock page_content %}
 
 {% block extra_scripts %}
 <!-- prevent submit form by press "enter" on field -->

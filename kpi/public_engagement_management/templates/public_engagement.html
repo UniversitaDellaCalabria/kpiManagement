@@ -11,34 +11,34 @@
 
 {% block top_buttons %}
 <div class="pb-4 clearfix mt-5">
-    <div class="pull-left d-inline">
+    <div class="float-lg-start d-inline">
         <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:dashboard' %}">
             <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-arrow-left"></use>
             </svg> {% trans "Social Engagement management" %}
         </a>
     </div>
-    <div class="pull-left d-inline">
+    <div class="float-lg-start d-inline">
         <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:structure_public_engagements' structure_slug=structure.slug %}">
             <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-arrow-left"></use>
             </svg> {% trans "Back to" %} {{ structure }}
         </a>
     </div>
 
-    <div class="pull-right d-inline">
+    <div class="float-lg-end d-inline">
         <a role="button"
            class="btn btn-outline-warning"
            href="{% url 'public_engagement:structure_public_engagement_edit' structure_slug=structure.slug public_engagement_pk=public_engagement.pk %}">
                 <svg class="icon icon-xs">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-pencil"></use>
                 </svg> {% trans "Edit" %}
         </a>
         <a role="button"
            class="btn btn-outline-success"
            href="{% url 'public_engagement:structure_public_engagement_partner_add' structure_slug=structure.slug public_engagement_pk=public_engagement.pk %}">
                 <svg class="icon icon-xs">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-plus-circle"></use>
                 </svg> {% trans "Add partner" %}
         </a>
     </div>
@@ -58,11 +58,11 @@
                                 <td>
                                     {% if public_engagement.is_active %}
                                     <svg class="icon icon-sm icon-success">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                     </svg>
                                      {% else %}
                                     <svg class="icon icon-sm icon-danger">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                                     </svg>
                                     {% endif %}
                                 </td>
@@ -96,11 +96,11 @@
                                 <td>
                                     {% if public_engagement.requirements_one %}
                                     <svg class="icon icon-sm icon-success">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                     </svg>
                                      {% else %}
                                     <svg class="icon icon-sm icon-danger">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                                     </svg>
                                     {% endif %}
                                 </td>
@@ -110,11 +110,11 @@
                                 <td>
                                     {% if public_engagement.requirements_two %}
                                     <svg class="icon icon-sm icon-success">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                     </svg>
                                      {% else %}
                                     <svg class="icon icon-sm icon-danger">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                                     </svg>
                                     {% endif %}
                                 </td>
@@ -124,11 +124,11 @@
                                 <td>
                                     {% if public_engagement.requirements_three %}
                                     <svg class="icon icon-sm icon-success">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                     </svg>
                                      {% else %}
                                     <svg class="icon icon-sm icon-danger">
-                                        <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                                     </svg>
                                     {% endif %}
                                 </td>
@@ -166,25 +166,25 @@
                                 <td>
                                     {% if partner.is_head %}
                                         <svg class="icon icon-sm icon-success">
-                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                         </svg>
                                          {% else %}
                                         <svg class="icon icon-sm icon-danger">
-                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-close-circle"></use>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-close-circle"></use>
                                         </svg>
                                         {% endif %}
                                 </td>
                                 <td class="text-right">
                                     <a href="{% url 'public_engagement:structure_public_engagement_partner_edit' structure_slug=structure.slug public_engagement_pk=public_engagement.pk partner_pk=partner.pk %}" class="btn btn-primary btn-xs">
                                         <svg class="icon icon-xs icon-white">
-                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-pencil"></use>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-pencil"></use>
                                         </svg> {% trans "Edit" %}
                                     </a>
                                     <a href="" class="btn btn-danger btn-xs"
                                        data-toggle="modal"
                                        data-target="#delete_partner_{{ partner.pk }}">
                                         <svg class="icon icon-xs icon-white">
-                                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-delete"></use>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-delete"></use>
                                         </svg> {% trans "Remove" %}
                                     </a>
                                     <div class="modal fade"
@@ -203,7 +203,7 @@
                                                             data-dismiss="modal"
                                                             aria-label="Close">
                                                        <svg class="icon">
-                                                          <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                                                          <use xlink:href="{% static 'svg/sprites.svg' %}#it-close"></use>
                                                        </svg>
                                                     </button>
                                                 </div>

@@ -43,9 +43,7 @@ def dashboard(request):
                                                  Detection,
                                                  DETECTION_OFFICE_SLUG)
     if not offices:
-        messages.add_message(request, messages.ERROR,
-                             _("Permission denied"))
-        return redirect('template:dashboard')
+        messages.add_message(request, messages.INFO, "Nessuna struttura disponibile")
 
     d = {'my_offices': offices}
     return render(request, template, d)

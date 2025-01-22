@@ -1,47 +1,46 @@
-{% extends 'base_page.html' %}
+{% extends 'pem/base.html' %}
 
 {% load i18n %}
 {% load static %}
+{% load public_engagement_monitoring_tags %}
 
 
 {% block top_content %}
-<h2>{% trans "New" %}</h2>
+<h2>{{ event.title }}</h2>
+<h3 style="font-weight: lighter">Personale coinvolto</h3>
 {% endblock top_content %}
 
-{% block clean_content %}
+{% block page_content %}
+
+{% pem_settings_value "API_ADDRESSBOOK" as api_addressbook %}
 
 <div id="addressbook">
-    <div class="row">
-        <div class="col">
-            <form class="d-inline" method="post" novalidate>
-                <fieldset>
-                    <legend>Referente iniziativa</legend>
-                    <div class="form-check">
-                        <input name="user_is_referent" type="radio" id="radio1" value="true" checked v-model="user_is_referent">
-                        <label for="radio1">Sono io</label>
-                    </div>
-                    <div class="form-check">
-                        <input name="user_is_referent" type="radio" id="radio2" value="false" v-model="user_is_referent">
-                        <label for="radio2">
-                            Sto compilando per conto del referente <span v-if="referent_name">
-                                ([[ referent_name ]])
+    <div class="mt-3" v-if="person_id != ''">
+        <div class="card-wrapper pb-0 mb-3">
+            <div class="card no-after" style="border:1px solid #b71918">
+                <div class="card-body p-3">
+                    <div class="row">
+                        <div class="col-12 align-left">
+                            <span>
+                                <b>[[ person_name ]]</b>
                             </span>
-                        </label>
+                        </div>
                     </div>
-                </fieldset>
-                <input type="hidden" name="referent_id" :value="referent_id" />
-                {% csrf_token %}
-                <button type="submit" class="btn btn-success" v-if="user_is_referent == 'true' || referent_id != ''">
-                    Prosegui
-                </button>
-            </form>
-            <button class="d-inline btn btn-danger" v-if="user_is_referent == 'false' && referent_id != ''" @click="delete_selected_referent()">
-                Cancella
-            </button>
+                </div>
+            </div>
         </div>
+        <form class="d-inline" method="post" noevaluate>
+            <input type="hidden" name="person_id" :value="person_id" />
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+                Conferma
+            </button>
+        </form>
+        <button class="d-inline btn btn-danger ms-2" v-if="person_id != ''" @click="delete_selected_person()">
+            Cancella
+        </button>
     </div>
-
-    <div v-if="user_is_referent == 'false' && referent_id == ''">
+    <div v-else>
         <div class="row">
             <div class="col-12">
                 <div class="card-wrapper card-space">
@@ -80,15 +79,12 @@
                                 <div class="row">
                                     <div class="col-12 align-left">
                                         <span>
-                                            <b>[[ item.TeacherName ]]</b>
+                                            <b>[[ item.Name ]]</b>
                                             <br>
-                                            <div>
-                                                [[ item.TeacherRoleDescription ]]
+                                            <div v-for="role in item.Roles">
+                                                [[ role.RoleDescription ]]
                                                 <br>
-                                            </div>
-                                            <div>
-                                                [[ item.TeacherDepartmentName ]]
-                                                <br>
+                                                [[ role.Structure ]]
                                             </div>
                                             <div v-for="email in item.Email">
                                                 <span>
@@ -100,7 +96,7 @@
                                                 <br>
                                             </div>
                                         </span>
-                                        <span class="mt-3 btn btn-success" @click="set_external_referent(item.TeacherID, item.TeacherName)">inserisci</span>
+                                        <span class="mt-3 btn btn-success" @click="set_person(item.ID, item.Name)">Seleziona</span>
                                     </div>
                                 </div>
                             </div>
@@ -118,43 +114,50 @@ const app = Vue.createApp({
         return {
             items: [],
             is_loading: true,
-            user_is_referent: 'true',
-            referent_id: '',
-            referent_name: '',
+            person_id: '',
+            person_name: '',
             selected_search: '',
-            url: 'https://storage.portale.unical.it/api/ricerca/teachers/'
+            url: '{{ api_addressbook }}',
+            controller: null,
+            signal: null
         }
     },
     mounted () {
         this.callURL()
     },
     methods: {
-        set_external_referent(id, name, surname) {
-            this.referent_id = id
-            this.referent_name = name
+        set_person(id, name, surname) {
+            this.person_id = id
+            this.person_name = name
         },
-        delete_selected_referent() {
-            this.referent_id = ''
-            this.referent_name = ''
+        delete_selected_person() {
+            this.person_id = ''
+            this.person_name = ''
         },
         search() {
             let params = ''
-            if (this.url.includes("?")) params = '&search=' + this.selected_search;
-            else params = '?search=' + this.selected_search;
-            this.callURL(this.url + params);
+            if (this.url.includes("?")) params = '&search=' + this.selected_search
+            else params = '?search=' + this.selected_search
+            this.controller.abort()
+            this.callURL(this.url + params)
         },
         callURL(url=this.url) {
+            this.controller = new AbortController()
+            this.signal = this.controller.signal
+            let signal = this.signal
+
             this.is_loading = true
             axios
-                .get(url)
+                .get(url, {signal})
                 .then(
                     response => {
                         this.is_loading = false
                         this.items = response.data
                     }
                 )
+                .catch((error) => {});
         },
     },
 }).mount('#addressbook')
 </script>
-{% endblock clean_content %}
+{% endblock page_content %}

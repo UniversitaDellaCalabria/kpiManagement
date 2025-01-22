@@ -29,3 +29,9 @@ def user_from_pk(user_id):
     if not user:
         return False
     return user
+
+
+@register.filter(name='split')
+def split(value, key):
+    if not value: return []
+    return value.split(key)

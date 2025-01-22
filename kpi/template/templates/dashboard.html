@@ -22,9 +22,9 @@
                         {% trans 'Detections data' %}
                     </p>
                     <a class="read-more" href="{% url 'detection:dashboard' %}">
-                        <span class="text">{% trans "Manage" %}</span>
+                        <span class="text text-primary">{% trans "Manage" %}</span>
                         <svg class="icon">
-                            <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
                         </svg>
                     </a>
                 </div>
@@ -38,15 +38,15 @@
             <div class="card card-bg">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {% trans 'Social Engagement' %}
+                        {% trans 'Public Engagement' %}
                     </h5>
                     <p class="card-text">
-                        {% trans 'Data collection of indicators on social engagements' %}
+                        Inserimento e gestione dei dati per il monitoraggio delle iniziative
                     </p>
-                    <a class="read-more" href="{% url 'public_engagement:dashboard' %}">
-                        <span class="text">{% trans "Manage" %}</span>
+                    <a class="read-more" href="{% url 'public_engagement_monitoring:dashboard' %}">
+                        <span class="text text-primary">{% trans "Manage" %}</span>
                         <svg class="icon">
-                            <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
                         </svg>
                     </a>
                 </div>
@@ -66,9 +66,9 @@
                         {% trans 'Data collection of indicators on incoming and outgoing teachers' %}
                     </p>
                     <a class="read-more" href="{% url 'visiting:dashboard' %}">
-                        <span class="text">{% trans "Manage" %}</span>
+                        <span class="text text-primary">{% trans "Manage" %}</span>
                         <svg class="icon">
-                            <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
                         </svg>
                     </a>
                 </div>

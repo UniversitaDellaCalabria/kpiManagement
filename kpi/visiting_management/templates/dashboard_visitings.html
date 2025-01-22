@@ -20,7 +20,7 @@
                     <h5 class="card-title">
                         {{ office.office.organizational_structure }}
                     </h5>
-                    <p class="card-text">
+                    <p>
                       <b>{% trans 'Outgoing' %}:</b> {{ office.visiting_out }}
                       <br>
                       <b>{% trans 'Incoming' %}:</b> {{ office.visiting_in }}
@@ -28,7 +28,7 @@
                     <a class="read-more" href="{% url 'visiting:structure_visitings' structure_slug=office.office.organizational_structure.slug %}">
                         <span class="text">{% trans "Manage" %}</span>
                         <svg class="icon">
-                            <use href="{% static 'svg/sprite.svg' %}#it-arrow-right"></use>
+                            <use href="{% static 'svg/sprites.svg' %}#it-arrow-right"></use>
                         </svg>
                     </a>
                 </div>

@@ -8,42 +8,23 @@
 <h2>{% trans "Edit" %}</h2>
 
 <div class="callout">
+  <div class="callout-inner">
     <div class="callout-title">
         <svg class="icon">
-            <use href="{% static 'svg/sprite.svg' %}#it-info-circle"></use>
+            <use href="{% static 'svg/sprites.svg' %}#it-info-circle"></use>
         </svg>
-        <span class="sr-only">{{ visiting.visitor }}</span>
-        {{ visiting.visitor }}
+        <span class="visually-hidden">{{ visiting.visitor }}</span>
+        <span class="text">{{ visiting.visitor }}</span>
     </div>
     <p>
-        {% trans "From" %}: {{ visiting.from_structure }}
-        <br>
-        {% trans "To" %}: {{ visiting.to_structure }}
+        {% trans "From" %}: {{ visiting.from_structure }} {% trans "To" %}: {{ visiting.to_structure }}
+    </p>
+    <p>
+        {% trans "Start" %}: {{ visiting.start_date }} / {% trans "End" %}: {{ visiting.end_date }}
     </p>
 </div>
-{% endblock top_content %}
-
-{% block top_buttons %}
-<div class="pb-4 clearfix mt-5">
-    <div class="pull-left d-inline">
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:dashboard' %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Visiting/Teacher mobility management" %}
-        </a>
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visitings' structure_slug=structure.slug %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Back to" %} {{ structure }}
-        </a>
-        <a role="button" class="btn btn-outline-secondary" href="{% url 'visiting:structure_visiting' structure_slug=structure.slug visiting_pk=visiting.pk %}">
-            <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
-            </svg> {% trans "Back to details" %}
-        </a>
-    </div>
 </div>
-{% endblock top_buttons %}
+{% endblock top_content %}
 
 {% block page_content %}
 {% include 'form_template.html' with form=form %}

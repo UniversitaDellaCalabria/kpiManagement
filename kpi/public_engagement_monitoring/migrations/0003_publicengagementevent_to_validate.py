@@ -6,7 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('public_engagement_monitoring', '0002_alter_publicengagementevent_intermediate_taken_date_and_more'),
+        ('public_engagement_monitoring',
+         '0002_alter_publicengagementevent_intermediate_taken_date_and_more'),
     ]
 
     operations = [

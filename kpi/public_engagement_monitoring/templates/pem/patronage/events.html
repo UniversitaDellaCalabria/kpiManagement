@@ -1,0 +1,55 @@
+{% extends 'pem/events.html' %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block top_content %}
+<h2>{% trans "Events" %}</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+{% endblock top_content %}
+
+{% block custom_filters %}
+<div class="row mt-4">
+    <div class="col-12 mt-4 mt-lg-0">
+        <fieldset>
+            <div class="form-check form-check-inline">
+                <div class="toggles">
+                  <label for="toggle1">
+                    {% trans "To proceed" %}
+                    <input v-model="filter_to_take" type="checkbox" id="toggle1" @change="to_take($event.target.checked)">
+                    <span class="lever"></span>
+                  </label>
+                </div>
+            </div>
+            <div class="form-check form-check-inline">
+                <div class="toggles">
+                  <label for="toggle2">
+                    {% trans "To evaluate" %}
+                    <input v-model="filter_to_evaluate" type="checkbox" id="toggle2" @change="to_evaluate($event.target.checked)">
+                    <span class="lever"></span>
+                  </label>
+                </div>
+            </div>
+            <div class="form-check form-check-inline">
+                <div class="toggles">
+                  <label for="toggle3">
+                    {% trans "Granted patronage" %}
+                    <input v-model="filter_evaluation_ok" type="checkbox" id="toggle3" @change="evaluation_ok($event.target.checked)">
+                    <span class="lever"></span>
+                  </label>
+                </div>
+            </div>
+            <div class="form-check form-check-inline">
+                <div class="toggles">
+                  <label for="toggle4">
+                    {% trans "Rejected patronage" %}
+                    <input v-model="filter_evaluation_ko" type="checkbox" id="toggle4" @change="evaluation_ko($event.target.checked)">
+                    <span class="lever"></span>
+                  </label>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+{% endblock custom_filters %}

@@ -11,15 +11,15 @@
 
 {% block top_buttons %}
 <div class="pb-4 clearfix mt-5">
-    <div class="pull-left d-inline">
+    <div class="float-lg-start d-inline">
         <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:dashboard' %}">
             <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-arrow-left"></use>
             </svg> {% trans "Social Engagement management" %}
         </a>
         <a role="button" class="btn btn-outline-secondary" href="{% url 'public_engagement:structure_public_engagements' structure_slug=structure.slug %}">
             <svg class="icon icon-xs">
-                <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-arrow-left"></use>
             </svg> {% trans "Back to" %} {{ structure }}
         </a>
     </div>

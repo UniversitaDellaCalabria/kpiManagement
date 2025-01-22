@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from template.admin import AbstractCreatedModifiedBy
 
-from .models import *
+from .models import PublicEngagementAnnualMonitoring, PublicEngagementEvent, PublicEngagementEventCollaboratorType, PublicEngagementEventData, PublicEngagementEventMethodOfExecution, PublicEngagementEventPromoChannel, PublicEngagementEventPromoTool, PublicEngagementEventRecipient, PublicEngagementEventScientificArea, PublicEngagementEventTarget, PublicEngagementEventType
 
 
 @admin.register(PublicEngagementAnnualMonitoring)
@@ -49,4 +49,15 @@ class PublicEngagementEventAdmin(admin.ModelAdmin):
 
 @admin.register(PublicEngagementEventData)
 class PublicEngagementEventDataAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in PublicEngagementEventData._meta.fields if field.name != "id"]
+    list_display = [
+        field.name for field in PublicEngagementEventData._meta.fields if field.name != "id"]
+
+
+@admin.register(PublicEngagementEventScientificArea)
+class PublicEngagementEventScientificAreaAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_active')
+
+
+@admin.register(PublicEngagementEventCollaboratorType)
+class PublicEngagementEventCollaboratorTypeAdmin(admin.ModelAdmin):
+    list_display = ('description', 'is_active')

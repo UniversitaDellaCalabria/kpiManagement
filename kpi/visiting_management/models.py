@@ -21,7 +21,7 @@ class Collaboration(models.Model):
 
 
 class Visiting(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    visitor = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
+    visitor = models.ForeignKey(get_user_model(),  on_delete=models.PROTECT)
     from_structure = models.ForeignKey(
         OrganizationalStructure,
         on_delete=models.PROTECT,

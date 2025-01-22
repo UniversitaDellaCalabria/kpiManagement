@@ -1,9 +1,5 @@
 .dataTable { max-width: 100%; }
 
-@media (min-width: 992px) {
-  .pull-right {
-    float: right !important; } }
-
 @media (max-width: 767px) {
   .btn {
     display: block !important;
@@ -13,4 +9,34 @@
 .collapse-header [data-toggle=collapse]:before,
 .collapse-header [data-toggle=collapse][aria-expanded=false] {
     color: #19191a;
+}
+
+input[type=date], input[type=datetime-local], input[type=email], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], textarea{
+    width: 100%;
+}
+
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--bordeaux_unical);
+  cursor: pointer;
+/*
+  vertical-align: middle;
+*/
+}
+
+.main-body, .messaggi {
+    background: #f9f9f9;
+}
+
+.form-check [type=checkbox]+label,
+.form-check [type=radio]+label {
+    font-weight: normal;
+}
+.form-check.form-check-group {
+    margin-bottom: 0;
+    margin-top: 1rem;
+}
+.accordion-header .accordion-button {
+    color: inherit !important;
 }

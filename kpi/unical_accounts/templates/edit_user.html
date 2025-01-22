@@ -10,12 +10,12 @@
 
 {% block top_buttons %}
 <div class="pb-4 clearfix mt-5">
-    <div class="pull-left d-inline">
+    <div class="float-lg-start d-inline">
         <a role="button"
-           class="btn btn-outline-secondary float-left"
+           class="btn btn-outline-secondary"
            href="{% url 'unical_accounts:users' %}">
                 <svg class="icon icon-xs">
-                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-arrow-left"></use>
                 </svg> {% trans "Users" %}
         </a>
     </div>
