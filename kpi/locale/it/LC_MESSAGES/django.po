@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-22 15:07+0100\n"
-"PO-Revision-Date: 2025-01-22 15:07+0100\n"
+"POT-Creation-Date: 2025-01-22 15:12+0100\n"
+"PO-Revision-Date: 2025-01-22 15:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1480,19 +1480,12 @@ msgid "Personnel does not exist"
 msgstr "Personale non esistente"
 
 #: public_engagement_monitoring/views/management.py:234
-#: public_engagement_monitoring/views/user.py:498
-msgid "removed"
-msgstr "rimosso"
-
-#: public_engagement_monitoring/views/management.py:234
-#: public_engagement_monitoring/views/user.py:355
-msgid "from involved personnel"
-msgstr "dal personale coinvolto"
+msgid "removed from involved personnel"
+msgstr "rimosso dal personale coinvolto"
 
 #: public_engagement_monitoring/views/management.py:236
-#: public_engagement_monitoring/views/user.py:357
-msgid "Successfully removed"
-msgstr "Rimossa correttamente"
+msgid "Personnel removed successfully"
+msgstr "Personale rimosso correttamente"
 
 #: public_engagement_monitoring/views/manager.py:101
 #: public_engagement_monitoring/views/operator.py:90
@@ -1649,7 +1642,15 @@ msgstr "dati dell'iniziativa richiesti"
 
 #: public_engagement_monitoring/views/user.py:355
 msgid "Removed"
-msgstr "Rimosso"
+msgstr "Rimossa"
+
+#: public_engagement_monitoring/views/user.py:355
+msgid "from involved personnel"
+msgstr "dal personale coinvolto"
+
+#: public_engagement_monitoring/views/user.py:357
+msgid "Successfully removed"
+msgstr "Rimossa correttamente"
 
 #: public_engagement_monitoring/views/user.py:393
 msgid "Monitoring data modified"
@@ -1695,6 +1696,10 @@ msgstr "Iniziativa"
 #: public_engagement_monitoring/views/user.py:487
 msgid "duplicated"
 msgstr "duplicata"
+
+#: public_engagement_monitoring/views/user.py:498
+msgid "removed"
+msgstr "rimossa"
 
 #: template/templates/base.html:27 unical_accounts/templates/edit_user.html:19
 #: unical_accounts/templates/users.html:8 unical_accounts/views.py:25

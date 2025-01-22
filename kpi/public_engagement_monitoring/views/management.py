@@ -231,9 +231,9 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
         log_action(user=request.user,
                    obj=event,
                    flag=CHANGE,
-                   msg='{}: {} {} {} {}'.format(structure_slug, _('removed'), person.first_name, person.last_name, _('from involved personnel')))
+                   msg='{}: {} {} {}'.format(structure_slug, person.first_name, person.last_name, _('removed from involved personnel')))
 
-        messages.add_message(request, messages.SUCCESS, _('Successfully removed'))
+        messages.add_message(request, messages.SUCCESS, _('Personnel removed successfully'))
 
         # invia email al referente/compilatore
         subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
