@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-22 13:47+0100\n"
-"PO-Revision-Date: 2025-01-22 13:47+0100\n"
+"POT-Creation-Date: 2025-01-22 14:01+0100\n"
+"PO-Revision-Date: 2025-01-22 14:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -737,6 +737,10 @@ msgstr "Partner del social engagement eliminato"
 msgid "Sono io il referenete dell'iniziativa"
 msgstr ""
 
+#: public_engagement_monitoring/models.py:62
+msgid "Event title"
+msgstr "Titolo iniziativa"
+
 #: public_engagement_monitoring/models.py:63 visiting_management/forms.py:45
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
@@ -1401,10 +1405,8 @@ msgstr "Primo step completato. Ora procedi all'inserimento dei dati"
 #: public_engagement_monitoring/views/manager.py:238
 #: public_engagement_monitoring/views/operator.py:219
 #: public_engagement_monitoring/views/patronage.py:114
-#, fuzzy
-#| msgid "Data saved successfully"
 msgid "Event taken successfully"
-msgstr "Dati salvati con successo"
+msgstr "Iniziativa presa in carico"
 
 #: public_engagement_monitoring/views/manager.py:336
 #: public_engagement_monitoring/views/operator.py:317
@@ -1871,6 +1873,9 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Title"
+#~ msgstr "Titolo"
 
 #~ msgid "Data collection of indicators on social engagements"
 #~ msgstr "Raccolta dati di indicatori sul social engagement"

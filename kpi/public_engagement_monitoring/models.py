@@ -59,7 +59,7 @@ class PublicEngagementEventType(ActivableModel, CreatedModifiedBy, TimeStampedMo
 
 
 class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    title = models.CharField(default='', max_length=300)
+    title = models.CharField(_("Event title"), default='', max_length=300)
     start = models.DateTimeField(_("Start"))
     end = models.DateTimeField(_("End"))
     # dati referente

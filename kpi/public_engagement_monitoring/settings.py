@@ -20,3 +20,5 @@ MANAGER_OFFICE = getattr(settings, 'MANAGER_OFFICE',
                          'public-engagement-manager')
 
 EVALUATION_TIME_DELTA = getattr(settings, 'EVALUATION_TIME_DELTA', 10)
+
+# STORAGE_TOKEN = ''  token per comunicare con le API protette di storage.portale.unical.it
