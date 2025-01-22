@@ -12,7 +12,6 @@
 
 {% block page_content %}
 {% get_current_language as LANGUAGE_CODE %}
-{% settings_value 'DEFAULT_HOST' as default_host %}
 
 <div id="app">
     <div class="row">
@@ -246,7 +245,7 @@ const app = Vue.createApp({
         },
         getData(page=1) {
             this.page = page
-            if (!this.url) this.url = '//{{ default_host }}{{ api_url }}?page=' + page
+            if (!this.url) this.url = '{{ api_url }}?page=' + page
             else this.url += '&page=' + page
             if(this.search_terms) this.url += '&search=' + this.search_terms
             if(this.sort_term && this.sort_type == 'desc') this.url += '&ordering=-' + this.sort_term
