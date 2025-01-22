@@ -515,7 +515,6 @@ class PublicEngagementEventRecipient(ActivableModel, CreatedModifiedBy, TimeStam
 
 
 class PublicEngagementEventScientificArea(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 
     class Meta:
@@ -523,7 +522,7 @@ class PublicEngagementEventScientificArea(ActivableModel, CreatedModifiedBy, Tim
         verbose_name_plural = "Aree scientifica"
 
     def __str__(self):
-        return f"{self.name} - {self.description}"
+        return self.description
 
 
 class PublicEngagementEventCollaboratorType(ActivableModel, CreatedModifiedBy, TimeStampedModel):

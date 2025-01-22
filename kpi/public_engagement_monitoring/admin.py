@@ -55,7 +55,7 @@ class PublicEngagementEventDataAdmin(admin.ModelAdmin):
 
 @admin.register(PublicEngagementEventScientificArea)
 class PublicEngagementEventScientificAreaAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active')
+    list_display = ('description', 'is_active')
 
 
 @admin.register(PublicEngagementEventCollaboratorType)
