@@ -60,13 +60,13 @@ def new_event_choose_referent(request):
             referent_id = request.user.matricola_dipendente
         # se il referente non sono io, recupero la matricola in chiaro
         else:
-            referent_data = requests.post('{}/'.format(API_DECRYPTED_ID),
+            referent_id = requests.post('{}/'.format(API_DECRYPTED_ID),
                                         data={'id': request.POST['referent_id']},
                                         headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
-            if referent_data.status_code != 200:
+            if referent_id.status_code != 200:
                 return custom_message(request, _("Access denied"), 403)
             # matricola in chiaro
-            referent_id = referent_data.json()
+            referent_id = referent_id.json()
 
         # recupero dati completi del referente (in entrambi i casi)
         # es: genere
@@ -79,15 +79,17 @@ def new_event_choose_referent(request):
         if not referent_data.get('Email'):
             return custom_message(request, _("The person selected does not have an email"), 403)
 
+        # se sono io il referente
+        if user_is_referent:
+            referent_user = request.user
         # creo o recupero l'utente dal db locale
-        if not user_is_referent:
+        else:
             # controllo se esiste già (i dati locali potrebbero differire da quelli presenti nelle API)
             referent_user = get_user_model().objects.filter(
                 username=referent_data['Taxpayer_ID']).first()
-            # aggiorno il dato sul genere (potrebbe non essere presente localmente)
-            if referent_user and not referent_user.gender:
-                referent_user.gender = referent_data['Gender']
-                referent_user.save(update_fields=['gender'])
+            # se l'utente è stato disattivato
+            if referent_user and not referent_user.is_active:
+                return custom_message(request, _("Access denied"), 403)
             # se non esiste localmente lo creo
             if not referent_user:
                 referent_user = get_user_model().objects.create(username=referent_data['Taxpayer_ID'],
@@ -97,9 +99,11 @@ def new_event_choose_referent(request):
                                                                 codice_fiscale=referent_data['Taxpayer_ID'],
                                                                 email=referent_data['Email'][0],
                                                                 gender=referent_data['Gender'])
-            # se l'utente è stato disattivato
-            if not referent_user.is_active:
-                return custom_message(request, _("Access denied"), 403)
+
+
+        # aggiorno il dato sul genere con quello più aggiornato, sempre
+        referent_user.gender = referent_data['Gender']
+        referent_user.save(update_fields=['gender'])
 
         # salviamo il referente corrente in sessione
         request.session['referent'] = referent_user.pk
