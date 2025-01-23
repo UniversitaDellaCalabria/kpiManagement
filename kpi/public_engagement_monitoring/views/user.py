@@ -55,18 +55,22 @@ def new_event_choose_referent(request):
         if user_is_referent and not user_is_teacher(matricola=request.user.matricola_dipendente):
             return custom_message(request, _("Access denied"), 403)
 
+        # se il referente sono io, la matricola ce l'ho già
+        if user_is_referent:
+            referent_id = request.user.matricola_dipendente
         # se il referente non sono io, recupero la matricola in chiaro
-        if not user_is_referent:
-            referent_id = requests.post('{}/'.format(API_DECRYPTED_ID),
-                                        data={
-                                            'id': request.POST['referent_id']},
+        else:
+            referent_data = requests.post('{}/'.format(API_DECRYPTED_ID),
+                                        data={'id': request.POST['referent_id']},
                                         headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
-            if referent_id.status_code != 200:
+            if referent_data.status_code != 200:
                 return custom_message(request, _("Access denied"), 403)
+            # matricola in chiaro
+            referent_id = referent_data.json()
 
         # recupero dati completi del referente (in entrambi i casi)
         # es: genere
-        response = requests.get('{}{}/'.format(API_ADDRESSBOOK_FULL, referent_id.json()),
+        response = requests.get('{}{}/'.format(API_ADDRESSBOOK_FULL, referent_id.zfill(6)),
                                 headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
             return custom_message(request, _("Access denied"), 403)
