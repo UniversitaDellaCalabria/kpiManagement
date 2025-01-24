@@ -41,7 +41,7 @@ const app_{{ widget.name }} = Vue.createApp({
     },
     methods: {
         search(event){
-            if(event.target.value.length.trim() > 4) {
+            if(event.target.value.trim().length > 4) {
                 this.search_terms = event.target.value
                 this.getList()
             }
