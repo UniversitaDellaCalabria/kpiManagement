@@ -382,7 +382,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # if self.data.patronage_requested and not self.patronage_granted_date:
             # return False
         # False: se non è stato concesso il patrocinio
-        if self.patronage_requested and not self.patronage_granted:
+        if self.data.patronage_requested and not self.patronage_granted:
             return False
         return True
 
