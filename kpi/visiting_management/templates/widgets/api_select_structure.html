@@ -8,7 +8,7 @@
                 <use href="{% static 'svg/sprites.svg' %}#it-search"></use>
             </svg>
         </span>
-        <input type="text" class="form-control" id="{{ widget.name }}_search" @input="search" placeholder="Cerca... (digita almeno 4 caratteri)">
+        <input type="text" class="form-control" id="{{ widget.name }}_search" @input="search" placeholder="Cerca...">
     </div>
     <select name="api_select_{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} @change="set_value" v-if="search_terms">
         <option v-for="result in data" :value="result.id" {% include "django/forms/widgets/attrs.html" %}>
@@ -41,7 +41,7 @@ const app_{{ widget.name }} = Vue.createApp({
     },
     methods: {
         search(event){
-            if(event.target.value.trim().length > 4) {
+            if(event.target.value.trim().length > 0) {
                 this.search_terms = event.target.value
                 this.getList()
             }
