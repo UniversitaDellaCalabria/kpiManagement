@@ -23,6 +23,14 @@
 <b>{% trans "Submission:" %}</b> {{ event.created }} / {{ event.created_by }}<br>
 {% if event.modified_by %}<b>{% trans "Last update :" %}</b> {{ event.modified }} / {{ event.modified_by }}{% endif %}
 {% block actions %}{% endblock actions %}
+
+{% if event.created_by_manager %}
+<span class="badge bg-info">
+    <svg class="icon icon-sm icon-white">
+        <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+    </svg> {% trans "Loaded by manager" %}
+</span>
+{% else %}
 <div class="row mt-5">
     <div class="col-12 col-lg-{% if event.data.patronage_requested %}4{% else %}6{% endif %}">
         <!--start card-->
@@ -36,13 +44,7 @@
                         {% trans 'Referent/Delegate' %}
                     </h5>
                     <span>
-                        {% if event.created_by_manager %}
-                        <span class="badge bg-info">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
-                            </svg>  {% trans "Loaded by manager" %}
-                        </span>
-                        {% elif not event.to_evaluate %}
+                        {% if not event.to_evaluate %}
                         <span class="badge bg-warning">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-warning-circle"></use>
@@ -79,13 +81,7 @@
                         {{ event.structure }}
                     </h5>
                     <span>
-                        {% if event.created_by_manager %}
-                        <span class="badge bg-info">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
-                            </svg>  {% trans "Loaded by manager" %}
-                        </span>
-                        {% elif not event.operator_taken_date %}
+                        {% if not event.operator_taken_date %}
                         <span class="badge bg-info">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
@@ -156,13 +152,7 @@
                         {% trans 'Patronage' %}
                     </h5>
                     <span>
-                        {% if event.created_by_manager %}
-                        <span class="badge bg-info">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
-                            </svg>  {% trans "Loaded by manager" %}
-                        </span>
-                        {% elif not event.patronage_operator_taken_date %}
+                        {% if not event.patronage_operator_taken_date %}
                         <span class="badge bg-info">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
@@ -222,6 +212,7 @@
     </div>
     {% endif %}
 </div>
+{% endif %}
 
 <div class="mt-5 h5"><b>{% trans "General informations" %}</b></div>
 <hr />
