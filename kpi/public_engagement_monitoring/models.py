@@ -165,6 +165,12 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se non sono stati inserite le persone collegate
         if not self.data.person.exists():
             return False
+        # False: se è stato creato dal manager
+        if self.created_by_manager:
+            return False
+        # False: se i dati di monitoraggio sono stati editati dal manager
+        if hasattr(self, 'report') and self.report.edited_by_manager:
+            return False
         # False: se è stato bocciato
         if self.has_been_rejected(): # or self.is_evaluated_negatively_by_manager():
             return False
@@ -190,8 +196,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not self.data.person.exists():
             return False
         # True: se l'evento è terminato
-        if self.is_over():
-            return True
+        if not self.is_over():
+            return False
         # True: se l'ha creata il manager stesso
         if self.created_by_manager:
             return True
