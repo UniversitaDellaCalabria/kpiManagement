@@ -318,7 +318,7 @@ def event_people_delete(request, structure_slug, event_id, person_id, event=None
 
 @login_required
 @is_manager
-@has_report_editable
+@has_report_editable_by_manager
 def event_report(request, structure_slug, event_id):
     template = 'pem/user/event_report.html'
     event = get_object_or_404(PublicEngagementEvent, pk=event_id, structure__slug=structure_slug)

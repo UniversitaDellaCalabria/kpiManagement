@@ -56,3 +56,21 @@ def is_editable_by_user(func_to_decorate):
         messages.add_message(request, messages.DANGER, _('Access denied'))
         return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
     return new_func
+
+
+def has_report_editable(func_to_decorate):
+    """
+    controlla che l'attuale stato dell'evento
+    renda editabile dall'utente il report
+    tutti i controlli sui permessi dell'utente vengono fatti da
+    altri decoratori
+    """
+    def new_func(*original_args, **original_kwargs):
+        request = original_args[0]
+        event = original_kwargs.get('event') or get_object_or_404(PublicEngagementEvent, pk=original_kwargs['event_id'])
+        if event.has_report_editable():
+            return func_to_decorate(*original_args, **original_kwargs)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:user_event",
+                        event_id=original_kwargs['event_id'])
+    return new_func

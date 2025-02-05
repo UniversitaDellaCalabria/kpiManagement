@@ -173,6 +173,33 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
             return True
         return False
 
+    def has_report_editable_by_manager(self):
+        """
+        ci dice se i dati di reportistica dell'evento (fase 2) sono editabili dall'utente
+        controllando solo l'attuale stato e l'anno di management del PE
+        non effettua controlli sul ruolo dell'utente
+        delegati ad altre funzioni
+        """
+        # False: se il monitoraggio per l'anno è stato disabilitato
+        if not self.check_year():
+            return False
+        # False: se non ci sono i dati della fase 1
+        if not getattr(self, 'data', None):
+            return False
+        # False: se non sono stati inserite le persone collegate
+        if not self.data.person.exists():
+            return False+
+        # True: se l'evento è terminato
+        if self.is_over():
+            return True
+        # True: se l'ha creata il manager stesso
+        if self.created_by_manager:
+            return True
+        # False: se non è stato approvato
+        if not self.has_been_approved():
+            return False
+        return False
+
     def is_ready_for_request_evaluation(self):
         """
         ci dice se l'evento può essere inviato a validazione
