@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static %}
+{% load public_engagement_monitoring_tags %}
 
 
 {% block top_content %}
@@ -21,23 +22,20 @@
                         {{ structure }}
                     </h5>
                     <p>
-                        {% for counter in event_counts %}
-                            {% if counter.structure__id == structure.pk %}
-                                <b>{% trans "To be handled" %}:</b>
-                                {% if counter.to_handle_count %}
-                                <span class="badge bg-info">{{ counter.to_handle_count }}</span>
-                                {% else %}
-                                0
-                                {% endif %}
-                                <br>
-                                <b>{% trans "To evaluate" %}:</b>
-                                {% if counter.to_evaluate_count %}
-                                <span class="badge bg-info">{{ counter.to_evaluate_count }}</span>
-                                {% else %}
-                                0
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                        <b>{% trans "To be handled" %}:</b>
+                        {% filter_events_per_structure_id event_counts structure.pk as structure_events %}
+                        {% if structure_events.0.to_handle_count  %}
+                        <span class="badge bg-info">{{ structure_events.0.to_handle_count }}</span>
+                        {% else %}
+                        0
+                        {% endif %}
+                        <br>
+                        <b>{% trans "To evaluate" %}:</b>
+                        {% if structure_events.0.to_evaluate_count %}
+                        <span class="badge bg-info">{{ structure_events.0.to_evaluate_count }}</span>
+                        {% else %}
+                        0
+                        {% endif %}
                     </p>
                     <a class="read-more" href="{% url 'public_engagement_monitoring:operator_events' structure_slug=structure.slug %}">
                         <span class="text text-primary">{% trans "Manage" %}</span>

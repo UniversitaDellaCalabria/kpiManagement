@@ -43,7 +43,6 @@ def dashboard(request, structures=None):
         to_handle_count=Count("id", filter=Q(operator_taken_date__isnull=True)),
         to_evaluate_count=Count("id", filter=Q(operator_taken_date__isnull=False, operator_evaluation_date__isnull=True))
     )
-
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'event_counts': event_counts,
                                       'structures': organizational_structures})
