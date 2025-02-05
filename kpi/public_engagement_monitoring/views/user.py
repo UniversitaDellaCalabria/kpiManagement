@@ -52,9 +52,14 @@ def new_event_choose_referent(request):
         user_is_referent = True if user_is_referent == 'true' else False
 
         # se è il referente ma non è un docente
-        if user_is_referent and not user_is_teacher(matricola=request.user.matricola_dipendente):
-            return custom_message(request, _("Access denied"), 403)
+        # if user_is_referent and not user_is_teacher(matricola=request.user.matricola_dipendente):
 
+        # se il referente non ha una matricola da dipendente
+        if user_is_referent and not request.user.matricola_dipendente:
+            messages.add_message(request, messages.DANGER, _("You cannot enter an event as a referent"))
+            return redirect('public_engagement_monitoring:user_new_event_choose_referent')
+
+        # recupero della matricola da dipendente
         # se il referente sono io, la matricola ce l'ho già
         if user_is_referent:
             referent_id = request.user.matricola_dipendente
@@ -64,7 +69,9 @@ def new_event_choose_referent(request):
                                         data={'id': request.POST['referent_id']},
                                         headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
             if referent_id.status_code != 200:
-                return custom_message(request, _("Access denied"), 403)
+                messages.add_message(request, messages.DANGER, _("Access denied"))
+                return redirect('public_engagement_monitoring:user_new_event_choose_referent')
+
             # matricola in chiaro
             referent_id = referent_id.json()
 
@@ -73,11 +80,10 @@ def new_event_choose_referent(request):
         response = requests.get('{}{}/'.format(API_ADDRESSBOOK_FULL, referent_id.zfill(6)),
                                 headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
-            return custom_message(request, _("Access denied"), 403)
+            messages.add_message(request, messages.DANGER, _("Unable to retrieve user data from our systems"))
+            return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
         referent_data = response.json()['results']
-        if not referent_data.get('Email'):
-            return custom_message(request, _("The person selected does not have an email"), 403)
 
         # se sono io il referente
         if user_is_referent:
@@ -86,12 +92,17 @@ def new_event_choose_referent(request):
         else:
             # controllo se esiste già (i dati locali potrebbero differire da quelli presenti nelle API)
             referent_user = get_user_model().objects.filter(
-                username=referent_data['Taxpayer_ID']).first()
+                codice_fiscale=referent_data['Taxpayer_ID']).first()
             # se l'utente è stato disattivato
             if referent_user and not referent_user.is_active:
-                return custom_message(request, _("Access denied"), 403)
+                messages.add_message(request, messages.DANGER, _("User deactivated"))
+                return redirect('public_engagement_monitoring:user_new_event_choose_referent')
             # se non esiste localmente lo creo
             if not referent_user:
+                if not referent_data.get('Email'):
+                    messages.add_message(request, messages.DANGER,_("The person selected does not have an email"))
+                    return redirect('public_engagement_monitoring:user_new_event_choose_referent')
+
                 referent_user = get_user_model().objects.create(username=referent_data['Taxpayer_ID'],
                                                                 matricola_dipendente=referent_data['ID'],
                                                                 first_name=referent_data['Name'],
@@ -99,7 +110,6 @@ def new_event_choose_referent(request):
                                                                 codice_fiscale=referent_data['Taxpayer_ID'],
                                                                 email=referent_data['Email'][0],
                                                                 gender=referent_data['Gender'])
-
 
         # aggiorno il dato sul genere con quello più aggiornato, sempre
         referent_user.gender = referent_data['Gender']
@@ -117,7 +127,8 @@ def new_event_choose_referent(request):
 def new_event_basic_info(request):
     # se non è stato scelto il referente nella fase iniziale
     if not request.session.get('referent'):
-        return custom_message(request, _("Event referent is mandatory"), 403)
+        messages.add_message(request, messages.DANGER, _("Event referent is mandatory"))
+        return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
     template = 'pem/event_basic_info.html'
     form = PublicEngagementEventForm(request=request)
@@ -150,7 +161,7 @@ def new_event_basic_info(request):
                 log_action(user=request.user,
                            obj=event,
                            flag=ADDITION,
-                           msg='Aggiunto')
+                           msg='[Referente/Delegato] Iniziativa creata')
 
                 messages.add_message(
                     request, messages.SUCCESS, _("First step completed successfully. Now proceed to enter the data"))
@@ -207,7 +218,7 @@ def event_basic_info(request, event_id, event=None):
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=_("data modified"))
+                       msg="[Referente/Delegato] Informazioni generali modificate")
 
             event = form.save(commit=False)
             event.modified_by = request.user
@@ -230,7 +241,7 @@ def event_basic_info(request, event_id, event=None):
 def event_data(request, event_id, event=None):
     template = 'pem/event_data.html'
     instance = getattr(event, 'data', None)
-    form = PublicEngagementEventDataForm(instance=instance)
+    form = PublicEngagementEventDataForm(instance=instance, event=event)
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
@@ -241,18 +252,13 @@ def event_data(request, event_id, event=None):
     if request.method == 'POST':
         form = PublicEngagementEventDataForm(instance=instance,
                                              data=request.POST,
-                                             files=request.FILES)
+                                             files=request.FILES,
+                                             event=event)
         if form.is_valid():
-            if not instance:
-                log_action(user=request.user,
-                           obj=event,
-                           flag=CHANGE,
-                           msg=_("Data inserted"))
-            else:
-                log_action(user=request.user,
-                           obj=event,
-                           flag=CHANGE,
-                           msg=_("Data modified"))
+            log_action(user=request.user,
+                       obj=event,
+                       flag=CHANGE,
+                       msg="[Referente/Delegato] Dati iniziativa modificati" if instance else "[Referente/Delegato] Dati iniziativa inseriti")
 
             data = form.save(commit=False)
             data.event = event
@@ -294,15 +300,19 @@ def event_people(request, event_id, event=None):
 
     if request.method == 'POST':
         person_id = request.POST.get('person_id')
+
         if not person_id:
-            return custom_message(request, _("Access denied"), 403)
+            messages.add_message(request, messages.DANGER, _("Access denied"))
+            return redirect('public_engagement_monitoring:user_event_people', event_id=event_id)
+
         decrypted_id = requests.post("{}/".format(API_DECRYPTED_ID),
                                      data={'id': request.POST['person_id']},
                                      headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         response = requests.get("{}{}/".format(API_ADDRESSBOOK_FULL, decrypted_id.json()), headers={
                                 'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
-            return custom_message(request, _("Access denied"), 403)
+            messages.add_message(request, messages.DANGER, _("Access denied"))
+            return redirect('public_engagement_monitoring:user_event_people', event_id=event_id)
         person_data = response.json()['results']
         person = get_user_model().objects.filter(
             codice_fiscale=person_data['Taxpayer_ID']).first()
@@ -319,7 +329,10 @@ def event_people(request, event_id, event=None):
                                                      codice_fiscale=person_data['Taxpayer_ID'],
                                                      email=person_data['Email'][0],
                                                      gender=person_data['Gender'])
-        if data.person.filter(pk=person.pk).exists():
+        if person == event.referent:
+            messages.add_message(request, messages.ERROR,
+                                 "{} {}".format(person, _('is the event referent')))
+        elif data.person.filter(pk=person.pk).exists():
             messages.add_message(request, messages.ERROR,
                                  "{} {}".format(person, _('already exists')))
         else:
@@ -332,7 +345,7 @@ def event_people(request, event_id, event=None):
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg="{} {} {} {}".format(_('added'), person.first_name, person.last_name, _('in involved personnel')))
+                       msg="[Referente/Delegato] Personale coinvolto: aggiunto {}".format(person))
 
             messages.add_message(request, messages.SUCCESS,
                                  "{} {}".format(person, _('added successfully')))
@@ -346,7 +359,8 @@ def event_people(request, event_id, event=None):
 @is_editable_by_user
 def event_people_delete(request, event_id, person_id, event=None):
     if not person_id:
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
     person = event.data.person.filter(pk=person_id).first()
     if not person:
         messages.add_message(request, messages.ERROR, _('Personnel does not exist'))
@@ -360,16 +374,24 @@ def event_people_delete(request, event_id, person_id, event=None):
         log_action(user=request.user,
                    obj=event,
                    flag=CHANGE,
-                   msg="{} {} {} {}".format(_('Removed'), person.first_name, person.last_name, _('from involved personnel')))
+                   msg="[Referente/Delegato] Personale coinvolto: rimosso {}".format(person))
 
-        messages.add_message(request, messages.SUCCESS, _("Successfully removed"))
+        messages.add_message(request, messages.SUCCESS, _("Personnel successfully removed"))
     return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
 
 
 @login_required
 @has_access_to_my_event
-@report_editable
+@has_report_editable
 def event_report(request, event_id, event=None):
+    if event.created_by_manager:
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect("public_engagement_monitoring:user_event", event_id=event_id)
+
+    if getattr(self, 'report', None) and self.report.edited_by_manager:
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect("public_engagement_monitoring:user_event", event_id=event_id)
+
     template = 'pem/user/event_report.html'
     instance = PublicEngagementEventReport.objects.filter(event=event).first()
     form = PublicEngagementEventReportForm(instance=instance, event=event)
@@ -398,7 +420,7 @@ def event_report(request, event_id, event=None):
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=_('Monitoring data modified' if instance else 'Monitoring data loaded'))
+                       msg="[Referente/Delegato] Dati di monitoraggio caricati" if instance else "[Referente/Delegato] Dati di monitoraggio modificati")
 
             messages.add_message(request, messages.SUCCESS, _('Monitoring data modified successfully'))
             return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
@@ -421,7 +443,7 @@ def event_request_evaluation(request, event_id, event=None):
         log_action(user=request.user,
                    obj=event,
                    flag=CHANGE,
-                   msg=_('Evaluation request sent'))
+                   msg="[Referente/Delegato] Richiesta di validazione inviata")
 
         messages.add_message(request, messages.SUCCESS, _('Evaluation request sent'))
 
@@ -441,8 +463,9 @@ def event_request_evaluation(request, event_id, event=None):
 @login_required
 @has_access_to_my_event
 def event_request_evaluation_cancel(request, event_id, event=None):
-    if not event.can_user_cancel_evaluation_request():
-        return custom_message(request, _("Access denied"), 403)
+    if not event.evaluation_request_can_be_reviewed():
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     event.to_evaluate = False
     event.modified_by = request.user
@@ -451,7 +474,7 @@ def event_request_evaluation_cancel(request, event_id, event=None):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg=_('Evaluation request cancelled'))
+               msg="[Referente/Delegato] Richiesta di validazione annullata")
 
     messages.add_message(request, messages.SUCCESS, _('Evaluation request cancelled'))
 
@@ -499,8 +522,9 @@ def event_clone(request, event_id, event=None):
 @login_required
 @has_access_to_my_event
 def event_delete(request, event_id, event=None):
-    if event.to_evaluate:
-        return custom_message(request, _("Access denied"), 403)
+    if event.to_evaluate or event.created_by_manager:
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     messages.add_message(request, messages.SUCCESS,
                          "{} {} {}".format(_('Event'), event.title, _('removed')))

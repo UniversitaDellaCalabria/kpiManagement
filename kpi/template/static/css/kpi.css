@@ -40,3 +40,12 @@ input[type="checkbox"] {
 .accordion-header .accordion-button {
     color: inherit !important;
 }
+
+.icon-primary {
+    fill: var(--bs-body-color) !important;
+}
+
+.pagination .page-item .page-link[aria-current] {
+    border: 1px solid var(--bs-body-color);
+    color: var(--bs-body-color);
+}

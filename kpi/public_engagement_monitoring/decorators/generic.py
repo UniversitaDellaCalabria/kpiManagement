@@ -4,8 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from organizational_area.models import *
 from organizational_area.utils import user_in_office
 
-from template.utils import custom_message
-
 from .. models import *
 from .. settings import *
 from .. utils import *
@@ -18,13 +16,8 @@ def can_manage_public_engagement(func_to_decorate):
         request = original_args[0]
         if request.user.matricola_dipendente:
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
-        # user = request.user
-        # if user_in_office(user, [OPERATOR_OFFICE, MANAGER_OFFICE]):
-            # return func_to_decorate(*original_args, **original_kwargs)
-        # if user_is_teacher(user.matricola_dipendente):
-            # return func_to_decorate(*original_args, **original_kwargs)
-        # return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
 
@@ -52,5 +45,23 @@ def has_access_to_event(func_to_decorate):
         if user_is_manager(request.user):
             return func_to_decorate(*original_args, **original_kwargs)
 
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:dashboard")
+    return new_func
+
+
+def has_report_editable(func_to_decorate):
+    """
+    controlla che l'attuale stato dell'evento
+    renda editabile dall'utente il report
+    tutti i controlli sui permessi dell'utente vengono fatti da
+    altri decoratori
+    """
+    def new_func(*original_args, **original_kwargs):
+        request = original_args[0]
+        event = original_kwargs.get('event') or get_object_or_404(PublicEngagementEvent, pk=original_kwargs['event_id'])
+        if event.has_report_editable():
+            return func_to_decorate(*original_args, **original_kwargs)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:dashboard")
     return new_func

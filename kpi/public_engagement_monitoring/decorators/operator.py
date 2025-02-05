@@ -4,8 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from organizational_area.models import *
 from organizational_area.utils import user_office_structures
 
-from template.utils import custom_message
-
 from .. models import *
 from .. settings import *
 from .. utils import *
@@ -24,7 +22,8 @@ def evaluation_operator_structures(func_to_decorate):
         if structures:
             original_kwargs['structures'] = structures
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
 
@@ -42,11 +41,12 @@ def is_structure_evaluation_operator(func_to_decorate):
                                       is_active=True)
         if user_is_operator(user=request.user, structure=structure):
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
 
-def is_editable_by_evaluation_operator(func_to_decorate):
+def is_editable_by_operator(func_to_decorate):
     """
     controlla che l'attuale stato dell'evento
     renda editabile dall'utente i dati
@@ -61,8 +61,11 @@ def is_editable_by_evaluation_operator(func_to_decorate):
             PublicEngagementEvent,
             pk=event_id,
             structure__slug=structure_slug)
-        if event.is_editable_by_evaluation_operator():
+        if event.is_editable_by_operator():
             original_kwargs['event'] = event
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:operator_event",
+                       structure_slug=structure_slug,
+                       event_id=event_id)
     return new_func
