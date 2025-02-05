@@ -8,24 +8,23 @@
 
 {% block top_content %}
 
-{% block alerts %}
-{% if not event.check_year %}
-<div class="alert alert-danger" role="alert">
-   {% trans "Editing date for the year" %}<b>{{ event.start.year }}</b> {% trans "is closed. No further operations are allowed" %}
-</div>
-{% endif %}
-{% endblock alerts %}
-
 <h2>{{ event.title }}</h2>
 <h3 style="font-weight: lighter">{% trans "Data summary" %}</h3>
 {% endblock top_content %}
 
 {% block page_content %}
-<b>{% trans "Submission:" %}</b> {{ event.created }} / {{ event.created_by.first_name }} {{ event.created_by.last_name }}<br>
-{% if event.modified_by %}<b>{% trans "Last update :" %}</b> {{ event.modified }} / {{ event.modified_by.first_name }} {{ event.modified_by.last_name }}{% endif %}
+{% block alerts %}
+{% if not event.check_year %}
+<div class="alert alert-danger" role="alert">
+   {% trans "Editing data for the year" %}<b>{{ event.start.year }}</b> {% trans "is closed. No further operations are allowed" %}
+</div>
+{% endif %}
+{% endblock alerts %}
+<b>{% trans "Submission:" %}</b> {{ event.created }} / {{ event.created_by }}<br>
+{% if event.modified_by %}<b>{% trans "Last update :" %}</b> {{ event.modified }} / {{ event.modified_by }}{% endif %}
 {% block actions %}{% endblock actions %}
 <div class="row mt-5">
-    <div class="col-12 col-lg-{% if event.data.patronage_requested %}3{% else %}4{% endif %}">
+    <div class="col-12 col-lg-{% if event.data.patronage_requested %}4{% else %}6{% endif %}">
         <!--start card-->
         <div class="card-wrapper card-space">
             <div class="card card-bg no-after">
@@ -37,7 +36,13 @@
                         {% trans 'Referent/Delegate' %}
                     </h5>
                     <span>
-                        {% if not event.to_evaluate %}
+                        {% if event.created_by_manager %}
+                        <span class="badge bg-info">
+                            <svg class="icon icon-sm icon-white">
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+                            </svg>  {% trans "Loaded by manager" %}
+                        </span>
+                        {% elif not event.to_evaluate %}
                         <span class="badge bg-warning">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-warning-circle"></use>
@@ -55,20 +60,6 @@
                                 {{ event.evaluation_request_date }} da {{ event.evaluation_request_by }}
                             </li>
                         </ul>
-                        {% elif event.is_created_by_operator %}
-                        <span class="badge bg-info">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-                            </svg>
-                            {% trans "Loaded by operator" %}
-                        </span>
-                        {% elif event.is_created_by_manager %}
-                        <span class="badge bg-info">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-                            </svg>
-                            {% trans "Loaded by manager" %}
-                        </span>
                         {% endif %}
                     </span>
                 </div>
@@ -76,7 +67,7 @@
         </div>
         <!--end card-->
     </div>
-    <div class="col-12 col-lg-{% if event.data.patronage_requested %}3{% else %}4{% endif %}">
+    <div class="col-12 col-lg-{% if event.data.patronage_requested %}4{% else %}6{% endif %}">
         <!--start card-->
         <div class="card-wrapper card-space">
             <div class="card card-bg no-after">
@@ -85,32 +76,32 @@
                         <svg class="icon">
                             <use href="{% static 'svg/sprites.svg' %}#it-box"></use>
                         </svg>
-                        {% trans 'Structure' %}
+                        {{ event.structure }}
                     </h5>
                     <span>
-                        {% if event.is_created_by_manager %}
+                        {% if event.created_by_manager %}
                         <span class="badge bg-info">
                             <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
                             </svg>  {% trans "Loaded by manager" %}
                         </span>
                         {% elif not event.operator_taken_date %}
                         <span class="badge bg-info">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
-                            </svg>  {% trans "To proceed" %}
+                            </svg>  {% trans "To be handled" %}
                         </span>
-                        {% elif event.is_evaluated_negatively_by_operator %}
+                        {% elif event.has_been_rejected %}
                         <span class="badge bg-danger">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-error"></use>
-                            </svg>  {% trans "Evaluation rejected" %}
+                            </svg>  {% trans "Rejected" %}
                         </span>
-                        {% elif event.is_evaluated_positively_by_operator %}
+                        {% elif event.has_been_approved %}
                         <span class="badge bg-success">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-                            </svg>  {% trans "Evaluation successfull" %}
+                            </svg>  {% trans "Approved" %}
                         </span>
                         {% elif event.operator_taken_date and not event.operator_evaluation_date%}
                         <span class="badge bg-warning">
@@ -125,9 +116,9 @@
                         <ul style="font-size:1rem">
                             {% if event.operator_taken_date %}
                             <li>
-                                <b> {% trans "Proceed" %}:</b>
+                                <b> {% trans "Handled" %}:</b>
                                 <br>
-                                {{ event.operator_taken_date }} da {{ event.operator_taken_by }}
+                                {{ event.operator_taken_date }} {% trans "from" %} {{ event.operator_taken_by }}
                             </li>
                             {% endif %}
                             {% if event.operator_evaluation_date %}
@@ -136,11 +127,13 @@
                                 <br>
                                 {{ event.operator_evaluation_date }} da {{ event.operator_evaluated_by }}
                             </li>
+                            {% if event.operator_notes %}
                             <li>
                                 <b> {% trans "Notes:" %}</b>
                                 <br>
                                 {{ event.operator_notes }}
                             </li>
+                            {% endif %}
                             {% endif %}
                         </ul>
                         {% endif %}
@@ -151,7 +144,7 @@
         <!--end card-->
     </div>
     {% if event.data.patronage_requested %}
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg-4">
         <!--start card-->
         <div class="card-wrapper card-space">
             <div class="card card-bg no-after">
@@ -163,25 +156,25 @@
                         {% trans 'Patronage' %}
                     </h5>
                     <span>
-                        {% if event.is_created_by_manager %}
+                        {% if event.created_by_manager %}
                         <span class="badge bg-info">
                             <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-                            </svg>  Iniziativa inserita dal manager
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+                            </svg>  {% trans "Loaded by manager" %}
                         </span>
                         {% elif not event.patronage_operator_taken_date %}
                         <span class="badge bg-info">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
-                            </svg>  {% trans "To proceed" %}
+                            </svg>  {% trans "To be handled" %}
                         </span>
-                        {% elif event.is_evaluated_negatively_by_patronage_operator %}
+                        {% elif event.has_patronage_denied %}
                         <span class="badge bg-danger">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-error"></use>
-                            </svg>  {% trans "Patronage rejected" %}
+                            </svg>  {% trans "Denied patronage" %}
                         </span>
-                        {% elif event.is_evaluated_positively_by_patronage_operator %}
+                        {% elif event.has_patronage_granted %}
                         <span class="badge bg-success">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
@@ -200,9 +193,9 @@
                         <ul style="font-size:1rem">
                             {% if event.patronage_operator_taken_date %}
                             <li>
-                                <b> {% trans "Proceed" %}:</b>
+                                <b> {% trans "Handled" %}:</b>
                                 <br>
-                                {{ event.patronage_operator_taken_date }} da {{ event.patronage_operator_taken_by }}
+                                {{ event.patronage_operator_taken_date }} {% trans "from" %} {{ event.patronage_operator_taken_by }}
                             </li>
                             {% endif %}
                             {% if event.patronage_granted_date %}
@@ -211,11 +204,13 @@
                                 <br>
                                 {{ event.patronage_granted_date }} da {{ event.patronage_granted_by }}
                             </li>
+                            {% if event.patronage_granted_notes %}
                             <li>
                                 <b>Note:</b>
                                 <br>
                                 {{ event.patronage_granted_notes }}
                             </li>
+                            {% endif %}
                             {% endif %}
                         </ul>
                         {% endif %}
@@ -226,74 +221,6 @@
         <!--end card-->
     </div>
     {% endif %}
-    <div class="col-12 col-lg-{% if event.data.patronage_requested %}3{% else %}4{% endif %}">
-        <!--start card-->
-        <div class="card-wrapper card-space">
-            <div class="card card-bg no-after">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <svg class="icon">
-                            <use href="{% static 'svg/sprites.svg' %}#it-pa"></use>
-                        </svg>
-                        {% trans 'Manager' %}
-                    </h5>
-                    <span>
-                        {% if not event.manager_taken_date %}
-                        <span class="badge bg-info">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
-                            </svg>  {% trans "To proceed" %}
-                        </span>
-                        {% elif event.is_evaluated_negatively_by_manager %}
-                        <span class="badge bg-danger">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-error"></use>
-                            </svg>  {% trans "Evaluation rejected" %}
-                        </span>
-                        {% elif event.is_evaluated_positively_by_manager %}
-                        <span class="badge bg-success">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-                            </svg>  {% trans "Evaluation successfull" %}
-                        </span>
-                        {% elif event.manager_taken_date and not event.manager_evaluation_date %}
-                        <span class="badge bg-warning">
-                            <svg class="icon icon-sm icon-white">
-                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
-                            </svg>  {% trans "To evaluate" %}
-                        </span>
-                        {% endif %}
-
-                        {% if event.manager_taken_date or event.manager_evaluation_date %}
-                        <hr>
-                        <ul style="font-size:1rem">
-                            {% if event.manager_taken_date %}
-                            <li>
-                                <b> {% trans "Proceed:" %}</b>
-                                <br>
-                                {{ event.manager_taken_date }} da {{ event.manager_taken_by }}
-                            </li>
-                            {% endif %}
-                            {% if event.manager_evaluation_date %}
-                            <li>
-                                <b> {% trans "Evaluated:" %}</b>
-                                <br>
-                                {{ event.manager_evaluation_date }} da {{ event.manager_evaluated_by }}
-                            </li>
-                            <li>
-                                <b>Note:</b>
-                                <br>
-                                {{ event.manager_notes }}
-                            </li>
-                            {% endif %}
-                        </ul>
-                        {% endif %}
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!--end card-->
-    </div>
 </div>
 
 <div class="mt-5 h5"><b>{% trans "General informations" %}</b></div>
@@ -357,10 +284,9 @@
             </td>
             <td>
                 {% if event.data.project_scoped %}
-                <span class="badge bg-success">SI</span>
-                {{ event.data.project_name }}
+                {% trans "Yes" %}, {{ event.data.project_name }}
                 {% else %}
-                <span class="badge bg-warning">NO</span>
+                {% trans "No" %}
                 {% endif %}
             </td>
         </tr>
@@ -437,9 +363,9 @@
             </td>
             <td>
                 {% if event.data.patronage_requested %}
-                <span class="badge bg-success">SI</span>
+                {% trans "Yes" %}
                 {% else %}
-                <span class="badge bg-warning">NO</span>
+                {% trans "No" %}
                 {% endif %}
             </td>
         </tr>
@@ -458,13 +384,13 @@
             </td>
         </tr>
         {% endif %}
-        {% if event.data.patronage_requested %}
+        {% if event.data.poster %}
         <tr>
             <td>
                 {% get_field_label event.data 'poster' as field_label %}
                 {{ field_label }}
             </td>
-            <td><a href="{{ event.data.poster|default:'-' }}">Download</a></td>
+            <td><a href="{{ event.data.poster.url }}">Download</a></td>
         </tr>
         {% endif %}
     </table>
@@ -539,7 +465,7 @@
             <td>
                 <ul>
                     {% for area in event.report.scientific_area.all %}
-                    <li>{{ area.name }}</li>
+                    <li>{{ area.description }}</li>
                     {% endfor %}
                 </ul>
             </td>

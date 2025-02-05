@@ -45,8 +45,7 @@ def dashboard(request):
             event__structure=structure,
             event__start__year__in=active_years,
             event__to_evaluate=True,
-            event__operator_evaluation_success=True,
-            event__manager_taken_date__isnull=True).count()
+            event__operator_evaluation_success=True).count()
         events_per_structure[structure] = to_evaluate
     return render(request,
                   template,
@@ -61,7 +60,7 @@ def events(request, structure_slug):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   '#': '{}'.format(structure_slug)}
+                   '#': structure_slug.upper()}
     api_url = reverse('public_engagement_monitoring:api_manager_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'api_url': api_url,
                                       'breadcrumbs': breadcrumbs,
@@ -77,7 +76,7 @@ def new_event_choose_referent(request, structure_slug):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                    '#': _("New")}
 
     if request.method == 'POST':
@@ -87,24 +86,30 @@ def new_event_choose_referent(request, structure_slug):
                                         'id': request.POST['referent_id']},
                                     headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if referent_id.status_code != 200:
-            return custom_message(request, _("Access denied"), 403)
+            messages.add_message(request, messages.DANGER, _("Access denied"))
+            return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
+                            structure_slug=structure_slug)
 
         # recupero dati completi del referente (in entrambi i casi)
         # es: genere
         response = requests.get('{}{}'.format(API_ADDRESSBOOK_FULL, referent_id.json()),
                                 headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
-            return custom_message(request, _("Access denied"), 403)
+            messages.add_message(request, messages.DANGER, _("Access denied"))
+            return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
+                            structure_slug=structure_slug)
 
         referent_data = response.json()['results']
         if not referent_data.get('Email'):
-            return custom_message(request, _("The person selected does not have an email"), 403)
+            messages.add_message(request, messages.DANGER, _("The person selected does not have an email"))
+            return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
+                            structure_slug=structure_slug)
 
 
         # creo o recupero l'utente dal db locale
         # controllo se esiste già (i dati locali potrebbero differire da quelli presenti nelle API)
         referent_user = get_user_model().objects.filter(
-            username=referent_data['Taxpayer_ID']).first()
+            codice_fiscale=referent_data['Taxpayer_ID']).first()
         # aggiorno il dato sul genere (potrebbe non essere presente localmente)
         if referent_user and not referent_user.gender:
             referent_user.gender = referent_data['Gender']
@@ -120,7 +125,9 @@ def new_event_choose_referent(request, structure_slug):
                                                             gender=referent_data['Gender'])
         # se l'utente è stato disattivato
         if not referent_user.is_active:
-            return custom_message(request, _("Access denied"), 403)
+            messages.add_message(request, messages.DANGER, _("Access denied"))
+            return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
+                            structure_slug=structure_slug)
 
         # salviamo il referente corrente in sessione
         request.session['referent'] = referent_user.pk
@@ -135,7 +142,9 @@ def new_event_choose_referent(request, structure_slug):
 def new_event_basic_info(request, structure_slug):
     # se non è stato scelto il referente nella fase iniziale
     if not request.session.get('referent'):
-        return custom_message(request, _("Event referent is mandatory"), 403)
+        messages.add_message(request, messages.DANGER, _("Event referent is mandatory"))
+        return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
+                        structure_slug=structure_slug)
 
     template = 'pem/event_basic_info.html'
     form = PublicEngagementEventOperatorForm(
@@ -144,7 +153,7 @@ def new_event_basic_info(request, structure_slug):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                    reverse('public_engagement_monitoring:manager_new_event_choose_referent', kwargs={'structure_slug': structure_slug}): _('New'),
                    '#': _('General informations')}
 
@@ -156,26 +165,28 @@ def new_event_basic_info(request, structure_slug):
         if form.is_valid():
 
             year = form.cleaned_data['start'].year
+            event = form.save(commit=False)
+
             # check sull'anno di inizio dell'evento
-            if not PublicEngagementAnnualMonitoring.year_is_active(year):
-                messages.add_message(
-                    request, messages.ERROR, "<b>{}</b>: {} {}".format(_('Alert'), _('Monitoring activity year'), '{} {}'.format(year, _('has been disabled'))))
+            # non valido per i manager!
+            # if not PublicEngagementAnnualMonitoring.year_is_active(year):
+                # messages.add_message(
+                    # request, messages.ERROR, "<b>{}</b>: {} {}".format(_('Alert'), _('Monitoring activity year'), '{} {}'.format(year, _('has been disabled'))))
+            if not event.is_over():
+                messages.add_message(request,
+                                     messages.ERROR, _("It is possible to add only ex-post events"))
             else:
-                event = form.save(commit=False)
                 event.created_by = request.user
                 event.modified_by = request.user
                 event.referent = get_user_model().objects.get(
                     pk=request.session.get('referent'))
-                event.to_evaluate = True
-                event.operator_evaluation_success = True
-                event.manager_taken_date = timezone.now()
-                event.manager_taken_by = request.user
+                event.created_by_manager = True
                 event.save()
 
                 log_action(user=request.user,
                            obj=event,
                            flag=ADDITION,
-                           msg='{}: {}'.format(structure_slug, _('added')))
+                           msg="[Operatore di Ateneo] Iniziativa creata")
 
                 messages.add_message(
                     request, messages.SUCCESS, _("First step completed successfully. Now proceed to enter the data"))
@@ -203,7 +214,7 @@ def event(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                    '#': event.title}
 
     logs = LogEntry.objects.filter(content_type_id=ContentType.objects.get_for_model(event).pk,
@@ -219,51 +230,59 @@ def event(request, structure_slug, event_id):
 
 @login_required
 @is_manager
-def take_event(request, structure_slug, event_id):
-    event = get_object_or_404(PublicEngagementEvent,
-                              pk=event_id, structure__slug=structure_slug)
-    if not event.can_be_taken_by_manager():
-        return custom_message(request, _("Access denied"), 403)
-    event.manager_taken_by = request.user
-    event.manager_taken_date = timezone.now()
-    event.modified_by = request.user
-    event.save()
-
-    log_action(user=request.user,
-               obj=event,
-               flag=CHANGE,
-               msg='{}: {}'.format(structure_slug, _('taken')))
-
-    messages.add_message(request, messages.SUCCESS,
-                         _("Event taken successfully"))
-
-    # invia email al referente/compilatore
-    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('taken'))
-    body = "{} {}".format(request.user, _('is evaluating the event'))
-    send_email_to_event_referents(event, subject, body)
-
-    # invia email agli operatori dipartimentali
-    send_email_to_operators(event.structure, subject, body)
-
-    return redirect('public_engagement_monitoring:manager_event',
-                    structure_slug=structure_slug,
-                    event_id=event_id)
-
-
-@login_required
-@is_manager
 @is_editable_by_manager
 def event_basic_info(request, structure_slug, event_id, event=None):
-    result = management.event_basic_info(request=request,
-                                         structure_slug=structure_slug,
-                                         event_id=event_id,
-                                         event=event,
-                                         by_manager=True)
-    if result == True:
-        return redirect("public_engagement_monitoring:manager_event",
-                        structure_slug=structure_slug,
-                        event_id=event_id)
-    return result
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
+                   reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
+                   '#': _('General informations')}
+
+    template = 'pem/event_basic_info.html'
+    form = PublicEngagementEventOperatorForm(request=request,
+                                             instance=event)
+    # post
+    if request.method == 'POST':
+        form = PublicEngagementEventOperatorForm(request=request,
+                                         instance=event,
+                                         data=request.POST)
+        if form.is_valid():
+            event = form.save(commit=False)
+            if event.created_by_manager and not event.is_over():
+                messages.add_message(request, messages.DANGER, _("It is possible to add only ex-post events"))
+                return redirect("public_engagement_monitoring:manager_event",
+                                structure_slug=structure_slug,
+                                event_id=event_id)
+            event.edited_by_manager = True
+            event.modified_by = request.user
+            event.save()
+
+            log_action(user=request.user,
+                       obj=event,
+                       flag=CHANGE,
+                       msg="[Operatore di Ateneo] Informazioni generali modificate")
+
+            messages.add_message(request, messages.SUCCESS,
+                                 _("Modified general informations successfully"))
+
+            # invia email al referente/compilatore
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
+
+            send_email_to_event_referents(event, subject, body)
+
+            # invia email agli operatori dipartimentali
+            send_email_to_operators(event.structure, subject, body)
+
+            return redirect("public_engagement_monitoring:manager_event",
+                            structure_slug=structure_slug,
+                            event_id=event_id)
+
+        else:  # pragma: no cover
+            messages.add_message(request, messages.ERROR,
+                                 '<b>{}</b>: {}'.format(_('Alert'), _('the errors in the form below need to be fixed')))
+    return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form})
 
 
 @login_required
@@ -317,93 +336,49 @@ def event_people_delete(request, structure_slug, event_id, person_id, event=None
 
 @login_required
 @is_manager
-def event_evaluation(request, structure_slug, event_id):
-    event = PublicEngagementEvent.objects.filter(pk=event_id,
-                                                 structure__slug=structure_slug).first()
-    if not event:
-        return custom_message(request, _("Access denied"), 403)
+@has_report_editable
+def event_report(request, structure_slug, event_id):
+    template = 'pem/user/event_report.html'
+    event = get_object_or_404(PublicEngagementEvent, pk=event_id, structure__slug=structure_slug)
+    instance = PublicEngagementEventReport.objects.filter(event=event).first()
+    form = PublicEngagementEventReportForm(instance=instance, event=event)
 
-    if not event.is_ready_for_manager_evaluation():
-        return custom_message(request, _("Access denied"), 403)
-
-    form = PublicEngagementEventEvaluationForm()
-    template = 'pem/event_evaluation.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                    reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
-                   '#': _('Evaluation')}
+                   '#': _('Monitoring data')}
 
     if request.method == 'POST':
-        form = PublicEngagementEventEvaluationForm(data=request.POST)
+        form = PublicEngagementEventReportForm(instance=instance,
+                                               event=event,
+                                               data=request.POST)
         if form.is_valid():
-            event.manager_evaluation_date = timezone.now()
-            event.manager_evaluation_success = form.cleaned_data['success']
-            event.manager_evaluated_by = request.user
-            event.manager_notes = form.cleaned_data['notes']
+            report = form.save(commit=False)
+            report.event = event
+            report.modified_by = request.user
+            if not instance:
+                report.created_by = request.user
+            report.edited_by_manager = True
+            report.save()
+
+            form.save_m2m()
+            event.edited_by_manager = True
             event.modified_by = request.user
             event.save()
-
-            result = _('approved') if form.cleaned_data['success'] else _('not approved')
-            msg = '{} - {}: {}'.format(structure_slug, _('evaluation completed'), result)
-            if not form.cleaned_data['success']:
-                msg += ' {}'.format(operator_notes)
 
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg=msg)
+                       msg="[Operatore di Ateneo] Dati di monitoraggio modificati" if instance else "[Operatore di Ateneo] Dati di monitoraggio inseriti")
 
-            messages.add_message(request, messages.SUCCESS, _("Evaluation completed"))
-
-            # invia email al referente/compilatore
-            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation completed'))
-            body = "{} {}: {}".format(request.user, _('has evaluated the event with the result'), result)
-            send_email_to_event_referents(event, subject, body)
-
-            # invia email agli operatori dipartimentali
-            send_email_to_operators(event.structure, subject, body)
-
-            return redirect("public_engagement_monitoring:manager_event",
-                            structure_slug=structure_slug,
-                            event_id=event_id)
+            messages.add_message(request, messages.SUCCESS, _('Monitoring data modified successfully'))
+            return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
         else:
             messages.add_message(request, messages.ERROR,
-                                 "<b>{}</b>: {} {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
-    return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form, 'structure_slug': structure_slug})
-
-
-@login_required
-@is_manager
-def event_reopen_evaluation(request, structure_slug, event_id):
-    event = PublicEngagementEvent.objects.filter(pk=event_id,
-                                                 structure__slug=structure_slug).first()
-    if not event:
-        return custom_message(request, _("Access denied"), 403)
-
-    if not event.can_manager_cancel_evaluation():
-        return custom_message(request, _("Access denied"), 403)
-
-    event.manager_evaluation_date = None
-    event.modified_by = request.user
-    event.save()
-
-    log_action(user=request.user,
-               obj=event,
-               flag=CHANGE,
-               msg='{}: {}'.format(structure_slug, _('evaluation reopened')))
-
-    messages.add_message(request, messages.SUCCESS, _("Evaluation reopened"))
-
-    # invia email al referente/compilatore
-    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('evaluation reopened'))
-    body = "{} {}.".format(request.user, _('has reopened evaluation of the event'))
-    send_email_to_event_referents(event, subject, body)
-
-    # invia email agli operatori dipartimentali
-    send_email_to_operators(event.structure, subject, body)
-
-    return redirect("public_engagement_monitoring:manager_event",
-                    structure_slug=structure_slug,
-                    event_id=event_id)
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
+    return render(request, template, {'breadcrumbs': breadcrumbs,
+                                      'event': event,
+                                      'form': form,
+                                      'structure_slug': structure_slug})

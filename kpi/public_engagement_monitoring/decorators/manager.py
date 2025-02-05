@@ -3,8 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from organizational_area.models import *
 
-from template.utils import custom_message
-
 from .. models import *
 from .. settings import *
 from .. utils import *
@@ -17,7 +15,8 @@ def is_manager(func_to_decorate):
         request = original_args[0]
         if user_is_manager(request.user):
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
 
@@ -35,5 +34,8 @@ def is_editable_by_manager(func_to_decorate):
         if event.is_editable_by_manager():
             original_kwargs['event'] = event
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:manager_event",
+                        structure_slug=structure_slug,
+                        event_id=event_id)
     return new_func

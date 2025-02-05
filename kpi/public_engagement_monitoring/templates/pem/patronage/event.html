@@ -8,11 +8,11 @@
 
 {% block actions %}
 <div class="text-end mt-5">
-{% if event.can_be_taken_by_patronage_operator %}
+{% if event.can_be_handled_for_patronage %}
 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#take_event">
     <svg class="icon icon-sm icon-white">
         <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-    </svg> {% trans "Proceed" %}
+    </svg> {% trans "Handle" %}
 </button>
 <div class="it-example-modal d-inline">
    <div class="modal" tabindex="-1" role="dialog" id="take_event" aria-labelledby="take_event-Title">
@@ -38,13 +38,13 @@
 </div>
 {% endif %}
 
-{% if event.is_ready_for_patronage_operator_evaluation %}
+{% if event.is_ready_for_patronage_check %}
 <a class="btn btn-success" href="{% url 'public_engagement_monitoring:patronage_operator_event_evaluation' structure_slug=structure_slug event_id=event.pk %}">
     <svg class="icon icon-sm icon-white">
         <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
     </svg> {% trans "Evaluate" %}
 </a>
-{% elif event.can_patronage_operator_cancel_evaluation %}
+{% elif event.patronage_can_be_reviewed %}
 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reopen_evaluation">
     <svg class="icon icon-sm icon-white">
         <use xlink:href="{% static 'svg/sprites.svg' %}#it-refresh"></use>

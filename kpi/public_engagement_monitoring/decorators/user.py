@@ -3,8 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from organizational_area.models import *
 
-from template.utils import custom_message
-
 from .. models import *
 from .. settings import *
 from .. utils import *
@@ -38,7 +36,8 @@ def has_access_to_my_event(func_to_decorate):
         # if user_is_operator(user=request.user, structure=event.structure):
             # return func_to_decorate(*original_args, **original_kwargs)
 
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:user_events")
     return new_func
 
 
@@ -54,21 +53,6 @@ def is_editable_by_user(func_to_decorate):
         event = original_kwargs['event']
         if event.is_editable_by_user():
             return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
-    return new_func
-
-
-def report_editable(func_to_decorate):
-    """
-    controlla che l'attuale stato dell'evento
-    renda editabile dall'utente il report
-    tutti i controlli sui permessi dell'utente vengono fatti da
-    altri decoratori
-    """
-    def new_func(*original_args, **original_kwargs):
-        request = original_args[0]
-        event = original_kwargs['event']
-        if event.report_editable():
-            return func_to_decorate(*original_args, **original_kwargs)
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _('Access denied'))
+        return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
     return new_func

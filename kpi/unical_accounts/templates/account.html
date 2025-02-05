@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <th scope="row">{% trans "Taxpayer ID" %}</th>
-            <td>{{ request.user.taxpayer_id|default:'-' }}</td>
+            <td>{{ request.user.codice_fiscale|default:'-' }}</td>
         </tr>
     </tbody>
 </table>

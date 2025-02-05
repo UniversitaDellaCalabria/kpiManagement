@@ -19,83 +19,30 @@ from .. settings import *
 from .. utils import *
 
 
-def event_basic_info(request, structure_slug, event_id, by_manager=False, event=None):
-
-    if by_manager:
-        breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
-                       reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
-                       reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
-                       reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
-                       '#': _('General informations')}
-    else:
-        breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
-                       reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
-                       reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
-                       reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
-                       '#': _('General informations')}
-
-    template = 'pem/event_basic_info.html'
-    form = PublicEngagementEventOperatorForm(request=request, instance=event)
-    # post
-    if request.method == 'POST':
-        form = PublicEngagementEventOperatorForm(request=request,
-                                         instance=event,
-                                         data=request.POST)
-        if form.is_valid():
-            event = form.save(commit=False)
-            event.modified_by = request.user
-            event.save()
-
-            log_action(user=request.user,
-                       obj=event,
-                       flag=CHANGE,
-                       msg='{}: {}'.format(structure_slug, _('modified general informations')))
-
-            messages.add_message(request, messages.SUCCESS,
-                                 _("Modified general informations successfully"))
-
-            # invia email al referente/compilatore
-            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
-            body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
-
-            send_email_to_event_referents(event, subject, body)
-
-            # invia email agli operatori dipartimentali
-            if by_manager:
-                send_email_to_operators(event.structure, subject, body)
-
-            return True
-
-        else:  # pragma: no cover
-            messages.add_message(request, messages.ERROR,
-                                 '<b>{}</b>: {}'.format(_('Alert'), _('the errors in the form below need to be fixed')))
-    return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form})
-
-
 def event_data(request, structure_slug, event_id, by_manager=False, event=None):
     if by_manager:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Event data')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
-                       reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                       reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Event data')}
 
     template = 'pem/event_data.html'
-    form = PublicEngagementEventDataForm(instance=getattr(event, 'data', None))
+    form = PublicEngagementEventDataForm(instance=getattr(event, 'data', None),
+                                         event=event)
     if request.method == 'POST':
         form = PublicEngagementEventDataForm(instance=getattr(event, 'data', None),
                                              data=request.POST,
-                                             files=request.FILES)
+                                             files=request.FILES,
+                                             event=event)
         if form.is_valid():
             data = form.save(commit=False)
             data.event = event
@@ -104,12 +51,21 @@ def event_data(request, structure_slug, event_id, by_manager=False, event=None):
             data.save()
             form.save_m2m()
             event.modified_by = request.user
+
+            if by_manager:
+                event.edited_by_manager = True
+
             event.save()
+
+            if by_manager:
+                msg="[Operatore di Ateneo] Dati iniziativa modificati"
+            else:
+                msg="[Operatore {}] Dati iniziativa modificati".format(structure_slug)
 
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg='{}: {}'.format(structure_slug, _('data modified')))
+                       msg=msg)
 
             messages.add_message(request, messages.SUCCESS,
                                  _("Data updated successfully"))
@@ -142,14 +98,14 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Involved personnel')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
-                       reverse('public_engagement_monitoring:operator_dashboard'): _('Evaluation operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                       reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Involved personnel')}
 
@@ -182,7 +138,10 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
                                                      codice_fiscale=person_data['Taxpayer_ID'],
                                                      email=person_data['Email'][0],
                                                      gender=person_data['Gender'])
-        if data.person.filter(pk=person.pk).exists():
+        if person == event.referent:
+            messages.add_message(request, messages.ERROR,
+                                 "{} {}".format(person, _('is the event referent')))
+        elif data.person.filter(pk=person.pk).exists():
             messages.add_message(request, messages.ERROR,
                                  '{} {}'.format(person, _('already exists')))
         else:
@@ -190,12 +149,21 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
             data.modified_by = request.user
             data.save()
             event.modified_by = request.user
+
+            if by_manager:
+                event.edited_by_manager = True
+
             event.save()
+
+            if by_manager:
+                msg="[Operatore di Ateneo] Personale coinvolto: aggiunto {}".format(person)
+            else:
+                msg="[Operatore {}] Personale coinvolto: aggiunto {}".format(structure_slug, person)
 
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg='{}: {} {} {} {}'.format(structure_slug, _('added'), person.first_name, person.last_name, _('in involved personnel')))
+                       msg=msg)
 
             messages.add_message(request, messages.SUCCESS,
                                  '{} {}'.format(person, _('added successfully')))
@@ -226,12 +194,21 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
         event.data.modified_by = request.user
         event.data.save()
         event.modified_by = request.user
+
+        if by_manager:
+                event.edited_by_manager = True
+
         event.save()
+
+        if by_manager:
+            msg="[Operatore di Ateneo] Personale coinvolto: rimosso {}".format(person)
+        else:
+            msg="[Operatore {}] Personale coinvolto: rimosso {}".format(structure_slug, person)
 
         log_action(user=request.user,
                    obj=event,
                    flag=CHANGE,
-                   msg='{}: {} {} {}'.format(structure_slug, person.first_name, person.last_name, _('removed from involved personnel')))
+                   msg=msg)
 
         messages.add_message(request, messages.SUCCESS, _('Personnel removed successfully'))
 

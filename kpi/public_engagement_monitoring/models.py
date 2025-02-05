@@ -106,14 +106,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     ), on_delete=models.PROTECT, null=True, blank=True, related_name='patronage_granted_by', verbose_name="Validazione patrocinio eseguita da operatore",)
     patronage_granted_notes = models.TextField("Note concessione patrocinio", default='', blank=True,)
     # manager
-    manager_taken_date = models.DateTimeField("Data presa in carico manager", null=True, blank=True)
-    manager_taken_by = models.ForeignKey(get_user_model(
-    ), on_delete=models.PROTECT, null=True, blank=True, related_name='manager_taken_by', verbose_name="Presa in carico da manager")
-    manager_evaluation_date = models.DateTimeField("Data validazione manager", null=True, blank=True)
-    manager_evaluation_success = models.BooleanField("Validazione manager positiva", default=False)
-    manager_evaluated_by = models.ForeignKey(get_user_model(
-    ), on_delete=models.PROTECT, null=True, blank=True, related_name='manager_evaluated_by', verbose_name="Validazione eseguita da manager")
-    manager_notes = models.TextField("Note validazione manager", default='', blank=True,)
+    created_by_manager = models.BooleanField("Creato dal manager", default=False)
+    edited_by_manager = models.BooleanField("Modificato dal manager", default=False)
 
     class Meta:
         verbose_name = "Iniziativa di Public Engagement"
@@ -121,6 +115,21 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
 
     def __str__(self):
         return f'{self.title} - {self.structure}'
+
+    def is_started(self):
+        """
+        ci dice se l'iniziativa è iniziata
+        """
+        return self.start >= timezone.now()
+
+    def is_over(self):
+        """
+        ci dice se l'iniziativa è terminata
+        """
+        return self.end < timezone.now()
+
+    def starts_in_time(self):
+        return self.start >= timezone.now() + timezone.timedelta(days=EVALUATION_TIME_DELTA)
 
     def is_editable_by_user(self):
         """
@@ -135,9 +144,12 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è stata già mandata in validazione
         if self.to_evaluate:
             return False
+        # False: se è stata creata dal manager
+        if self.created_by_manager:
+            return False
         return True
 
-    def report_editable(self):
+    def has_report_editable(self):
         """
         ci dice se i dati di reportistica dell'evento (fase 2) sono editabili dall'utente
         controllando solo l'attuale stato e l'anno di management del PE
@@ -154,10 +166,10 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not self.data.person.exists():
             return False
         # False: se è stato bocciato
-        if self.is_evaluated_negatively_by_operator() or self.is_evaluated_negatively_by_manager():
+        if self.has_been_rejected(): # or self.is_evaluated_negatively_by_manager():
             return False
         # True: se l'evento è terminato
-        if self.end < timezone.now():
+        if self.is_over():
             return True
         return False
 
@@ -180,16 +192,16 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # se l'evento deve ancora iniziare
         # si tiene conto del numero di giorni minimo
         # (settings.EVALUATION_TIME_DELTA)
-        if self.start >= timezone.localtime() + timezone.timedelta(days=EVALUATION_TIME_DELTA):
+        if self.starts_in_time():
             return True
         # se non è rispettata questa regola allora si deve aspettare la fine dell'evento
         # cosi da permettere il caricamento in un'unica fase
         # dei dati di monitoraggio
-        if self.end < timezone.localtime() and getattr(self, 'report', None):
+        if self.is_over() and getattr(self, 'report', None):
             return True
         return False
 
-    def can_user_cancel_evaluation_request(self):
+    def evaluation_request_can_be_reviewed(self):
         """
         """
         # False: se il monitoraggio per l'anno è stato disabilitato
@@ -201,15 +213,9 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è stato già preso in carico dagli operatori
         if self.operator_taken_date:
             return False
-        # False: se è stato già preso in carico dagli operatori di patrocinio
-        if self.patronage_operator_taken_date:
-            return False
-        # False: se è stato già preso in carico dai manager
-        if self.manager_taken_date:
-            return False
         return True
 
-    def can_be_taken_by_evaluation_operator(self):
+    def can_be_handled_for_evaluation(self):
         """
         """
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
@@ -221,12 +227,12 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è già stato preso in carico da un operatore
         if self.operator_taken_date:
             return False
-        # se il manager ha preso in carico
-        if self.manager_taken_date:
+        # se l'iniziativa è stata creata da un manager
+        if self.created_by_manager:
             return False
         return True
 
-    def is_editable_by_evaluation_operator(self):
+    def is_editable_by_operator(self):
         """
         """
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
@@ -241,12 +247,15 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è stato preso in carico da un operatore di patrocinio
         if self.patronage_operator_taken_date:
             return False
-         # False: se il manager ha preso in carico
-        if self.manager_taken_date:
+        # False: se è stato creato dal manager
+        if self.created_by_manager:
+            return False
+        # False: se è stato modificato dal manager
+        if self.edited_by_manager:
             return False
         return True
 
-    def is_ready_for_evaluation_operator_evaluation(self):
+    def is_ready_for_evaluation(self):
         """
         """
         # False: se il monitoraggio per l'anno è stato disabilitato
@@ -260,15 +269,12 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se non è stato preso in carico dagli operatori
         if not self.operator_taken_date:
             return False
-        # False: se è stato già validato dagli operatori
-        if self.operator_evaluation_date:
-            return False
         # False: se il manager l'ha presa in carico
-        if self.manager_taken_date:
+        if self.created_by_manager:
             return False
         return True
 
-    def can_evaluation_operator_cancel_evaluation(self):
+    def evaluation_can_be_reviewed(self):
         """
         """
         # False: se il monitoraggio per l'anno è stato disabilitato
@@ -280,25 +286,25 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è stato preso in carico da un operatore di patrocinio
         if self.patronage_operator_taken_date:
             return False
-        # False: se è stato preso in carico da un manager
-        if self.manager_taken_date:
+        # False: se è stata creata dal manager
+        if self.created_by_manager:
+            return False
+        # False: se è stata modificata dal manager
+        if self.edited_by_manager:
+            return False
+        # False
+        if self.is_over():
             return False
         return True
 
     def check_year(self):
         return PublicEngagementAnnualMonitoring.year_is_active(self.start.year)
 
-    def can_be_taken_by_patronage_operator(self):
+    def can_be_handled_for_patronage(self):
         """
         """
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
-            return False
-        # False: se è stata già mandata in validazione
-        if not self.to_evaluate:
-            return False
-        # False: se l'operatore non lo ha ancora validato
-        if not self.operator_evaluation_date:
             return False
         # False: se l'operatore lo ha bocciato (e validato per esclusione)
         if not self.operator_evaluation_success:
@@ -306,17 +312,20 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è già stato preso in carico da un operatore di patrocinio
         if self.patronage_operator_taken_date:
             return False
-        # False: se il manager ha preso in carico
-        if self.manager_taken_date:
+        # False: se l'iniziativa è stata creata da un manager
+        if self.created_by_manager:
             return False
         # False: se non è stato richiesto il patrocinio
         if not hasattr(self, 'data'):
             return False
         if not self.data.patronage_requested:
             return False
+        # False: se l'iniziativa è già iniziata
+        if self.is_started():
+            return False
         return True
 
-    def is_ready_for_patronage_operator_evaluation(self):
+    def is_ready_for_patronage_check(self):
         """
         """
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
@@ -328,17 +337,20 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se l'operatore di patrocinio lo ha validato
         if self.patronage_granted_date:
             return False
-        # False: il manager l'ha preso in carico
-        if self.manager_taken_date:
+        # False: è stato creato dal manager
+        if self.created_by_manager:
             return False
         # False: se non è stato richiesto il patrocinio
         if not hasattr(self, 'data'):
             return False
         if not self.data.patronage_requested:
             return False
+        # False: se l'iniziativa è terminata
+        if self.is_over():
+            return False
         return True
 
-    def can_patronage_operator_cancel_evaluation(self):
+    def patronage_can_be_reviewed(self):
         """
         """
         # False: se il monitoraggio per l'anno è stato disabilitato
@@ -351,38 +363,16 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not self.patronage_granted_date:
             return False
         # False: il manager l'ha preso in carico
-        if self.manager_taken_date:
+        if self.created_by_manager:
             return False
+        # if self.edited_by_manager:
+            # return False
         # False: se non è stato richiesto il patrocinio
         if not hasattr(self, 'data'):
             return False
         if not self.data.patronage_requested:
             return False
-        return True
-
-    def can_be_taken_by_manager(self):
-        """
-        """
-        # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
-        if not self.check_year():
-            return False
-        # False: se il dipartimento non lo ha validato
-        if not self.operator_evaluation_date:
-            return False
-        # False: se l'operatore ha valutato negativamente
-        if not self.operator_evaluation_success:
-            return False
-        # False: se è già stato preso in carico da un manager
-        if self.manager_taken_date:
-            return False
-        # False: se è richiesto il patrocinio e
-        # l'operatore di patrocinio non ha completato la valutazione
-        # if not hasattr(self, 'data'):
-            # return False
-        # if self.data.patronage_requested and not self.patronage_granted_date:
-            # return False
-        # False: se non è stato concesso il patrocinio
-        if self.data.patronage_requested and not self.patronage_granted:
+        if self.is_over():
             return False
         return True
 
@@ -392,72 +382,34 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
             return False
-        # False: se è stato approvato il patrocinio
-        # data = getattr(self, 'data', None)
-        # if data and data.patronage_requested and self.patronage_granted:
-            # return False
-        # False: se il manager non ha preso in carico
-        if not self.manager_taken_date:
+        # True: se è creato dal manager, sempre editabile
+        if self.created_by_manager:
+            return True
+        # False: se non è stato approvato dalla struttura
+        if not self.operator_evaluation_success:
             return False
-        # False: se è stato già validato dal manager
-        if self.manager_evaluation_date:
+        # False: se il patrocinio è stato richiesto ed è stato concesso (dati immutabili)
+        if self.data.patronage_requested and self.patronage_granted:
             return False
-        return True
-
-    def is_ready_for_manager_evaluation(self):
-        """
-        ci dice se l'evento può essere validato dal manager
-        """
-        # False: se il monitoraggio per l'anno è stato disabilitato
-        if not self.check_year():
-            return False
-        # False: se ci sono i dati della fase 1
-        if not hasattr(self, 'data'):
-            return False
-        # False: se non sono stati inserite le persone collegate
-        if not self.data.person.exists():
-            return False
-        # False: se non è stato preso in carico dagli operatori
-        if not self.manager_taken_date:
-            return False
-        # False: se è stato già validato dagli operatori
-        if self.manager_evaluation_date:
+        # True: se l'evento è finito
+        if self.is_over():
+            return True
+        # False: se il patrocinio è stato richiesto e non è stato ancora emesso un responso
+        if self.data.patronage_requested and not self.patronage_granted_date:
             return False
         return True
 
-    def can_manager_cancel_evaluation(self):
-        """
-        """
-        # False: se il monitoraggio per l'anno è stato disabilitato
-        if not self.check_year():
-            return False
-        # Vero se il manager l'ha già validato
-        # Falso altrimenti
-        return self.manager_evaluation_date
-
-    def is_evaluated_negatively_by_operator(self):
+    def has_been_rejected(self):
         return self.operator_evaluation_date and not self.operator_evaluation_success
 
-    def is_evaluated_negatively_by_patronage_operator(self):
+    def has_patronage_denied(self):
         return self.patronage_granted_date and not self.patronage_granted
 
-    def is_evaluated_negatively_by_manager(self):
-        return self.manager_evaluation_date and not self.manager_evaluation_success
-
-    def is_evaluated_positively_by_operator(self):
+    def has_been_approved(self):
         return self.operator_evaluation_date and self.operator_evaluation_success
 
-    def is_evaluated_positively_by_patronage_operator(self):
+    def has_patronage_granted(self):
         return self.patronage_granted_date and self.patronage_granted
-
-    def is_evaluated_positively_by_manager(self):
-        return self.manager_evaluation_date and self.manager_evaluation_success
-
-    def is_created_by_operator(self):
-        return not self.evaluation_request_date and self.operator_taken_date
-
-    def is_created_by_manager(self):
-        return self.operator_evaluation_success and not self.operator_taken_date
 
 
 class PublicEngagementEventMethodOfExecution(ActivableModel, CreatedModifiedBy, TimeStampedModel):
@@ -544,12 +496,12 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
                                    on_delete=models.CASCADE,
                                    limit_choices_to={"is_active": True},
                                    verbose_name=_("Event type"))
-    description = models.TextField(_("Short description"), max_length=1500)
+    description = models.TextField(_("Short description"), max_length=1500, help_text=_("Max 1500 chars"))
     person = models.ManyToManyField(get_user_model(),
                                     verbose_name=_("Other UNICAL staff members involved in organizing/executing the initiative"))
     project_scoped = models.BooleanField(
         _("Is this activity linked to a project or a broader initiative?"), default=False)
-    project_name = models.CharField(default='', blank=True, max_length=255)
+    project_name = models.CharField(_("Project name"), default='', blank=True, max_length=255)
     recipient = models.ManyToManyField(PublicEngagementEventRecipient,
                                        limit_choices_to={'is_active': True},
                                        verbose_name=_("Recipients"))
@@ -633,6 +585,7 @@ class PublicEngagementEventReport(CreatedModifiedBy, TimeStampedModel):
     website = models.URLField(
         _("Initiative’s website"), blank=True, null=True)
     notes = models.TextField(_("Notes"), default='', blank=True)
+    edited_by_manager = models.BooleanField("Modificato dal manager", default=False)
 
     class Meta:
         verbose_name = _("Event monitoring")

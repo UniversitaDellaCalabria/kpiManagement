@@ -39,7 +39,7 @@ def dashboard(request, structures=None):
                                                                patronage_requested=True,
                                                                event__operator_evaluation_date__isnull=False,
                                                                event__operator_evaluation_success=True,
-                                                               event__manager_taken_date__isnull=True).count()
+                                                               event__created_by_manager=False).count()
         events_per_structure[structure.office.organizational_structure] = to_evaluate
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'events_per_structure': events_per_structure})
@@ -74,7 +74,7 @@ def event(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                    '#': event.title}
     template = 'pem/patronage/event.html'
 
@@ -96,9 +96,14 @@ def take_event(request, structure_slug, event_id):
                                                  data__patronage_requested=True).first()
 
     if not event:
-        return custom_message(request, _("Access denied"), 403)
-    if not event.can_be_taken_by_patronage_operator():
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect('public_engagement_monitoring:patronage_operator_events',
+                        structure_slug=structure_slug)
+    if not event.can_be_handled_for_patronage():
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect('public_engagement_monitoring:patronage_operator_event',
+                        structure_slug=structure_slug,
+                        event_id=event_id)
 
     event.patronage_operator_taken_by = request.user
     event.patronage_operator_taken_date = timezone.now()
@@ -108,13 +113,13 @@ def take_event(request, structure_slug, event_id):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg='{}: {}'.format(structure_slug, _('taken')))
+               msg="[Patrocinio {}] Iniziativa presa in carico".format(structure_slug))
 
     messages.add_message(request, messages.SUCCESS,
                          _("Event taken successfully"))
 
     # invia email al referente/compilatore
-    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('taken'))
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('handled'))
     body = "{} {} {}".format(request.user, _('is evaluating the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
@@ -132,17 +137,22 @@ def event_evaluation(request, structure_slug, event_id):
                                                  data__patronage_requested=True).first()
 
     if not event:
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect('public_engagement_monitoring:patronage_operator_events',
+                        structure_slug=structure_slug)
 
-    if not event.is_ready_for_patronage_operator_evaluation():
-        return custom_message(request, _("Access denied"), 403)
+    if not event.is_ready_for_patronage_check():
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect('public_engagement_monitoring:patronage_operator_event',
+                        structure_slug=structure_slug,
+                        event_id=event_id)
 
     form = PublicEngagementEventEvaluationForm()
     template = 'pem/event_evaluation.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): '{}'.format(structure_slug),
+                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                    reverse('public_engagement_monitoring:patronage_operator_event', kwargs={'structure_slug': structure_slug, 'event_id': event_id}): '{}'.format(event.title),
                    '#': _('Evaluation')}
 
@@ -158,10 +168,10 @@ def event_evaluation(request, structure_slug, event_id):
 
             messages.add_message(request, messages.SUCCESS, _("Patronage evaluation completed"))
 
-            result = _('approved') if form.cleaned_data['success'] else _('not approved')
-            msg = '{} - {}: {}'.format(structure_slug, _('patronage evaluation completed'), result)
+            log_result = "concesso" if form.cleaned_data['success'] else "negato"
+            msg = "[Patrocinio {}] Esito valutazione: {}".format(structure_slug, log_result)
             if not form.cleaned_data['success']:
-                msg += ' {}'.format(operator_notes)
+                msg += ' {}'.format(event.patronage_granted_notes)
 
             log_action(user=request.user,
                        obj=event,
@@ -169,6 +179,7 @@ def event_evaluation(request, structure_slug, event_id):
                        msg=msg)
 
             # invia email al referente/compilatore
+            result = _('approved') if form.cleaned_data['success'] else _('not approved')
             subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Patronage evaluation completed'))
             body = "{} {} {}".format(request.user, _('has evaluated the event with the result'), result)
             send_email_to_event_referents(event, subject, body)
@@ -193,10 +204,15 @@ def event_reopen_evaluation(request, structure_slug, event_id):
                                                  structure__slug=structure_slug,
                                                  data__patronage_requested=True).first()
     if not event:
-        return custom_message(request, _("Access denied"), 403)
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect('public_engagement_monitoring:patronage_operator_events',
+                        structure_slug=structure_slug)
 
-    if not event.can_patronage_operator_cancel_evaluation():
-        return custom_message(request, _("Access denied"), 403)
+    if not event.patronage_can_be_reviewed():
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect('public_engagement_monitoring:patronage_operator_event',
+                        structure_slug=structure_slug,
+                        event_id=event_id)
 
     event.patronage_granted_date = None
     event.modified_by = request.user
@@ -205,7 +221,7 @@ def event_reopen_evaluation(request, structure_slug, event_id):
     log_action(user=request.user,
                obj=event,
                flag=CHANGE,
-               msg='{}:  {}'.format(structure_slug, _('patronage evaluation reopened')))
+               msg="[Patrocinio {}] Valutazione riaperta".format(structure_slug))
 
     messages.add_message(request, messages.SUCCESS, _("Evaluation reopened"))
 

@@ -9,7 +9,7 @@ from organizational_area.models import *
 from template.widgets import *
 
 from . models import *
-from . settings import OPERATOR_OFFICE, MANAGER_OFFICE
+from . settings import *
 from . utils import user_is_manager
 
 
@@ -62,9 +62,14 @@ class PublicEngagementEventForm(forms.ModelForm):
             self.add_error(
                 'start', f"Non è possibile inserire date per l'anno {start.year}")
 
-        if end and self.instance and getattr(self.instance, 'report', None) and end > timezone.now():
+        if end and end > timezone.now() and self.instance.id and getattr(self.instance, 'report', None):
             self.add_error(
-                'end', f"Poichè sono già presenti i dati di monitoraggio, l'iniziativa deve essere già terminata")
+                'end', "Poichè sono già presenti i dati di monitoraggio, l'iniziativa deve essere già terminata")
+
+        if self.instance.id and getattr(self.instance, 'data', None) and ((end and end <= timezone.localtime()) or (start < timezone.localtime() + timezone.timedelta(days=EVALUATION_TIME_DELTA))):
+            if self.instance.data.patronage_requested or self.instance.data.promo_tool.exists():
+                self.add_error(
+                'end', "I dati per la promozione dell'iniziativa (patrocinio, canali di promozione, ecc...) non sono consentiti se è già terminata. Modificali prima di aggiornare la data.")
 
         return cleaned_data
 
@@ -72,7 +77,7 @@ class PublicEngagementEventForm(forms.ModelForm):
 class PublicEngagementEventOperatorForm(PublicEngagementEventForm):
     class Meta:
         model = PublicEngagementEvent
-        fields = ['title', 'start', 'end']
+        fields = ['title', 'start', 'end', 'structure']
         widgets = {
             'start': BootstrapItaliaDateTimeWidget,
             'end': BootstrapItaliaDateTimeWidget,
@@ -80,6 +85,17 @@ class PublicEngagementEventOperatorForm(PublicEngagementEventForm):
 
 
 class PublicEngagementEventDataForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        event = kwargs.pop('event', None)
+        super().__init__(*args, **kwargs)
+        # se si stanno creando i dati per la prima volta
+        # e l'evento è terminato
+        if not self.instance and event.is_over():
+            self.fields.pop('promo_channel', None)
+            self.fields.pop('patronage_requested', None)
+            self.fields.pop('poster', None)
+            self.fields.pop('promo_tool', None)
+
     class Meta:
         model = PublicEngagementEventData
         fields = '__all__'

@@ -8,35 +8,6 @@
 
 {% block actions %}
 <div class="text-end mt-5">
-{% if event.can_be_taken_by_manager %}
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#take_event">
-    <svg class="icon icon-sm icon-white">
-        <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-    </svg> {% trans "Proceed" %}
-</button>
-<div class="it-example-modal d-inline">
-   <div class="modal" tabindex="-1" role="dialog" id="take_event" aria-labelledby="take_event-Title">
-      <div class="modal-dialog" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h2 class="modal-title h5" id="take_event-Title">{% trans "Confirm" %}</h2>
-               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Chiudi finestra modale">
-                  <svg class="icon"><use href="{% static 'svg/sprites.svg' %}#it-close"></use></svg>
-               </button>
-            </div>
-            <div class="modal-body">
-               <p>{% trans "Do you want to proceed?" %}</p>
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-success" href="{% url 'public_engagement_monitoring:manager_take_event' structure_slug=structure_slug event_id=event.pk %}">
-                    {% trans 'Yes, proceed' %}
-                </a>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-{% else %}
     {% if event.is_editable_by_manager %}
     <a class="btn btn-outline-secondary" href="{% url 'public_engagement_monitoring:manager_event_basic_info' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-info">
@@ -57,43 +28,13 @@
         </svg> {% trans "Involved personnel" %}
     </a>
     {% endif %}
-
-    {% if event.is_ready_for_manager_evaluation %}
-    <a class="btn btn-success" href="{% url 'public_engagement_monitoring:manager_event_evaluation' structure_slug=structure_slug event_id=event.pk %}">
-        <svg class="icon icon-sm icon-white">
-            <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-        </svg> {% trans "Evaluate" %}
+    {% if event.has_report_editable %}
+    <a class="btn btn-xs btn-{% if event.report %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:manager_event_report' structure_slug=structure_slug event_id=event.pk %}">
+        <svg class="icon icon-sm icon-{% if event.report %}info{% else %}white{% endif %}">
+            <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.report %}pencil{% else %}plus-circle{% endif %}"></use>
+        </svg> {% trans "Monitoring" %}
     </a>
-    {% elif event.can_manager_cancel_evaluation %}
-    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reopen_evaluation">
-        <svg class="icon icon-sm icon-white">
-            <use xlink:href="{% static 'svg/sprites.svg' %}#it-refresh"></use>
-        </svg> {% trans "Reopen evaluation" %}
-    </button>
-    <div class="it-example-modal d-inline">
-       <div class="modal" tabindex="-1" role="dialog" id="reopen_evaluation" aria-labelledby="reopen_evaluation-Title">
-          <div class="modal-dialog" role="document">
-             <div class="modal-content">
-                <div class="modal-header">
-                   <h2 class="modal-title h5 " id="reopen_evaluation-Title">{% trans "Confirm" %}</h2>
-                   <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Chiudi finestra modale">
-                      <svg class="icon"><use href="{% static 'svg/sprites.svg' %}#it-close"></use></svg>
-                   </button>
-                </div>
-                <div class="modal-body">
-                   <p>{% trans "Do you want to reopen the evaluation?" %}</p>
-                </div>
-                <div class="modal-footer">
-                    <a class="btn btn-warning" href="{% url 'public_engagement_monitoring:manager_event_reopen_evaluation' structure_slug=structure_slug event_id=event.pk %}">
-                        {% trans 'Yes, proceed' %}
-                    </a>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
     {% endif %}
-{% endif %}
 </div>
 {% endblock actions %}
 
@@ -108,9 +49,9 @@
             <td>{{ person }}</td>
             <td class="text-end">
                 {% if event.is_editable_by_manager %}
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-{{ person.pk }}">
+                <button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#delete-{{ person.pk }}">
                     <svg class="icon icon-sm icon-white">
-                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-close"></use>
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-delete"></use>
                     </svg>
                 </button>
                 <div class="it-example-modal d-inline">
@@ -124,7 +65,7 @@
                                </button>
                             </div>
                             <div class="modal-body">
-                               <p>{% trans "Do you want to confirm data submission?" %}</p>
+                               <p>{% trans "Do you want to confirm the entered data?" %}</p>
                             </div>
                             <div class="modal-footer">
                                 <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:manager_event_people_delete' structure_slug=structure_slug event_id=event.pk person_id=person.pk %}">

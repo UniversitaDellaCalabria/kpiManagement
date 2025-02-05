@@ -6,14 +6,12 @@
 
 {% block top_content %}
 <h2>{% trans "Events" %}</h2>
-
+<h3 style="font-weight: lighter">{{ structure_slug|upper }}</h3>
 <div class="text-end mt-3 mb-5">
-    <a href="{% url 'public_engagement_monitoring:manager_new_event_choose_referent' structure_slug=structure_slug %}" class="btn btn-success text-lg-end">
-        <svg class="icon icon-sm icon-white">
+    <a href="{% url 'public_engagement_monitoring:manager_new_event_choose_referent' structure_slug=structure_slug %}" class="btn btn-outline-success text-lg-end">
+        <svg class="icon icon-sm icon-success">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-plus-circle"></use>
-        </svg> {% trans "New" %}
+        </svg> {% trans "Add new event" %}
     </a>
 </div>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 {% endblock top_content %}

@@ -21,11 +21,11 @@
 
 {% block actions %}
 <div class="text-end mt-5">
-{% if event.can_be_taken_by_evaluation_operator %}
+{% if event.can_be_handled_for_evaluation %}
 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#take_event">
     <svg class="icon icon-sm icon-white">
         <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-    </svg> {% trans "Proceed" %}
+    </svg> {% trans "Handle" %}
 </button>
 <div class="it-example-modal d-inline">
    <div class="modal" tabindex="-1" role="dialog" id="take_event" aria-labelledby="take_event-Title">
@@ -51,7 +51,7 @@
 </div>
 {% else %}
 
-    {% if event.is_editable_by_evaluation_operator %}
+    {% if event.is_editable_by_operator %}
     <a class="btn btn-outline-secondary" href="{% url 'public_engagement_monitoring:operator_event_basic_info' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-info">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-pencil"></use>
@@ -64,7 +64,7 @@
     </a>
     {% endif %}
 
-    {% if event.data and event.is_editable_by_evaluation_operator %}
+    {% if event.data and event.is_editable_by_operator %}
     <a class="btn btn-{% if event.data.person.all %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:operator_event_people' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-{% if event.data.person.all %}info{% else %}white{% endif %}">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.person.all %}pencil{% else %}plus-circle{% endif %}"></use>
@@ -72,13 +72,13 @@
     </a>
     {% endif %}
 
-    {% if event.is_ready_for_evaluation_operator_evaluation %}
+    {% if event.is_ready_for_evaluation %}
     <a class="btn btn-success" href="{% url 'public_engagement_monitoring:operator_event_evaluation' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-white">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
         </svg> {% trans "Evaluate" %}
     </a>
-    {% elif event.can_evaluation_operator_cancel_evaluation %}
+    {% elif event.evaluation_can_be_reviewed %}
     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reopen_evaluation">
         <svg class="icon icon-sm icon-white">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-refresh"></use>
@@ -107,6 +107,7 @@
        </div>
     </div>
     {% endif %}
+
 {% endif %}
 </div>
 {% endblock actions %}
@@ -121,10 +122,10 @@
         <tr>
             <td>{{ person }}</td>
             <td class="text-end">
-                {% if event.is_editable_by_evaluation_operator %}
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-{{ person.pk }}">
+                {% if event.is_editable_by_operator %}
+                <button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#delete-{{ person.pk }}">
                     <svg class="icon icon-sm icon-white">
-                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-close"></use>
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-delete"></use>
                     </svg>
                 </button>
                 <div class="it-example-modal d-inline">
@@ -138,7 +139,7 @@
                                </button>
                             </div>
                             <div class="modal-body">
-                               <p>{% trans "Do you want to confirm data submission?" %}</p>
+                               <p>{% trans "Do you want to confirm the entered data?" %}</p>
                             </div>
                             <div class="modal-footer">
                                 <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:operator_event_people_delete' structure_slug=structure_slug event_id=event.pk person_id=person.pk %}">
