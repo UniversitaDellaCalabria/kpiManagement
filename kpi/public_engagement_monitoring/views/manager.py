@@ -30,7 +30,8 @@ def dashboard(request):
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    '#': _('Manager')}
     structures = OrganizationalStructure.objects.filter(is_active=True,
-                                                        is_public_engagement_enabled=True)
+                                                        is_public_engagement_enabled=True,
+                                                        is_internal=True)
     return render(request, template, {'breadcrumbs': breadcrumbs, 'structures': structures})
 
 
