@@ -3,6 +3,7 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.admin.utils import _get_changed_field_labels_from_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -32,17 +33,21 @@ def dashboard(request, structures=None):
     active_years = PublicEngagementAnnualMonitoring.objects\
                                                    .filter(is_active=True)\
                                                    .values_list('year', flat=True)
-    events_per_structure = {}
-    for structure in structures:
-        to_evaluate = PublicEngagementEventData.objects.filter(event__structure=structure.office.organizational_structure,
-                                                               event__start__year__in=active_years,
-                                                               patronage_requested=True,
-                                                               event__operator_evaluation_date__isnull=False,
-                                                               event__operator_evaluation_success=True,
-                                                               event__created_by_manager=False).count()
-        events_per_structure[structure.office.organizational_structure] = to_evaluate
+
+    event_counts = PublicEngagementEvent.objects.filter(
+        structure__in=[s.office.organizational_structure for s in structures],
+        start__year__in=active_years,
+        data__patronage_requested=True,
+        operator_evaluation_success=True,
+        created_by_manager=False,
+        start__gte=timezone.now()
+    ).values("structure__slug", "structure__name").annotate(
+        to_handle_count=Count("id", filter=Q(patronage_operator_taken_date__isnull=True)),
+        to_evaluate_count=Count("id", filter=Q(patronage_operator_taken_date__isnull=False, patronage_granted_date__isnull=True))
+    )
+
     return render(request, template, {'breadcrumbs': breadcrumbs,
-                                      'events_per_structure': events_per_structure})
+                                      'event_counts': event_counts})
 
 
 @login_required

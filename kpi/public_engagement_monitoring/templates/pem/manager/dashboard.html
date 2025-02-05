@@ -11,7 +11,7 @@
 
 {% block clean_content %}
 <div class="row mt-5">
-    {% for structure,to_evaluate in events_per_structure.items %}
+    {% for structure in structures %}
     <div class="col-12 col-lg-3">
         <!--start card-->
         <div class="card-wrapper card-space">
@@ -20,14 +20,6 @@
                     <h5 class="card-title">
                         {{ structure }}
                     </h5>
-                    <p>
-                      <b>{% trans "To evaluate" %}:</b>
-                      {% if to_evaluate %}
-                      <span class="badge bg-warning">{{ to_evaluate }}</span>
-                      {% else %}
-                      {{ to_evaluate }}
-                      {% endif %}
-                    </p>
                     <a class="read-more" href="{% url 'public_engagement_monitoring:manager_events' structure_slug=structure.slug %}">
                         <span class="text text-primary">{% trans "Manage" %}</span>
                         <svg class="icon">

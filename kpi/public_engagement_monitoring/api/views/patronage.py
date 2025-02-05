@@ -37,7 +37,6 @@ class PublicEngagementEventList(PublicEngagementEventList):
             events = events.filter(
                 start__year__in=active_years,
                 data__patronage_requested=True,
-                to_evaluate=True,
                 operator_evaluation_success=True,
                 patronage_operator_taken_date__isnull=True,
                 created_by_manager=False,

@@ -3,6 +3,7 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.admin.utils import _get_changed_field_labels_from_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -32,16 +33,19 @@ def dashboard(request, structures=None):
     active_years = PublicEngagementAnnualMonitoring.objects\
                                                    .filter(is_active=True)\
                                                    .values_list('year', flat=True)
-    events_per_structure = {}
-    for structure in structures:
-        to_evaluate = PublicEngagementEvent.objects.filter(structure=structure.office.organizational_structure,
-                                                           start__year__in=active_years,
-                                                           to_evaluate=True,
-                                                           operator_taken_date__isnull=True,
-                                                           created_by_manager=False).count()
-        events_per_structure[structure.office.organizational_structure] = to_evaluate
+
+    event_counts = PublicEngagementEvent.objects.filter(
+        structure__in=[s.office.organizational_structure for s in structures],
+        start__year__in=active_years,
+        to_evaluate=True,
+        created_by_manager=False
+    ).values("structure__slug", "structure__name").annotate(
+        to_handle_count=Count("id", filter=Q(operator_taken_date__isnull=True)),
+        to_evaluate_count=Count("id", filter=Q(operator_taken_date__isnull=False, operator_evaluation_date__isnull=True))
+    )
+
     return render(request, template, {'breadcrumbs': breadcrumbs,
-                                      'events_per_structure': events_per_structure})
+                                      'event_counts': event_counts})
 
 
 @login_required

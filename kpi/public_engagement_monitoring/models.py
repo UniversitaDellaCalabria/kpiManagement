@@ -269,6 +269,9 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se non è stato preso in carico dagli operatori
         if not self.operator_taken_date:
             return False
+        # False: se è stato preso in carico da operatore patrocinio
+        if self.patronage_operator_taken_date:
+            return False
         # False: se il manager l'ha presa in carico
         if self.created_by_manager:
             return False
@@ -346,7 +349,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not self.data.patronage_requested:
             return False
         # False: se l'iniziativa è terminata
-        if self.is_over():
+        if self.is_started():
             return False
         return True
 
@@ -372,7 +375,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
             return False
         if not self.data.patronage_requested:
             return False
-        if self.is_over():
+        if self.is_started():
             return False
         return True
 

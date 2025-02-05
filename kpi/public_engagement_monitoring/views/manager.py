@@ -3,7 +3,7 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.admin.utils import _get_changed_field_labels_from_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -30,27 +30,8 @@ def dashboard(request):
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    '#': _('Manager')}
     structures = OrganizationalStructure.objects.filter(is_active=True,
-                                                        is_public_engagement_enabled=True,
-                                                        is_internal=True)
-    active_years = PublicEngagementAnnualMonitoring.objects\
-                                                   .filter(is_active=True)\
-                                                   .values_list('year', flat=True)
-    events_per_structure = {}
-    for structure in structures:
-        to_evaluate = PublicEngagementEventData.objects.filter(Q(
-            patronage_requested=True,
-            event__patronage_granted=True
-        ) |
-            Q(patronage_requested=False),
-            event__structure=structure,
-            event__start__year__in=active_years,
-            event__to_evaluate=True,
-            event__operator_evaluation_success=True).count()
-        events_per_structure[structure] = to_evaluate
-    return render(request,
-                  template,
-                  {'breadcrumbs': breadcrumbs,
-                   'events_per_structure': events_per_structure})
+                                                        is_public_engagement_enabled=True)
+    return render(request, template, {'breadcrumbs': breadcrumbs, 'structures': structures})
 
 
 @login_required
