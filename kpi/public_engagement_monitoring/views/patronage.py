@@ -25,7 +25,7 @@ from .. views import management
 @patronage_operator_structures
 def dashboard(request, structures=None):
     template = 'pem/patronage/dashboard.html'
-
+    organizational_structures = OrganizationalStructure.objects.filter(pk__in=structures)
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    '#': _('Patronage operator')}
@@ -35,7 +35,7 @@ def dashboard(request, structures=None):
                                                    .values_list('year', flat=True)
 
     event_counts = PublicEngagementEvent.objects.filter(
-        structure__in=[s.office.organizational_structure for s in structures],
+        structure__pk__in=structures,
         start__year__in=active_years,
         data__patronage_requested=True,
         operator_evaluation_success=True,
@@ -47,7 +47,8 @@ def dashboard(request, structures=None):
     )
 
     return render(request, template, {'breadcrumbs': breadcrumbs,
-                                      'event_counts': event_counts})
+                                      'event_counts': event_counts,
+                                      'structures': organizational_structures})
 
 
 @login_required

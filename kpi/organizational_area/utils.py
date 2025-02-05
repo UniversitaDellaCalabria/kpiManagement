@@ -21,5 +21,5 @@ def user_office_structures(user, office_slug_list=[]):
                                      office__is_active=True,
                                      office__slug__in=office_slug_list,
                                      office__organizational_structure__is_active=True)\
-                             .only('office__organizational_structure')
+                             .values_list('office__organizational_structure', flat=True)
     return structures

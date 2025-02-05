@@ -21,10 +21,9 @@
                         {{ counter.structure__name }}
                     </h5>
                     <p>
-                        <b>{% trans "To be handled" %}:</b>
-
                         {% for counter in event_counts %}
                             {% if counter.structure__pk == structure.pk %}
+                                <b>{% trans "To be handled" %}:</b>
                                 {% if counter.to_handle_count %}
                                 <span class="badge bg-info">{{ counter.to_handle_count }}</span>
                                 {% else %}

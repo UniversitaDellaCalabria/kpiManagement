@@ -25,6 +25,7 @@ from .. views import management
 @evaluation_operator_structures
 def dashboard(request, structures=None):
     template = 'pem/operator/dashboard.html'
+    organizational_structures = OrganizationalStructure.objects.filter(pk__in=structures)
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
@@ -34,7 +35,7 @@ def dashboard(request, structures=None):
                                                    .filter(is_active=True)\
                                                    .values_list('year', flat=True)
     event_counts = PublicEngagementEvent.objects.filter(
-        structure__in=[s.office.organizational_structure for s in structures],
+        structure__pk__in=structures,
         start__year__in=active_years,
         to_evaluate=True,
         created_by_manager=False
@@ -45,7 +46,7 @@ def dashboard(request, structures=None):
 
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'event_counts': event_counts,
-                                      'structures': structures})
+                                      'structures': organizational_structures})
 
 
 @login_required

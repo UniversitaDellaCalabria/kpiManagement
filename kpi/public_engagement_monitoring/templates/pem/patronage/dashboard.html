@@ -11,7 +11,7 @@
 
 {% block clean_content %}
 <div class="row mt-5">
-    {% for counter in event_counts %}
+    {% for structure in structures %}
     <div class="col-12 col-lg-3">
         <!--start card-->
         <div class="card-wrapper card-space">
@@ -21,21 +21,25 @@
                         {{ structure }}
                     </h5>
                     <p>
-                        <b>{% trans "To be handled" %}:</b>
-                        {% if counter.to_handle_count %}
-                        <span class="badge bg-info">{{ counter.to_handle_count }}</span>
-                        {% else %}
-                        0
-                        {% endif %}
-                        <br>
-                        <b>{% trans "To evaluate" %}:</b>
-                        {% if counter.to_evaluate_count %}
-                        <span class="badge bg-info">{{ counter.to_evaluate_count }}</span>
-                        {% else %}
-                        0
-                        {% endif %}
+                        {% for counter in event_counts %}
+                            {% if counter.structure__pk == structure.pk %}
+                                <b>{% trans "To be handled" %}:</b>
+                                {% if counter.to_handle_count %}
+                                <span class="badge bg-info">{{ counter.to_handle_count }}</span>
+                                {% else %}
+                                0
+                                {% endif %}
+                                <br>
+                                <b>{% trans "To evaluate" %}:</b>
+                                {% if counter.to_evaluate_count %}
+                                <span class="badge bg-info">{{ counter.to_evaluate_count }}</span>
+                                {% else %}
+                                0
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     </p>
-                    <a class="read-more" href="{% url 'public_engagement_monitoring:patronage_operator_events' structure_slug=counter.structure__slug %}">
+                    <a class="read-more" href="{% url 'public_engagement_monitoring:patronage_operator_events' structure_slug=structure.slug %}">
                         <span class="text text-primary">{% trans "Manage" %}</span>
                         <svg class="icon">
                             <use href="{% static 'svg/sprites.svg' %}#it-arrow-right-circle"></use>
