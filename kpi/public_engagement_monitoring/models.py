@@ -188,7 +188,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
             return False
         # False: se non sono stati inserite le persone collegate
         if not self.data.person.exists():
-            return False+
+            return False
         # True: se l'evento è terminato
         if self.is_over():
             return True
