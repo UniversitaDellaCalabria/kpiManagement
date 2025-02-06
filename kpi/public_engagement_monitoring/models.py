@@ -331,9 +331,6 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se è stata modificata dal manager
         if self.edited_by_manager:
             return False
-        # False
-        if self.is_over():
-            return False
         return True
 
     def check_year(self):
