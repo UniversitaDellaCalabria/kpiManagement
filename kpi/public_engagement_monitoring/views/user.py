@@ -388,7 +388,7 @@ def event_report(request, event_id, event=None):
         messages.add_message(request, messages.DANGER, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
-    if getattr(self, 'report', None) and self.report.edited_by_manager:
+    if getattr(event, 'report', None) and event.report.edited_by_manager:
         messages.add_message(request, messages.DANGER, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 

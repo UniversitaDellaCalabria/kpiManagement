@@ -214,6 +214,7 @@ const app = Vue.createApp({
             error_status: null,
             url: '{{ api_url }}',
             additional_url_params: '',
+            controlloer: null,
             {% block extra_vue_data %}
             filter_to_handle: false,
             filter_to_evaluate: false,
@@ -240,6 +241,7 @@ const app = Vue.createApp({
         },
         getData(page=1, search=this.search_terms, sort_term=this.sort_term, sort_type=this.sort_type, additional_url_params=this.additional_url_params) {
             this.controller = new AbortController()
+            let signal = this.controller.signal
             this.page = page
             let url = this.url+'?page='+page
             if(search) url += '&search=' + search
@@ -247,7 +249,7 @@ const app = Vue.createApp({
             else if(sort_term && sort_type == 'asc') url += '&ordering=' + sort_term
             if(additional_url_params) url += additional_url_params
             axios
-                .get(url)
+                .get(url, {signal})
                 .then(response => {
                     this.data = response.data
                     this.error_msg = ""
