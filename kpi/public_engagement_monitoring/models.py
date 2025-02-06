@@ -299,6 +299,9 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
             return False
         if not self.data.person.exists():
             return False
+        # False: se è già stata valutata
+        if self.operator_evaluation_date:
+            return False
         # False: se non è stato preso in carico dagli operatori
         if not self.operator_taken_date:
             return False
