@@ -155,7 +155,7 @@ class PublicEngagementEventReportForm(forms.ModelForm):
         model = PublicEngagementEventReport
         fields = '__all__'
         exclude = ('id', 'created', 'created_by', 'modified',
-                   'modified_by', 'event')
+                   'modified_by', 'event', 'edited_by_manager')
         widgets = {
             'other_structure': BootstrapItaliaMultiCheckboxWidget(),
             'scientific_area': BootstrapItaliaMultiCheckboxWidget(),
