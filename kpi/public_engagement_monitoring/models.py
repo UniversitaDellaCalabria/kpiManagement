@@ -202,8 +202,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if self.created_by_manager:
             return True
         # False: se non è stato approvato
-        if not self.has_been_approved():
-            return False
+        if self.has_been_approved():
+            return True
         return False
 
     def is_ready_for_request_evaluation(self):
