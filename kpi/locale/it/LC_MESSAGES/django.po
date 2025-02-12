@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-12 16:38+0100\n"
+"POT-Creation-Date: 2025-02-12 16:43+0100\n"
 "PO-Revision-Date: 2025-02-12 16:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1724,7 +1724,7 @@ msgstr ""
 "-------------------\n"
 "\n"
 
-#: template/settings.py:59 unical_accounts/settings.py:38
+#: template/settings.py:59
 msgid ""
 "\n"
 "\n"
@@ -1901,23 +1901,6 @@ msgstr ""
 #: unical_accounts/models.py:46
 msgid "Utenti UNICAL"
 msgstr ""
-
-#: unical_accounts/settings.py:24
-#, python-brace-format
-msgid ""
-"Dear user,\n"
-"this message was sent by {hostname}.\n"
-"Please do not reply to this email.\n"
-"\n"
-"-------------------\n"
-"\n"
-msgstr ""
-"Gentile utente,\n"
-"questo messaggio è stato inviato da {hostname}.\n"
-"Si prega di non rispondere a questa email.\n"
-"\n"
-"-------------------\n"
-"\n"
 
 #: unical_accounts/templates/account.html:17
 #: unical_accounts/templates/datatables_users/table_header.html:12
@@ -2119,6 +2102,22 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Dear user,\n"
+#~ "this message was sent by {hostname}.\n"
+#~ "Please do not reply to this email.\n"
+#~ "\n"
+#~ "-------------------\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Gentile utente,\n"
+#~ "questo messaggio è stato inviato da {hostname}.\n"
+#~ "Si prega di non rispondere a questa email.\n"
+#~ "\n"
+#~ "-------------------\n"
+#~ "\n"
 
 #~ msgid "Do you want to confirm data submission?"
 #~ msgstr "Desideri confermare i dati immessi?"

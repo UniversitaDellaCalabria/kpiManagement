@@ -16,31 +16,3 @@ JWE_RSA_KEY_PATH = getattr(
 )
 JWE_ALG = getattr(settings, "JWE_ALG", "RSA-OAEP")
 JWE_ENC = getattr(settings, "JWE_ENC", "A128CBC-HS256")
-
-MSG_HEADER = getattr(
-    settings,
-    "MSG_HEADER",
-    _(
-        """Dear user,
-this message was sent by {hostname}.
-Please do not reply to this email.
-
--------------------
-
-"""
-    ),
-)
-
-MSG_FOOTER = getattr(
-    settings,
-    "MSG_FOOTER",
-    _(
-        """
-
--------------------
-
-For technical problems contact our staff.
-Best regards.
-"""
-    ),
-)
