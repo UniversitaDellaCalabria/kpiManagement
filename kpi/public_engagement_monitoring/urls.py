@@ -1,6 +1,7 @@
 from django.urls import path
 
-from . api.views import (user as api_user,
+from . api.views import (generic as api_generic,
+                         user as api_user,
                          operator as api_evaluation_operator,
                          patronage as api_patronage_operator,
                          manager as api_manager)
@@ -109,6 +110,10 @@ urlpatterns = [
          manager.event_report, name='manager_event_report'),
 
     # API
+    path(f'{prefix}/{api_prefix}/events/',
+         api_generic.PublicEngagementApprovedEventList.as_view(), name='api_generic_approved_events'),
+    path(f'{prefix}/{api_prefix}/events/<int:pk>/',
+         api_generic.PublicEngagementApprovedEventDetail.as_view(), name='api_generic_approved_event'),
     path(f'{prefix}/{api_prefix}/{user_prefix}/events/',
          api_user.PublicEngagementEventList.as_view(), name='api_user_events'),
     path(f'{prefix}/{api_prefix}/{operator_prefix}/{validator_prefix}/<str:structure_slug>/events/',

@@ -23,3 +23,25 @@ class PublicEngagementEventList(generics.ListAPIView):
     pagination_class = KpiPagination
     ordering_fields = ['start', 'end', 'title']
     ordering = ['-start']
+
+
+class PublicEngagementApprovedEventList(PublicEngagementEventList):
+    serializer_class = PublicEngagementEventLiteSerializer
+
+    def get_queryset(self, **kwargs):
+        """
+        """
+        events = PublicEngagementEvent.objects\
+            .prefetch_related('data')\
+            .prefetch_related('report')\
+            .select_related('referent')\
+            .select_related('structure')\
+            .filter(structure__is_active=True,
+                    operator_evaluation_success=True)
+
+        return events
+
+
+class PublicEngagementApprovedEventDetail(generics.RetrieveAPIView):
+    serializer_class = PublicEngagementEventLiteSerializer
+    queryset = PublicEngagementEvent.objects.all()

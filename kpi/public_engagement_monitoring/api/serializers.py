@@ -3,6 +3,18 @@ from rest_framework import serializers
 from .. models import PublicEngagementEvent
 
 
+class PublicEngagementEventLiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PublicEngagementEvent
+        fields = ['id', 'title', 'referent', 'structure']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['referent'] = f'{instance.referent}'
+        data['structure'] = f'{instance.structure.name}'
+        return data
+
+
 class PublicEngagementEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = PublicEngagementEvent

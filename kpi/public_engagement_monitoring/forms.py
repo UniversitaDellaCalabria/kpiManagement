@@ -11,6 +11,7 @@ from template.widgets import *
 from . models import *
 from . settings import *
 from . utils import user_is_manager
+from . widgets import BootstrapItaliaAPISelectEventWidget
 
 
 class PublicEngagementReferentForm(forms.Form):
@@ -114,6 +115,7 @@ class PublicEngagementEventDataForm(forms.ModelForm):
             'promo_channel': BootstrapItaliaMultiCheckboxWidget(),
             'promo_tool': BootstrapItaliaMultiCheckboxWidget(),
             'project_scoped': BootstrapItaliaToggleWidget(),
+            'project_name': BootstrapItaliaAPISelectEventWidget(),
             'patronage_requested': BootstrapItaliaToggleWidget(),
             'description': forms.Textarea(attrs={'rows': 2})
         }
@@ -129,6 +131,9 @@ class PublicEngagementEventDataForm(forms.ModelForm):
 
         if project_scoped and not project_name:
             self.add_error('project_name', "Indicare il nome del progetto")
+
+        if self.instance and self.instance.event == project_name:
+            self.add_error('project_name', "Non è possibile collegare all'evento medesimo")
 
         patronage_requested = cleaned_data.get('patronage_requested')
         promo_tool = cleaned_data.get('promo_tool')
