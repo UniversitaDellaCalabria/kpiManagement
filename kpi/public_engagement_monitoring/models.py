@@ -9,8 +9,10 @@ from django.utils.translation import gettext_lazy as _
 
 from organizational_area.models import *
 from template.models import *
+from template.validators import validate_file_size
 
 from . settings import OPERATOR_OFFICE, EVALUATION_TIME_DELTA
+from . validators import validate_poster_extension
 
 
 def _get_year_choices():
@@ -584,7 +586,9 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
                                         verbose_name=_("Request to use the Department/Center’s name and/or logo in the following communication tools"))
     poster = models.FileField(_("Poster attached"),
                               upload_to=_poster_directory_path,
-                              null=True, blank=True)
+                              null=True, blank=True,
+                              validators=[validate_poster_extension,
+                                          validate_file_size])
 
     class Meta:
         verbose_name = _("Event data")

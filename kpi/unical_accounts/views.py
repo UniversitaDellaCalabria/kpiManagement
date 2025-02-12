@@ -10,6 +10,7 @@ from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
 from organizational_area.decorators import belongs_to_an_office
+from template.settings import MSG_HEADER, MSG_FOOTER
 
 from . forms import *
 from . models import User
@@ -159,7 +160,7 @@ def changeData(request):
                 msg_body = f'{MSG_HEADER.format(hostname=settings.DEFAULT_HOST)}{body}{MSG_FOOTER}'
                 result = send_mail(
                     subject=_("Email confirmation"),
-                    message=msg_body,
+                    message=MSG_HEADER + msg_body + MSG_FOOTER,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[email],
                     fail_silently=True,

@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from organizational_area.models import *
 from organizational_area.utils import user_in_office
 
+from template.settings import MSG_HEADER, MSG_FOOTER
 from . settings import *
 
 
@@ -44,7 +45,7 @@ def send_email_to_event_referents(event, subject, body):
         recipients.append(event.created_by.email)
     send_mail(
         subject=subject,
-        message=body,
+        message=MSG_HEADER + body + MSG_FOOTER,
         from_email=settings.DEFAULT_FROM_EMAIL,
         recipient_list=recipients,
         fail_silently=True,
@@ -59,7 +60,7 @@ def send_email_to_operators(structure, subject, body):
                                                                       office__organizational_structure__is_active=True).values_list('employee__email', flat=True)
     send_mail(
         subject=subject,
-        message=body,
+        message=MSG_HEADER + body + MSG_FOOTER,
         from_email=settings.DEFAULT_FROM_EMAIL,
         recipient_list=recipients,
         fail_silently=True,
@@ -74,7 +75,7 @@ def send_email_to_patronage_operators(structure, subject, body):
                                                                       office__organizational_structure__is_active=True).values_list('employee__email', flat=True)
     send_mail(
         subject=subject,
-        message=body,
+        message=MSG_HEADER + body + MSG_FOOTER,
         from_email=settings.DEFAULT_FROM_EMAIL,
         recipient_list=recipients,
         fail_silently=True,
