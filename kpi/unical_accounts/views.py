@@ -157,10 +157,9 @@ def changeData(request):
                 encrypted_data = encrypt_to_jwe(token)
                 url = f'{base_url}?token={encrypted_data}'
                 body=_("Confirm your email by clicking here {}").format(url)
-                msg_body = f'{MSG_HEADER.format(hostname=settings.DEFAULT_HOST)}{body}{MSG_FOOTER}'
                 result = send_mail(
                     subject=_("Email confirmation"),
-                    message=MSG_HEADER + msg_body + MSG_FOOTER,
+                    message=MSG_HEADER + body + MSG_FOOTER,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=[email],
                     fail_silently=True,
