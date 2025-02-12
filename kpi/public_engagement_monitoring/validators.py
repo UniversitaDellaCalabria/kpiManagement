@@ -8,7 +8,7 @@ from template.settings import PDF_FILETYPE, IMG_FILETYPE
 
 
 def validate_poster_extension(f):
-    allowed_extensions = [PDF_FILETYPE, IMG_FILETYPE]
+    allowed_extensions = PDF_FILETYPE + IMG_FILETYPE
     if hasattr(f.file, "content_type"):
         content_type = f.file.content_type
         if not content_type.lower() in allowed_extensions:
