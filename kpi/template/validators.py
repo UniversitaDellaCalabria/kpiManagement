@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
-from . settings import PERMITTED_UPLOAD_FILETYPE
+from . settings import ATTACH_NAME_MAX_LEN, MAX_UPLOAD_SIZE, PERMITTED_UPLOAD_FILETYPE
 
 
 def validate_file_extension(f):
