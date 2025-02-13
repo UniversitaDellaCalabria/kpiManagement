@@ -91,7 +91,7 @@ class PublicEngagementEventDataForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # se si stanno creando i dati per la prima volta
         # e l'evento è terminato
-        if not self.instance and event.is_over():
+        if not self.instance.id and event.is_over():
             self.fields.pop('promo_channel', None)
             self.fields.pop('patronage_requested', None)
             self.fields.pop('poster', None)
