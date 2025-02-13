@@ -536,13 +536,10 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
     description = models.TextField(_("Short description"), max_length=1500, help_text=_("Max 1500 chars"))
     person = models.ManyToManyField(get_user_model(),
                                     verbose_name=_("Other UNICAL staff members involved in organizing/executing the initiative"))
-    project_scoped = models.BooleanField(
-        _("Is this activity linked to a project or a broader initiative?"), default=False)
-    # project_name = models.CharField(_("Project name"), default='', blank=True, max_length=255)
     project_name = models.ForeignKey(PublicEngagementEvent,
                                      on_delete=models.PROTECT,
                                      null=True, blank=True,
-                                     verbose_name=_("Project name"))
+                                     verbose_name=_("Is this activity linked to a project or a broader initiative?"))
     recipient = models.ManyToManyField(PublicEngagementEventRecipient,
                                        limit_choices_to={'is_active': True},
                                        verbose_name=_("Recipients"))

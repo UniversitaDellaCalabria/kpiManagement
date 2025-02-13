@@ -114,7 +114,6 @@ class PublicEngagementEventDataForm(forms.ModelForm):
             'target': BootstrapItaliaMultiCheckboxWidget(),
             'promo_channel': BootstrapItaliaMultiCheckboxWidget(),
             'promo_tool': BootstrapItaliaMultiCheckboxWidget(),
-            'project_scoped': BootstrapItaliaToggleWidget(),
             'project_name': BootstrapItaliaAPISelectEventWidget(),
             'patronage_requested': BootstrapItaliaToggleWidget(),
             'description': forms.Textarea(attrs={'rows': 2})
@@ -125,12 +124,6 @@ class PublicEngagementEventDataForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-
-        project_scoped = cleaned_data.get('project_scoped')
-        project_name = cleaned_data.get('project_name')
-
-        if project_scoped and not project_name:
-            self.add_error('project_name', "Indicare il nome del progetto")
 
         # if self.instance and self.instance.event == project_name:
             # self.add_error('project_name', "Non è possibile collegare all'evento medesimo")

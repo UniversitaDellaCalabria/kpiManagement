@@ -270,12 +270,8 @@
         </tr>
         <tr>
             <td>
-                {% get_field_label event.data 'project_scoped' as field_label %}
-                {{ field_label }}
-            </td>
-            <td>
-                {% if event.data.project_scoped %}
-                {% trans "Yes" %}, {{ event.data.project_name }}
+                {% if event.data.project_name %}
+                {{ event.data.project_name }}
                 {% else %}
                 {% trans "No" %}
                 {% endif %}
