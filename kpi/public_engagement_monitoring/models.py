@@ -122,7 +122,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         """
         ci dice se l'iniziativa è iniziata
         """
-        return self.start >= timezone.now()
+        return self.start <= timezone.now()
 
     def is_over(self):
         """
