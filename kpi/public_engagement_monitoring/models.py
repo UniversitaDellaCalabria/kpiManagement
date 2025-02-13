@@ -347,9 +347,6 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se l'operatore lo ha bocciato (e validato per esclusione)
         if not self.operator_evaluation_success:
             return False
-        # False: se è già stato preso in carico da un operatore di patrocinio
-        if self.patronage_operator_taken_date:
-            return False
         # False: se l'iniziativa è stata creata da un manager
         if self.created_by_manager:
             return False
