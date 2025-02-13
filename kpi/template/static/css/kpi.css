@@ -45,7 +45,11 @@ input[type="checkbox"] {
     fill: var(--bs-body-color) !important;
 }
 
-.pagination .page-item .page-link[aria-current] {
-    border: 1px solid var(--bs-body-color);
-    color: var(--bs-body-color);
+.pagination .page-item .page-link[aria-current]{
+    border: 1px solid var(--dark_grey_unical);
+    color: var(--bordeaux_unical);
+}
+
+.icon-primary {
+    fill: var(--dark_grey_unical) !important;
 }
