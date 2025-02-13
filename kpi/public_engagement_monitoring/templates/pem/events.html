@@ -39,17 +39,30 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+                    <div class="col-12 col-lg-4 mt-4 mt-lg-0">
+                        <div class="select-wrapper">
+                            <label for="sort">{% trans "Year" %}</label>
+                            <select id="sort" @change="filter_by_year($event.target.value)">
+                                {% year_list as year_list %}
+                                <option value="">- {% trans "All" %} -</option>
+                                {% for year in year_list %}
+                                <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 mt-4 mt-lg-0">
                         <div class="select-wrapper">
                             <label for="sort">{% trans "Sorting" %}</label>
                             <select id="sort" @change="change_sort_term($event.target.value)">
                                 <option value="title">{% trans "Title" %}</option>
+                                <option value="referent__last_name">{% trans "Referent" %}</option>
                                 <option value="start" selected>{% trans "Start" %}</option>
                                 <option value="end">{% trans "End" %}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+                    <div class="col-12 col-lg-4 mt-4 mt-lg-0">
                         <div class="select-wrapper">
                             <label for="sort_type">{% trans "Ascending" %}/{% trans "Descending" %}</label>
                             <select id="sort_type" @change="change_sort_type($event.target.value)">
@@ -87,7 +100,7 @@
                 </div>
                 {% endblock custom_filters %}
 
-                <div class="mt-3">
+                <div class="mt-5 text-end">
                     <b>{% trans "Events number" %}</b>
                     <span class="badge bg-secondary ms-2">
                         [[ data.count ]]
@@ -214,7 +227,8 @@ const app = Vue.createApp({
             error_status: null,
             url: '{{ api_url }}',
             additional_url_params: '',
-            controlloer: null,
+            controller: null,
+            year: null,
             {% block extra_vue_data %}
             filter_to_handle: false,
             filter_to_evaluate: false,
@@ -227,6 +241,10 @@ const app = Vue.createApp({
         this.getData()
     },
     methods: {
+        filter_by_year(value) {
+            this.year = value
+            this.getData(this.page)
+        },
         change_sort_term(value) {
             this.sort_term = value
             this.getData(this.page)
@@ -239,11 +257,12 @@ const app = Vue.createApp({
             this.controller.abort()
             this.getData(page=1);
         },
-        getData(page=1, search=this.search_terms, sort_term=this.sort_term, sort_type=this.sort_type, additional_url_params=this.additional_url_params) {
+        getData(page=1, year=this.year, search=this.search_terms, sort_term=this.sort_term, sort_type=this.sort_type, additional_url_params=this.additional_url_params) {
             this.controller = new AbortController()
             let signal = this.controller.signal
             this.page = page
             let url = this.url+'?page='+page
+            if(year) url += '&start__year=' + year
             if(search) url += '&search=' + search
             if(sort_term && sort_type == 'desc') url += '&ordering=-' + sort_term
             else if(sort_term && sort_type == 'asc') url += '&ordering=' + sort_term

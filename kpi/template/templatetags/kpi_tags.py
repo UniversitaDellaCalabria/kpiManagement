@@ -9,7 +9,7 @@ register = template.Library()
 
 @register.simple_tag
 def year_list():
-    return range(2019, timezone.localdate().year+1)
+    return reversed(range(2020, timezone.localdate().year + 1))
 
 
 @register.simple_tag
