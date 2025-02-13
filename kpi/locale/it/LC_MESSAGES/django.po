@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-12 17:44+0100\n"
-"PO-Revision-Date: 2025-02-12 17:44+0100\n"
+"POT-Creation-Date: 2025-02-13 17:23+0100\n"
+"PO-Revision-Date: 2025-02-13 17:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -67,7 +67,7 @@ msgstr "Numeratore"
 msgid "Denominator"
 msgstr "Denominatore"
 
-#: detection_management/forms.py:53 public_engagement_monitoring/models.py:631
+#: detection_management/forms.py:53 public_engagement_monitoring/models.py:627
 #: visiting_management/forms.py:49
 #: visiting_management/templates/visiting.html:101
 msgid "Notes"
@@ -236,8 +236,8 @@ msgstr "Seleziona un'opzione"
 
 #: detection_management/templates/datatables_detection/top_filters.html:37
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:23
-#: public_engagement_monitoring/templates/pem/event.html:280
-#: public_engagement_monitoring/templates/pem/event.html:359
+#: public_engagement_monitoring/templates/pem/event.html:276
+#: public_engagement_monitoring/templates/pem/event.html:355
 #: visiting_management/templates/datatables_visiting/top_filters.html:23
 #: visiting_management/templates/datatables_visiting/top_filters.html:35
 msgid "No"
@@ -245,8 +245,7 @@ msgstr ""
 
 #: detection_management/templates/datatables_detection/top_filters.html:38
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:24
-#: public_engagement_monitoring/templates/pem/event.html:278
-#: public_engagement_monitoring/templates/pem/event.html:357
+#: public_engagement_monitoring/templates/pem/event.html:353
 #: visiting_management/templates/datatables_visiting/top_filters.html:24
 #: visiting_management/templates/datatables_visiting/top_filters.html:36
 msgid "Yes"
@@ -506,6 +505,7 @@ msgid "Head"
 msgstr "Capofila"
 
 #: public_engagement_management/forms.py:77
+#: public_engagement_monitoring/templates/pem/events.html:44
 msgid "Year"
 msgstr "Anno"
 
@@ -513,7 +513,7 @@ msgstr "Anno"
 #: public_engagement_management/templates/edit_public_engagement.html:19
 #: public_engagement_management/views.py:41
 #: public_engagement_monitoring/models.py:79
-#: public_engagement_monitoring/templates/pem/events.html:104
+#: public_engagement_monitoring/templates/pem/events.html:117
 msgid "Structure"
 msgstr "Struttura"
 
@@ -734,8 +734,8 @@ msgid "Event title"
 msgstr "Titolo iniziativa"
 
 #: public_engagement_monitoring/models.py:65
-#: public_engagement_monitoring/templates/pem/events.html:47
-#: public_engagement_monitoring/templates/pem/events.html:105
+#: public_engagement_monitoring/templates/pem/events.html:60
+#: public_engagement_monitoring/templates/pem/events.html:118
 #: visiting_management/forms.py:45
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
@@ -745,8 +745,8 @@ msgid "Start"
 msgstr "Inizio"
 
 #: public_engagement_monitoring/models.py:66
-#: public_engagement_monitoring/templates/pem/events.html:48
-#: public_engagement_monitoring/templates/pem/events.html:106
+#: public_engagement_monitoring/templates/pem/events.html:61
+#: public_engagement_monitoring/templates/pem/events.html:119
 #: visiting_management/forms.py:46
 #: visiting_management/templates/datatables_visiting/table_header.html:26
 #: visiting_management/templates/datatables_visiting/top_filters.html:13
@@ -756,96 +756,93 @@ msgid "End"
 msgstr "Fine"
 
 #: public_engagement_monitoring/models.py:71
-#: public_engagement_monitoring/templates/pem/events.html:103
+#: public_engagement_monitoring/templates/pem/events.html:59
+#: public_engagement_monitoring/templates/pem/events.html:116
 msgid "Referent"
 msgstr "Referente"
 
-#: public_engagement_monitoring/models.py:536
+#: public_engagement_monitoring/models.py:535
 msgid "Event type"
 msgstr "Tipo iniziativa"
 
-#: public_engagement_monitoring/models.py:537
+#: public_engagement_monitoring/models.py:536
 msgid "Short description"
 msgstr "Descrizione breve"
 
-#: public_engagement_monitoring/models.py:537
+#: public_engagement_monitoring/models.py:536
 msgid "Max 1500 chars"
 msgstr "Max 1500 caratteri"
 
-#: public_engagement_monitoring/models.py:539
+#: public_engagement_monitoring/models.py:538
 msgid ""
 "Other UNICAL staff members involved in organizing/executing the initiative"
 msgstr ""
 "Nominativi di altro personale UNICAL coinvolto nell’organizzazione/"
 "realizzazione dell’iniziativa"
 
-#: public_engagement_monitoring/models.py:541
+#: public_engagement_monitoring/models.py:542
 msgid "Is this activity linked to a project or a broader initiative?"
 msgstr ""
 "Si tratta di un’attività collegata a un progetto o a una iniziativa più "
 "ampia?"
 
-#: public_engagement_monitoring/models.py:546
-msgid "Project name"
-msgstr "Nome del progetto"
-
-#: public_engagement_monitoring/models.py:549
+#: public_engagement_monitoring/models.py:545
 msgid "Recipients"
 msgstr "Destinatari"
 
-#: public_engagement_monitoring/models.py:551
+#: public_engagement_monitoring/models.py:547
 msgid "Other recipients"
 msgstr "Altri destinatari"
 
-#: public_engagement_monitoring/models.py:554
+#: public_engagement_monitoring/models.py:550
 msgid "Sustainable Development Goals (SDGs)"
 msgstr "Obiettivi di sviluppo sostenibile  (SDG)"
 
-#: public_engagement_monitoring/models.py:558
+#: public_engagement_monitoring/models.py:554
 msgid "Execution method"
 msgstr "Modalità di svolgimento"
 
-#: public_engagement_monitoring/models.py:560
+#: public_engagement_monitoring/models.py:556
 msgid "Geographical dimension"
 msgstr "Dimensione Geografica"
 
-#: public_engagement_monitoring/models.py:563
+#: public_engagement_monitoring/models.py:559
 msgid "International"
 msgstr "Internazionale"
 
-#: public_engagement_monitoring/models.py:564
+#: public_engagement_monitoring/models.py:560
 msgid "National"
 msgstr "Nazionale"
 
-#: public_engagement_monitoring/models.py:565
+#: public_engagement_monitoring/models.py:561
 msgid "Regional"
 msgstr "Regionale"
 
-#: public_engagement_monitoring/models.py:566
+#: public_engagement_monitoring/models.py:562
 msgid "Local"
 msgstr "Locale"
 
-#: public_engagement_monitoring/models.py:571
+#: public_engagement_monitoring/models.py:567
 msgid "Main organizing entity of the initiative"
 msgstr "Ente organizzatore principale dell’iniziativa"
 
-#: public_engagement_monitoring/models.py:574
+#: public_engagement_monitoring/models.py:570
 msgid "University of Calabria (University, Department, or other structure)"
 msgstr "Università della Calabria (Ateneo, Dipartimento o altra struttura)"
 
-#: public_engagement_monitoring/models.py:575
+#: public_engagement_monitoring/models.py:571
 msgid "Another university"
 msgstr "Altra università"
 
-#: public_engagement_monitoring/models.py:576
+#: public_engagement_monitoring/models.py:572
 msgid "Another public entity"
 msgstr "Altro ente pubblico"
 
-#: public_engagement_monitoring/models.py:577
+#: public_engagement_monitoring/models.py:573
 msgid "Private entity"
 msgstr "Struttura privata"
 
-#: public_engagement_monitoring/models.py:584
+#: public_engagement_monitoring/models.py:580
 msgid ""
 "Request for the initiative to be promoted through the following "
 "institutional communication channels"
@@ -853,12 +850,12 @@ msgstr ""
 "Si richiede che la seguente iniziativa sia promossa sui seguenti canali di "
 "comunicazione istituzionale"
 
-#: public_engagement_monitoring/models.py:586
+#: public_engagement_monitoring/models.py:582
 msgid "Request for the patronage of the Department/Center for the initiative"
 msgstr ""
 "Si richiede il patrocinio del Dipartimento/Centro per  la seguente iniziativa"
 
-#: public_engagement_monitoring/models.py:590
+#: public_engagement_monitoring/models.py:586
 msgid ""
 "Request to use the Department/Center’s name and/or logo in the following "
 "communication tools"
@@ -866,11 +863,11 @@ msgstr ""
 "Si richiede di utilizzare la dicitura e/o il logo del Dipartimento/Centro "
 "nei seguenti strumenti di comunicazione"
 
-#: public_engagement_monitoring/models.py:591
+#: public_engagement_monitoring/models.py:587
 msgid "Poster attached"
 msgstr "Locandina allegata"
 
-#: public_engagement_monitoring/models.py:598
+#: public_engagement_monitoring/models.py:594
 #: public_engagement_monitoring/templates/pem/event.html:253
 #: public_engagement_monitoring/templates/pem/manager/event.html:20
 #: public_engagement_monitoring/templates/pem/operator/event.html:63
@@ -881,11 +878,11 @@ msgstr "Locandina allegata"
 msgid "Event data"
 msgstr "Dati dell'iniziativa"
 
-#: public_engagement_monitoring/models.py:599
+#: public_engagement_monitoring/models.py:595
 msgid "Event data records"
 msgstr "Dati dell'iniziativa"
 
-#: public_engagement_monitoring/models.py:610
+#: public_engagement_monitoring/models.py:606
 msgid ""
 "Non-academic audience participating in the initiative or reached via web/"
 "social resources, or outreach publications"
@@ -893,11 +890,11 @@ msgstr ""
 "Pubblico non accademico partecipante all'iniziativa o pubblico raggiunto "
 "attraverso risorse web/social, pubblicazioni divulgative"
 
-#: public_engagement_monitoring/models.py:611
+#: public_engagement_monitoring/models.py:607
 msgid "Total budget (in Euro)"
 msgstr "Budget complessivo (in Euro)"
 
-#: public_engagement_monitoring/models.py:613
+#: public_engagement_monitoring/models.py:609
 msgid ""
 "Is the initiative accompanied by monitoring activities (e.g., collection of "
 "information on activities, attendance, satisfaction, etc.)?"
@@ -905,11 +902,11 @@ msgstr ""
 "L’iniziativa è accompagnata da attività di monitoraggio (es. raccolta di "
 "informazioni sulle attività, sulle presenze, sul gradimento, ecc.)?"
 
-#: public_engagement_monitoring/models.py:615
+#: public_engagement_monitoring/models.py:611
 msgid "Is the initiative accompanied by an impact evaluation plan?"
 msgstr "L’iniziativa è accompagnata da un piano per la valutazione d’impatto?"
 
-#: public_engagement_monitoring/models.py:622
+#: public_engagement_monitoring/models.py:618
 msgid ""
 "Which other UNICAL structures (Departments or Centers) collaborated on this "
 "initiative?"
@@ -917,26 +914,26 @@ msgstr ""
 "Con quali altre strutture UNICAL (Dipartimenti o Centri) è stata realizzata "
 "l’iniziativa?"
 
-#: public_engagement_monitoring/models.py:625
+#: public_engagement_monitoring/models.py:621
 msgid "Scientific areas"
 msgstr "Aree scientifiche"
 
-#: public_engagement_monitoring/models.py:628
+#: public_engagement_monitoring/models.py:624
 msgid ""
 "Which collaborators were involved in organizing/managing the initiative?"
 msgstr ""
 "All’organizzazione/gestione dell’iniziativa sono stati coinvolti in qualità "
 "di collaboratori?"
 
-#: public_engagement_monitoring/models.py:630
+#: public_engagement_monitoring/models.py:626
 msgid "Initiative’s website"
 msgstr "Sito web dell'iniziativa"
 
-#: public_engagement_monitoring/models.py:635
+#: public_engagement_monitoring/models.py:631
 msgid "Event monitoring"
 msgstr "Monitoraggio iniziativa"
 
-#: public_engagement_monitoring/models.py:636
+#: public_engagement_monitoring/models.py:632
 msgid "Event monitoring records"
 msgstr "Monitoraggio iniziativa"
 
@@ -974,7 +971,7 @@ msgstr "Validatore"
 
 #: public_engagement_monitoring/templates/pem/dashboard.html:67
 #: public_engagement_monitoring/templates/pem/event.html:152
-#: public_engagement_monitoring/templates/pem/events.html:108
+#: public_engagement_monitoring/templates/pem/events.html:121
 msgid "Patronage"
 msgstr "Patrocinio"
 
@@ -1037,15 +1034,15 @@ msgid "To be handled"
 msgstr "Da prendere in carico"
 
 #: public_engagement_monitoring/templates/pem/event.html:94
-#: public_engagement_monitoring/templates/pem/events.html:79
-#: public_engagement_monitoring/templates/pem/events.html:147
+#: public_engagement_monitoring/templates/pem/events.html:92
+#: public_engagement_monitoring/templates/pem/events.html:160
 #: public_engagement_monitoring/templates/pem/operator/events.html:46
 msgid "Rejected"
 msgstr "Respinta"
 
 #: public_engagement_monitoring/templates/pem/event.html:100
-#: public_engagement_monitoring/templates/pem/events.html:70
-#: public_engagement_monitoring/templates/pem/events.html:151
+#: public_engagement_monitoring/templates/pem/events.html:83
+#: public_engagement_monitoring/templates/pem/events.html:164
 #: public_engagement_monitoring/templates/pem/operator/events.html:37
 msgid "Approved"
 msgstr "Approvata"
@@ -1099,7 +1096,7 @@ msgstr "Patrocinio concesso"
 msgid "General informations"
 msgstr "Informazioni generali"
 
-#: public_engagement_monitoring/templates/pem/event.html:394
+#: public_engagement_monitoring/templates/pem/event.html:390
 #: public_engagement_monitoring/templates/pem/user/event_report.html:9
 #: public_engagement_monitoring/views/manager.py:333
 #: public_engagement_monitoring/views/user.py:403
@@ -1143,64 +1140,68 @@ msgstr "Iniziative"
 msgid "Search..."
 msgstr "Cerca..."
 
-#: public_engagement_monitoring/templates/pem/events.html:44
+#: public_engagement_monitoring/templates/pem/events.html:47
+msgid "All"
+msgstr ""
+
+#: public_engagement_monitoring/templates/pem/events.html:56
 msgid "Sorting"
 msgstr "Ordinamento"
 
-#: public_engagement_monitoring/templates/pem/events.html:46
-#: public_engagement_monitoring/templates/pem/events.html:102
+#: public_engagement_monitoring/templates/pem/events.html:58
+#: public_engagement_monitoring/templates/pem/events.html:115
 msgid "Title"
 msgstr "Titolo"
 
-#: public_engagement_monitoring/templates/pem/events.html:54
-#: public_engagement_monitoring/templates/pem/events.html:56
+#: public_engagement_monitoring/templates/pem/events.html:67
+#: public_engagement_monitoring/templates/pem/events.html:69
 msgid "Ascending"
 msgstr "Crescente"
 
-#: public_engagement_monitoring/templates/pem/events.html:54
-#: public_engagement_monitoring/templates/pem/events.html:57
+#: public_engagement_monitoring/templates/pem/events.html:67
+#: public_engagement_monitoring/templates/pem/events.html:70
 msgid "Descending"
 msgstr "Decrescente"
 
-#: public_engagement_monitoring/templates/pem/events.html:91
+#: public_engagement_monitoring/templates/pem/events.html:104
 msgid "Events number"
 msgstr "Numero iniziative"
 
-#: public_engagement_monitoring/templates/pem/events.html:107
+#: public_engagement_monitoring/templates/pem/events.html:120
 msgid "Status"
 msgstr "Stato"
 
-#: public_engagement_monitoring/templates/pem/events.html:135
+#: public_engagement_monitoring/templates/pem/events.html:148
 msgid "Evaluation to be requested"
 msgstr "Validazione da richiedere"
 
-#: public_engagement_monitoring/templates/pem/events.html:139
-#: public_engagement_monitoring/templates/pem/events.html:165
+#: public_engagement_monitoring/templates/pem/events.html:152
+#: public_engagement_monitoring/templates/pem/events.html:178
 msgid "Waiting for handling"
 msgstr "In attesa di essere presa in carico"
 
-#: public_engagement_monitoring/templates/pem/events.html:143
-#: public_engagement_monitoring/templates/pem/events.html:169
+#: public_engagement_monitoring/templates/pem/events.html:156
+#: public_engagement_monitoring/templates/pem/events.html:182
 msgid "Waiting for evaluation"
 msgstr "In attesa di validazione"
 
-#: public_engagement_monitoring/templates/pem/events.html:155
+#: public_engagement_monitoring/templates/pem/events.html:168
 msgid "Filling in progress"
 msgstr ""
 
-#: public_engagement_monitoring/templates/pem/events.html:159
+#: public_engagement_monitoring/templates/pem/events.html:172
 msgid "Missing data or blocked changes"
 msgstr ""
 
-#: public_engagement_monitoring/templates/pem/events.html:174
+#: public_engagement_monitoring/templates/pem/events.html:187
 msgid "Denied"
 msgstr "Negato"
 
-#: public_engagement_monitoring/templates/pem/events.html:178
+#: public_engagement_monitoring/templates/pem/events.html:191
 msgid "Granted"
 msgstr ""
 
-#: public_engagement_monitoring/templates/pem/events.html:192
+#: public_engagement_monitoring/templates/pem/events.html:205
 msgid "No events available"
 msgstr "Non ci sono iniziative"
 
@@ -1220,8 +1221,8 @@ msgstr "Strutture"
 #: public_engagement_monitoring/views/management.py:103
 #: public_engagement_monitoring/views/management.py:110
 #: public_engagement_monitoring/views/user.py:299
-msgid "Involved personnel"
-msgstr "Personale coinvolto"
+msgid "Other involved personnel"
+msgstr "Altro personale coinvolto"
 
 #: public_engagement_monitoring/templates/pem/manager/event.html:35
 #: public_engagement_monitoring/templates/pem/user/event.html:88
@@ -1242,8 +1243,8 @@ msgstr "Aggiungi nuova iniziativa"
 
 #: public_engagement_monitoring/templates/pem/operator/event.html:13
 #: public_engagement_monitoring/templates/pem/user/event.html:22
-msgid "Involved personnel missing"
-msgstr "Personale coinvolto mancante"
+msgid "Other involved personnel missing"
+msgstr "Altro personale coinvolto mancante"
 
 #: public_engagement_monitoring/templates/pem/operator/event.html:17
 msgid "Evaluation request not sent"
@@ -2101,6 +2102,12 @@ msgstr "Visiting creato"
 msgid "Visiting edited"
 msgstr "Visiting modificato"
 
+#~ msgid "Project name"
+#~ msgstr "Nome del progetto"
+
+#~ msgid "Involved personnel"
+#~ msgstr "Personale coinvolto"
+
 #~ msgid ""
 #~ "Dear user,\n"
 #~ "this message was sent by {hostname}.\n"
@@ -2145,9 +2152,6 @@ msgstr "Visiting modificato"
 
 #~ msgid "Removed"
 #~ msgstr "Rimossa"
-
-#~ msgid "from involved personnel"
-#~ msgstr "dal personale coinvolto"
 
 #~ msgid "Patronage denied"
 #~ msgstr "Patrocinio negato"

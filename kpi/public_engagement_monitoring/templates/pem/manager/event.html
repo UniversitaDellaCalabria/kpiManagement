@@ -25,7 +25,7 @@
     <a class="btn btn-{% if event.data.person.all %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:manager_event_people' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-{% if event.data.person.all %}info{% else %}white{% endif %}">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.person.all %}pencil{% else %}plus-circle{% endif %}"></use>
-        </svg> {% trans "Involved personnel" %}
+        </svg> {% trans "Other involved personnel" %}
     </a>
     {% endif %}
     {% if event.has_report_editable_by_manager %}
@@ -40,7 +40,7 @@
 
 {% block people %}
 {% if event.data.person.all %}
-<div class="mt-5 h5"><b>{% trans "Involved personnel" %}</b></div>
+<div class="mt-5 h5"><b>{% trans "Other involved personnel" %}</b></div>
 <hr />
 <div class="table-responsive">
     <table class="table table-hover table-striped">

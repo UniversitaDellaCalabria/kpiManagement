@@ -296,7 +296,7 @@ def event_people(request, event_id, event=None):
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:user_events'): _('Events'),
                    reverse('public_engagement_monitoring:user_event', kwargs={'event_id': event_id}): event.title,
-                   '#': _('Involved personnel')}
+                   '#': _('Other involved personnel')}
 
     if request.method == 'POST':
         person_id = request.POST.get('person_id')

@@ -19,7 +19,7 @@
 
 {% if event.data and not event.data.person.all %}
 <div class="alert alert-danger" role="alert">
-    {% trans "Involved personnel missing" %}
+    {% trans "Other involved personnel missing" %}
 </div>
 {% endif %}
 
@@ -77,7 +77,7 @@
         <a class="btn btn-xs btn-{% if event.data.person.all %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:user_event_people' event_id=event.pk %}">
             <svg class="icon icon-sm icon-{% if event.data.person.all %}info{% else %}white{% endif %}">
                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.person.all %}pencil{% else %}plus-circle{% endif %}"></use>
-            </svg> {% trans "Involved personnel" %}
+            </svg> {% trans "Other involved personnel" %}
         </a>
         {% endif %}
 
@@ -212,7 +212,7 @@
 
 {% block people %}
 {% if event.data.person.all %}
-<div class="mt-5 h5"><b>{% trans "Involved personnel" %}</b></div>
+<div class="mt-5 h5"><b>{% trans "Other involved personnel" %}</b></div>
 <hr />
 <div class="table-responsive">
     <table class="table table-hover table-striped">

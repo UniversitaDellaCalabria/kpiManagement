@@ -100,14 +100,14 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
                        reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
-                       '#': _('Involved personnel')}
+                       '#': _('Other involved personnel')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
                        reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
-                       '#': _('Involved personnel')}
+                       '#': _('Other involved personnel')}
 
     if request.method == 'POST':
         # recupero dati completi del referente (in entrambi i casi)
