@@ -358,6 +358,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se l'iniziativa è già iniziata
         if self.is_started():
             return False
+        is self.patronage_operator_taken_date:
+            return False
         return True
 
     def is_ready_for_patronage_check(self):
