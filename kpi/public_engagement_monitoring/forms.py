@@ -102,9 +102,6 @@ class PublicEngagementEventDataForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('id', 'created', 'created_by', 'modified',
                    'modified_by', 'event', 'person')
-        help_texts = {
-            'project_name': "Compilare se si è selezionata l'opzione precedente"
-        }
         widgets = {
             'event_type': BootstrapItaliaRadioWidget(),
             'method_of_execution': BootstrapItaliaRadioWidget(),
