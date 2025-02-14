@@ -7,12 +7,7 @@
 {% block top_content %}
 <h2>{% trans "Public engagement management" %}</h2>
 <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.
+    {% trans "In this section you can register and manage the Public Engagement initiatives of the University of Calabria." %}
 </p>
 {% endblock top_content %}
 
@@ -27,10 +22,10 @@
                         <svg class="icon">
                             <use href="{% static 'svg/sprites.svg' %}#it-user"></use>
                         </svg>
-                        {% trans 'Referent/Delegate' %}
+                        {% trans 'Event referent or his delegate' %}
                     </h5>
                     <p class="card-text">
-                        {% trans 'To insert or modify your events' %}
+                        {% trans 'To register or modify an event' %}
                     </p>
                     <a class="read-more" href="{% url 'public_engagement_monitoring:user_events'%}">
                         <span class="text text-primary">{% trans "Manage" %}</span>
@@ -55,10 +50,10 @@
                         {% trans 'Structure operator' %}
                     </h5>
                     <p class="card-text">
-                        {% trans 'To manager your structure events' %}
+                        {% trans 'To manager structure events' %}
                     </p>
                     <a class="read-more" href="{% url 'public_engagement_monitoring:operator_dashboard'%}">
-                        <span class="text text-primary">{% trans "Evaluator" %}</span>
+                        <span class="text text-primary">{% trans "Evaluation" %}</span>
                         <svg class="icon">
                             <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
                         </svg>

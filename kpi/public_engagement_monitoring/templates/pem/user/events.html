@@ -6,6 +6,9 @@
 
 {% block top_content %}
 <h2>{% trans "Events" %}</h2>
+<p>
+    {% trans "In this section you can view the Public Engagement events for which you are referent or to which you have contributed. By clicking on the green button you can register a new initiative." %}
+</p>
 <div class="text-end mt-3 mb-5">
     <a href="{% url 'public_engagement_monitoring:user_new_event_choose_referent' %}" class="btn btn-outline-success text-lg-end">
         <svg class="icon icon-sm icon-success">
