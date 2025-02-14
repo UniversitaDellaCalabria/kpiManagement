@@ -171,18 +171,26 @@ class PublicEngagementEventReportForm(forms.ModelForm):
 
 
 class PublicEngagementEventEvaluationForm(forms.Form):
-    success = forms.BooleanField(
-        label='Esito positivo', required=False, widget=BootstrapItaliaToggleWidget)
-    notes = forms.CharField(label='Note', widget=forms.Textarea(
-        attrs={'rows': 2}), required=False)
+    success = forms.ChoiceField(
+        label=_("Outcome"),
+        choices=[
+            (False, _("Negative")),
+            (True,_("Positive"))
+        ],
+        widget=BootstrapItaliaRadioWidget)
+    notes = forms.CharField(
+        label='Note',
+        widget=forms.Textarea(
+        attrs={'rows': 2}),
+        required=False,
+        help_text=_("Mandatory in case of negative outcome"))
 
     def clean(self):
         cleaned_data = super().clean()
 
         success = cleaned_data.get('success')
         notes = cleaned_data.get('notes')
-
-        if not success and not notes:
+        if success == 'False' and not notes:
             self.add_error('notes', "Note obbligatore in caso di esito negativo")
 
         return cleaned_data

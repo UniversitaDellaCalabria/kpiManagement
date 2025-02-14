@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-14 12:38+0100\n"
-"PO-Revision-Date: 2025-02-14 12:38+0100\n"
+"POT-Creation-Date: 2025-02-14 13:37+0100\n"
+"PO-Revision-Date: 2025-02-14 13:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -331,17 +331,17 @@ msgstr "Fattore abilitante modificato"
 #: public_engagement_monitoring/views/manager.py:71
 #: public_engagement_monitoring/views/manager.py:80
 #: public_engagement_monitoring/views/manager.py:110
-#: public_engagement_monitoring/views/operator.py:99
-#: public_engagement_monitoring/views/operator.py:258
-#: public_engagement_monitoring/views/operator.py:263
-#: public_engagement_monitoring/views/operator.py:327
-#: public_engagement_monitoring/views/operator.py:332
-#: public_engagement_monitoring/views/patronage.py:105
-#: public_engagement_monitoring/views/patronage.py:109
-#: public_engagement_monitoring/views/patronage.py:146
-#: public_engagement_monitoring/views/patronage.py:151
-#: public_engagement_monitoring/views/patronage.py:213
-#: public_engagement_monitoring/views/patronage.py:218
+#: public_engagement_monitoring/views/operator.py:103
+#: public_engagement_monitoring/views/operator.py:262
+#: public_engagement_monitoring/views/operator.py:267
+#: public_engagement_monitoring/views/operator.py:331
+#: public_engagement_monitoring/views/operator.py:336
+#: public_engagement_monitoring/views/patronage.py:108
+#: public_engagement_monitoring/views/patronage.py:112
+#: public_engagement_monitoring/views/patronage.py:149
+#: public_engagement_monitoring/views/patronage.py:154
+#: public_engagement_monitoring/views/patronage.py:216
+#: public_engagement_monitoring/views/patronage.py:221
 #: public_engagement_monitoring/views/user.py:72
 #: public_engagement_monitoring/views/user.py:305
 #: public_engagement_monitoring/views/user.py:314
@@ -514,7 +514,7 @@ msgstr "Anno"
 #: public_engagement_management/forms.py:78
 #: public_engagement_management/templates/edit_public_engagement.html:19
 #: public_engagement_management/views.py:41
-#: public_engagement_monitoring/forms.py:194
+#: public_engagement_monitoring/forms.py:203
 #: public_engagement_monitoring/models.py:79
 #: public_engagement_monitoring/templates/pem/events.html:117
 msgid "Structure"
@@ -738,17 +738,33 @@ msgstr "Partner del social engagement eliminato"
 msgid "I'm the event referent"
 msgstr ""
 
-#: public_engagement_monitoring/forms.py:134
+#: public_engagement_monitoring/forms.py:135
 msgid "Make at least one choice if you require patronage"
 msgstr "Effettua almeno una scelta se hai richiesto il patrocinio"
 
-#: public_engagement_monitoring/forms.py:137
+#: public_engagement_monitoring/forms.py:138
 msgid ""
 "Mandatory field if you require the event to be promoted on institutional "
 "communication channels"
 msgstr ""
 "Si richiede che la seguente iniziativa sia promossa sui seguenti canali di "
 "comunicazione istituzionale"
+
+#: public_engagement_monitoring/forms.py:175
+msgid "Outcome"
+msgstr "Esito"
+
+#: public_engagement_monitoring/forms.py:177
+msgid "Negative"
+msgstr "Negativo"
+
+#: public_engagement_monitoring/forms.py:178
+msgid "Positive"
+msgstr "Positivo"
+
+#: public_engagement_monitoring/forms.py:186
+msgid "Mandatory in case of negative outcome"
+msgstr "Obbligatorio in caso di esito negativo"
 
 #: public_engagement_monitoring/models.py:64
 msgid "Event title"
@@ -994,10 +1010,10 @@ msgstr "Per registrare o modificare un’iniziativa"
 #: public_engagement_monitoring/views/management.py:107
 #: public_engagement_monitoring/views/management.py:243
 #: public_engagement_monitoring/views/operator.py:32
-#: public_engagement_monitoring/views/operator.py:57
-#: public_engagement_monitoring/views/operator.py:77
-#: public_engagement_monitoring/views/operator.py:131
-#: public_engagement_monitoring/views/operator.py:272
+#: public_engagement_monitoring/views/operator.py:61
+#: public_engagement_monitoring/views/operator.py:81
+#: public_engagement_monitoring/views/operator.py:135
+#: public_engagement_monitoring/views/operator.py:276
 msgid "Structure operator"
 msgstr "Operatore di struttura"
 
@@ -1006,8 +1022,9 @@ msgid "To manager structure events"
 msgstr "Per gestire le iniziative della struttura"
 
 #: public_engagement_monitoring/templates/pem/dashboard.html:56
-#: public_engagement_monitoring/views/operator.py:275
-#: public_engagement_monitoring/views/patronage.py:163
+#: public_engagement_monitoring/templates/pem/event_evaluation.html:9
+#: public_engagement_monitoring/views/operator.py:279
+#: public_engagement_monitoring/views/patronage.py:166
 msgid "Evaluation"
 msgstr "Validazione"
 
@@ -1133,7 +1150,7 @@ msgstr "Patrocinio concesso"
 #: public_engagement_monitoring/templates/pem/user/event.html:67
 #: public_engagement_monitoring/views/manager.py:140
 #: public_engagement_monitoring/views/manager.py:222
-#: public_engagement_monitoring/views/operator.py:134
+#: public_engagement_monitoring/views/operator.py:138
 #: public_engagement_monitoring/views/user.py:140
 #: public_engagement_monitoring/views/user.py:203
 msgid "General informations"
@@ -1441,14 +1458,14 @@ msgstr "Estensione del file non accettata: \"{}\". Inserisci solo {}"
 #: public_engagement_monitoring/views/manager.py:217
 #: public_engagement_monitoring/views/manager.py:361
 #: public_engagement_monitoring/views/operator.py:30
-#: public_engagement_monitoring/views/operator.py:55
-#: public_engagement_monitoring/views/operator.py:75
-#: public_engagement_monitoring/views/operator.py:129
-#: public_engagement_monitoring/views/operator.py:270
+#: public_engagement_monitoring/views/operator.py:59
+#: public_engagement_monitoring/views/operator.py:79
+#: public_engagement_monitoring/views/operator.py:133
+#: public_engagement_monitoring/views/operator.py:274
 #: public_engagement_monitoring/views/patronage.py:29
-#: public_engagement_monitoring/views/patronage.py:58
-#: public_engagement_monitoring/views/patronage.py:80
-#: public_engagement_monitoring/views/patronage.py:158
+#: public_engagement_monitoring/views/patronage.py:61
+#: public_engagement_monitoring/views/patronage.py:83
+#: public_engagement_monitoring/views/patronage.py:161
 #: public_engagement_monitoring/views/user.py:33
 #: public_engagement_monitoring/views/user.py:45
 #: public_engagement_monitoring/views/user.py:136
@@ -1492,21 +1509,21 @@ msgstr "Public Engagement"
 #: public_engagement_monitoring/views/manager.py:252
 #: public_engagement_monitoring/views/manager.py:362
 #: public_engagement_monitoring/views/operator.py:31
-#: public_engagement_monitoring/views/operator.py:56
-#: public_engagement_monitoring/views/operator.py:76
-#: public_engagement_monitoring/views/operator.py:116
-#: public_engagement_monitoring/views/operator.py:130
-#: public_engagement_monitoring/views/operator.py:157
-#: public_engagement_monitoring/views/operator.py:271
-#: public_engagement_monitoring/views/operator.py:301
-#: public_engagement_monitoring/views/operator.py:349
+#: public_engagement_monitoring/views/operator.py:60
+#: public_engagement_monitoring/views/operator.py:80
+#: public_engagement_monitoring/views/operator.py:120
+#: public_engagement_monitoring/views/operator.py:134
+#: public_engagement_monitoring/views/operator.py:161
+#: public_engagement_monitoring/views/operator.py:275
+#: public_engagement_monitoring/views/operator.py:305
+#: public_engagement_monitoring/views/operator.py:353
 #: public_engagement_monitoring/views/patronage.py:30
-#: public_engagement_monitoring/views/patronage.py:59
-#: public_engagement_monitoring/views/patronage.py:81
-#: public_engagement_monitoring/views/patronage.py:128
-#: public_engagement_monitoring/views/patronage.py:159
-#: public_engagement_monitoring/views/patronage.py:189
-#: public_engagement_monitoring/views/patronage.py:235
+#: public_engagement_monitoring/views/patronage.py:62
+#: public_engagement_monitoring/views/patronage.py:84
+#: public_engagement_monitoring/views/patronage.py:131
+#: public_engagement_monitoring/views/patronage.py:162
+#: public_engagement_monitoring/views/patronage.py:192
+#: public_engagement_monitoring/views/patronage.py:238
 #: public_engagement_monitoring/views/user.py:34
 #: public_engagement_monitoring/views/user.py:46
 #: public_engagement_monitoring/views/user.py:137
@@ -1532,7 +1549,7 @@ msgstr "Dati aggiornati con successo"
 #: public_engagement_monitoring/views/management.py:287
 #: public_engagement_monitoring/views/management.py:334
 #: public_engagement_monitoring/views/manager.py:252
-#: public_engagement_monitoring/views/operator.py:157
+#: public_engagement_monitoring/views/operator.py:161
 msgid "data modified"
 msgstr "dati modificati"
 
@@ -1542,7 +1559,7 @@ msgstr "dati modificati"
 #: public_engagement_monitoring/views/management.py:288
 #: public_engagement_monitoring/views/management.py:335
 #: public_engagement_monitoring/views/manager.py:253
-#: public_engagement_monitoring/views/operator.py:158
+#: public_engagement_monitoring/views/operator.py:162
 msgid "has modified the data of the event"
 msgstr "ha modificato i dati dell'iniziativa"
 
@@ -1551,11 +1568,11 @@ msgstr "ha modificato i dati dell'iniziativa"
 #: public_engagement_monitoring/views/manager.py:182
 #: public_engagement_monitoring/views/manager.py:266
 #: public_engagement_monitoring/views/manager.py:395
-#: public_engagement_monitoring/views/operator.py:72
-#: public_engagement_monitoring/views/operator.py:168
-#: public_engagement_monitoring/views/operator.py:317
-#: public_engagement_monitoring/views/patronage.py:77
-#: public_engagement_monitoring/views/patronage.py:201
+#: public_engagement_monitoring/views/operator.py:76
+#: public_engagement_monitoring/views/operator.py:172
+#: public_engagement_monitoring/views/operator.py:321
+#: public_engagement_monitoring/views/patronage.py:80
+#: public_engagement_monitoring/views/patronage.py:204
 #: public_engagement_monitoring/views/user.py:152
 #: public_engagement_monitoring/views/user.py:174
 #: public_engagement_monitoring/views/user.py:232
@@ -1573,9 +1590,9 @@ msgstr "Attenzione"
 #: public_engagement_monitoring/views/manager.py:182
 #: public_engagement_monitoring/views/manager.py:266
 #: public_engagement_monitoring/views/manager.py:395
-#: public_engagement_monitoring/views/operator.py:168
-#: public_engagement_monitoring/views/operator.py:317
-#: public_engagement_monitoring/views/patronage.py:201
+#: public_engagement_monitoring/views/operator.py:172
+#: public_engagement_monitoring/views/operator.py:321
+#: public_engagement_monitoring/views/patronage.py:204
 #: public_engagement_monitoring/views/user.py:174
 #: public_engagement_monitoring/views/user.py:232
 #: public_engagement_monitoring/views/user.py:279
@@ -1650,7 +1667,7 @@ msgid "First step completed successfully. Now proceed to enter the data"
 msgstr "Primo step completato. Ora procedi all'inserimento dei dati"
 
 #: public_engagement_monitoring/views/manager.py:249
-#: public_engagement_monitoring/views/operator.py:154
+#: public_engagement_monitoring/views/operator.py:158
 #: public_engagement_monitoring/views/user.py:227
 msgid "Modified general informations successfully"
 msgstr "Informazioni generali modificate correttamente"
@@ -1660,79 +1677,79 @@ msgstr "Informazioni generali modificate correttamente"
 msgid "Monitoring data modified successfully"
 msgstr "Dati di monitoraggio modificati correttamente"
 
-#: public_engagement_monitoring/views/operator.py:72
-#: public_engagement_monitoring/views/patronage.py:77
+#: public_engagement_monitoring/views/operator.py:76
+#: public_engagement_monitoring/views/patronage.py:80
 msgid "URL access is not allowed"
 msgstr ""
 
-#: public_engagement_monitoring/views/operator.py:108
+#: public_engagement_monitoring/views/operator.py:112
 msgid "Event handled successfully"
 msgstr "Iniziativa presa in carico con successo"
 
-#: public_engagement_monitoring/views/operator.py:116
-#: public_engagement_monitoring/views/patronage.py:128
+#: public_engagement_monitoring/views/operator.py:120
+#: public_engagement_monitoring/views/patronage.py:131
 msgid "handled"
 msgstr ""
 
-#: public_engagement_monitoring/views/operator.py:117
-#: public_engagement_monitoring/views/patronage.py:129
+#: public_engagement_monitoring/views/operator.py:121
+#: public_engagement_monitoring/views/patronage.py:132
 msgid "is evaluating the event"
 msgstr "preso in carico"
 
-#: public_engagement_monitoring/views/operator.py:297
 #: public_engagement_monitoring/views/operator.py:301
+#: public_engagement_monitoring/views/operator.py:305
 msgid "Evaluation completed"
 msgstr "Validazione completata"
 
-#: public_engagement_monitoring/views/operator.py:300
-#: public_engagement_monitoring/views/patronage.py:188
+#: public_engagement_monitoring/views/operator.py:304
+#: public_engagement_monitoring/views/patronage.py:191
 msgid "approved"
 msgstr "approvata"
 
-#: public_engagement_monitoring/views/operator.py:300
-#: public_engagement_monitoring/views/patronage.py:188
+#: public_engagement_monitoring/views/operator.py:304
+#: public_engagement_monitoring/views/patronage.py:191
 msgid "not approved"
 msgstr "non approvata"
 
-#: public_engagement_monitoring/views/operator.py:302
-#: public_engagement_monitoring/views/patronage.py:190
+#: public_engagement_monitoring/views/operator.py:306
+#: public_engagement_monitoring/views/patronage.py:193
 msgid "has evaluated the event with the result"
 msgstr "ha validato l'iniziativa con il seguente esito"
 
-#: public_engagement_monitoring/views/operator.py:346
-#: public_engagement_monitoring/views/patronage.py:232
+#: public_engagement_monitoring/views/operator.py:350
+#: public_engagement_monitoring/views/patronage.py:235
 msgid "Evaluation reopened"
 msgstr "Validazione riaperta"
 
-#: public_engagement_monitoring/views/operator.py:349
+#: public_engagement_monitoring/views/operator.py:353
 msgid "evaluation reopened"
 msgstr "validazione riaperta"
 
-#: public_engagement_monitoring/views/operator.py:350
+#: public_engagement_monitoring/views/operator.py:354
 msgid "has reopened evaluation of the event"
 msgstr "ha riaperto la valutazione dell'iniziativa"
 
 #: public_engagement_monitoring/views/patronage.py:31
-#: public_engagement_monitoring/views/patronage.py:60
-#: public_engagement_monitoring/views/patronage.py:82
-#: public_engagement_monitoring/views/patronage.py:160
+#: public_engagement_monitoring/views/patronage.py:63
+#: public_engagement_monitoring/views/patronage.py:85
+#: public_engagement_monitoring/views/patronage.py:163
 msgid "Patronage operator"
 msgstr "Operatore patrocinio"
 
-#: public_engagement_monitoring/views/patronage.py:125
+#: public_engagement_monitoring/views/patronage.py:128
 msgid "Event taken successfully"
 msgstr "Iniziativa presa in carico"
 
-#: public_engagement_monitoring/views/patronage.py:175
-#: public_engagement_monitoring/views/patronage.py:189
+#: public_engagement_monitoring/views/patronage.py:178
+#: public_engagement_monitoring/views/patronage.py:192
 msgid "Patronage evaluation completed"
 msgstr "Valutazione patrocinio completata"
 
-#: public_engagement_monitoring/views/patronage.py:235
+#: public_engagement_monitoring/views/patronage.py:238
 msgid "patronage evaluation reopened"
 msgstr "valutazione patrocinio riaperta"
 
-#: public_engagement_monitoring/views/patronage.py:236
+#: public_engagement_monitoring/views/patronage.py:239
 msgid "has reopened patronage evaluation of the event"
 msgstr ""
 "ha riaperto la validazione per la concessione del patrocinio dell'iniziativa"
