@@ -34,9 +34,13 @@ def dashboard(request, structures=None):
     active_years = PublicEngagementAnnualMonitoring.objects\
                                                    .filter(is_active=True)\
                                                    .values_list('year', flat=True)
+    years_query = Q()
+    for year in active_years:
+        years_query |= Q(start__year=year)
+
     event_counts = PublicEngagementEvent.objects.filter(
+        years_query,
         structure__pk__in=structures,
-        start__year__in=active_years,
         to_evaluate=True,
         created_by_manager=False
     ).values("structure__id").annotate(

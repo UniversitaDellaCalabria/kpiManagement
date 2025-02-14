@@ -30,16 +30,19 @@ class PublicEngagementEventList(PublicEngagementEventList):
             active_years = PublicEngagementAnnualMonitoring.objects\
                                                    .filter(is_active=True)\
                                                    .values_list('year', flat=True)
-
+            years_query = Q()
+            for year in active_years:
+                years_query |= Q(start__year=year)
         if status=='to_handle':
             events = events.filter(
+                years_query,
                 start__year__in=active_years,
-                to_evaluate=True,
                 operator_taken_date__isnull=True,
                 created_by_manager=False,
             )
         elif status=='to_evaluate':
             events = events.filter(
+                years_query,
                 start__year__in=active_years,
                 operator_taken_date__isnull=False,
                 operator_evaluation_date__isnull=True,
