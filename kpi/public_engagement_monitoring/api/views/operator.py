@@ -36,14 +36,12 @@ class PublicEngagementEventList(PublicEngagementEventList):
         if status=='to_handle':
             events = events.filter(
                 years_query,
-                start__year__in=active_years,
                 operator_taken_date__isnull=True,
                 created_by_manager=False,
             )
         elif status=='to_evaluate':
             events = events.filter(
                 years_query,
-                start__year__in=active_years,
                 operator_taken_date__isnull=False,
                 operator_evaluation_date__isnull=True,
                 created_by_manager=False,
