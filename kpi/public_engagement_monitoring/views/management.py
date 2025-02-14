@@ -251,7 +251,8 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
             structure_id = form.cleaned_data['structure']
             structure = OrganizationalStructure.objects.filter(pk=structure_id,
                                                                is_active=True,
-                                                               is_public_engagement_enabled=True).first()
+                                                               is_public_engagement_enabled=True,
+                                                               is_internal=True,).first()
 
             if structure == event.structure:
                 messages.add_message(request, messages.ERROR,

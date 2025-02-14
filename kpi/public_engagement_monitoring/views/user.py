@@ -412,6 +412,7 @@ def event_structures(request, event_id, event=None):
 
             structure = OrganizationalStructure.objects.filter(pk=structure_id,
                                                                is_active=True,
+                                                               is_internal=True,
                                                                is_public_engagement_enabled=True).first()
             if structure == event.structure:
                 messages.add_message(request, messages.ERROR,

@@ -50,4 +50,5 @@ class PublicEngagementApprovedEventDetail(generics.RetrieveAPIView):
 class OrganizationalStructureList(OrganizationalStructureList):
     permission_classes = [permissions.IsAuthenticated]
     queryset = OrganizationalStructure.objects.filter(is_active=True,
-                                                      is_public_engagement_enabled=True)
+                                                      is_public_engagement_enabled=True,
+                                                      is_internal=True,)
