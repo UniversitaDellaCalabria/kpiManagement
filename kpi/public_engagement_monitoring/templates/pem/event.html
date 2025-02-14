@@ -270,6 +270,10 @@
         </tr>
         <tr>
             <td>
+                {% get_field_label event.data 'project_name' as field_label %}
+                {{ field_label }}
+            </td>
+            <td>
                 {% if event.data.project_name %}
                 {{ event.data.project_name }}
                 {% else %}
@@ -385,6 +389,7 @@
 {% endif %}
 
 {% block people %}{% endblock people %}
+{% block structures %}{% endblock structures %}
 
 {% if event.report %}
 <div class="mt-5 h5"><b>{% trans "Monitoring data" %}</b></div>

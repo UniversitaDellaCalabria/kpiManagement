@@ -156,9 +156,9 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
             event.save()
 
             if by_manager:
-                msg="[Operatore di Ateneo] Personale coinvolto: aggiunto {}".format(person)
+                msg="[Operatore di Ateneo] Altro personale coinvolto: aggiunto {}".format(person)
             else:
-                msg="[Operatore {}] Personale coinvolto: aggiunto {}".format(structure_slug, person)
+                msg="[Operatore {}] Altro personale coinvolto: aggiunto {}".format(structure_slug, person)
 
             log_action(user=request.user,
                        obj=event,
@@ -201,9 +201,9 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
         event.save()
 
         if by_manager:
-            msg="[Operatore di Ateneo] Personale coinvolto: rimosso {}".format(person)
+            msg="[Operatore di Ateneo] Altro personale coinvolto: rimosso {}".format(person)
         else:
-            msg="[Operatore {}] Personale coinvolto: rimosso {}".format(structure_slug, person)
+            msg="[Operatore {}] Altro personale coinvolto: rimosso {}".format(structure_slug, person)
 
         log_action(user=request.user,
                    obj=event,
@@ -211,6 +211,124 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
                    msg=msg)
 
         messages.add_message(request, messages.SUCCESS, _('Personnel removed successfully'))
+
+        # invia email al referente/compilatore
+        subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+        body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
+        send_email_to_event_referents(event, subject, body)
+
+        # invia email agli operatori dipartimentali
+        if by_manager:
+            send_email_to_operators(event.structure, subject, body)
+
+    return redirect("public_engagement_monitoring:manager_event",
+                    structure_slug=structure_slug,
+                    event_id=event_id)
+
+
+def event_structures(request, structure_slug, event_id, by_manager=False, event=None):
+    data = event.data
+    template = 'pem/event_structures.html'
+    form = PublicEngagementStructureForm()
+    if by_manager:
+        breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                       reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
+                       reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
+                       '#': _('Other involved structures')}
+    else:
+        breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                       reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
+                       reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
+                       '#': _('Other involved structures')}
+
+    if request.method == 'POST':
+        form = PublicEngagementStructureForm(request.POST)
+        if form.is_valid():
+            structure_id = form.cleaned_data['structure']
+            structure = OrganizationalStructure.objects.filter(pk=structure_id,
+                                                               is_active=True,
+                                                               is_public_engagement_enabled=True).first()
+
+            if structure == event.structure:
+                messages.add_message(request, messages.ERROR,
+                                     "{} {}".format(person, _('is the event referent')))
+            elif data.structures.filter(pk=structure.pk).exists():
+                messages.add_message(request, messages.ERROR,
+                                     '{} {}'.format(structure, _('already exists')))
+            else:
+                data.structures.add(structure)
+                data.modified_by = request.user
+                data.save()
+                event.modified_by = request.user
+
+                if by_manager:
+                    event.edited_by_manager = True
+
+                event.save()
+
+                if by_manager:
+                    msg="[Operatore di Ateneo] Altra struttura coinvolta: aggiunto {}".format(structure)
+                else:
+                    msg="[Operatore {}] Altra struttura coinvolta: aggiunto {}".format(structure_slug, structure)
+
+                log_action(user=request.user,
+                           obj=event,
+                           flag=CHANGE,
+                           msg=msg)
+
+                messages.add_message(request, messages.SUCCESS,
+                                     '{} {}'.format(structure, _('added successfully')))
+
+                # invia email al referente/compilatore
+                subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+                body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
+                send_email_to_event_referents(event, subject, body)
+
+                # invia email agli operatori dipartimentali
+                if by_manager:
+                    send_email_to_operators(event.structure, subject, body)
+
+            return True
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
+    return render(request, template, {'breadcrumbs': breadcrumbs,
+                                      'event': event,
+                                      'structure_slug': structure_slug})
+
+
+def event_structures_delete(request, structure_slug, event_id, structure_id, by_manager=False, event=None):
+    if not structure_id:
+        raise PermissionDenied()
+    structure = event.data.structures.filter(pk=structure_id).first()
+    if not structure:
+        messages.add_message(request, messages.ERROR, _('Structure does not exist'))
+    else:
+        event.data.structures.remove(structure)
+        event.data.modified_by = request.user
+        event.data.save()
+        event.modified_by = request.user
+
+        if by_manager:
+                event.edited_by_manager = True
+
+        event.save()
+
+        if by_manager:
+            msg="[Operatore di Ateneo] Altra struttura coinvolta: rimosso {}".format(structure)
+        else:
+            msg="[Operatore {}] Altra struttura coinvolta: rimosso {}".format(structure_slug, structure)
+
+        log_action(user=request.user,
+                   obj=event,
+                   flag=CHANGE,
+                   msg=msg)
+
+        messages.add_message(request, messages.SUCCESS, _('Structure removed successfully'))
 
         # invia email al referente/compilatore
         subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))

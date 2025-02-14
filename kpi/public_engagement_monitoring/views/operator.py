@@ -218,6 +218,38 @@ def event_people_delete(request, structure_slug, event_id, person_id, event=None
 
 @login_required
 @is_structure_evaluation_operator
+@is_editable_by_operator
+def event_structures(request, structure_slug, event_id, event=None):
+    result = management.event_structures(request=request,
+                                         structure_slug=structure_slug,
+                                         event_id=event_id,
+                                         event=event)
+    if result == True:
+        return redirect("public_engagement_monitoring:operator_event",
+                        structure_slug=structure_slug,
+                        event_id=event_id)
+    return result
+
+
+@login_required
+@is_structure_evaluation_operator
+@is_editable_by_operator
+def event_structures_delete(request, structure_slug, event_id, structure_id, event=None):
+    result = management.event_structures_delete(request=request,
+                                                structure_slug=structure_slug,
+                                                event_id=event_id,
+                                                event=event,
+                                                structure_id=structure_id,
+                                                by_manager=True)
+    if result == True:
+        return redirect("public_engagement_monitoring:operator_event",
+                        structure_slug=structure_slug,
+                        event_id=event_id)
+    return result
+
+
+@login_required
+@is_structure_evaluation_operator
 def event_evaluation(request, structure_slug, event_id):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  structure__slug=structure_slug).first()

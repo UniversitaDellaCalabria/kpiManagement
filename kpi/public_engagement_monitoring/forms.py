@@ -11,7 +11,7 @@ from template.widgets import *
 from . models import *
 from . settings import *
 from . utils import user_is_manager
-from . widgets import BootstrapItaliaAPISelectEventWidget
+from . widgets import *
 
 
 class PublicEngagementReferentForm(forms.Form):
@@ -101,7 +101,7 @@ class PublicEngagementEventDataForm(forms.ModelForm):
         model = PublicEngagementEventData
         fields = '__all__'
         exclude = ('id', 'created', 'created_by', 'modified',
-                   'modified_by', 'event', 'person')
+                   'modified_by', 'event', 'person', 'structures')
         widgets = {
             'event_type': BootstrapItaliaRadioWidget(),
             'method_of_execution': BootstrapItaliaRadioWidget(),
@@ -131,10 +131,10 @@ class PublicEngagementEventDataForm(forms.ModelForm):
 
         if patronage_requested and not promo_tool:
             self.add_error(
-                'promo_tool', "Effettuare almeno una scelta se si richiede il patrocinio")
-        if patronage_requested and not poster:
+                'promo_tool', _("Make at least one choice if you require patronage"))
+        if patronage_channel and not poster:
             self.add_error(
-                'poster', "Campo obbligatorio se si richiede il patrocinio")
+                'poster', _("Mandatory field if you require the event to be promoted on institutional communication channels"))
 
         return cleaned_data
 
@@ -188,3 +188,9 @@ class PublicEngagementEventEvaluationForm(forms.Form):
 
     class Media:
         js = ('js/textarea-autosize.js',)
+
+
+class PublicEngagementStructureForm(forms.Form):
+    structure = forms.IntegerField(label=_('Structure'),
+                                    required=True,
+                                    widget=BootstrapItaliaAPISelectStructureWidget())

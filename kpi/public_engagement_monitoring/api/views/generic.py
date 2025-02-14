@@ -1,5 +1,7 @@
 from django_filters.rest_framework import *
 
+from organizational_area.api.views import *
+
 from rest_framework import filters, generics, permissions
 
 from template.api.pagination import KpiPagination
@@ -43,3 +45,9 @@ class PublicEngagementApprovedEventList(PublicEngagementEventList):
 class PublicEngagementApprovedEventDetail(generics.RetrieveAPIView):
     serializer_class = PublicEngagementEventLiteSerializer
     queryset = PublicEngagementEvent.objects.all()
+
+
+class OrganizationalStructureList(OrganizationalStructureList):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = OrganizationalStructure.objects.filter(is_active=True,
+                                                      is_public_engagement_enabled=True)

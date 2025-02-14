@@ -318,6 +318,39 @@ def event_people_delete(request, structure_slug, event_id, person_id, event=None
 
 @login_required
 @is_manager
+@is_editable_by_manager
+def event_structures(request, structure_slug, event_id, event=None):
+    result = management.event_structures(request=request,
+                                         structure_slug=structure_slug,
+                                         event_id=event_id,
+                                         event=event,
+                                         by_manager=True)
+    if result == True:
+        return redirect("public_engagement_monitoring:manager_event",
+                        structure_slug=structure_slug,
+                        event_id=event_id)
+    return result
+
+
+@login_required
+@is_manager
+@is_editable_by_manager
+def event_structures_delete(request, structure_slug, event_id, structure_id, event=None):
+    result = management.event_structures_delete(request=request,
+                                                structure_slug=structure_slug,
+                                                event_id=event_id,
+                                                event=event,
+                                                structure_id=structure_id,
+                                                by_manager=True)
+    if result == True:
+        return redirect("public_engagement_monitoring:manager_event",
+                        structure_slug=structure_slug,
+                        event_id=event_id)
+    return result
+
+
+@login_required
+@is_manager
 @has_report_editable_by_manager
 def event_report(request, structure_slug, event_id):
     template = 'pem/user/event_report.html'

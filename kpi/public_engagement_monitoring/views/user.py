@@ -345,7 +345,7 @@ def event_people(request, event_id, event=None):
             log_action(user=request.user,
                        obj=event,
                        flag=CHANGE,
-                       msg="[Referente/Delegato] Personale coinvolto: aggiunto {}".format(person))
+                       msg="[Referente/Delegato] Altro personale coinvolto: aggiunto {}".format(person))
 
             messages.add_message(request, messages.SUCCESS,
                                  "{} {}".format(person, _('added successfully')))
@@ -374,9 +374,96 @@ def event_people_delete(request, event_id, person_id, event=None):
         log_action(user=request.user,
                    obj=event,
                    flag=CHANGE,
-                   msg="[Referente/Delegato] Personale coinvolto: rimosso {}".format(person))
+                   msg="[Referente/Delegato] Altro personale coinvolto: rimosso {}".format(person))
 
         messages.add_message(request, messages.SUCCESS, _("Personnel successfully removed"))
+    return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
+
+
+@login_required
+@has_access_to_my_event
+@is_editable_by_user
+def event_structures(request, event_id, event=None):
+    data = getattr(event, 'data', None)
+    if not data:
+        messages.add_message(request, messages.ERROR,
+                             "<b>{}</b>: {}".format(_('Alert'), _('event data required')))
+        return redirect("public_engagement_monitoring:user_event",
+                        event_id=event.pk)
+
+    template = 'pem/event_structures.html'
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
+                   reverse('public_engagement_monitoring:user_events'): _('Events'),
+                   reverse('public_engagement_monitoring:user_event', kwargs={'event_id': event_id}): event.title,
+                   '#': _('Other involved structures')}
+
+    form = PublicEngagementStructureForm()
+
+    if request.method == 'POST':
+        form = PublicEngagementStructureForm(request.POST)
+
+        if form.is_valid():
+            structure_id = form.cleaned_data['structure']
+
+            if not structure_id:
+                messages.add_message(request, messages.DANGER, _("Access denied"))
+                return redirect('public_engagement_monitoring:user_event_structures', event_id=event_id)
+
+            structure = OrganizationalStructure.objects.filter(pk=structure_id,
+                                                               is_active=True,
+                                                               is_public_engagement_enabled=True).first()
+            if structure == event.structure:
+                messages.add_message(request, messages.ERROR,
+                                     "{} {}".format(structure, _('is the event structure')))
+            elif data.structures.filter(pk=structure.pk).exists():
+                messages.add_message(request, messages.ERROR,
+                                     "{} {}".format(structure, _('already exists')))
+            else:
+                data.structures.add(structure)
+                data.modified_by = request.user
+                data.save()
+                event.modified_by = request.user
+                event.save()
+
+                log_action(user=request.user,
+                           obj=event,
+                           flag=CHANGE,
+                           msg="[Referente/Delegato] Altra struttura coinvolta: aggiunto {}".format(structure))
+
+                messages.add_message(request, messages.SUCCESS,
+                                     "{} {}".format(structure, _('added successfully')))
+            return redirect("public_engagement_monitoring:user_event",
+                            event_id=event.pk)
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
+    return render(request, template, {'breadcrumbs': breadcrumbs, 'event': event, 'form': form})
+
+
+@login_required
+@has_access_to_my_event
+@is_editable_by_user
+def event_structures_delete(request, event_id, structure_id, event=None):
+    if not structure_id:
+        messages.add_message(request, messages.DANGER, _("Access denied"))
+        return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
+    structure = event.data.structures.filter(pk=structure_id).first()
+    if not structure:
+        messages.add_message(request, messages.ERROR, _('Structure does not exist'))
+    else:
+        event.data.structures.remove(structure)
+        event.data.modified_by = request.user
+        event.data.save()
+        event.modified_by = request.user
+        event.save()
+
+        log_action(user=request.user,
+                   obj=event,
+                   flag=CHANGE,
+                   msg="[Referente/Delegato] Altra struttura coinvolta: rimosso {}".format(structure))
+
+        messages.add_message(request, messages.SUCCESS, _("Structure successfully removed"))
     return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
 
 

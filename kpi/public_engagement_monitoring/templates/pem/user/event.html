@@ -79,6 +79,11 @@
                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.person.all %}pencil{% else %}plus-circle{% endif %}"></use>
             </svg> {% trans "Other involved personnel" %}
         </a>
+        <a class="btn btn-xs btn-outline-secondary" href="{% url 'public_engagement_monitoring:user_event_structures' event_id=event.pk %}">
+            <svg class="icon icon-sm icon-info">
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-pencil"></use>
+            </svg> {% trans "Other involved structures" %}
+        </a>
         {% endif %}
 
         {% if event.has_report_editable %}
@@ -256,3 +261,50 @@
 </div>
 {% endif %}
 {% endblock people %}
+
+{% block structures %}
+{% if event.data.structures.all %}
+<div class="mt-5 h5"><b>{% trans "Other involved structures" %}</b></div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        {% for structure in event.data.structures.all %}
+        <tr>
+            <td>{{ structure }}</td>
+            <td class="text-end">
+                {% if event.is_editable_by_user %}
+                <button type="button" class="btn btn-xs btn-danger" data-bs-toggle="modal" data-bs-target="#delete-{{ structure.pk }}">
+                    <svg class="icon icon-sm icon-white">
+                        <use xlink:href="{% static 'svg/sprites.svg' %}#it-delete"></use>
+                    </svg>
+                </button>
+                <div class="it-example-modal d-inline">
+                   <div class="modal" tabindex="-1" role="dialog" id="delete-{{ structure.pk }}" aria-labelledby="delete-{{ structure.pk }}-Title">
+                      <div class="modal-dialog" role="document">
+                         <div class="modal-content">
+                            <div class="modal-header">
+                               <h2 class="modal-title h5 " id="delete-{{ structure.pk }}-Title">{% trans "Confirm" %}</h2>
+                               <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Chiudi finestra modale">
+                                  <svg class="icon"><use href="{% static 'svg/sprites.svg' %}#it-close"></use></svg>
+                               </button>
+                            </div>
+                            <div class="modal-body">
+                               <p>{% trans "Do you want to confirm the entered data?" %}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:user_event_structures_delete' event_id=event.pk structure_id=structure.pk %}">
+                                    {% trans 'Yes, proceed' %}
+                                </a>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+{% endblock structures %}
