@@ -533,7 +533,9 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
                                    on_delete=models.CASCADE,
                                    limit_choices_to={"is_active": True},
                                    verbose_name=_("Event type"))
-    description = models.TextField(_("Short description"), max_length=1500, help_text=_("Max 1500 chars"))
+    description = models.TextField(_("Short description"),
+                                   max_length=1500,
+                                   help_text=_("This text will be used for any promotion on institutional channels. Max 1500 chars"))
     person = models.ManyToManyField(get_user_model(),
                                     verbose_name=_("Other UNICAL staff members involved in organizing/executing the initiative"))
     structures = models.ManyToManyField(OrganizationalStructure,

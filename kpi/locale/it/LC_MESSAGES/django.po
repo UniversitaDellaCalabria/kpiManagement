@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-14 11:51+0100\n"
-"PO-Revision-Date: 2025-02-14 11:51+0100\n"
+"POT-Creation-Date: 2025-02-14 11:55+0100\n"
+"PO-Revision-Date: 2025-02-14 11:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -67,7 +67,7 @@ msgstr "Numeratore"
 msgid "Denominator"
 msgstr "Denominatore"
 
-#: detection_management/forms.py:53 public_engagement_monitoring/models.py:634
+#: detection_management/forms.py:53 public_engagement_monitoring/models.py:636
 #: visiting_management/forms.py:49
 #: visiting_management/templates/visiting.html:101
 msgid "Notes"
@@ -790,86 +790,90 @@ msgstr "Tipo iniziativa"
 msgid "Short description"
 msgstr "Descrizione breve"
 
-#: public_engagement_monitoring/models.py:536
-msgid "Max 1500 chars"
-msgstr "Max 1500 caratteri"
-
 #: public_engagement_monitoring/models.py:538
+msgid ""
+"This text will be used for any promotion on institutional channels. Max 1500 "
+"chars"
+msgstr ""
+"Questo testo sarà utilizzato per l'eventuale promozione sui canali "
+"istituzionali. Max 1500 caratteri"
+
+#: public_engagement_monitoring/models.py:540
 msgid ""
 "Other UNICAL staff members involved in organizing/executing the initiative"
 msgstr ""
 "Nominativi di altro personale UNICAL coinvolto nell’organizzazione/"
 "realizzazione dell’iniziativa"
 
-#: public_engagement_monitoring/models.py:545
+#: public_engagement_monitoring/models.py:547
 msgid "Other UNICAL structures involved in organizing/executing the initiative"
 msgstr ""
 "Altre strutture UNICAL coinvolte nell’organizzazione/realizzazione "
 "dell’iniziativa"
 
-#: public_engagement_monitoring/models.py:549
+#: public_engagement_monitoring/models.py:551
 msgid "Is this activity linked to a project or a broader initiative?"
 msgstr ""
 "Si tratta di un’attività collegata a un progetto o a una iniziativa più "
 "ampia?"
 
-#: public_engagement_monitoring/models.py:552
+#: public_engagement_monitoring/models.py:554
 msgid "Recipients"
 msgstr "Destinatari"
 
-#: public_engagement_monitoring/models.py:554
+#: public_engagement_monitoring/models.py:556
 msgid "Other recipients"
 msgstr "Altri destinatari"
 
-#: public_engagement_monitoring/models.py:557
+#: public_engagement_monitoring/models.py:559
 msgid "Sustainable Development Goals (SDGs)"
 msgstr "Obiettivi di sviluppo sostenibile  (SDG)"
 
-#: public_engagement_monitoring/models.py:561
+#: public_engagement_monitoring/models.py:563
 msgid "Execution method"
 msgstr "Modalità di svolgimento"
 
-#: public_engagement_monitoring/models.py:563
+#: public_engagement_monitoring/models.py:565
 msgid "Geographical dimension"
 msgstr "Dimensione Geografica"
 
-#: public_engagement_monitoring/models.py:566
+#: public_engagement_monitoring/models.py:568
 msgid "International"
 msgstr "Internazionale"
 
-#: public_engagement_monitoring/models.py:567
+#: public_engagement_monitoring/models.py:569
 msgid "National"
 msgstr "Nazionale"
 
-#: public_engagement_monitoring/models.py:568
+#: public_engagement_monitoring/models.py:570
 msgid "Regional"
 msgstr "Regionale"
 
-#: public_engagement_monitoring/models.py:569
+#: public_engagement_monitoring/models.py:571
 msgid "Local"
 msgstr "Locale"
 
-#: public_engagement_monitoring/models.py:574
+#: public_engagement_monitoring/models.py:576
 msgid "Main organizing entity of the initiative"
 msgstr "Ente organizzatore principale dell’iniziativa"
 
-#: public_engagement_monitoring/models.py:577
+#: public_engagement_monitoring/models.py:579
 msgid "University of Calabria (University, Department, or other structure)"
 msgstr "Università della Calabria (Ateneo, Dipartimento o altra struttura)"
 
-#: public_engagement_monitoring/models.py:578
+#: public_engagement_monitoring/models.py:580
 msgid "Another university"
 msgstr "Altra università"
 
-#: public_engagement_monitoring/models.py:579
+#: public_engagement_monitoring/models.py:581
 msgid "Another public entity"
 msgstr "Altro ente pubblico"
 
-#: public_engagement_monitoring/models.py:580
+#: public_engagement_monitoring/models.py:582
 msgid "Private entity"
 msgstr "Struttura privata"
 
-#: public_engagement_monitoring/models.py:587
+#: public_engagement_monitoring/models.py:589
 msgid ""
 "Request for the initiative to be promoted through the following "
 "institutional communication channels"
@@ -877,12 +881,12 @@ msgstr ""
 "Si richiede che la seguente iniziativa sia promossa sui seguenti canali di "
 "comunicazione istituzionale"
 
-#: public_engagement_monitoring/models.py:589
+#: public_engagement_monitoring/models.py:591
 msgid "Request for the patronage of the Department/Center for the initiative"
 msgstr ""
 "Si richiede il patrocinio del Dipartimento/Centro per  la seguente iniziativa"
 
-#: public_engagement_monitoring/models.py:593
+#: public_engagement_monitoring/models.py:595
 msgid ""
 "Request to use the Department/Center’s name and/or logo in the following "
 "communication tools"
@@ -890,11 +894,11 @@ msgstr ""
 "Si richiede di utilizzare la dicitura e/o il logo del Dipartimento/Centro "
 "nei seguenti strumenti di comunicazione"
 
-#: public_engagement_monitoring/models.py:594
+#: public_engagement_monitoring/models.py:596
 msgid "Poster attached"
 msgstr "Locandina allegata"
 
-#: public_engagement_monitoring/models.py:601
+#: public_engagement_monitoring/models.py:603
 #: public_engagement_monitoring/templates/pem/event.html:253
 #: public_engagement_monitoring/templates/pem/manager/event.html:20
 #: public_engagement_monitoring/templates/pem/operator/event.html:63
@@ -905,11 +909,11 @@ msgstr "Locandina allegata"
 msgid "Event data"
 msgstr "Dati dell'iniziativa"
 
-#: public_engagement_monitoring/models.py:602
+#: public_engagement_monitoring/models.py:604
 msgid "Event data records"
 msgstr "Dati dell'iniziativa"
 
-#: public_engagement_monitoring/models.py:613
+#: public_engagement_monitoring/models.py:615
 msgid ""
 "Non-academic audience participating in the initiative or reached via web/"
 "social resources, or outreach publications"
@@ -917,11 +921,11 @@ msgstr ""
 "Pubblico non accademico partecipante all'iniziativa o pubblico raggiunto "
 "attraverso risorse web/social, pubblicazioni divulgative"
 
-#: public_engagement_monitoring/models.py:614
+#: public_engagement_monitoring/models.py:616
 msgid "Total budget (in Euro)"
 msgstr "Budget complessivo (in Euro)"
 
-#: public_engagement_monitoring/models.py:616
+#: public_engagement_monitoring/models.py:618
 msgid ""
 "Is the initiative accompanied by monitoring activities (e.g., collection of "
 "information on activities, attendance, satisfaction, etc.)?"
@@ -929,11 +933,11 @@ msgstr ""
 "L’iniziativa è accompagnata da attività di monitoraggio (es. raccolta di "
 "informazioni sulle attività, sulle presenze, sul gradimento, ecc.)?"
 
-#: public_engagement_monitoring/models.py:618
+#: public_engagement_monitoring/models.py:620
 msgid "Is the initiative accompanied by an impact evaluation plan?"
 msgstr "L’iniziativa è accompagnata da un piano per la valutazione d’impatto?"
 
-#: public_engagement_monitoring/models.py:625
+#: public_engagement_monitoring/models.py:627
 msgid ""
 "Which other UNICAL structures (Departments or Centers) collaborated on this "
 "initiative?"
@@ -941,26 +945,26 @@ msgstr ""
 "Con quali altre strutture UNICAL (Dipartimenti o Centri) è stata realizzata "
 "l’iniziativa?"
 
-#: public_engagement_monitoring/models.py:628
+#: public_engagement_monitoring/models.py:630
 msgid "Scientific areas"
 msgstr "Aree scientifiche"
 
-#: public_engagement_monitoring/models.py:631
+#: public_engagement_monitoring/models.py:633
 msgid ""
 "Which collaborators were involved in organizing/managing the initiative?"
 msgstr ""
 "All’organizzazione/gestione dell’iniziativa sono stati coinvolti in qualità "
 "di collaboratori?"
 
-#: public_engagement_monitoring/models.py:633
+#: public_engagement_monitoring/models.py:635
 msgid "Initiative’s website"
 msgstr "Sito web dell'iniziativa"
 
-#: public_engagement_monitoring/models.py:638
+#: public_engagement_monitoring/models.py:640
 msgid "Event monitoring"
 msgstr "Monitoraggio iniziativa"
 
-#: public_engagement_monitoring/models.py:639
+#: public_engagement_monitoring/models.py:641
 msgid "Event monitoring records"
 msgstr "Monitoraggio iniziativa"
 
@@ -2191,6 +2195,9 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Max 1500 chars"
+#~ msgstr "Max 1500 caratteri"
 
 #~ msgid "Cancel request"
 #~ msgstr "Annulla richiesta"
