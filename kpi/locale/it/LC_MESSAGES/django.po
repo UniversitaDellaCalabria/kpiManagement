@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-14 11:22+0100\n"
-"PO-Revision-Date: 2025-02-14 11:39+0100\n"
+"POT-Creation-Date: 2025-02-14 11:51+0100\n"
+"PO-Revision-Date: 2025-02-14 11:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1375,8 +1375,8 @@ msgid "Do you want to confirm the evaluation request?"
 msgstr "Desideri confermare la richiesta di validazione?"
 
 #: public_engagement_monitoring/templates/pem/user/event.html:131
-msgid "Cancel request"
-msgstr "Annulla richiesta"
+msgid "Cancel evaluation request"
+msgstr "Annulla richiesta di validazione"
 
 #: public_engagement_monitoring/templates/pem/user/event.html:144
 msgid "Do you want to cancel the evaluation request?"
@@ -2191,6 +2191,9 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Cancel request"
+#~ msgstr "Annulla richiesta"
 
 #~ msgid "Project name"
 #~ msgstr "Nome del progetto"
