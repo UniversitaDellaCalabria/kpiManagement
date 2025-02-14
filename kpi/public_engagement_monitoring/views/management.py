@@ -299,6 +299,7 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
                                  "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'event': event,
+                                      'form': form,
                                       'structure_slug': structure_slug})
 
 
