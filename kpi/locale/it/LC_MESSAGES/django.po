@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-17 12:49+0100\n"
-"PO-Revision-Date: 2025-02-17 12:49+0100\n"
+"POT-Creation-Date: 2025-02-17 15:16+0100\n"
+"PO-Revision-Date: 2025-02-17 15:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -334,8 +334,8 @@ msgstr "Fattore abilitante modificato"
 #: public_engagement_monitoring/views/operator.py:103
 #: public_engagement_monitoring/views/operator.py:262
 #: public_engagement_monitoring/views/operator.py:267
-#: public_engagement_monitoring/views/operator.py:331
-#: public_engagement_monitoring/views/operator.py:336
+#: public_engagement_monitoring/views/operator.py:330
+#: public_engagement_monitoring/views/operator.py:335
 #: public_engagement_monitoring/views/patronage.py:108
 #: public_engagement_monitoring/views/patronage.py:112
 #: public_engagement_monitoring/views/patronage.py:149
@@ -1079,6 +1079,31 @@ msgstr "Operatore di Ateneo"
 msgid "To manage all events"
 msgstr "Per gestire tutte le iniziative"
 
+#: public_engagement_monitoring/templates/pem/dashboard.html:109
+#: public_engagement_monitoring/templates/pem/event.html:393
+#: public_engagement_monitoring/templates/pem/event_people.html:10
+#: public_engagement_monitoring/templates/pem/manager/event.html:28
+#: public_engagement_monitoring/templates/pem/manager/event.html:48
+#: public_engagement_monitoring/templates/pem/operator/event.html:71
+#: public_engagement_monitoring/templates/pem/operator/event.html:122
+#: public_engagement_monitoring/templates/pem/user/event.html:80
+#: public_engagement_monitoring/templates/pem/user/event.html:220
+#: public_engagement_monitoring/views/involved_personnel.py:35
+#: public_engagement_monitoring/views/involved_personnel.py:47
+#: public_engagement_monitoring/views/management.py:103
+#: public_engagement_monitoring/views/management.py:110
+#: public_engagement_monitoring/views/user.py:308
+msgid "Other involved personnel"
+msgstr "Altro personale coinvolto"
+
+#: public_engagement_monitoring/templates/pem/dashboard.html:112
+msgid "Access event data read-only"
+msgstr "Accedi ai dati delle iniziative in sola lettura"
+
+#: public_engagement_monitoring/templates/pem/dashboard.html:115
+msgid "Enter"
+msgstr "Accedi"
+
 #: public_engagement_monitoring/templates/pem/event.html:12
 msgid "Data summary"
 msgstr "Riepilogo dei dati"
@@ -1183,7 +1208,21 @@ msgstr "Patrocinio concesso"
 msgid "General informations"
 msgstr "Informazioni generali"
 
-#: public_engagement_monitoring/templates/pem/event.html:395
+#: public_engagement_monitoring/templates/pem/event.html:409
+#: public_engagement_monitoring/templates/pem/event_structures.html:10
+#: public_engagement_monitoring/templates/pem/manager/event.html:33
+#: public_engagement_monitoring/templates/pem/manager/event.html:95
+#: public_engagement_monitoring/templates/pem/operator/event.html:76
+#: public_engagement_monitoring/templates/pem/operator/event.html:169
+#: public_engagement_monitoring/templates/pem/user/event.html:85
+#: public_engagement_monitoring/templates/pem/user/event.html:267
+#: public_engagement_monitoring/views/management.py:239
+#: public_engagement_monitoring/views/management.py:246
+#: public_engagement_monitoring/views/user.py:408
+msgid "Other involved structures"
+msgstr "Altre strutture coinvolte"
+
+#: public_engagement_monitoring/templates/pem/event.html:424
 #: public_engagement_monitoring/templates/pem/user/event_report.html:9
 #: public_engagement_monitoring/views/manager.py:366
 #: public_engagement_monitoring/views/user.py:500
@@ -1207,35 +1246,8 @@ msgstr "Prosegui"
 msgid "Surname"
 msgstr "Cognome"
 
-#: public_engagement_monitoring/templates/pem/event_people.html:10
-#: public_engagement_monitoring/templates/pem/manager/event.html:28
-#: public_engagement_monitoring/templates/pem/manager/event.html:48
-#: public_engagement_monitoring/templates/pem/operator/event.html:71
-#: public_engagement_monitoring/templates/pem/operator/event.html:122
-#: public_engagement_monitoring/templates/pem/patronage/event.html:81
-#: public_engagement_monitoring/templates/pem/user/event.html:80
-#: public_engagement_monitoring/templates/pem/user/event.html:220
-#: public_engagement_monitoring/views/management.py:103
-#: public_engagement_monitoring/views/management.py:110
-#: public_engagement_monitoring/views/user.py:308
-msgid "Other involved personnel"
-msgstr "Altro personale coinvolto"
-
-#: public_engagement_monitoring/templates/pem/event_structures.html:10
-#: public_engagement_monitoring/templates/pem/manager/event.html:33
-#: public_engagement_monitoring/templates/pem/manager/event.html:95
-#: public_engagement_monitoring/templates/pem/operator/event.html:76
-#: public_engagement_monitoring/templates/pem/operator/event.html:169
-#: public_engagement_monitoring/templates/pem/patronage/event.html:97
-#: public_engagement_monitoring/templates/pem/user/event.html:85
-#: public_engagement_monitoring/templates/pem/user/event.html:267
-#: public_engagement_monitoring/views/management.py:239
-#: public_engagement_monitoring/views/management.py:246
-#: public_engagement_monitoring/views/user.py:408
-msgid "Other involved structures"
-msgstr "Altre strutture coinvolte"
-
 #: public_engagement_monitoring/templates/pem/events.html:9
+#: public_engagement_monitoring/templates/pem/involved_personnel/events.html:8
 #: public_engagement_monitoring/templates/pem/manager/events.html:8
 #: public_engagement_monitoring/templates/pem/operator/events.html:8
 #: public_engagement_monitoring/templates/pem/patronage/events.html:8
@@ -1470,7 +1482,9 @@ msgstr ""
 msgid "File extension not accepted: \"{}\". Enter {} only"
 msgstr "Estensione del file non accettata: \"{}\". Inserisci solo {}"
 
-#: public_engagement_monitoring/views/generic.py:21
+#: public_engagement_monitoring/views/generic.py:23
+#: public_engagement_monitoring/views/involved_personnel.py:33
+#: public_engagement_monitoring/views/involved_personnel.py:45
 #: public_engagement_monitoring/views/management.py:24
 #: public_engagement_monitoring/views/management.py:31
 #: public_engagement_monitoring/views/management.py:98
@@ -1511,11 +1525,13 @@ msgstr "Estensione del file non accettata: \"{}\". Inserisci solo {}"
 msgid "Dashboard"
 msgstr "Pannello di controllo"
 
-#: public_engagement_monitoring/views/generic.py:22
+#: public_engagement_monitoring/views/generic.py:24
 #: template/templates/base.html:42 template/templates/dashboard.html:41
 msgid "Public Engagement"
 msgstr "Public Engagement"
 
+#: public_engagement_monitoring/views/involved_personnel.py:34
+#: public_engagement_monitoring/views/involved_personnel.py:46
 #: public_engagement_monitoring/views/management.py:25
 #: public_engagement_monitoring/views/management.py:32
 #: public_engagement_monitoring/views/management.py:74
@@ -1543,7 +1559,7 @@ msgstr "Public Engagement"
 #: public_engagement_monitoring/views/operator.py:161
 #: public_engagement_monitoring/views/operator.py:275
 #: public_engagement_monitoring/views/operator.py:305
-#: public_engagement_monitoring/views/operator.py:353
+#: public_engagement_monitoring/views/operator.py:352
 #: public_engagement_monitoring/views/patronage.py:30
 #: public_engagement_monitoring/views/patronage.py:62
 #: public_engagement_monitoring/views/patronage.py:84
@@ -1597,7 +1613,7 @@ msgstr "ha modificato i dati dell'iniziativa"
 #: public_engagement_monitoring/views/manager.py:395
 #: public_engagement_monitoring/views/operator.py:76
 #: public_engagement_monitoring/views/operator.py:172
-#: public_engagement_monitoring/views/operator.py:321
+#: public_engagement_monitoring/views/operator.py:320
 #: public_engagement_monitoring/views/patronage.py:80
 #: public_engagement_monitoring/views/patronage.py:204
 #: public_engagement_monitoring/views/user.py:152
@@ -1618,7 +1634,7 @@ msgstr "Attenzione"
 #: public_engagement_monitoring/views/manager.py:266
 #: public_engagement_monitoring/views/manager.py:395
 #: public_engagement_monitoring/views/operator.py:172
-#: public_engagement_monitoring/views/operator.py:321
+#: public_engagement_monitoring/views/operator.py:320
 #: public_engagement_monitoring/views/patronage.py:204
 #: public_engagement_monitoring/views/user.py:174
 #: public_engagement_monitoring/views/user.py:232
@@ -1743,16 +1759,16 @@ msgstr "non approvata"
 msgid "has evaluated the event with the result"
 msgstr "ha validato l'iniziativa con il seguente esito"
 
-#: public_engagement_monitoring/views/operator.py:350
+#: public_engagement_monitoring/views/operator.py:349
 #: public_engagement_monitoring/views/patronage.py:235
 msgid "Evaluation reopened"
 msgstr "Validazione riaperta"
 
-#: public_engagement_monitoring/views/operator.py:353
+#: public_engagement_monitoring/views/operator.py:352
 msgid "evaluation reopened"
 msgstr "validazione riaperta"
 
-#: public_engagement_monitoring/views/operator.py:354
+#: public_engagement_monitoring/views/operator.py:353
 msgid "has reopened evaluation of the event"
 msgstr "ha riaperto la valutazione dell'iniziativa"
 

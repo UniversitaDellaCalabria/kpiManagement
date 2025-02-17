@@ -20,8 +20,9 @@ class PublicEngagementEventList(PublicEngagementEventList):
         events = PublicEngagementEvent.objects\
             .prefetch_related('data', 'report')\
             .select_related('referent', 'structure')\
-            .filter(Q(referent=self.request.user) |
-                    Q(created_by=self.request.user),
+            .filter(data__person=self.request.user,
                     structure__is_active=True,
-                    is_active=True)
+                    is_active=True,
+                    operator_evaluation_date__isnull=False,
+                    operator_evaluation_success=True)
         return events

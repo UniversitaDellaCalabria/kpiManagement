@@ -4,8 +4,9 @@ from . api.views import (generic as api_generic,
                          user as api_user,
                          operator as api_evaluation_operator,
                          patronage as api_patronage_operator,
-                         manager as api_manager)
-from . views import generic, manager, operator, patronage, user
+                         manager as api_manager,
+                         involved_personnel as api_involved_personnel)
+from . views import generic, involved_personnel, manager, operator, patronage, user
 
 
 app_name = 'public_engagement_monitoring'
@@ -16,6 +17,7 @@ prefix = 'public-engagement-monitoring'
 
 api_prefix = "api"
 user_prefix = 'user'
+involved_personnel_prefix = 'involved-personnel'
 operator_prefix = 'operator'
 validator_prefix = 'evaluation'
 patronage_prefix = 'patronage'
@@ -122,6 +124,11 @@ urlpatterns = [
     path(f'{prefix}/{manager_prefix}/<str:structure_slug>/events/<int:event_id>/report/',
          manager.event_report, name='manager_event_report'),
 
+    # user
+    path(f'{prefix}/{involved_personnel_prefix}/events/', involved_personnel.events, name='involved_personnel_events'),
+    path(f'{prefix}/{involved_personnel_prefix}/events/<int:event_id>/',
+         involved_personnel.event, name='involved_personnel_event'),
+
     # API
     path(f'{prefix}/{api_prefix}/structures/', api_generic.OrganizationalStructureList.as_view(), name='api_structures'),
     path(f'{prefix}/{api_prefix}/events/',
@@ -136,4 +143,6 @@ urlpatterns = [
          api_patronage_operator.PublicEngagementEventList.as_view(), name='api_patronage_operator_events'),
     path(f'{prefix}/{api_prefix}/{manager_prefix}/<str:structure_slug>/events/',
          api_manager.PublicEngagementEventList.as_view(), name='api_manager_events'),
+    path(f'{prefix}/{api_prefix}/{involved_personnel_prefix}/events/',
+         api_involved_personnel.PublicEngagementEventList.as_view(), name='api_involved_personnel_events'),
 ]

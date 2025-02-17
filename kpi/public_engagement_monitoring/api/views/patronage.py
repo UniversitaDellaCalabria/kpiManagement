@@ -17,10 +17,8 @@ class PublicEngagementEventList(PublicEngagementEventList):
         """
         """
         events = PublicEngagementEvent.objects\
-            .prefetch_related('data')\
-            .prefetch_related('report')\
-            .select_related('referent')\
-            .select_related('structure')\
+            .prefetch_related('data', 'report')\
+            .select_related('referent', 'structure')\
             .filter(structure__slug=self.kwargs['structure_slug'],
                     structure__is_active=True,
                     to_evaluate=True,

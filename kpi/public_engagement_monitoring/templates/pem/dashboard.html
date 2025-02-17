@@ -95,4 +95,32 @@
         <!--end card-->
     </div>
 </div>
+<hr class="my-5">
+<div class="row">
+    <div class="col-12 col-lg-4">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <svg class="icon">
+                            <use href="{% static 'svg/sprites.svg' %}#it-password-visible"></use>
+                        </svg>
+                        {% trans 'Other involved personnel' %}
+                    </h5>
+                    <p class="card-text">
+                        {% trans 'Access event data read-only' %}
+                    </p>
+                    <a class="read-more" href="{% url 'public_engagement_monitoring:involved_personnel_events'%}">
+                        <span class="text text-primary">{% trans "Enter" %}</span>
+                        <svg class="icon">
+                            <use href="/static/svg/sprites.svg#it-arrow-right-circle"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end card-->
+    </div>
+</div>
 {% endblock clean_content %}

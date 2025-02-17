@@ -388,8 +388,37 @@
 </div>
 {% endif %}
 
-{% block people %}{% endblock people %}
-{% block structures %}{% endblock structures %}
+{% block people %}
+{% if event.data.person.all %}
+<div class="mt-5 h5"><b>{% trans "Other involved personnel" %}</b></div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        {% for person in event.data.person.all %}
+        <tr>
+            <td>{{ person }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+{% endblock people %}
+
+{% block structures %}
+{% if event.data.structures.all %}
+<div class="mt-5 h5"><b>{% trans "Other involved structures" %}</b></div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        {% for structure in event.data.structures.all %}
+        <tr>
+            <td>{{ structure }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+{% endblock structures %}
 
 {% if event.report %}
 <div class="mt-5 h5"><b>{% trans "Monitoring data" %}</b></div>
