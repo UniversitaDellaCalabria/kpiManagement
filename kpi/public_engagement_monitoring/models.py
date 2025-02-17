@@ -432,8 +432,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if self.is_over():
             return True
         # False: se il patrocinio è stato richiesto e non è stato ancora emesso un responso
-        if self.data.patronage_requested and not self.patronage_granted_date:
-            return False
+        # if self.data.patronage_requested and not self.patronage_granted_date:
+            # return False
         return True
 
     def has_been_rejected(self):

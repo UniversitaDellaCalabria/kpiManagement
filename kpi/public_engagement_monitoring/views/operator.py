@@ -310,8 +310,7 @@ def event_evaluation(request, structure_slug, event_id):
                 if event.data.patronage_requested and not event.is_started():
                     send_email_to_patronage_operators(
                         event.structure, subject, body)
-                else:
-                    send_email_to_managers(subject, body)
+                send_email_to_managers(subject, body)
 
             return redirect("public_engagement_monitoring:operator_event",
                             structure_slug=structure_slug,
