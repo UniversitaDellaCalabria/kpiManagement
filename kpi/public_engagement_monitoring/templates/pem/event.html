@@ -381,7 +381,7 @@
                 {% get_field_label event.data 'poster' as field_label %}
                 {{ field_label }}
             </td>
-            <td><a href="{{ event.data.poster.url }}">Download</a></td>
+            <td><a href="{% url 'public_engagement_monitoring:download_event_poster' event_id=event.pk %}" target="_blank">Download</a></td>
         </tr>
         {% endif %}
     </table>

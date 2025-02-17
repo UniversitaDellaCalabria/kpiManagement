@@ -1,7 +1,10 @@
 import datetime
+import magic
+import os
 
 from django.contrib.admin.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 
@@ -57,3 +60,21 @@ def check_user_permission_on_dashboard(user, main_model, office_slug):
         for off in my_offices:
             offices.append(off.office)
     return offices
+
+
+def download_file(path, nome_file):
+    """
+    Downloads a file
+    """
+    mime = magic.Magic(mime=True)
+    file_path = "{}/{}".format(path, nome_file)
+    content_type = mime.from_file(file_path)
+
+    if os.path.exists(file_path):
+        with open(file_path, "rb") as fh:
+            response = HttpResponse(fh.read(), content_type=content_type)
+            response["Content-Disposition"] = "inline; filename=" + os.path.basename(
+                file_path
+            )
+            return response
+    return None

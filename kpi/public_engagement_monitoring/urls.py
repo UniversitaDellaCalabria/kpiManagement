@@ -23,6 +23,7 @@ manager_prefix = 'manager'
 
 urlpatterns = [
     path(f'{prefix}/', generic.dashboard, name='dashboard'),
+    path(f'{prefix}/events/<int:event_id>/poster/download/', generic.download_event_poster, name='download_event_poster'),
 
     # user
     path(f'{prefix}/{user_prefix}/events/', user.events, name='user_events'),
