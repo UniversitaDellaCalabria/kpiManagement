@@ -307,7 +307,7 @@ def event_evaluation(request, structure_slug, event_id):
             send_email_to_event_referents(event, subject, body)
 
             if form.cleaned_data['success']:
-                if event.data.patronage_requested:
+                if event.data.patronage_requested and not event.is_started():
                     send_email_to_patronage_operators(
                         event.structure, subject, body)
                 else:

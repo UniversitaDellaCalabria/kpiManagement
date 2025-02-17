@@ -241,7 +241,9 @@ def event_basic_info(request, event_id, event=None):
 def event_data(request, event_id, event=None):
     template = 'pem/event_data.html'
     instance = getattr(event, 'data', None)
-    form = PublicEngagementEventDataForm(instance=instance, event=event)
+    form = PublicEngagementEventDataForm(instance=instance,
+                                         event=event,
+                                         by_user=True)
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
@@ -253,7 +255,8 @@ def event_data(request, event_id, event=None):
         form = PublicEngagementEventDataForm(instance=instance,
                                              data=request.POST,
                                              files=request.FILES,
-                                             event=event)
+                                             event=event,
+                                             by_user=True)
         if form.is_valid():
             log_action(user=request.user,
                        obj=event,
@@ -269,6 +272,12 @@ def event_data(request, event_id, event=None):
             form.save_m2m()
             event.modified_by = request.user
             event.save()
+
+            # se l'evento è già iniziato
+            # ripulisco tutti i campi riferiti a patrocinio
+            # e promozione
+            if event.is_started():
+                event.clear_promo_info()
 
             messages.add_message(request, messages.SUCCESS,
                                  _("Data updated successfully"))
@@ -522,6 +531,13 @@ def event_report(request, event_id, event=None):
 @has_access_to_my_event
 def event_request_evaluation(request, event_id, event=None):
     if event.is_ready_for_request_evaluation():
+
+        # se l'evento è già iniziato
+        # ripulisco tutti i campi riferiti a patrocinio
+        # e promozione
+        if event.is_started():
+            event.clear_promo_info()
+
         event.to_evaluate = True
         event.evaluation_request_date = timezone.now()
         event.evaluation_request_by = request.user

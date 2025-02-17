@@ -53,24 +53,24 @@ class PublicEngagementEventForm(forms.ModelForm):
 
         if start and end and start > end:
             self.add_error(
-                'start', "La data di inizio non può essere successiva a quella di fine")
+                'start', _("The start date cannot be later than the end date"))
             self.add_error(
-                'end', "La data di inizio non può essere successiva a quella di fine")
+                'end', _("The start date cannot be later than the end date"))
 
         active_years = PublicEngagementAnnualMonitoring.objects.filter(
             is_active=True).values_list('year', flat=True)
         if start and start.year not in active_years:
             self.add_error(
-                'start', f"Non è possibile inserire date per l'anno {start.year}")
+                'start', _("It is not possible to enter dates for the year {}").format(start.year))
 
         if end and end > timezone.now() and self.instance.id and getattr(self.instance, 'report', None):
             self.add_error(
-                'end', "Poichè sono già presenti i dati di monitoraggio, l'iniziativa deve essere già terminata")
+                'end', _("Since the monitoring data is already present, the initiative must have already ended"))
 
-        if self.instance.id and getattr(self.instance, 'data', None) and ((end and end <= timezone.localtime()) or (start < timezone.localtime() + timezone.timedelta(days=EVALUATION_TIME_DELTA))):
-            if self.instance.data.patronage_requested or self.instance.data.promo_tool.exists():
+        if self.instance.id and getattr(self.instance, 'data', None) and self.instance.is_started():
+            if self.instance.data.patronage_requested or self.instance.data.promo_tool.exists() or self.instance.data.promo_channel.exists():
                 self.add_error(
-                'end', "I dati per la promozione dell'iniziativa (patrocinio, canali di promozione, ecc...) non sono consentiti se è già terminata. Modificali prima di aggiornare la data.")
+                'start', _("Data for the promotion of the initiative (promotion tools, promotion channels, etc...) and the request for patronage are not permitted if it has already started. Edit them before updating the date."))
 
         return cleaned_data
 
@@ -87,14 +87,17 @@ class PublicEngagementEventOperatorForm(PublicEngagementEventForm):
 
 class PublicEngagementEventDataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        by_user = kwargs.pop('by_user', False)
         event = kwargs.pop('event', None)
         super().__init__(*args, **kwargs)
         # se si stanno creando i dati per la prima volta
-        # e l'evento è terminato
-        if not self.instance.id and (event.is_started() or event.is_over()):
+        # e l'evento è terminato o è già iniziato
+        # non vengono riportati tutti i campi per la promozione
+        # e il patrocinio
+        if by_user and event.is_started():
             self.fields.pop('promo_channel', None)
             self.fields.pop('patronage_requested', None)
-            self.fields.pop('poster', None)
+            # self.fields.pop('poster', None)
             self.fields.pop('promo_tool', None)
 
     class Meta:

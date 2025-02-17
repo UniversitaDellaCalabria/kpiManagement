@@ -448,6 +448,13 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def has_patronage_granted(self):
         return self.patronage_granted_date and self.patronage_granted
 
+    def clear_promo_info(self):
+        if hasattr(self, 'data'):
+            self.data.promo_channel.clear()
+            self.data.promo_tool.clear()
+            self.data.patronage_requested = False
+            self.data.save(update_fields=['patronage_requested'])
+
 
 class PublicEngagementEventMethodOfExecution(ActivableModel, CreatedModifiedBy, TimeStampedModel):
     description = models.CharField(max_length=255)
