@@ -458,7 +458,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
 
 
 class PublicEngagementEventMethodOfExecution(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
 
     class Meta:
         verbose_name = "Modalità di svolgimento"
@@ -468,7 +468,7 @@ class PublicEngagementEventMethodOfExecution(ActivableModel, CreatedModifiedBy, 
 
 
 class PublicEngagementEventTarget(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
 
     class Meta:
         verbose_name = "Obiettivo iniziative"
@@ -479,7 +479,8 @@ class PublicEngagementEventTarget(ActivableModel, CreatedModifiedBy, TimeStamped
 
 
 class PublicEngagementEventPromoChannel(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
+    is_global = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Canale di promozione"
@@ -488,9 +489,32 @@ class PublicEngagementEventPromoChannel(ActivableModel, CreatedModifiedBy, TimeS
     def __str__(self):
         return self.description
 
+    def get_contacts(self, structure=None):
+        contacts = PublicEngagementEventPromoChannel.objects.filter(promo_channel=self,
+                                                                    is_active=True)
+        if structure:
+            contacts = contacts.filter(structure=structure)
+        return contacts.values_list('email', flat=True)
+
+
+class PublicEngagementEventPromoChannelContact(ActivableModel, CreatedModifiedBy, TimeStampedModel):
+    promo_channel = models.ForeignKey(PublicEngagementEventPromoChannel,
+                                      on_delete=models.CASCADE,
+                                      verbose_name=_("Contact"))
+    email = models.EmailField(max_length=254)
+    structure = models.ForeignKey(OrganizationalStructure,
+                                  blank=True,
+                                  null=True,
+                                  limit_choices_to={'is_internal': True},
+                                  verbose_name=_("Structure"),
+                                  on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.promo_channel} - {self.email}"
+
 
 class PublicEngagementEventPromoTool(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
 
     class Meta:
         verbose_name = "Strumento di promozione"
@@ -501,7 +525,7 @@ class PublicEngagementEventPromoTool(ActivableModel, CreatedModifiedBy, TimeStam
 
 
 class PublicEngagementEventRecipient(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
 
     class Meta:
         verbose_name = "Destinatario dell'iniziativa"
@@ -512,7 +536,7 @@ class PublicEngagementEventRecipient(ActivableModel, CreatedModifiedBy, TimeStam
 
 
 class PublicEngagementEventScientificArea(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
 
     class Meta:
         verbose_name = "Area scientifica"
@@ -523,7 +547,7 @@ class PublicEngagementEventScientificArea(ActivableModel, CreatedModifiedBy, Tim
 
 
 class PublicEngagementEventCollaboratorType(ActivableModel, CreatedModifiedBy, TimeStampedModel):
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
 
     class Meta:
         verbose_name = "Tipo di collaboratore"
@@ -561,7 +585,7 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
                                        limit_choices_to={'is_active': True},
                                        verbose_name=_("Recipients"))
     other_recipients = models.CharField(
-        _("Other recipients"), default='', blank=True, max_length=255)
+        _("Other recipients"), default='', blank=True, max_length=254)
     target = models.ManyToManyField(PublicEngagementEventTarget,
                                     limit_choices_to={'is_active': True},
                                     verbose_name=_("Sustainable Development Goals (SDGs)"))

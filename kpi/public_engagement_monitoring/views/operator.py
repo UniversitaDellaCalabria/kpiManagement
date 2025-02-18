@@ -304,13 +304,26 @@ def event_evaluation(request, structure_slug, event_id):
             result = _('approved') if form.cleaned_data['success'] else _('not approved')
             subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation completed'))
             body = "{} {} {}".format(request.user, _('has evaluated the event with the result'), result)
+            # invia email a referente/compilatore
             send_email_to_event_referents(event, subject, body)
 
             if form.cleaned_data['success']:
+                # invia email a operatori patrocinio
                 if event.data.patronage_requested and not event.is_started():
                     send_email_to_patronage_operators(
                         event.structure, subject, body)
+                # invia email a operatori di ateneo
                 send_email_to_managers(subject, body)
+                # invia email a comunicazione
+                for promo_channel in event.data.promo_channel.filter(is_active=True):
+                    recipients = promo_channel.get_contacts(structure=event.structure)
+                    if not emails: continue
+                    send_email_to_promoters(title=event.title,
+                                            start=event.start,
+                                            end=event.end,
+                                            description=event.data.description,
+                                            poster=event.data.poster,
+                                            recipients=recipients)
 
             return redirect("public_engagement_monitoring:operator_event",
                             structure_slug=structure_slug,

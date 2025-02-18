@@ -42,8 +42,8 @@ class OrganizationalStructure(ActivableModel):
     """
     Department, structure
     """
-    name = models.CharField(max_length=255, blank=True, unique=True)
-    slug = models.SlugField(max_length=255,
+    name = models.CharField(max_length=254, blank=True, unique=True)
+    slug = models.SlugField(max_length=254,
                             blank=False, null=False, unique=True,
                             validators=[
                                 RegexValidator(
@@ -53,7 +53,7 @@ class OrganizationalStructure(ActivableModel):
                                     code='invalid_slug'
                                 ),
                             ])
-    unique_code = models.CharField(max_length=255, blank=True, unique=True)
+    unique_code = models.CharField(max_length=254, blank=True, unique=True)
     structure_type = models.ForeignKey(OrganizationalStructureType,
                                        null=True, blank=True,
                                        on_delete=models.SET_NULL)
@@ -61,7 +61,7 @@ class OrganizationalStructure(ActivableModel):
     create_date = models.DateTimeField(auto_now_add=True)
     banner = models.ImageField(upload_to=_logo_upload,
                                null=True, blank=True,
-                               max_length=255)
+                               max_length=254)
     url = models.CharField(max_length=768, null=True, blank=True)
     is_internal = models.BooleanField(default=False)
     is_visiting_enabled = models.BooleanField(default=False)
@@ -143,12 +143,12 @@ class AbstractLocation(ActivableModel):
     coordinate = models.CharField(max_length=64, null=True, blank=True)
     srs = models.CharField(max_length=13, null=True, blank=True,
                            help_text=_("riferimento spaziale coordinate"))
-    description_short = models.CharField(max_length=255, null=True, blank=True)
+    description_short = models.CharField(max_length=254, null=True, blank=True)
     funcionality = models.ManyToManyField(OrganizationalStructureFunction,
                                           blank=True)
     equipment = models.ManyToManyField(EquipmentType)
     phone = models.CharField(max_length=135, null=True, blank=True)
-    description_short = models.CharField(max_length=255, null=True,
+    description_short = models.CharField(max_length=254, null=True,
                                          blank=True)
     description = models.TextField(max_length=1024, null=True, blank=True)
     note = models.TextField(max_length=1024, null=True, blank=True,
@@ -181,7 +181,7 @@ class OrganizationalStructureOffice(ActivableModel):
     Organizational structure office
     """
     name = models.CharField(max_length=128, null=False, blank=False)
-    slug = models.SlugField(max_length=255,
+    slug = models.SlugField(max_length=254,
                             blank=False, null=False)
     organizational_structure = models.ForeignKey(OrganizationalStructure,
                                                  on_delete=models.CASCADE)

@@ -8,7 +8,7 @@ from template.models import *
 
 class DetectionCode(ActivableModel):
     code = models.CharField(max_length=20, unique=True)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=254)
     note = models.TextField(max_length=1024, default='', blank=True)
 
     def __str__(self):

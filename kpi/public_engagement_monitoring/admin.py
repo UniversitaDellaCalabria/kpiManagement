@@ -1,8 +1,9 @@
+from django import forms
 from django.contrib import admin
 
 from template.admin import AbstractCreatedModifiedBy
 
-from .models import PublicEngagementAnnualMonitoring, PublicEngagementEvent, PublicEngagementEventCollaboratorType, PublicEngagementEventData, PublicEngagementEventMethodOfExecution, PublicEngagementEventPromoChannel, PublicEngagementEventPromoTool, PublicEngagementEventRecipient, PublicEngagementEventScientificArea, PublicEngagementEventTarget, PublicEngagementEventType
+from .models import *
 
 
 @admin.register(PublicEngagementAnnualMonitoring)
@@ -26,9 +27,24 @@ class PublicEngagementEventTargetAdmin(admin.ModelAdmin):
     list_display = ('description', 'is_active')
 
 
+class PublicEngagementEventPromoChannelContactModelForm(forms.ModelForm):
+    class Meta:
+        model = PublicEngagementEventPromoChannelContact
+        exclude = ('created_by','created','modified_by','modified')
+
+
+class PublicEngagementEventPromoChannelContactInline(admin.TabularInline):
+    model = PublicEngagementEventPromoChannelContact
+    form = PublicEngagementEventPromoChannelContactModelForm
+    extra = 0
+
+
 @admin.register(PublicEngagementEventPromoChannel)
 class PublicEngagementEventPromoChannelAdmin(admin.ModelAdmin):
     list_display = ('description', 'is_active')
+    inlines = [
+        PublicEngagementEventPromoChannelContactInline
+    ]
 
 
 @admin.register(PublicEngagementEventPromoTool)
