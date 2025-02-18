@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 11:02+0100\n"
-"PO-Revision-Date: 2025-02-18 11:02+0100\n"
+"PO-Revision-Date: 2025-02-18 17:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1769,7 +1769,7 @@ msgstr "Iniziativa presa in carico con successo"
 #: public_engagement_monitoring/views/operator.py:120
 #: public_engagement_monitoring/views/patronage.py:131
 msgid "handled"
-msgstr ""
+msgstr "preso in carico"
 
 #: public_engagement_monitoring/views/operator.py:121
 #: public_engagement_monitoring/views/patronage.py:132
