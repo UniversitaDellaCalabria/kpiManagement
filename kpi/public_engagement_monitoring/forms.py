@@ -104,7 +104,7 @@ class PublicEngagementEventDataForm(forms.ModelForm):
         model = PublicEngagementEventData
         fields = '__all__'
         exclude = ('id', 'created', 'created_by', 'modified',
-                   'modified_by', 'event', 'person', 'structures')
+                   'modified_by', 'event', 'involved_personnel', 'involved_structure')
         widgets = {
             'event_type': BootstrapItaliaRadioWidget(),
             'method_of_execution': BootstrapItaliaRadioWidget(),
