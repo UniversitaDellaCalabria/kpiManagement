@@ -490,7 +490,7 @@ class PublicEngagementEventPromoChannel(ActivableModel, CreatedModifiedBy, TimeS
         return self.description
 
     def get_contacts(self, structure=None):
-        contacts = PublicEngagementEventPromoChannel.objects.filter(promo_channel=self,
+        contacts = PublicEngagementEventPromoChannelContact.objects.filter(promo_channel=self,
                                                                     is_active=True)
         if structure:
             contacts = contacts.filter(structure=structure)
