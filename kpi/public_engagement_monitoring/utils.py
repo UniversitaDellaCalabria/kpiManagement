@@ -92,4 +92,7 @@ def send_email_to_promoters(title, start, end, description, poster=None, recipie
        Descrizione: {description}
     """.format(title=title, start=start, end=end, description=description)
 
-    _send_email(subject=subject, body=body, attachment=poster, recipients=recipients)
+    _send_email(subject=f"Promozione evento Public Engagement: {title}",
+                body=body,
+                attachment=poster,
+                recipients=recipients)
