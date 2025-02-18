@@ -317,15 +317,15 @@ def event_evaluation(request, structure_slug, event_id):
                 # invia email a operatori di ateneo
                 send_email_to_managers(subject, body)
                 # invia email a comunicazione
-                promo_recipients = []
                 for promo_channel in event.data.promo_channel.filter(is_active=True):
-                    promo_recipients += list(promo_channel.get_contacts(structure=event.structure))
-                send_email_to_promoters(title=event.title,
-                                        start=event.start,
-                                        end=event.end,
-                                        description=event.data.description,
-                                        poster=event.data.poster,
-                                        recipients=list(set(promo_recipients)))
+                    recipients += list(promo_channel.get_contacts(structure=event.structure))
+                    send_email_to_promoters(channel=promo_channel.description,
+                                            title=event.title,
+                                            start=event.start,
+                                            end=event.end,
+                                            description=event.data.description,
+                                            poster=event.data.poster,
+                                            recipients=recipients)
 
             return redirect("public_engagement_monitoring:operator_event",
                             structure_slug=structure_slug,

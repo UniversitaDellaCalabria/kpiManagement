@@ -3,6 +3,7 @@ import requests
 from django.conf import settings
 # from django.core.mail import send_mail
 from django.core.mail import EmailMessage
+from django.utils import timezone
 
 from organizational_area.models import *
 from organizational_area.utils import user_in_office
@@ -84,13 +85,20 @@ def send_email_to_managers(subject, body):
     _send_email(subject=subject, body=body, recipients=recipients)
 
 
-def send_email_to_promoters(title, start, end, description, poster=None, recipients=[]):
+def send_email_to_promoters(channel, title, start, end, description, poster=None, recipients=[]):
     body = """
+       Canale di promozione: {channel}
+
+       Di seguito i dettagli dell'iniziativa
+
        Titolo: {title}
        Inizio: {start}
        Fine: {end}
        Descrizione: {description}
-    """.format(title=title, start=start, end=end, description=description)
+    """.format(title=title,
+               start=timezone.localtime(start),
+               end=timezone.localtime(end),
+               description=description)
 
     _send_email(subject=f"Promozione evento Public Engagement: {title}",
                 body=body,
