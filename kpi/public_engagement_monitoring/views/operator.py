@@ -8,6 +8,8 @@ from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from itertools import chain
+
 from organizational_area.models import *
 
 from template.utils import *
@@ -315,15 +317,15 @@ def event_evaluation(request, structure_slug, event_id):
                 # invia email a operatori di ateneo
                 send_email_to_managers(subject, body)
                 # invia email a comunicazione
+                promo_recipients = []
                 for promo_channel in event.data.promo_channel.filter(is_active=True):
-                    recipients = promo_channel.get_contacts(structure=event.structure)
-                    if not emails: continue
-                    send_email_to_promoters(title=event.title,
-                                            start=event.start,
-                                            end=event.end,
-                                            description=event.data.description,
-                                            poster=event.data.poster,
-                                            recipients=recipients)
+                    promo_recipients += list(promo_channel.get_contacts(structure=event.structure))
+                send_email_to_promoters(title=event.title,
+                                        start=event.start,
+                                        end=event.end,
+                                        description=event.data.description,
+                                        poster=event.data.poster,
+                                        recipients=list(set(recipients)))
 
             return redirect("public_engagement_monitoring:operator_event",
                             structure_slug=structure_slug,
