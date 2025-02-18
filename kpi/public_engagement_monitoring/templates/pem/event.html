@@ -389,12 +389,12 @@
 {% endif %}
 
 {% block people %}
-{% if event.data.person.all %}
+{% if event.data.involved_personnel.all %}
 <div class="mt-5 h5"><b>{% trans "Other involved personnel" %}</b></div>
 <hr />
 <div class="table-responsive">
     <table class="table table-hover table-striped">
-        {% for person in event.data.person.all %}
+        {% for person in event.data.involved_personnel.all %}
         <tr>
             <td>{{ person }}</td>
         </tr>
@@ -405,12 +405,12 @@
 {% endblock people %}
 
 {% block structures %}
-{% if event.data.structures.all %}
+{% if event.data.involved_structure.all %}
 <div class="mt-5 h5"><b>{% trans "Other involved structures" %}</b></div>
 <hr />
 <div class="table-responsive">
     <table class="table table-hover table-striped">
-        {% for structure in event.data.structures.all %}
+        {% for structure in event.data.involved_structure.all %}
         <tr>
             <td>{{ structure }}</td>
         </tr>

@@ -165,7 +165,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not getattr(self, 'data', None):
             return False
         # False: se non sono stati inserite le persone collegate
-        if not self.data.person.exists():
+        if not self.data.involved_personnel.exists():
             return False
         # False: se è stato creato dal manager
         if self.created_by_manager:
@@ -195,7 +195,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not getattr(self, 'data', None):
             return False
         # False: se non sono stati inserite le persone collegate
-        if not self.data.person.exists():
+        if not self.data.involved_personnel.exists():
             return False
         # True: se l'evento è terminato
         if not self.is_over():
@@ -222,7 +222,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not getattr(self, 'data', None):
             return False
         # False: se non sono stati inserite le persone collegate
-        if not self.data.person.exists():
+        if not self.data.involved_personnel.exists():
             return False
         # se l'evento deve ancora iniziare
         # si tiene conto del numero di giorni minimo
@@ -299,7 +299,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se non sono stati inserite le persone collegate
         if not hasattr(self, 'data'):
             return False
-        if not self.data.person.exists():
+        if not self.data.involved_personnel.exists():
             return False
         # False: se è già stata valutata
         if self.operator_evaluation_date:
@@ -431,9 +431,10 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # True: se l'evento è finito
         if self.is_over():
             return True
-        # False: se il patrocinio è stato richiesto e non è stato ancora emesso un responso
-        # if self.data.patronage_requested and not self.patronage_granted_date:
-            # return False
+        # False: se il patrocinio è stato richiesto
+        # l'operatore di patrocinio l'ha preso in carico ma non è stato ancora emesso un responso
+        if self.data.patronage_requested and self.patronage_operator_taken_date and not self.patronage_granted_date:
+            return False
         return True
 
     def has_been_rejected(self):
@@ -543,15 +544,15 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
     description = models.TextField(_("Short description"),
                                    max_length=1500,
                                    help_text=_("This text will be used for any promotion on institutional channels. Max 1500 chars"))
-    person = models.ManyToManyField(get_user_model(),
-                                    verbose_name=_("Other UNICAL staff members involved in organizing/executing the initiative"))
-    structures = models.ManyToManyField(OrganizationalStructure,
-                                        limit_choices_to={
-                                            "is_internal": True,
-                                            "is_public_engagement_enabled": True,
-                                            "is_active": True
-                                        },
-                                        verbose_name=_("Other UNICAL structures involved in organizing/executing the initiative"))
+    involved_personnel = models.ManyToManyField(get_user_model(),
+                                                verbose_name=_("Other UNICAL staff members involved in organizing/executing the initiative"))
+    involved_structure = models.ManyToManyField(OrganizationalStructure,
+                                                limit_choices_to={
+                                                    "is_internal": True,
+                                                    "is_public_engagement_enabled": True,
+                                                    "is_active": True
+                                                },
+                                                verbose_name=_("Other UNICAL structures involved in organizing/executing the initiative"))
     project_name = models.ForeignKey(PublicEngagementEvent,
                                      on_delete=models.PROTECT,
                                      null=True, blank=True,

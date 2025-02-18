@@ -10,7 +10,7 @@
             {% for k,v in breadcrumbs.items %}
                 {% if forloop.last %}
                 <li class="breadcrumb-item active" aria-current="page">
-                    <a class="breadcrumb-item-active-a" href="{{ k }}">{{ v|truncatechars:25 }}</a>
+                    <a class="breadcrumb-item-active-a" href="{{ k }}">{{ v|truncatechars:40 }}</a>
                 </li>
                 {% else %}
                 <li class="breadcrumb-item">

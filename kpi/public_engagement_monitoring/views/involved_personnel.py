@@ -32,7 +32,7 @@ def events(request):
     template = 'pem/involved_personnel/events.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
-                   '#': _('Other involved personnel')}
+                   '#': _('Other involved personnel events')}
     api_url = reverse('public_engagement_monitoring:api_involved_personnel_events')
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url})
@@ -44,7 +44,7 @@ def event(request, event_id, event=None):
     template = 'pem/involved_personnel/event.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
-                   reverse('public_engagement_monitoring:involved_personnel_events'): _('Other involved personnel'),
+                   reverse('public_engagement_monitoring:involved_personnel_events'): _('Other involved personnel events'),
                    '#': event.title}
 
     logs = LogEntry.objects.filter(content_type_id=ContentType.objects.get_for_model(event).pk,

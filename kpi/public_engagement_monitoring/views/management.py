@@ -141,11 +141,11 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
         if person == event.referent:
             messages.add_message(request, messages.ERROR,
                                  "{} {}".format(person, _('is the event referent')))
-        elif data.person.filter(pk=person.pk).exists():
+        elif data.involved_personnel.filter(pk=person.pk).exists():
             messages.add_message(request, messages.ERROR,
                                  '{} {}'.format(person, _('already exists')))
         else:
-            data.person.add(person)
+            data.involved_personnel.add(person)
             data.modified_by = request.user
             data.save()
             event.modified_by = request.user
@@ -186,11 +186,11 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
 def event_people_delete(request, structure_slug, event_id, person_id, by_manager=False, event=None):
     if not person_id:
         raise PermissionDenied()
-    person = event.data.person.filter(pk=person_id).first()
+    person = event.data.involved_personnel.filter(pk=person_id).first()
     if not person:
         messages.add_message(request, messages.ERROR, _('Personnel does not exist'))
     else:
-        event.data.person.remove(person)
+        event.data.involved_personnel.remove(person)
         event.data.modified_by = request.user
         event.data.save()
         event.modified_by = request.user
@@ -257,11 +257,11 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
             if structure == event.structure:
                 messages.add_message(request, messages.ERROR,
                                      "{} {}".format(person, _('is the event referent')))
-            elif data.structures.filter(pk=structure.pk).exists():
+            elif data.involved_structure.filter(pk=structure.pk).exists():
                 messages.add_message(request, messages.ERROR,
                                      '{} {}'.format(structure, _('already exists')))
             else:
-                data.structures.add(structure)
+                data.involved_structure.add(structure)
                 data.modified_by = request.user
                 data.save()
                 event.modified_by = request.user
@@ -306,11 +306,11 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
 def event_structures_delete(request, structure_slug, event_id, structure_id, by_manager=False, event=None):
     if not structure_id:
         raise PermissionDenied()
-    structure = event.data.structures.filter(pk=structure_id).first()
+    structure = event.data.involved_structure.filter(pk=structure_id).first()
     if not structure:
         messages.add_message(request, messages.ERROR, _('Structure does not exist'))
     else:
-        event.data.structures.remove(structure)
+        event.data.involved_structure.remove(structure)
         event.data.modified_by = request.user
         event.data.save()
         event.modified_by = request.user

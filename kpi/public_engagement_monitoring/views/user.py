@@ -341,11 +341,11 @@ def event_people(request, event_id, event=None):
         if person == event.referent:
             messages.add_message(request, messages.ERROR,
                                  "{} {}".format(person, _('is the event referent')))
-        elif data.person.filter(pk=person.pk).exists():
+        elif data.involved_personnel.filter(pk=person.pk).exists():
             messages.add_message(request, messages.ERROR,
                                  "{} {}".format(person, _('already exists')))
         else:
-            data.person.add(person)
+            data.involved_personnel.add(person)
             data.modified_by = request.user
             data.save()
             event.modified_by = request.user
@@ -370,11 +370,11 @@ def event_people_delete(request, event_id, person_id, event=None):
     if not person_id:
         messages.add_message(request, messages.DANGER, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
-    person = event.data.person.filter(pk=person_id).first()
+    person = event.data.involved_personnel.filter(pk=person_id).first()
     if not person:
         messages.add_message(request, messages.ERROR, _('Personnel does not exist'))
     else:
-        event.data.person.remove(person)
+        event.data.involved_personnel.remove(person)
         event.data.modified_by = request.user
         event.data.save()
         event.modified_by = request.user
@@ -426,11 +426,11 @@ def event_structures(request, event_id, event=None):
             if structure == event.structure:
                 messages.add_message(request, messages.ERROR,
                                      "{} {}".format(structure, _('is the event structure')))
-            elif data.structures.filter(pk=structure.pk).exists():
+            elif data.involved_structure.filter(pk=structure.pk).exists():
                 messages.add_message(request, messages.ERROR,
                                      "{} {}".format(structure, _('already exists')))
             else:
-                data.structures.add(structure)
+                data.involved_structure.add(structure)
                 data.modified_by = request.user
                 data.save()
                 event.modified_by = request.user
@@ -458,11 +458,11 @@ def event_structures_delete(request, event_id, structure_id, event=None):
     if not structure_id:
         messages.add_message(request, messages.DANGER, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
-    structure = event.data.structures.filter(pk=structure_id).first()
+    structure = event.data.involved_structure.filter(pk=structure_id).first()
     if not structure:
         messages.add_message(request, messages.ERROR, _('Structure does not exist'))
     else:
-        event.data.structures.remove(structure)
+        event.data.involved_structure.remove(structure)
         event.data.modified_by = request.user
         event.data.save()
         event.modified_by = request.user
@@ -612,7 +612,7 @@ def event_clone(request, event_id, event=None):
     new_data.modified_by = request.user
     new_data.save()
 
-    new_data.person.set(event.data.person.all())
+    new_data.involved_personnel.set(event.data.involved_personnel.all())
     new_data.recipient.set(event.data.recipient.all())
     new_data.target.set(event.data.target.all())
     new_data.promo_channel.set(event.data.promo_channel.all())

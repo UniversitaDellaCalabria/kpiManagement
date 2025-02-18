@@ -17,7 +17,7 @@
 </div>
 {% endif %}
 
-{% if event.data and not event.data.person.all %}
+{% if event.data and not event.data.involved_personnel.all %}
 <div class="alert alert-danger" role="alert">
     {% trans "Other involved personnel missing" %}
 </div>
@@ -27,7 +27,7 @@
 <div class="alert alert-warning" role="alert">
     {% trans "Unable to edit monitoring data" %}:
     <ul style="font-size: 1rem">
-        {% if not event.data or not event.data.person.all %}
+        {% if not event.data or not event.data.involved_personnel.all %}
         <li>{% trans "event data are incomplete" %}</li>
         {% elif event.has_been_rejected %}
         <li>{% trans "event rejected" %}</li>
@@ -74,9 +74,9 @@
         {% endif %}
 
         {% if event.data and event.is_editable_by_user %}
-        <a class="btn btn-xs btn-{% if event.data.person.all %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:user_event_people' event_id=event.pk %}">
-            <svg class="icon icon-sm icon-{% if event.data.person.all %}info{% else %}white{% endif %}">
-                <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.person.all %}pencil{% else %}plus-circle{% endif %}"></use>
+        <a class="btn btn-xs btn-{% if event.data.involved_personnel.all %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:user_event_people' event_id=event.pk %}">
+            <svg class="icon icon-sm icon-{% if event.data.involved_personnel.all %}info{% else %}white{% endif %}">
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.involved_personnel.all %}pencil{% else %}plus-circle{% endif %}"></use>
             </svg> {% trans "Other involved personnel" %}
         </a>
         <a class="btn btn-xs btn-outline-secondary" href="{% url 'public_engagement_monitoring:user_event_structures' event_id=event.pk %}">
@@ -216,12 +216,12 @@
 {% endblock actions %}
 
 {% block people %}
-{% if event.data.person.all %}
+{% if event.data.involved_personnel.all %}
 <div class="mt-5 h5"><b>{% trans "Other involved personnel" %}</b></div>
 <hr />
 <div class="table-responsive">
     <table class="table table-hover table-striped">
-        {% for person in event.data.person.all %}
+        {% for person in event.data.involved_personnel.all %}
         <tr>
             <td>{{ person }}</td>
             <td class="text-end">
@@ -263,12 +263,12 @@
 {% endblock people %}
 
 {% block structures %}
-{% if event.data.structures.all %}
+{% if event.data.involved_structure.all %}
 <div class="mt-5 h5"><b>{% trans "Other involved structures" %}</b></div>
 <hr />
 <div class="table-responsive">
     <table class="table table-hover table-striped">
-        {% for structure in event.data.structures.all %}
+        {% for structure in event.data.involved_structure.all %}
         <tr>
             <td>{{ structure }}</td>
             <td class="text-end">

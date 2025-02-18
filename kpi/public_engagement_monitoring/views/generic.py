@@ -35,7 +35,7 @@ def download_event_poster(request, event_id):
     elif request.user == event.created_by: permission_granted = True
 
     data = getattr(event, 'data', None)
-    if data and data.person == request.user and event.operator_evaluation_date and event.operator_evaluation_success:
+    if data and data.involved_personnel == request.user and event.operator_evaluation_date and event.operator_evaluation_success:
         permission_granted = True
 
     if not permission_granted:

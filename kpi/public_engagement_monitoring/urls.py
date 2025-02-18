@@ -5,8 +5,16 @@ from . api.views import (generic as api_generic,
                          operator as api_evaluation_operator,
                          patronage as api_patronage_operator,
                          manager as api_manager,
-                         involved_personnel as api_involved_personnel)
-from . views import generic, involved_personnel, manager, operator, patronage, user
+                         involved_personnel as api_involved_personnel,
+                         involved_structures as api_involved_structures)
+
+from . views import (generic,
+                     involved_personnel,
+                     involved_structures,
+                     manager,
+                     operator,
+                     patronage,
+                     user)
 
 
 app_name = 'public_engagement_monitoring'
@@ -18,6 +26,7 @@ prefix = 'public-engagement-monitoring'
 api_prefix = "api"
 user_prefix = 'user'
 involved_personnel_prefix = 'involved-personnel'
+involved_structures_prefix = 'involved-structures'
 operator_prefix = 'operator'
 validator_prefix = 'evaluation'
 patronage_prefix = 'patronage'
@@ -98,6 +107,14 @@ urlpatterns = [
     path(f'{prefix}/{operator_prefix}/{patronage_prefix}/<str:structure_slug>/events/<int:event_id>/reopen-evaluation/',
          patronage.event_reopen_evaluation, name='patronage_operator_event_reopen_evaluation'),
 
+    # involved structures
+    path(f'{prefix}/{operator_prefix}/{involved_structures_prefix}/',
+         involved_structures.dashboard, name='involved_structures_dashboard'),
+    path(f'{prefix}/{operator_prefix}/{involved_structures_prefix}/<str:structure_slug>/events/',
+        involved_structures.events, name='involved_structures_events'),
+    path(f'{prefix}/{operator_prefix}/{involved_structures_prefix}/<str:structure_slug>/events/<int:event_id>/',
+        involved_structures.event, name='involved_structures_event'),
+
     # manager
     path(f'{prefix}/{manager_prefix}/',
          manager.dashboard, name='manager_dashboard'),
@@ -124,7 +141,7 @@ urlpatterns = [
     path(f'{prefix}/{manager_prefix}/<str:structure_slug>/events/<int:event_id>/report/',
          manager.event_report, name='manager_event_report'),
 
-    # user
+    # involved personnel
     path(f'{prefix}/{involved_personnel_prefix}/events/', involved_personnel.events, name='involved_personnel_events'),
     path(f'{prefix}/{involved_personnel_prefix}/events/<int:event_id>/',
          involved_personnel.event, name='involved_personnel_event'),
@@ -145,4 +162,6 @@ urlpatterns = [
          api_manager.PublicEngagementEventList.as_view(), name='api_manager_events'),
     path(f'{prefix}/{api_prefix}/{involved_personnel_prefix}/events/',
          api_involved_personnel.PublicEngagementEventList.as_view(), name='api_involved_personnel_events'),
+    path(f'{prefix}/{api_prefix}/{operator_prefix}/{involved_structures_prefix}/<str:structure_slug>/events/',
+         api_involved_structures.PublicEngagementEventList.as_view(), name='api_involved_structures_events'),
 ]
