@@ -95,7 +95,8 @@ def send_email_to_promoters(channel, title, start, end, description, poster=None
        Inizio: {start}
        Fine: {end}
        Descrizione: {description}
-    """.format(title=title,
+    """.format(channel=channel,
+               title=title,
                start=timezone.localtime(start),
                end=timezone.localtime(end),
                description=description)

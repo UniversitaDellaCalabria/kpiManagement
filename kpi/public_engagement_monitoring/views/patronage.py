@@ -105,11 +105,11 @@ def take_event(request, structure_slug, event_id):
                                                  data__patronage_requested=True).first()
 
     if not event:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:patronage_operator_events',
                         structure_slug=structure_slug)
     if not event.can_be_handled_for_patronage():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:patronage_operator_event',
                         structure_slug=structure_slug,
                         event_id=event_id)
@@ -146,12 +146,12 @@ def event_evaluation(request, structure_slug, event_id):
                                                  data__patronage_requested=True).first()
 
     if not event:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:patronage_operator_events',
                         structure_slug=structure_slug)
 
     if not event.is_ready_for_patronage_check():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:patronage_operator_event',
                         structure_slug=structure_slug,
                         event_id=event_id)
@@ -213,12 +213,12 @@ def event_reopen_evaluation(request, structure_slug, event_id):
                                                  structure__slug=structure_slug,
                                                  data__patronage_requested=True).first()
     if not event:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:patronage_operator_events',
                         structure_slug=structure_slug)
 
     if not event.patronage_can_be_reviewed():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:patronage_operator_event',
                         structure_slug=structure_slug,
                         event_id=event_id)

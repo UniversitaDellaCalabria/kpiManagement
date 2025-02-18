@@ -177,8 +177,8 @@ class PublicEngagementEventEvaluationForm(forms.Form):
     success = forms.ChoiceField(
         label=_("Outcome"),
         choices=[
-            (False, _("Negative")),
-            (True,_("Positive"))
+            (True, _("Positive")),
+            (False,_("Negative"))
         ],
         widget=BootstrapItaliaRadioWidget)
     notes = forms.CharField(

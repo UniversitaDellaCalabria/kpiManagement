@@ -17,7 +17,7 @@ def can_manage_public_engagement(func_to_decorate):
         request = original_args[0]
         if request.user.matricola_dipendente:
             return func_to_decorate(*original_args, **original_kwargs)
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
@@ -46,6 +46,6 @@ def has_access_to_event(func_to_decorate):
         if user_is_manager(request.user):
             return func_to_decorate(*original_args, **original_kwargs)
 
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:dashboard")
     return new_func

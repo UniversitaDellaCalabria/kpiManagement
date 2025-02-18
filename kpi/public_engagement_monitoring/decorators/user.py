@@ -37,7 +37,7 @@ def has_access_to_my_event(func_to_decorate):
         # if user_is_operator(user=request.user, structure=event.structure):
             # return func_to_decorate(*original_args, **original_kwargs)
 
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:user_events")
     return new_func
 
@@ -54,7 +54,7 @@ def is_editable_by_user(func_to_decorate):
         event = original_kwargs['event']
         if event.is_editable_by_user():
             return func_to_decorate(*original_args, **original_kwargs)
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
     return new_func
 
@@ -71,7 +71,7 @@ def has_report_editable(func_to_decorate):
         event = original_kwargs.get('event') or get_object_or_404(PublicEngagementEvent, pk=original_kwargs['event_id'])
         if event.has_report_editable():
             return func_to_decorate(*original_args, **original_kwargs)
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:user_event",
                         event_id=original_kwargs['event_id'])
     return new_func

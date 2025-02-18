@@ -23,7 +23,7 @@ def evaluation_operator_structures(func_to_decorate):
         if structures:
             original_kwargs['structures'] = structures
             return func_to_decorate(*original_args, **original_kwargs)
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
@@ -42,7 +42,7 @@ def is_structure_evaluation_operator(func_to_decorate):
                                       is_active=True)
         if user_is_operator(user=request.user, structure=structure):
             return func_to_decorate(*original_args, **original_kwargs)
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:dashboard")
     return new_func
 
@@ -65,7 +65,7 @@ def is_editable_by_operator(func_to_decorate):
         if event.is_editable_by_operator():
             original_kwargs['event'] = event
             return func_to_decorate(*original_args, **original_kwargs)
-        messages.add_message(request, messages.DANGER, _('Access denied'))
+        messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:operator_event",
                        structure_slug=structure_slug,
                        event_id=event_id)

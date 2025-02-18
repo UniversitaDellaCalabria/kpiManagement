@@ -102,7 +102,7 @@ def take_event(request, structure_slug, event_id):
                               structure__slug=structure_slug)
 
     if not event.can_be_handled_for_evaluation():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:operator_events',
                         structure_slug=structure_slug)
 
@@ -261,12 +261,12 @@ def event_evaluation(request, structure_slug, event_id):
                                                  structure__slug=structure_slug).first()
 
     if not event:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:operator_events',
                         structure_slug=structure_slug)
 
     if not event.is_ready_for_evaluation():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:operator_event',
                         structure_slug=structure_slug,
                         event_id=event_id)
@@ -318,7 +318,7 @@ def event_evaluation(request, structure_slug, event_id):
                 send_email_to_managers(subject, body)
                 # invia email a comunicazione
                 for promo_channel in event.data.promo_channel.filter(is_active=True):
-                    recipients += list(promo_channel.get_contacts(structure=event.structure))
+                    recipients = list(promo_channel.get_contacts(structure=event.structure))
                     send_email_to_promoters(channel=promo_channel.description,
                                             title=event.title,
                                             start=event.start,
@@ -342,12 +342,12 @@ def event_reopen_evaluation(request, structure_slug, event_id):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  structure__slug=structure_slug).first()
     if not event:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:operator_events',
                         structure_slug=structure_slug)
 
     if not event.evaluation_can_be_reviewed():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect('public_engagement_monitoring:operator_event',
                         structure_slug=structure_slug,
                         event_id=event_id)

@@ -56,7 +56,7 @@ def new_event_choose_referent(request):
 
         # se il referente non ha una matricola da dipendente
         if user_is_referent and not request.user.matricola_dipendente:
-            messages.add_message(request, messages.DANGER, _("You cannot enter an event as a referent"))
+            messages.add_message(request, messages.ERROR, _("You cannot enter an event as a referent"))
             return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
         # recupero della matricola da dipendente
@@ -69,7 +69,7 @@ def new_event_choose_referent(request):
                                         data={'id': request.POST['referent_id']},
                                         headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
             if referent_id.status_code != 200:
-                messages.add_message(request, messages.DANGER, _("Access denied"))
+                messages.add_message(request, messages.ERROR, _("Access denied"))
                 return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
             # matricola in chiaro
@@ -80,7 +80,7 @@ def new_event_choose_referent(request):
         response = requests.get('{}{}/'.format(API_ADDRESSBOOK_FULL, referent_id.zfill(6)),
                                 headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
-            messages.add_message(request, messages.DANGER, _("Unable to retrieve user data from our systems"))
+            messages.add_message(request, messages.ERROR, _("Unable to retrieve user data from our systems"))
             return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
         referent_data = response.json()['results']
@@ -95,12 +95,12 @@ def new_event_choose_referent(request):
                 codice_fiscale=referent_data['Taxpayer_ID']).first()
             # se l'utente è stato disattivato
             if referent_user and not referent_user.is_active:
-                messages.add_message(request, messages.DANGER, _("User deactivated"))
+                messages.add_message(request, messages.ERROR, _("User deactivated"))
                 return redirect('public_engagement_monitoring:user_new_event_choose_referent')
             # se non esiste localmente lo creo
             if not referent_user:
                 if not referent_data.get('Email'):
-                    messages.add_message(request, messages.DANGER,_("The person selected does not have an email"))
+                    messages.add_message(request, messages.ERROR,_("The person selected does not have an email"))
                     return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
                 referent_user = get_user_model().objects.create(username=referent_data['Taxpayer_ID'],
@@ -127,7 +127,7 @@ def new_event_choose_referent(request):
 def new_event_basic_info(request):
     # se non è stato scelto il referente nella fase iniziale
     if not request.session.get('referent'):
-        messages.add_message(request, messages.DANGER, _("Event referent is mandatory"))
+        messages.add_message(request, messages.ERROR, _("Event referent is mandatory"))
         return redirect('public_engagement_monitoring:user_new_event_choose_referent')
 
     template = 'pem/event_basic_info.html'
@@ -311,7 +311,7 @@ def event_people(request, event_id, event=None):
         person_id = request.POST.get('person_id')
 
         if not person_id:
-            messages.add_message(request, messages.DANGER, _("Access denied"))
+            messages.add_message(request, messages.ERROR, _("Access denied"))
             return redirect('public_engagement_monitoring:user_event_people', event_id=event_id)
 
         decrypted_id = requests.post("{}/".format(API_DECRYPTED_ID),
@@ -320,7 +320,7 @@ def event_people(request, event_id, event=None):
         response = requests.get("{}{}/".format(API_ADDRESSBOOK_FULL, decrypted_id.json()), headers={
                                 'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
-            messages.add_message(request, messages.DANGER, _("Access denied"))
+            messages.add_message(request, messages.ERROR, _("Access denied"))
             return redirect('public_engagement_monitoring:user_event_people', event_id=event_id)
         person_data = response.json()['results']
         person = get_user_model().objects.filter(
@@ -368,7 +368,7 @@ def event_people(request, event_id, event=None):
 @is_editable_by_user
 def event_people_delete(request, event_id, person_id, event=None):
     if not person_id:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
     person = event.data.involved_personnel.filter(pk=person_id).first()
     if not person:
@@ -416,7 +416,7 @@ def event_structures(request, event_id, event=None):
             structure_id = form.cleaned_data['structure']
 
             if not structure_id:
-                messages.add_message(request, messages.DANGER, _("Access denied"))
+                messages.add_message(request, messages.ERROR, _("Access denied"))
                 return redirect('public_engagement_monitoring:user_event_structures', event_id=event_id)
 
             structure = OrganizationalStructure.objects.filter(pk=structure_id,
@@ -456,7 +456,7 @@ def event_structures(request, event_id, event=None):
 @is_editable_by_user
 def event_structures_delete(request, event_id, structure_id, event=None):
     if not structure_id:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
     structure = event.data.involved_structure.filter(pk=structure_id).first()
     if not structure:
@@ -482,11 +482,11 @@ def event_structures_delete(request, event_id, structure_id, event=None):
 @has_report_editable
 def event_report(request, event_id, event=None):
     if event.created_by_manager:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     if getattr(event, 'report', None) and event.report.edited_by_manager:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     template = 'pem/user/event_report.html'
@@ -568,7 +568,7 @@ def event_request_evaluation(request, event_id, event=None):
 @has_access_to_my_event
 def event_request_evaluation_cancel(request, event_id, event=None):
     if not event.evaluation_request_can_be_reviewed():
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     event.to_evaluate = False
@@ -627,7 +627,7 @@ def event_clone(request, event_id, event=None):
 @has_access_to_my_event
 def event_delete(request, event_id, event=None):
     if event.to_evaluate or event.created_by_manager:
-        messages.add_message(request, messages.DANGER, _("Access denied"))
+        messages.add_message(request, messages.ERROR, _("Access denied"))
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     messages.add_message(request, messages.SUCCESS,

@@ -68,7 +68,7 @@ def new_event_choose_referent(request, structure_slug):
                                         'id': request.POST['referent_id']},
                                     headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if referent_id.status_code != 200:
-            messages.add_message(request, messages.DANGER, _("Access denied"))
+            messages.add_message(request, messages.ERROR, _("Access denied"))
             return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
                             structure_slug=structure_slug)
 
@@ -77,13 +77,13 @@ def new_event_choose_referent(request, structure_slug):
         response = requests.get('{}{}'.format(API_ADDRESSBOOK_FULL, referent_id.json()),
                                 headers={'Authorization': 'Token {}'.format(settings.STORAGE_TOKEN)})
         if response.status_code != 200:
-            messages.add_message(request, messages.DANGER, _("Access denied"))
+            messages.add_message(request, messages.ERROR, _("Access denied"))
             return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
                             structure_slug=structure_slug)
 
         referent_data = response.json()['results']
         if not referent_data.get('Email'):
-            messages.add_message(request, messages.DANGER, _("The person selected does not have an email"))
+            messages.add_message(request, messages.ERROR, _("The person selected does not have an email"))
             return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
                             structure_slug=structure_slug)
 
@@ -107,7 +107,7 @@ def new_event_choose_referent(request, structure_slug):
                                                             gender=referent_data['Gender'])
         # se l'utente è stato disattivato
         if not referent_user.is_active:
-            messages.add_message(request, messages.DANGER, _("Access denied"))
+            messages.add_message(request, messages.ERROR, _("Access denied"))
             return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
                             structure_slug=structure_slug)
 
@@ -124,7 +124,7 @@ def new_event_choose_referent(request, structure_slug):
 def new_event_basic_info(request, structure_slug):
     # se non è stato scelto il referente nella fase iniziale
     if not request.session.get('referent'):
-        messages.add_message(request, messages.DANGER, _("Event referent is mandatory"))
+        messages.add_message(request, messages.ERROR, _("Event referent is mandatory"))
         return redirect('public_engagement_monitoring:manager_new_event_choose_referent',
                         structure_slug=structure_slug)
 
@@ -232,7 +232,7 @@ def event_basic_info(request, structure_slug, event_id, event=None):
         if form.is_valid():
             event = form.save(commit=False)
             if event.created_by_manager and not event.is_over():
-                messages.add_message(request, messages.DANGER, _("It is possible to add only ex-post events"))
+                messages.add_message(request, messages.ERROR, _("It is possible to add only ex-post events"))
                 return redirect("public_engagement_monitoring:manager_event",
                                 structure_slug=structure_slug,
                                 event_id=event_id)
