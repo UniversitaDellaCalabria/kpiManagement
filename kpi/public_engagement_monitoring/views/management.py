@@ -71,7 +71,7 @@ def event_data(request, structure_slug, event_id, by_manager=False, event=None):
                                  _("Data updated successfully"))
 
             # invia email al referente/compilatore
-            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
             body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
 
             send_email_to_event_referents(event, subject, body)
@@ -169,7 +169,7 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
                                  '{} {}'.format(person, _('added successfully')))
 
             # invia email al referente/compilatore
-            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
             body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
             send_email_to_event_referents(event, subject, body)
 
@@ -213,7 +213,7 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
         messages.add_message(request, messages.SUCCESS, _('Personnel removed successfully'))
 
         # invia email al referente/compilatore
-        subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+        subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
         body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
         send_email_to_event_referents(event, subject, body)
 
@@ -285,7 +285,7 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
                                      '{} {}'.format(structure, _('added successfully')))
 
                 # invia email al referente/compilatore
-                subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+                subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
                 body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
                 send_email_to_event_referents(event, subject, body)
 
@@ -333,7 +333,7 @@ def event_structures_delete(request, structure_slug, event_id, structure_id, by_
         messages.add_message(request, messages.SUCCESS, _('Structure removed successfully'))
 
         # invia email al referente/compilatore
-        subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+        subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
         body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
         send_email_to_event_referents(event, subject, body)
 

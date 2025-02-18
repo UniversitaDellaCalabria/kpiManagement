@@ -119,7 +119,7 @@ def take_event(request, structure_slug, event_id):
                msg="[Operatore {}] Iniziativa presa in carico".format(structure_slug))
 
     # invia email al referente/compilatore
-    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('handled'))
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Handled'))
     body = "{} {} {}".format(request.user, _('is evaluating the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
@@ -160,7 +160,7 @@ def event_basic_info(request, structure_slug, event_id, event=None):
                                  _("Modified general informations successfully"))
 
             # invia email al referente/compilatore
-            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
             body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
 
             send_email_to_event_referents(event, subject, body)
@@ -364,7 +364,7 @@ def event_reopen_evaluation(request, structure_slug, event_id):
     messages.add_message(request, messages.SUCCESS, _("Evaluation reopened"))
 
     # email
-    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('evaluation reopened'))
+    subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation reopened'))
     body = "{} {} {}".format(request.user, _('has reopened evaluation of the event'), '.')
     send_email_to_event_referents(event, subject, body)
 

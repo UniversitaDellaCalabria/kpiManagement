@@ -249,7 +249,7 @@ def event_basic_info(request, structure_slug, event_id, event=None):
                                  _("Modified general informations successfully"))
 
             # invia email al referente/compilatore
-            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('data modified'))
+            subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))
             body = '{} {} {}'.format(request.user, _('has modified the data of the event'), '.')
 
             send_email_to_event_referents(event, subject, body)
