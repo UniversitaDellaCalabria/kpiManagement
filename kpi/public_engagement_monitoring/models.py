@@ -492,7 +492,7 @@ class PublicEngagementEventPromoChannel(ActivableModel, CreatedModifiedBy, TimeS
     def get_contacts(self, structure=None):
         contacts = PublicEngagementEventPromoChannelContact.objects.filter(promo_channel=self,
                                                                     is_active=True)
-        if structure:
+        if not self.is_global and structure:
             contacts = contacts.filter(structure=structure)
         return contacts.values_list('email', flat=True)
 
