@@ -325,7 +325,7 @@ def event_evaluation(request, structure_slug, event_id):
                                         end=event.end,
                                         description=event.data.description,
                                         poster=event.data.poster,
-                                        recipients=list(set(recipients)))
+                                        recipients=list(set(promo_recipients)))
 
             return redirect("public_engagement_monitoring:operator_event",
                             structure_slug=structure_slug,
