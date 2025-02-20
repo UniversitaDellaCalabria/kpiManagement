@@ -125,7 +125,7 @@ class PublicEngagementEventDataForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        if self.instance.id and self.instance.event == project_name:
+        if self.instance.id and self.instance.event == cleaned_data.get('project_name', None):
             self.add_error('project_name', "Non è possibile collegare all'evento medesimo")
 
         promo_channel = cleaned_data.get('promo_channel')
