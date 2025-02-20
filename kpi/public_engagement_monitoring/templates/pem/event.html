@@ -283,21 +283,28 @@
         </tr>
         <tr>
             <td>
-                {% get_field_label event.data 'other_recipients' as field_label %}
+                {% get_field_label event.data 'recipient' as field_label %}
                 {{ field_label }}
             </td>
             <td>
-                {% if event.data.other_recipients %}
-                {{ event.data.other_recipients }}
-                {% else %}
                 <ul>
                     {% for recipient in event.data.recipient.all %}
                     <li>{{ recipient }}</li>
                     {% endfor %}
                 </ul>
-                {% endif %}
             </td>
         </tr>
+        {% if event.data.other_recipients %}
+        <tr>
+            <td>
+                {% get_field_label event.data 'other_recipients' as field_label %}
+                {{ field_label }}
+            </td>
+            <td>
+                {{ event.data.other_recipients }}
+            </td>
+        </tr>
+        {% endif %}
         <tr>
             <td>
                 {% get_field_label event.data 'target' as field_label %}
