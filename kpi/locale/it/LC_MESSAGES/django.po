@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 18:03+0100\n"
-"PO-Revision-Date: 2025-02-18 18:04+0100\n"
+"POT-Creation-Date: 2025-02-20 15:39+0100\n"
+"PO-Revision-Date: 2025-02-20 15:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1108,9 +1108,12 @@ msgid "Other involved personnel"
 msgstr "Altro personale coinvolto"
 
 #: public_engagement_monitoring/templates/pem/dashboard.html:111
-#: public_engagement_monitoring/templates/pem/dashboard.html:133
-msgid "Access event data read-only"
-msgstr "Accedi ai dati delle iniziative in sola lettura"
+msgid ""
+"Access the data of the initiatives in which you have been included as "
+"\"other involved personnel\""
+msgstr ""
+"Accedi ai dati delle iniziative nelle quali sei stato inserito come “altro "
+"personale coinvolto”"
 
 #: public_engagement_monitoring/templates/pem/dashboard.html:114
 #: public_engagement_monitoring/templates/pem/dashboard.html:136
@@ -1132,6 +1135,13 @@ msgstr "Accedi"
 #: public_engagement_monitoring/views/user.py:408
 msgid "Other involved structures"
 msgstr "Altre strutture coinvolte"
+
+#: public_engagement_monitoring/templates/pem/dashboard.html:133
+msgid ""
+"Access the data of the initiatives in which your structure has been involved"
+msgstr ""
+"Accedi ai dati delle iniziative nelle quali la tua struttura è stata "
+"coinvolta"
 
 #: public_engagement_monitoring/templates/pem/event.html:12
 msgid "Data summary"
@@ -2308,6 +2318,9 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Access event data read-only"
+#~ msgstr "Accedi ai dati delle iniziative in sola lettura"
 
 #~ msgid "data modified"
 #~ msgstr "dati modificati"
