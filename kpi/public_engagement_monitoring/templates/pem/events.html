@@ -80,7 +80,7 @@
                             <div class="form-check form-check-inline">
                                 <div class="toggles">
                                   <label for="toggle1">
-                                    {% trans "Approved" %}
+                                    {% trans "Approved (singular)" %}
                                     <input v-model="filter_evaluation_ok" type="checkbox" id="toggle1" @change="evaluation_ok($event.target.checked)">
                                     <span class="lever"></span>
                                   </label>
@@ -89,7 +89,7 @@
                             <div class="form-check form-check-inline">
                                 <div class="toggles">
                                   <label for="toggle2">
-                                    {% trans "Rejected" %}
+                                    {% trans "Rejected (singular)" %}
                                     <input v-model="filter_evaluation_ko" type="checkbox" id="toggle2" @change="evaluation_ko($event.target.checked)">
                                     <span class="lever"></span>
                                   </label>
@@ -145,7 +145,7 @@
                                                                                  minute: 'numeric'}) ]]</td>
                                     <td>
                                         <svg class="icon icon-sm icon-warning" v-if="event.created_by_manager">
-                                            <title>{% trans "Loaded by manager" %}</title>
+                                            <title>{% trans "Loaded by manager (singular)" %}</title>
                                             <use xlink:href="{% static 'svg/sprites.svg' %}#it-info-circle"></use>
                                         </svg>
                                         <svg class="icon icon-sm icon-warning" v-else-if="event.is_ready_for_request_evaluation">
@@ -161,11 +161,11 @@
                                             <use xlink:href="{% static 'svg/sprites.svg' %}#it-clock"></use>
                                         </svg>
                                         <svg class="icon icon-sm icon-danger" v-else-if="event.has_been_rejected">
-                                            <title>{% trans "Rejected" %}</title>
+                                            <title>{% trans "Rejected (singular)" %}</title>
                                             <use xlink:href="{% static 'svg/sprites.svg' %}#it-error"></use>
                                         </svg>
                                         <svg class="icon icon-sm icon-success" v-else-if="event.has_been_approved">
-                                            <title>{% trans "Approved" %}</title>
+                                            <title>{% trans "Approved (singular)" %}</title>
                                             <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                         </svg>
                                         <svg class="icon icon-sm icon-info" v-else-if="!event.to_evaluate">

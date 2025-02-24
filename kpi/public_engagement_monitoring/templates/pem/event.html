@@ -28,7 +28,7 @@
 <span class="badge bg-warning mt-5">
     <svg class="icon icon-sm icon-white">
         <use xlink:href="{% static 'svg/sprites.svg' %}#it-info-circle"></use>
-    </svg> {% trans "Loaded by manager" %}
+    </svg> {% trans "Loaded by manager (singular)" %}
 </span>
 {% else %}
 <div class="row mt-5">
@@ -91,13 +91,13 @@
                         <span class="badge bg-danger">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-error"></use>
-                            </svg>  {% trans "Rejected" %}
+                            </svg>  {% trans "Rejected (singular)" %}
                         </span>
                         {% elif event.has_been_approved %}
                         <span class="badge bg-success">
                             <svg class="icon icon-sm icon-white">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-check"></use>
-                            </svg>  {% trans "Approved" %}
+                            </svg>  {% trans "Approved (singular)" %}
                         </span>
                         {% elif event.operator_taken_date and not event.operator_evaluation_date%}
                         <span class="badge bg-warning">
