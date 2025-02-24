@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-24 13:05+0100\n"
-"PO-Revision-Date: 2025-02-24 13:05+0100\n"
+"POT-Creation-Date: 2025-02-24 13:20+0100\n"
+"PO-Revision-Date: 2025-02-24 13:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1164,7 +1164,7 @@ msgstr "Ultimo aggiornamento:"
 
 #: public_engagement_monitoring/templates/pem/event.html:31
 #: public_engagement_monitoring/templates/pem/events.html:148
-msgid "Loaded by manager"
+msgid "Loaded by manager (singular)"
 msgstr "Inserita da operatore di Ateneo"
 
 #: public_engagement_monitoring/templates/pem/event.html:51
@@ -1188,14 +1188,14 @@ msgstr "Da prendere in carico"
 #: public_engagement_monitoring/templates/pem/events.html:92
 #: public_engagement_monitoring/templates/pem/events.html:164
 #: public_engagement_monitoring/templates/pem/operator/involved-structures/events.html:28
-msgid "Rejected"
+msgid "Rejected (singular)"
 msgstr "Respinta"
 
 #: public_engagement_monitoring/templates/pem/event.html:100
 #: public_engagement_monitoring/templates/pem/events.html:83
 #: public_engagement_monitoring/templates/pem/events.html:168
 #: public_engagement_monitoring/templates/pem/operator/involved-structures/events.html:19
-msgid "Approved"
+msgid "Approved (singular)"
 msgstr "Approvata"
 
 #: public_engagement_monitoring/templates/pem/event.html:106
@@ -2341,6 +2341,15 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid "Loaded by manager"
+#~ msgstr "Inserita da operatore di Ateneo"
+
+#~ msgid "Rejected"
+#~ msgstr "Respinta"
+
+#~ msgid "Approved"
+#~ msgstr "Approvata"
 
 #~ msgid "Access event data read-only"
 #~ msgstr "Accedi ai dati delle iniziative in sola lettura"
