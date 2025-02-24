@@ -8,6 +8,7 @@
 {% block top_content %}
 <h2>{% trans "Structures" %}</h2>
 <p>{% trans "Choose the structure to manage" %}</p>
+<small>{% trans "The counters only take charge of the events for which the monitoring year is still active" %}.</small>
 {% endblock top_content %}
 
 {% block clean_content %}
@@ -21,6 +22,7 @@
                     <h5 class="card-title">
                         {{ structure }}
                     </h5>
+                    <hr>
                     <p>
                         <b>{% trans "To be handled" %}:</b>
                         {% filter_events_per_structure_id event_counts structure.pk as structure_events %}

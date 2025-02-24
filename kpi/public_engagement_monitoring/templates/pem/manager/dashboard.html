@@ -8,6 +8,7 @@
 {% block top_content %}
 <h2>{% trans "Structures" %}</h2>
 <p>{% trans "Choose the structure to manage" %}</p>
+<small>{% trans "The counters only take charge of the events for which the monitoring year is still active" %}.</small>
 {% endblock top_content %}
 
 {% block clean_content %}
@@ -21,8 +22,9 @@
                     <h5 class="card-title">
                         {{ structure }}
                     </h5>
+                    <hr>
                     <p>
-                        <b>{% trans "Approved" %}:</b>
+                        <b>{% trans "Approved (plural)"%}:</b>
                         {% filter_events_per_structure_id event_counts structure.pk as structure_events %}
                         {% if structure_events.0.approved_count  %}
                         <span class="badge bg-success">{{ structure_events.0.approved_count }}</span>
@@ -30,7 +32,7 @@
                         0
                         {% endif %}
                         <br>
-                        <b>{% trans "Loaded by manager" %}:</b>
+                        <b>{% trans "Loaded by manager (plural)" %}:</b>
                         {% if structure_events.0.created_by_manager_count %}
                         <span class="badge bg-info">{{ structure_events.0.created_by_manager_count }}</span>
                         {% else %}
