@@ -13,7 +13,7 @@
 {% block clean_content %}
 <div class="row mt-5">
     {% for structure in structures %}
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg-4">
         <!--start card-->
         <div class="card-wrapper card-space">
             <div class="card card-bg">
@@ -32,7 +32,7 @@
                         <br>
                         <b>{% trans "To evaluate" %}:</b>
                         {% if structure_events.0.to_evaluate_count %}
-                        <span class="badge bg-info">{{ structure_events.0.to_evaluate_count }}</span>
+                        <span class="badge bg-warning">{{ structure_events.0.to_evaluate_count }}</span>
                         {% else %}
                         0
                         {% endif %}

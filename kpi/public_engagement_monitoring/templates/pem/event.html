@@ -25,9 +25,9 @@
 {% block actions %}{% endblock actions %}
 
 {% if event.created_by_manager %}
-<span class="badge bg-info">
+<span class="badge bg-warning mt-5">
     <svg class="icon icon-sm icon-white">
-        <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+        <use xlink:href="{% static 'svg/sprites.svg' %}#it-info-circle"></use>
     </svg> {% trans "Loaded by manager" %}
 </span>
 {% else %}

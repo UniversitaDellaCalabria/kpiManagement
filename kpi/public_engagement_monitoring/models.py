@@ -212,6 +212,9 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         """
         ci dice se l'evento può essere inviato a validazione
         """
+        # False: se è stata creata dal manager
+        if self.created_by_manager:
+            return False
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False

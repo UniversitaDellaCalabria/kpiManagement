@@ -144,7 +144,11 @@
                                                                                  hour: 'numeric',
                                                                                  minute: 'numeric'}) ]]</td>
                                     <td>
-                                        <svg class="icon icon-sm icon-warning" v-if="event.is_ready_for_request_evaluation">
+                                        <svg class="icon icon-sm icon-warning" v-if="event.created_by_manager">
+                                            <title>{% trans "Loaded by manager" %}</title>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-info-circle"></use>
+                                        </svg>
+                                        <svg class="icon icon-sm icon-warning" v-else-if="event.is_ready_for_request_evaluation">
                                             <title>{% trans "Evaluation to be requested" %}</title>
                                             <use xlink:href="{% static 'svg/sprites.svg' %}#it-warning-circle"></use>
                                         </svg>

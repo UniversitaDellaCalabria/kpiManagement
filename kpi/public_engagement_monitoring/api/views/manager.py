@@ -25,7 +25,6 @@ class PublicEngagementEventList(PublicEngagementEventList):
         if status=='approved':
             events = events.filter(operator_evaluation_success=True,
                                    operator_evaluation_date__isnull=False)
-        elif status=='rejected':
-            events = events.filter(operator_evaluation_success=False,
-                                   operator_evaluation_date__isnull=False)
+        elif status=='created_by_manager':
+            events = events.filter(created_by_manager=True)
         return events

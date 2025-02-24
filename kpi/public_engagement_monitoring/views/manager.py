@@ -32,7 +32,23 @@ def dashboard(request):
     structures = OrganizationalStructure.objects.filter(is_active=True,
                                                         is_public_engagement_enabled=True,
                                                         is_internal=True)
-    return render(request, template, {'breadcrumbs': breadcrumbs, 'structures': structures})
+    active_years = PublicEngagementAnnualMonitoring.objects\
+                                                   .filter(is_active=True)\
+                                                   .values_list('year', flat=True)
+    years_query = Q()
+    for year in active_years:
+        years_query |= Q(start__year=year)
+    event_counts = PublicEngagementEvent.objects.filter(
+        years_query,
+        structure__pk__in=structures
+    ).values("structure__id").annotate(
+        approved_count=Count("id", filter=Q(operator_evaluation_success=True,
+                                            operator_evaluation_date__isnull=False)),
+        created_by_manager_count=Count("id", filter=Q(created_by_manager=True)),
+    )
+    return render(request, template, {'breadcrumbs': breadcrumbs,
+                                      'event_counts': event_counts,
+                                      'structures': structures})
 
 
 @login_required
