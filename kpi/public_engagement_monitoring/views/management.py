@@ -136,7 +136,7 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
                                                      first_name=person_data['Name'],
                                                      last_name=person_data['Surname'],
                                                      codice_fiscale=person_data['Taxpayer_ID'],
-                                                     email=person_data['Email'][0],
+                                                     email=next(iter(person_data['Email']), None),
                                                      gender=person_data['Gender'])
         if person == event.referent:
             messages.add_message(request, messages.ERROR,

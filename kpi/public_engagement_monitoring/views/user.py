@@ -99,16 +99,12 @@ def new_event_choose_referent(request):
                 return redirect('public_engagement_monitoring:user_new_event_choose_referent')
             # se non esiste localmente lo creo
             if not referent_user:
-                if not referent_data.get('Email'):
-                    messages.add_message(request, messages.ERROR,_("The person selected does not have an email"))
-                    return redirect('public_engagement_monitoring:user_new_event_choose_referent')
-
                 referent_user = get_user_model().objects.create(username=referent_data['Taxpayer_ID'],
                                                                 matricola_dipendente=referent_data['ID'],
                                                                 first_name=referent_data['Name'],
                                                                 last_name=referent_data['Surname'],
                                                                 codice_fiscale=referent_data['Taxpayer_ID'],
-                                                                email=referent_data['Email'][0],
+                                                                email=next(iter(referent_data['Email']), None),
                                                                 gender=referent_data['Gender'])
 
         # aggiorno il dato sul genere con quello più aggiornato, sempre
@@ -336,7 +332,7 @@ def event_people(request, event_id, event=None):
                                                      first_name=person_data['Name'],
                                                      last_name=person_data['Surname'],
                                                      codice_fiscale=person_data['Taxpayer_ID'],
-                                                     email=person_data['Email'][0],
+                                                     email=next(iter(person_data['Email']), None),
                                                      gender=person_data['Gender'])
         if person == event.referent:
             messages.add_message(request, messages.ERROR,

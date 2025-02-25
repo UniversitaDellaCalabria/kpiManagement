@@ -119,7 +119,7 @@ def new_event_choose_referent(request, structure_slug):
                                                             first_name=referent_data['Name'],
                                                             last_name=referent_data['Surname'],
                                                             codice_fiscale=referent_data['Taxpayer_ID'],
-                                                            email=referent_data['Email'][0],
+                                                            email=next(iter(referent_data['Email']), None),
                                                             gender=referent_data['Gender'])
         # se l'utente è stato disattivato
         if not referent_user.is_active:
