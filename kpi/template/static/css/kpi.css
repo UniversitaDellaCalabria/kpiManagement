@@ -11,6 +11,10 @@
     color: #19191a;
 }
 
+.toggles label input[type="checkbox"]:checked + .lever::after {
+    background-color: rgb(0, 127.5, 85);
+}
+
 input[type=date], input[type=datetime-local], input[type=email], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], textarea{
     width: 100%;
 }
