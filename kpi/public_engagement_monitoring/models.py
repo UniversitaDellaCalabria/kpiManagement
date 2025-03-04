@@ -665,7 +665,8 @@ class PublicEngagementEventReport(CreatedModifiedBy, TimeStampedModel):
                                              verbose_name=_("Scientific areas"))
     collaborator_type = models.ManyToManyField(PublicEngagementEventCollaboratorType,
                                                limit_choices_to={"is_active": True},
-                                               verbose_name=_("Which collaborators were involved in organizing/managing the initiative?"))
+                                               verbose_name=_("Which collaborators were involved in organizing/managing the initiative?"),
+                                               blank=True)
     website = models.URLField(
         _("Initiative’s website"), blank=True, null=True)
     notes = models.TextField(_("Notes"), default='', blank=True)
