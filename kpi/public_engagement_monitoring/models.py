@@ -583,7 +583,7 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
     project_name = models.ForeignKey(PublicEngagementEvent,
                                      on_delete=models.PROTECT,
                                      null=True, blank=True,
-                                     verbose_name=_("Is this activity linked to a project or a broader initiative?"))
+                                     verbose_name=_("If the event is linked to a larger project, indicate which one"))
     recipient = models.ManyToManyField(PublicEngagementEventRecipient,
                                        limit_choices_to={'is_active': True},
                                        verbose_name=_("Recipients"))
