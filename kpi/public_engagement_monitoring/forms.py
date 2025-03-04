@@ -144,11 +144,11 @@ class PublicEngagementEventDataForm(forms.ModelForm):
 
 
 class PublicEngagementEventReportForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        event = kwargs.pop('event')
-        super().__init__(*args, **kwargs)
-        self.fields['other_structure'].queryset = self.fields['other_structure'].queryset.exclude(
-            pk=event.structure.pk)
+    # def __init__(self, *args, **kwargs):
+        # event = kwargs.pop('event')
+        # super().__init__(*args, **kwargs)
+        # self.fields['other_structure'].queryset = self.fields['other_structure'].queryset.exclude(
+            # pk=event.structure.pk)
 
     class Meta:
         model = PublicEngagementEventReport
@@ -156,7 +156,7 @@ class PublicEngagementEventReportForm(forms.ModelForm):
         exclude = ('id', 'created', 'created_by', 'modified',
                    'modified_by', 'event', 'edited_by_manager')
         widgets = {
-            'other_structure': BootstrapItaliaMultiCheckboxWidget(),
+            # 'other_structure': BootstrapItaliaMultiCheckboxWidget(),
             'scientific_area': BootstrapItaliaMultiCheckboxWidget(),
             'collaborator_type': BootstrapItaliaMultiCheckboxWidget(),
             'impact_evaluation': BootstrapItaliaToggleWidget(),
@@ -166,7 +166,7 @@ class PublicEngagementEventReportForm(forms.ModelForm):
         help_texts = {
             'participants': 'Indicare una stima del numero di partecipanti',
             'budget': "Si intende il budget finanziario complessivo direttamente legato all'organizzazione/gestione dell'iniziativa. di Public Engagement. Qualora l'iniziativa è una sottoattività di un progetto più ampio non considerabile complessivamente come Public Engagement, è necessario scorporare e riportare solo il budget direttamente dedicato. Quando la compilazione avvenga prima che l'iniziativa sia conclusa indicare il budget previsto/stimato. Nel campo ‘euro’ possono essere inseriti solo numeri. Se l’iniziativa non ha previsto alcun budget finanziario, indicare 0 €",
-            'other_structure': "Rispondere solo se l’ente organizzatore è “Università della Calabria"
+            # 'other_structure': "Rispondere solo se l’ente organizzatore è “Università della Calabria"
         }
 
     class Media:

@@ -653,13 +653,13 @@ class PublicEngagementEventReport(CreatedModifiedBy, TimeStampedModel):
         _("Is the initiative accompanied by monitoring activities (e.g., collection of information on activities, attendance, satisfaction, etc.)?"), default=False)
     impact_evaluation = models.BooleanField(
         _("Is the initiative accompanied by an impact evaluation plan?"), default=False)
-    other_structure = models.ManyToManyField(OrganizationalStructure,
-                                             limit_choices_to={
-                                                 "is_internal": True,
-                                                 "is_public_engagement_enabled": True,
-                                                 "is_active": True
-                                             },
-                                             verbose_name=_("Which other UNICAL structures (Departments or Centers) collaborated on this initiative?"))
+    # other_structure = models.ManyToManyField(OrganizationalStructure,
+                                             # limit_choices_to={
+                                                 # "is_internal": True,
+                                                 # "is_public_engagement_enabled": True,
+                                                 # "is_active": True
+                                             # },
+                                             # verbose_name=_("Which other UNICAL structures (Departments or Centers) collaborated on this initiative?"))
     scientific_area = models.ManyToManyField(PublicEngagementEventScientificArea,
                                              limit_choices_to={"is_active": True},
                                              verbose_name=_("Scientific areas"))

@@ -472,6 +472,7 @@
                 {% endif %}
             </td>
         </tr>
+        {% comment %}
         <tr>
             <td>
                 {% get_field_label event.report 'other_structure' as field_label %}
@@ -485,6 +486,7 @@
                 </ul>
             </td>
         </tr>
+        {% endcomment %}
         <tr>
             <td>
                 {% get_field_label event.report 'scientific_area' as field_label %}
