@@ -18,7 +18,7 @@ def can_manage_public_engagement(func_to_decorate):
         if request.user.matricola_dipendente:
             return func_to_decorate(*original_args, **original_kwargs)
         messages.add_message(request, messages.ERROR, _('Access denied'))
-        return redirect("public_engagement_monitoring:dashboard")
+        return redirect("template:dashboard")
     return new_func
 
 
