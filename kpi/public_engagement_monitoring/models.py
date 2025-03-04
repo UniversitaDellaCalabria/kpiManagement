@@ -165,8 +165,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not getattr(self, 'data', None):
             return False
         # False: se non sono stati inserite le persone collegate
-        if not self.data.involved_personnel.exists():
-            return False
+        # if not self.data.involved_personnel.exists():
+            # return False
         # False: se è stato creato dal manager
         if self.created_by_manager:
             return False
@@ -195,8 +195,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not getattr(self, 'data', None):
             return False
         # False: se non sono stati inserite le persone collegate
-        if not self.data.involved_personnel.exists():
-            return False
+        # if not self.data.involved_personnel.exists():
+            # return False
         # True: se l'evento è terminato
         if not self.is_over():
             return False
@@ -225,8 +225,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not getattr(self, 'data', None):
             return False
         # False: se non sono stati inserite le persone collegate
-        if not self.data.involved_personnel.exists():
-            return False
+        # if not self.data.involved_personnel.exists():
+            # return False
         # se l'evento deve ancora iniziare
         # si tiene conto del numero di giorni minimo
         # (settings.EVALUATION_TIME_DELTA)
@@ -302,8 +302,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se non sono stati inserite le persone collegate
         if not hasattr(self, 'data'):
             return False
-        if not self.data.involved_personnel.exists():
-            return False
+        # if not self.data.involved_personnel.exists():
+            # return False
         # False: se è già stata valutata
         if self.operator_evaluation_date:
             return False

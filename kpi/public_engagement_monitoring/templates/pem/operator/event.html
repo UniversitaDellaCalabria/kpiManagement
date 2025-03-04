@@ -8,11 +8,14 @@
 
 {% block alerts %}
 {{ block.super }}
+
+{% comment %}
 {% if event.data and not event.data.involved_personnel.all %}
 <div class="alert alert-danger" role="alert">
     {% trans "Other involved personnel missing" %}
 </div>
-{% elif not event.to_evaluate %}
+{% endcomment %}
+{% if not event.to_evaluate %}
 <div class="alert alert-danger" role="alert">
     {% trans "Evaluation request not sent" %}
 </div>
@@ -65,9 +68,9 @@
     {% endif %}
 
     {% if event.data and event.is_editable_by_operator %}
-    <a class="btn btn-{% if event.data.involved_personnel.all %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:operator_event_people' structure_slug=structure_slug event_id=event.pk %}">
-        <svg class="icon icon-sm icon-{% if event.data.involved_personnel.all %}info{% else %}white{% endif %}">
-            <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.data.involved_personnel.all %}pencil{% else %}plus-circle{% endif %}"></use>
+    <a class="btn btn-outline-secondary" href="{% url 'public_engagement_monitoring:operator_event_people' structure_slug=structure_slug event_id=event.pk %}">
+        <svg class="icon icon-sm icon-info">
+            <use xlink:href="{% static 'svg/sprites.svg' %}#it-pencil"></use>
         </svg> {% trans "Other involved personnel" %}
     </a>
     <a class="btn btn-outline-secondary" href="{% url 'public_engagement_monitoring:operator_event_structures' structure_slug=structure_slug event_id=event.pk %}">
