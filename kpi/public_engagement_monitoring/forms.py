@@ -194,7 +194,7 @@ class PublicEngagementEventEvaluationForm(forms.Form):
         success = cleaned_data.get('success')
         notes = cleaned_data.get('notes')
         if success == 'False' and not notes:
-            self.add_error('notes', "Note obbligatore in caso di esito negativo")
+            self.add_error('notes', _("Mandatory in case of negative outcome"))
 
         return cleaned_data
 
