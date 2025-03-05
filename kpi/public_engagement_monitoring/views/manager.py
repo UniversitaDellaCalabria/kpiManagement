@@ -195,7 +195,7 @@ def new_event_basic_info(request, structure_slug):
                                 event_id=event.pk)
         else:  # pragma: no cover
             messages.add_message(request, messages.ERROR,
-                                 "<b>{}</b>: {} {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
     return render(request, template, {'breadcrumbs': breadcrumbs, 'form': form})
 
 
