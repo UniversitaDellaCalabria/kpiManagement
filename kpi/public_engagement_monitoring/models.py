@@ -110,6 +110,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     # manager
     created_by_manager = models.BooleanField("Creato dal manager", default=False)
     edited_by_manager = models.BooleanField("Modificato dal manager", default=False)
+    disabled_notes = models.TextField("Note disabilitazione", default='', blank=True,)
 
     class Meta:
         verbose_name = "Iniziativa di Public Engagement"
@@ -140,6 +141,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         non effettua controlli sul ruolo dell'utente
         delegati ad altre funzioni
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
             return False
@@ -158,6 +161,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         non effettua controlli sul ruolo dell'utente
         delegati ad altre funzioni
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False
@@ -212,6 +217,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         """
         ci dice se l'evento può essere inviato a validazione
         """
+        if not self.is_active:
+            return False
         # False: se è stata creata dal manager
         if self.created_by_manager:
             return False
@@ -242,6 +249,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def evaluation_request_can_be_reviewed(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False
@@ -256,6 +265,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def can_be_handled_for_evaluation(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
             return False
@@ -273,6 +284,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def is_editable_by_operator(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
             return False
@@ -296,6 +309,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def is_ready_for_evaluation(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False
@@ -321,6 +336,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def evaluation_can_be_reviewed(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False
@@ -344,6 +361,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def can_be_handled_for_patronage(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
             return False
@@ -368,6 +387,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def is_ready_for_patronage_check(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
         if not self.check_year():
             return False
@@ -393,6 +414,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
     def patronage_can_be_reviewed(self):
         """
         """
+        if not self.is_active:
+            return False
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False

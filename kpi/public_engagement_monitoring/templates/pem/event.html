@@ -7,13 +7,17 @@
 
 
 {% block top_content %}
-
 <h2>{{ event.title }}</h2>
 <h3 style="font-weight: lighter">{% trans "Data summary" %}</h3>
 {% endblock top_content %}
 
 {% block page_content %}
 {% block alerts %}
+{% if not event.is_active %}
+<div class="alert alert-danger mb-5" role="alert">
+    <b>{% trans "Event disabled" %}:</b> {{ event.disabled_notes }}
+</div>
+{% endif %}
 {% if not event.check_year %}
 <div class="alert alert-danger" role="alert">
    {% trans "Editing data for the year" %}<b>{{ event.start.year }}</b> {% trans "is closed. No further operations are allowed" %}
@@ -25,11 +29,9 @@
 {% block actions %}{% endblock actions %}
 
 {% if event.created_by_manager %}
-<span class="badge bg-warning mt-5">
-    <svg class="icon icon-sm icon-white">
-        <use xlink:href="{% static 'svg/sprites.svg' %}#it-info-circle"></use>
-    </svg> {% trans "Loaded by manager (singular)" %}
-</span>
+<div class="alert alert-warning mt-5" role="alert">
+    <b>{% trans "Alert" %}:</b> {% trans "Loaded by manager (singular)" %}
+</div>
 {% else %}
 <div class="row mt-5">
     <div class="col-12 col-lg-{% if event.data.patronage_requested %}4{% else %}6{% endif %}">

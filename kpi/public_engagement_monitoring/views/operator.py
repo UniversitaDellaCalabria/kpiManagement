@@ -44,7 +44,8 @@ def dashboard(request, structures=None):
         years_query,
         structure__pk__in=structures,
         to_evaluate=True,
-        created_by_manager=False
+        created_by_manager=False,
+        is_active=True,
     ).values("structure__id").annotate(
         to_handle_count=Count("id", filter=Q(operator_taken_date__isnull=True)),
         to_evaluate_count=Count("id", filter=Q(operator_taken_date__isnull=False, operator_evaluation_date__isnull=True))

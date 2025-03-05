@@ -43,6 +43,7 @@ def dashboard(request, structures=None):
         data__patronage_requested=True,
         operator_evaluation_success=True,
         created_by_manager=False,
+        is_active=True,
         start__gte=timezone.now()
     ).values("structure__id").annotate(
         to_handle_count=Count("id", filter=Q(patronage_operator_taken_date__isnull=True)),

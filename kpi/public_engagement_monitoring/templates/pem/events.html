@@ -119,6 +119,7 @@
                                     <th scope="col">{% trans "End" %}</th>
                                     <th scope="col">{% trans "Status" %}</th>
                                     <th scope="col">{% trans "Patronage" %}</th>
+                                    <th scope="col">{% trans "Enabled" %}</th>
                                     {% block extra_th %}{% endblock extra_th %}
                                 </tr>
                             </thead>
@@ -196,6 +197,16 @@
                                             <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
                                         </svg>
                                         <span v-else>-</span>
+                                    </td>
+                                    <td>
+                                        <svg class="icon icon-sm icon-succes" v-if="event.is_active">
+                                            <title>{% trans "Enabled" %}</title>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
+                                        </svg>
+                                        <svg class="icon icon-sm icon-danger" v-else>
+                                            <title>{% trans "Disabled" %}</title>
+                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+                                        </svg>
                                     </td>
                                     {% block extra_td %}{% endblock extra_td %}
                                 </tr>

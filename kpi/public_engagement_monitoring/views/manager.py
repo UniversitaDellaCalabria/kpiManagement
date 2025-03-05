@@ -405,7 +405,58 @@ def event_report(request, structure_slug, event_id):
                        msg="[Operatore di Ateneo] Dati di monitoraggio modificati" if instance else "[Operatore di Ateneo] Dati di monitoraggio inseriti")
 
             messages.add_message(request, messages.SUCCESS, _('Monitoring data modified successfully'))
-            return redirect("public_engagement_monitoring:user_event", event_id=event.pk)
+            return redirect("public_engagement_monitoring:manager_event",
+                            structure_slug=structure_slug,
+                            event_id=event_id)
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))
+    return render(request, template, {'breadcrumbs': breadcrumbs,
+                                      'event': event,
+                                      'form': form,
+                                      'structure_slug': structure_slug})
+
+
+@login_required
+@is_manager
+@is_editable_by_manager
+def event_enable_disable(request, structure_slug, event_id, event=None):
+    template = 'pem/manager/event_change_status.html'
+    form = PublicEngagementEventDisableEnableForm()
+
+    breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
+                   reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
+                   reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
+                   '#': _('Change status')}
+
+    if request.method == 'POST':
+        form = PublicEngagementEventDisableEnableForm(data=request.POST)
+        if form.is_valid():
+            event.is_active = not event.is_active
+            event.disabled_notes = form.cleaned_data['notes']
+            event.modified_by = request.user
+            event.save()
+
+            # invia email agli operatori dipartimentali
+            # invia email al referente/compilatore
+            if not event.created_by_manager:
+                event_status = _('Disabled') if not event.is_active else _('Enabled')
+                subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, event_status)
+                body = '{} {} {}'.format(request.user, _('has change the status of the event'), '.')
+                send_email_to_event_referents(event, subject, body)
+                send_email_to_operators(event.structure, subject, body)
+
+            log_action(user=request.user,
+                       obj=event,
+                       flag=CHANGE,
+                       msg="[Operatore di Ateneo] Iniziativa riabilitata" if event.is_active else "[Operatore di Ateneo] Iniziativa disabilitata")
+
+            messages.add_message(request, messages.SUCCESS, _('Event status modified successfully'))
+            return redirect("public_engagement_monitoring:manager_event",
+                            structure_slug=structure_slug,
+                            event_id=event_id)
         else:
             messages.add_message(request, messages.ERROR,
                                  "<b>{}</b>: {}".format(_('Alert'), _('the errors in the form below need to be fixed')))

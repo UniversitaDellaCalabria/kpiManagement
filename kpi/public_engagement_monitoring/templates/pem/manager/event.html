@@ -33,12 +33,29 @@
         </svg> {% trans "Other involved structures" %}
     </a>
     {% endif %}
+
     {% if event.has_report_editable_by_manager %}
     <a class="btn btn-xs btn-{% if event.report %}outline-secondary{% else %}success{% endif %}" href="{% url 'public_engagement_monitoring:manager_event_report' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-{% if event.report %}info{% else %}white{% endif %}">
             <use xlink:href="{% static 'svg/sprites.svg' %}#it-{% if event.report %}pencil{% else %}plus-circle{% endif %}"></use>
         </svg> {% trans "Monitoring" %}
     </a>
+    {% endif %}
+
+    {% if event.is_editable_by_manager %}
+    {% if event.is_active %}
+    <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}">
+        <svg class="icon icon-sm icon-white">
+            <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+        </svg> {% trans "Disable" %}
+    </a>
+    {% else %}
+    <a class="btn btn-success" href="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}">
+        <svg class="icon icon-sm icon-white">
+            <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
+        </svg> {% trans "Enable" %}
+    </a>
+    {% endif %}
     {% endif %}
 </div>
 {% endblock actions %}

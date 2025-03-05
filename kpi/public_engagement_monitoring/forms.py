@@ -183,8 +183,7 @@ class PublicEngagementEventEvaluationForm(forms.Form):
         widget=BootstrapItaliaRadioWidget)
     notes = forms.CharField(
         label='Note',
-        widget=forms.Textarea(
-        attrs={'rows': 2}),
+        widget=forms.Textarea(attrs={'rows': 2}),
         required=False,
         help_text=_("Mandatory in case of negative outcome"))
 
@@ -197,6 +196,16 @@ class PublicEngagementEventEvaluationForm(forms.Form):
             self.add_error('notes', _("Mandatory in case of negative outcome"))
 
         return cleaned_data
+
+    class Media:
+        js = ('js/textarea-autosize.js',)
+
+
+class PublicEngagementEventDisableEnableForm(forms.Form):
+    notes = forms.CharField(
+        label='Note',
+        widget=forms.Textarea(attrs={'rows': 2}),
+        required=True)
 
     class Media:
         js = ('js/textarea-autosize.js',)

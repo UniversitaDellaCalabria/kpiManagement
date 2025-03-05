@@ -140,6 +140,8 @@ urlpatterns = [
          manager.event_structures_delete, name='manager_event_structures_delete'),
     path(f'{prefix}/{manager_prefix}/<str:structure_slug>/events/<int:event_id>/report/',
          manager.event_report, name='manager_event_report'),
+    path(f'{prefix}/{manager_prefix}/<str:structure_slug>/events/<int:event_id>/change-status/',
+         manager.event_enable_disable, name='manager_event_enable_disable'),
 
     # involved personnel
     path(f'{prefix}/{involved_personnel_prefix}/events/', involved_personnel.events, name='involved_personnel_events'),
