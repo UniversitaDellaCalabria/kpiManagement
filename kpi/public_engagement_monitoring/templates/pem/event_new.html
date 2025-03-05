@@ -67,34 +67,22 @@
     </div>
 
     {% if compiled_by_user %}
-    <div v-if="user_is_referent == 'false' && referent_id == ''">
+    <div v-if="user_is_referent == 'false'">
     {% else %}
     <div v-if="referent_id == ''">
     {% endif %}
-        <div class="row">
-            <div class="col-12">
-                <div class="card-wrapper card-space">
-                    <div class="card card-bg no-after">
-                        <div class="card-body">
-                            <div class="row form-group">
-                                <div class="col-md">
-                                    <div class="input-group">
-                                        <label for="search"></label>
-                                        <input type="text"
-                                               class="form-control"
-                                               id="search"
-                                               name="search"
-                                               placeholder="{% trans 'Surname' %}"
-                                               v-model="search_terms"
-                                               v-on:keyup.enter="search()">
-                                        <div class="input-group-append">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row form-group">
+            <div class="col-md">
+                <div class="input-group">
+                    <label for="search"></label>
+                    <input type="text"
+                           class="form-control"
+                           id="search"
+                           name="search"
+                           placeholder="{% trans 'Surname' %}"
+                           v-model="search_terms"
+                           v-on:keyup.enter="search()">
+                    <div class="input-group-append"></div>
                 </div>
             </div>
         </div>
@@ -169,7 +157,8 @@ const app = Vue.createApp({
         },
         search() {
             if(this.controller) this.controller.abort()
-            this.getData(page=1);
+            if(this.search_terms) this.getData(page=1);
+            else this.data = []
         },
         getData(page=1, search=this.search_terms) {
             this.controller = new AbortController()
