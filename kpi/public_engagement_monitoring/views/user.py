@@ -611,7 +611,7 @@ def event_clone(request, event_id, event=None):
     new_data.promo_tool.set(event.data.promo_tool.all())
 
     messages.add_message(request, messages.SUCCESS,
-                         "{} {} {}".format(_('Event'), event.title, _('duplicated')))
+                         "{} <b>{}</b> {}".format(_('Event'), event.title, _('duplicated')))
     return redirect("public_engagement_monitoring:user_event", event_id=new_event.pk)
 
 
@@ -623,6 +623,6 @@ def event_delete(request, event_id, event=None):
         return redirect("public_engagement_monitoring:user_event", event_id=event_id)
 
     messages.add_message(request, messages.SUCCESS,
-                         "{} {} {}".format(_('Event'), event.title, _('removed')))
+                         "{} <b>{}</b> {}".format(_('Event'), event.title, _('removed')))
     event.delete()
     return redirect("public_engagement_monitoring:user_events")
