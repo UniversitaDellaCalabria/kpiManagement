@@ -178,7 +178,7 @@
                        <p>{% trans "Do you want to duplicate the event?" %}</p>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-warning" href="{% url 'public_engagement_monitoring:user_event_delete' event_id=event.pk %}">
+                        <a class="btn btn-warning" href="{% url 'public_engagement_monitoring:user_event_clone' event_id=event.pk %}">
                             {% trans 'Yes, proceed' %}
                         </a>
                     </div>
