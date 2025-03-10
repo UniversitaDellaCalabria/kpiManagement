@@ -372,7 +372,7 @@ def event_report(request, structure_slug, event_id):
     template = 'pem/user/event_report.html'
     event = get_object_or_404(PublicEngagementEvent, pk=event_id, structure__slug=structure_slug)
     instance = PublicEngagementEventReport.objects.filter(event=event).first()
-    form = PublicEngagementEventReportForm(instance=instance, event=event)
+    form = PublicEngagementEventReportForm(instance=instance)
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
@@ -383,7 +383,6 @@ def event_report(request, structure_slug, event_id):
 
     if request.method == 'POST':
         form = PublicEngagementEventReportForm(instance=instance,
-                                               event=event,
                                                data=request.POST)
         if form.is_valid():
             report = form.save(commit=False)
