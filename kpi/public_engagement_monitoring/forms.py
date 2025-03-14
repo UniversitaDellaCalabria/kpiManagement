@@ -165,7 +165,7 @@ class PublicEngagementEventReportForm(forms.ModelForm):
         }
         help_texts = {
             'participants': 'Indicare una stima del numero di partecipanti',
-            'budget': "Si intende il budget finanziario complessivo direttamente legato all'organizzazione/gestione dell'iniziativa. di Public Engagement. Qualora l'iniziativa è una sottoattività di un progetto più ampio non considerabile complessivamente come Public Engagement, è necessario scorporare e riportare solo il budget direttamente dedicato. Quando la compilazione avvenga prima che l'iniziativa sia conclusa indicare il budget previsto/stimato. Nel campo ‘euro’ possono essere inseriti solo numeri. Se l’iniziativa non ha previsto alcun budget finanziario, indicare 0 €",
+            'budget': "Si intende il budget finanziario complessivo direttamente legato all'organizzazione/gestione dell'iniziativa. di Public Engagement. Qualora l'iniziativa è una sottoattività di un progetto più ampio non considerabile complessivamente come Public Engagement, è necessario scorporare e riportare solo il budget direttamente dedicato. Nel campo ‘euro’ possono essere inseriti solo numeri. Se l’iniziativa non ha previsto alcun budget finanziario, indicare 0 €",
             # 'other_structure': "Rispondere solo se l’ente organizzatore è “Università della Calabria"
         }
 
