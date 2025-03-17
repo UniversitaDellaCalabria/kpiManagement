@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-17 13:48+0100\n"
-"PO-Revision-Date: 2025-03-17 13:49+0100\n"
+"POT-Creation-Date: 2025-03-17 14:39+0100\n"
+"PO-Revision-Date: 2025-03-17 14:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -517,7 +517,7 @@ msgstr "Anno"
 #: public_engagement_management/forms.py:78
 #: public_engagement_management/templates/edit_public_engagement.html:19
 #: public_engagement_management/views.py:41
-#: public_engagement_monitoring/forms.py:218
+#: public_engagement_monitoring/forms.py:228
 #: public_engagement_monitoring/models.py:79
 #: public_engagement_monitoring/models.py:546
 #: public_engagement_monitoring/templates/pem/events.html:117
@@ -770,10 +770,12 @@ msgstr ""
 "già iniziata."
 
 #: public_engagement_monitoring/forms.py:141
+#: public_engagement_monitoring/forms.py:152
 msgid "Make at least one choice if you require patronage"
 msgstr "Effettua almeno una scelta se hai richiesto il patrocinio"
 
 #: public_engagement_monitoring/forms.py:144
+#: public_engagement_monitoring/forms.py:155
 msgid ""
 "Mandatory field if you require the event to be promoted on institutional "
 "communication channels"
@@ -781,20 +783,28 @@ msgstr ""
 "Obbligatorio se si richiede che l'iniziativa sia promossa sui canali di "
 "comunicazione istituzionale"
 
-#: public_engagement_monitoring/forms.py:181
+#: public_engagement_monitoring/forms.py:149
+msgid ""
+"It is not possible to cancel the patronage request if this has already been "
+"handled by a dedicated operator"
+msgstr ""
+"Impossibile annullare la richiesta di patrocinio se questa è stata già presa "
+"in carico da un operatore dedicato"
+
+#: public_engagement_monitoring/forms.py:191
 msgid "Outcome"
 msgstr "Esito"
 
-#: public_engagement_monitoring/forms.py:183
+#: public_engagement_monitoring/forms.py:193
 msgid "Positive"
 msgstr "Positivo"
 
-#: public_engagement_monitoring/forms.py:184
+#: public_engagement_monitoring/forms.py:194
 msgid "Negative"
 msgstr "Negativo"
 
-#: public_engagement_monitoring/forms.py:191
-#: public_engagement_monitoring/forms.py:199
+#: public_engagement_monitoring/forms.py:201
+#: public_engagement_monitoring/forms.py:209
 msgid "Mandatory in case of negative outcome"
 msgstr "Obbligatorio in caso di esito negativo"
 
@@ -2362,6 +2372,13 @@ msgstr "Visiting creato"
 #: visiting_management/views.py:203
 msgid "Visiting edited"
 msgstr "Visiting modificato"
+
+#~ msgid ""
+#~ "It is necessary to select at least one promotional tool if you have "
+#~ "requested sponsorship"
+#~ msgstr ""
+#~ "E' necessario selezionare almeno uno strumento di promozione se si è "
+#~ "fatta richiesta di patrocinio"
 
 #~ msgid ""
 #~ "Which other UNICAL structures (Departments or Centers) collaborated on "
