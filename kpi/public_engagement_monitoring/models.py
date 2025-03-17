@@ -614,6 +614,7 @@ class PublicEngagementEventData(CreatedModifiedBy, TimeStampedModel):
         _("Other recipients"), default='', blank=True, max_length=254)
     target = models.ManyToManyField(PublicEngagementEventTarget,
                                     limit_choices_to={'is_active': True},
+                                    blank=True,
                                     verbose_name=_("Sustainable Development Goals (SDGs)"))
     method_of_execution = models.ForeignKey(PublicEngagementEventMethodOfExecution,
                                             on_delete=models.PROTECT,
