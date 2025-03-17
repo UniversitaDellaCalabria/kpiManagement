@@ -67,10 +67,13 @@ class PublicEngagementEventForm(forms.ModelForm):
             self.add_error(
                 'end', _("Since the monitoring data is already present, the initiative must have already ended"))
 
-        if self.instance.id and getattr(self.instance, 'data', None) and self.instance.is_started():
+
+        if self.instance.id and getattr(self.instance, 'data', None) and start <= timezone.now():
             if self.instance.data.patronage_requested or self.instance.data.promo_tool.exists() or self.instance.data.promo_channel.exists():
                 self.add_error(
-                'start', _("Data for the promotion of the initiative (promotion tools, promotion channels, etc...) and the request for patronage are not permitted if it has already started. Edit them before updating the date."))
+                    'start',
+                    _("Data for the promotion of the initiative (promotion tools, promotion channels, etc...) and the request for patronage are not permitted if it has already started.")
+                )
 
         return cleaned_data
 
