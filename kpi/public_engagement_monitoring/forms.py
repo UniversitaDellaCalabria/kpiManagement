@@ -139,10 +139,13 @@ class PublicEngagementEventDataForm(forms.ModelForm):
         if promo_channel and not poster:
             self.add_error(
                 'poster', _("Mandatory field if you require the event to be promoted on institutional communication channels"))
-        # edit mode
+        # se si stanno modificando dei dati
         if self.instance.id:
+            # se il nome dell'evento scelto corrisponde a quello dell'evento stesso
             if self.instance.event == cleaned_data.get('project_name', None):
-                self.add_error('project_name', "Non è possibile collegare all'evento medesimo")
+                self.add_error('project_name', _("It is not possible to connect to the same event"))
+            # se la richiesta di patrocinio viene modificata ma
+            # l'operatore di patrocinio aveva già preso in carico l'iniziativa
             if self.instance.patronage_operator_taken_date and not patronage_requested:
                 self.add_error(
                     'patronage_requested', _("It is not possible to cancel the patronage request if this has already been handled by a dedicated operator"))
