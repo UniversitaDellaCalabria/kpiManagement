@@ -128,9 +128,6 @@ class PublicEngagementEventDataForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
-        if self.instance.id and self.instance.event == cleaned_data.get('project_name', None):
-            self.add_error('project_name', "Non è possibile collegare all'evento medesimo")
-
         promo_channel = cleaned_data.get('promo_channel')
         patronage_requested = cleaned_data.get('patronage_requested')
         promo_tool = cleaned_data.get('promo_tool')
@@ -143,14 +140,16 @@ class PublicEngagementEventDataForm(forms.ModelForm):
             self.add_error(
                 'poster', _("Mandatory field if you require the event to be promoted on institutional communication channels"))
         # edit mode
-        if self.instance.id and getattr(self.instance, 'data', None):
-            if self.instance.data.patronage_operator_taken_date and not patronage_requested:
+        if self.instance.id:
+            if self.instance.event == cleaned_data.get('project_name', None):
+                self.add_error('project_name', "Non è possibile collegare all'evento medesimo")
+            if self.instance.patronage_operator_taken_date and not patronage_requested:
                 self.add_error(
                     'patronage_requested', _("It is not possible to cancel the patronage request if this has already been handled by a dedicated operator"))
-            if self.instance.data.patronage_requested and not promo_tool:
+            if self.instance.patronage_requested and not promo_tool:
                 self.add_error(
                     'promo_tool', _("Make at least one choice if you require patronage"))
-            if self.instance.data.promo_channel and not poster:
+            if self.instance.promo_channel and not poster:
                 self.add_error(
                     'poster', _("Mandatory field if you require the event to be promoted on institutional communication channels"))
         return cleaned_data
