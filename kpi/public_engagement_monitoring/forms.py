@@ -103,9 +103,14 @@ class PublicEngagementEventDataForm(forms.ModelForm):
             # self.fields.pop('poster', None)
             self.fields.pop('promo_tool', None)
         # se l'operatore di patrocinio ha già preso in carico l'istanza
+        # non facciamo più modificare i campi relativi al patrocinio
         if self.instance.event.patronage_operator_taken_date:
             self.fields.pop('patronage_requested', None)
             self.fields.pop('promo_tool', None)
+        # se l'iniziativa è stata già approvata dalla struttura
+        # non facciamo modificare la richiesta di promozione
+        if self.instance.event.operator_evaluation_success:
+            self.fields.pop('promo_channel', None)
 
     class Meta:
         model = PublicEngagementEventData
