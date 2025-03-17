@@ -7,9 +7,13 @@ requests
 # $ sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
 mysqlclient
 
-git+https://github.com/UniversitaDellaCalabria/design-django-theme.git@github_page
+design-django-theme
 git+https://github.com/UniversitaDellaCalabria/django-unical-bootstrap-italia.git
 
 git+https://github.com/peppelinux/django-datatables-ajax.git
 
 cryptojwt
+
+python-magic
+
+django-filter
