@@ -42,7 +42,7 @@
     </a>
     {% endif %}
 
-    {% if event.is_editable_by_manager %}
+    {% if event.is_manageable_by_manager %}
     {% if event.is_active %}
     <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}">
         <svg class="icon icon-sm icon-white">

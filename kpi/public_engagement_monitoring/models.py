@@ -188,14 +188,11 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
 
     def has_report_editable_by_manager(self):
         """
-        ci dice se i dati di reportistica dell'evento (fase 2) sono editabili dall'utente
-        controllando solo l'attuale stato e l'anno di management del PE
-        non effettua controlli sul ruolo dell'utente
-        delegati ad altre funzioni
+        ci dice se i dati di reportistica dell'evento (fase 2) sono editabili dal manager
         """
         # False: se il monitoraggio per l'anno è stato disabilitato
-        if not self.check_year():
-            return False
+        # ~ if not self.check_year():
+            # ~ return False
         # False: se non ci sono i dati della fase 1
         if not getattr(self, 'data', None):
             return False
@@ -443,8 +440,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         """
         """
         # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
-        if not self.check_year():
-            return False
+        # ~ if not self.check_year():
+            # ~ return False
         # True: se è creato dal manager, sempre editabile
         if self.created_by_manager:
             return True
@@ -460,6 +457,20 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se il patrocinio è stato richiesto
         # l'operatore di patrocinio l'ha preso in carico ma non è stato ancora emesso un responso
         if self.data.patronage_requested and self.patronage_operator_taken_date and not self.patronage_granted_date:
+            return False
+        return True
+
+    def is_manageable_by_manager(self):
+        """
+        """
+        # False: se il monitoraggio è chiuso per l'anno dell'iniziativa
+        # ~ if not self.check_year():
+            # ~ return False
+        # True: se è creato dal manager, sempre editabile
+        if self.created_by_manager:
+            return True
+        # False: se non è stato approvato dalla struttura
+        if not self.operator_evaluation_success:
             return False
         return True
 

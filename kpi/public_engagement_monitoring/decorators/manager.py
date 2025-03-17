@@ -42,6 +42,27 @@ def is_editable_by_manager(func_to_decorate):
     return new_func
 
 
+def is_manageable_by_manager(func_to_decorate):
+    """
+    controlla che l'attuale stato dell'evento
+    renda editabile dall'utente i dati
+    tutti i controlli sui permessi dell'utente vengono fatti da
+    altri decoratori
+    """
+    def new_func(*original_args, **original_kwargs):
+        request = original_args[0]
+        event_id = original_kwargs['event_id']
+        event = get_object_or_404(PublicEngagementEvent, pk=event_id)
+        if event.is_manageable_by_manager():
+            original_kwargs['event'] = event
+            return func_to_decorate(*original_args, **original_kwargs)
+        messages.add_message(request, messages.ERROR, _('Access denied'))
+        return redirect("public_engagement_monitoring:manager_event",
+                        structure_slug=structure_slug,
+                        event_id=event_id)
+    return new_func
+
+
 def has_report_editable_by_manager(func_to_decorate):
     """
     controlla che l'attuale stato dell'evento

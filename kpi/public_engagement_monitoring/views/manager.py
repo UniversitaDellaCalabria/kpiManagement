@@ -418,7 +418,7 @@ def event_report(request, structure_slug, event_id):
 
 @login_required
 @is_manager
-@is_editable_by_manager
+@is_manageable_by_manager
 def event_enable_disable(request, structure_slug, event_id, event=None):
     template = 'pem/manager/event_change_status.html'
     form = PublicEngagementEventDisableEnableForm()
