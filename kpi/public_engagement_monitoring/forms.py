@@ -103,7 +103,7 @@ class PublicEngagementEventDataForm(forms.ModelForm):
             # self.fields.pop('poster', None)
             self.fields.pop('promo_tool', None)
         # se l'operatore di patrocinio ha già preso in carico l'istanza
-        if self.instance.patronage_operator_taken_date:
+        if self.instance.event.patronage_operator_taken_date:
             self.fields.pop('patronage_requested', None)
             self.fields.pop('promo_tool', None)
 
@@ -150,10 +150,10 @@ class PublicEngagementEventDataForm(forms.ModelForm):
                 self.add_error('project_name', _("It is not possible to connect to the same event"))
             # se la richiesta di patrocinio viene modificata ma
             # l'operatore di patrocinio aveva già preso in carico l'iniziativa
-            # ~ if self.instance.patronage_operator_taken_date and not patronage_requested:
+            # ~ if self.instance.event.patronage_operator_taken_date and not patronage_requested:
                 # ~ self.add_error(
                     # ~ 'patronage_requested', _("It is not possible to cancel the patronage request if this has already been handled by a dedicated operator"))
-            # ~ if self.instance.patronage_requested and not promo_tool:
+            # ~ if self.instance.event.patronage_requested and not promo_tool:
                 # ~ self.add_error(
                     # ~ 'promo_tool', _("Make at least one choice if you require patronage"))
             if self.instance.promo_channel and not poster:
