@@ -63,12 +63,12 @@ class PublicEngagementEventForm(forms.ModelForm):
             self.add_error(
                 'start', _("It is not possible to enter dates for the year {}").format(start.year))
 
-        if end and end > timezone.now() and self.instance.id and getattr(self.instance, 'report', None):
+        if end and end > timezone.now() and self.instance.id and hasattr(self.instance, 'report'):
             self.add_error(
                 'end', _("Since the monitoring data is already present, the initiative must have already ended"))
 
 
-        if self.instance.id and getattr(self.instance, 'data', None) and start <= timezone.now():
+        if self.instance.id and hasattr(self.instance, 'data') and start <= timezone.now():
             if self.instance.data.patronage_requested or self.instance.data.promo_tool.exists() or self.instance.data.promo_channel.exists():
                 self.add_error(
                     'start',
