@@ -449,8 +449,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         if not self.operator_evaluation_success:
             return False
         # False: se il patrocinio è stato richiesto ed è stato concesso (dati immutabili)
-        if self.data.patronage_requested and self.patronage_granted:
-            return False
+        # ~ if self.data.patronage_requested and self.patronage_granted:
+            # ~ return False
         # True: se l'evento è finito
         if self.is_over():
             return True
