@@ -682,7 +682,7 @@ class PublicEngagementEventReport(CreatedModifiedBy, TimeStampedModel):
                                  on_delete=models.CASCADE,
                                  related_name='report')
     participants = models.IntegerField(
-        _("Non-academic audience participating in the initiative or reached via web/social resources, or outreach publications"), default=0)
+        _("Non-academic audience participating in the initiative or reached via web/social resources, or outreach publications"))
     budget = models.FloatField(_("Total budget (in Euro)"))
     monitoring_activity = models.BooleanField(
         _("Is the initiative accompanied by monitoring activities (e.g., collection of information on activities, attendance, satisfaction, etc.)?"), default=False)
