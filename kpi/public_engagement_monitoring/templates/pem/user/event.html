@@ -121,9 +121,12 @@
                        <p>{% trans "Do you want to confirm the evaluation request?" %}</p>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-success" href="{% url 'public_engagement_monitoring:user_event_request_evaluation' event_id=event.pk %}">
-                            {% trans 'Yes, proceed' %}
-                        </a>
+                        <form action="{% url 'public_engagement_monitoring:user_event_request_evaluation' event_id=event.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-success" type="submit">
+                                {% trans 'Yes, proceed' %}
+                            </button>
+                        </form>
                     </div>
                  </div>
               </div>
@@ -149,9 +152,12 @@
                        <p>{% trans "Do you want to cancel the evaluation request?" %}</p>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-warning" href="{% url 'public_engagement_monitoring:user_event_request_evaluation_cancel' event_id=event.pk %}">
-                            {% trans 'Yes, proceed' %}
-                        </a>
+                        <form action="{% url 'public_engagement_monitoring:user_event_request_evaluation_cancel' event_id=event.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-warning" type="submit">
+                                {% trans 'Yes, proceed' %}
+                            </button>
+                        </form>
                     </div>
                  </div>
               </div>
@@ -207,9 +213,12 @@
                        <p>{% trans "Do you want to remove the event?" %}</p>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:user_event_delete' event_id=event.pk %}">
-                            {% trans 'Yes, proceed' %}
-                        </a>
+                        <form action="{% url 'public_engagement_monitoring:user_event_delete' event_id=event.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">
+                                {% trans 'Yes, proceed' %}
+                            </button>
+                        </form>
                     </div>
                  </div>
               </div>
@@ -250,9 +259,12 @@
                                <p>{% trans "Do you want to confirm the entered data?" %}</p>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:user_event_people_delete' event_id=event.pk person_id=person.pk %}">
-                                    {% trans 'Yes, proceed' %}
-                                </a>
+                                <form action="{% url 'public_engagement_monitoring:user_event_people_delete' event_id=event.pk person_id=person.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">
+                                        {% trans 'Yes, proceed' %}
+                                    </button>
+                                </form>
                             </div>
                          </div>
                       </div>
@@ -297,9 +309,12 @@
                                <p>{% trans "Do you want to confirm the entered data?" %}</p>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:user_event_structures_delete' event_id=event.pk structure_id=structure.pk %}">
-                                    {% trans 'Yes, proceed' %}
-                                </a>
+                                <form action="{% url 'public_engagement_monitoring:user_event_structures_delete' event_id=event.pk structure_id=structure.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">
+                                        {% trans 'Yes, proceed' %}
+                                    </button>
+                                </form>
                             </div>
                          </div>
                       </div>

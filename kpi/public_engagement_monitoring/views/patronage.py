@@ -7,6 +7,7 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from organizational_area.models import *
 
@@ -98,6 +99,7 @@ def event(request, structure_slug, event_id):
 
 
 @login_required
+@require_POST
 @is_structure_patronage_operator
 def take_event(request, structure_slug, event_id):
     event = PublicEngagementEvent.objects.prefetch_related('data')\
@@ -209,6 +211,7 @@ def event_evaluation(request, structure_slug, event_id):
 
 
 @login_required
+@require_POST
 @is_structure_patronage_operator
 def event_reopen_evaluation(request, structure_slug, event_id):
     event = PublicEngagementEvent.objects.prefetch_related('data')\

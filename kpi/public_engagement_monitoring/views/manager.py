@@ -7,6 +7,7 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from organizational_area.models import *
 
@@ -316,6 +317,7 @@ def event_people(request, structure_slug, event_id, event=None):
 
 
 @login_required
+@require_POST
 @is_manager
 @is_editable_by_manager
 def event_people_delete(request, structure_slug, event_id, person_id, event=None):
@@ -349,6 +351,7 @@ def event_structures(request, structure_slug, event_id, event=None):
 
 
 @login_required
+@require_POST
 @is_manager
 @is_editable_by_manager
 def event_structures_delete(request, structure_slug, event_id, structure_id, event=None):
@@ -417,6 +420,7 @@ def event_report(request, structure_slug, event_id):
 
 
 @login_required
+@require_POST
 @is_manager
 @is_manageable_by_manager
 def event_enable_disable(request, structure_slug, event_id, event=None):

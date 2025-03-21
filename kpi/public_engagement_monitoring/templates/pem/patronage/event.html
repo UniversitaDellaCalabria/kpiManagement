@@ -28,9 +28,12 @@
                <p>{% trans "Do you want to proceed?" %}</p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-success" href="{% url 'public_engagement_monitoring:patronage_operator_take_event' structure_slug=structure_slug event_id=event.pk %}">
-                    {% trans 'Yes, proceed' %}
-                </a>
+                <form action="{% url 'public_engagement_monitoring:patronage_operator_take_event' structure_slug=structure_slug event_id=event.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-success" type="submit">
+                        {% trans 'Yes, proceed' %}
+                    </button>
+                </form>
             </div>
          </div>
       </div>
@@ -64,9 +67,12 @@
                <p>{% trans "Do you want to reopen evaluation?" %}</p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-warning" href="{% url 'public_engagement_monitoring:patronage_operator_event_reopen_evaluation' structure_slug=structure_slug event_id=event.pk %}">
-                    {% trans 'Yes, proceed' %}
-                </a>
+                <form action="{% url 'public_engagement_monitoring:patronage_operator_event_reopen_evaluation' structure_slug=structure_slug event_id=event.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-warning" type="submit">
+                        {% trans 'Yes, proceed' %}
+                    </button>
+                </form>
             </div>
          </div>
       </div>

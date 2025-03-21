@@ -44,17 +44,23 @@
 
     {% if event.is_manageable_by_manager %}
     {% if event.is_active %}
-    <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}">
-        <svg class="icon icon-sm icon-white">
-            <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
-        </svg> {% trans "Disable" %}
-    </a>
+    <form action="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">
+            <svg class="icon icon-sm icon-white">
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
+            </svg> {% trans "Disable" %}
+        </button>
+    </form>
     {% else %}
-    <a class="btn btn-success" href="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}">
-        <svg class="icon icon-sm icon-white">
-            <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
-        </svg> {% trans "Enable" %}
-    </a>
+    <form action="{% url 'public_engagement_monitoring:manager_event_enable_disable' structure_slug=structure_slug event_id=event.pk %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-success" type="submit">
+            <svg class="icon icon-sm icon-white">
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
+            </svg> {% trans "Enable" %}
+        </button>
+    </form>
     {% endif %}
     {% endif %}
 </div>
@@ -90,9 +96,12 @@
                                <p>{% trans "Do you want to confirm the entered data?" %}</p>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:manager_event_people_delete' structure_slug=structure_slug event_id=event.pk person_id=person.pk %}">
-                                    {% trans 'Yes, proceed' %}
-                                </a>
+                                <form action="{% url 'public_engagement_monitoring:manager_event_people_delete' structure_slug=structure_slug event_id=event.pk person_id=person.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">
+                                        {% trans 'Yes, proceed' %}
+                                    </button>
+                                </form>
                             </div>
                          </div>
                       </div>
@@ -137,9 +146,12 @@
                                <p>{% trans "Do you want to confirm the entered data?" %}</p>
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-danger" href="{% url 'public_engagement_monitoring:manager_event_structures_delete' structure_slug=structure_slug event_id=event.pk structure_id=structure.pk %}">
-                                    {% trans 'Yes, proceed' %}
-                                </a>
+                                <form action="{% url 'public_engagement_monitoring:manager_event_structures_delete' structure_slug=structure_slug event_id=event.pk structure_id=structure.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">
+                                        {% trans 'Yes, proceed' %}
+                                    </button>
+                                </form>
                             </div>
                          </div>
                       </div>

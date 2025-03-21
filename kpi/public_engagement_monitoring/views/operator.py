@@ -7,6 +7,7 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from itertools import chain
 
@@ -96,6 +97,7 @@ def event(request, structure_slug, event_id):
 
 
 @login_required
+@require_POST
 @is_structure_evaluation_operator
 def take_event(request, structure_slug, event_id):
     event = get_object_or_404(PublicEngagementEvent,
@@ -207,6 +209,7 @@ def event_people(request, structure_slug, event_id, event=None):
 
 
 @login_required
+@require_POST
 @is_structure_evaluation_operator
 @is_editable_by_operator
 def event_people_delete(request, structure_slug, event_id, person_id, event=None):
@@ -239,6 +242,7 @@ def event_structures(request, structure_slug, event_id, event=None):
 
 
 @login_required
+@require_POST
 @is_structure_evaluation_operator
 @is_editable_by_operator
 def event_structures_delete(request, structure_slug, event_id, structure_id, event=None):
@@ -340,6 +344,7 @@ def event_evaluation(request, structure_slug, event_id):
 
 
 @login_required
+@require_POST
 @is_structure_evaluation_operator
 def event_reopen_evaluation(request, structure_slug, event_id):
     event = PublicEngagementEvent.objects.filter(pk=event_id,

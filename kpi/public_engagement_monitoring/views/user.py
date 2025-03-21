@@ -12,6 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from organizational_area.models import *
 from organizational_area.utils import user_in_office
@@ -360,6 +361,7 @@ def event_people(request, event_id, event=None):
 
 
 @login_required
+@require_POST
 @has_access_to_my_event
 @is_editable_by_user
 def event_people_delete(request, event_id, person_id, event=None):
@@ -448,6 +450,7 @@ def event_structures(request, event_id, event=None):
 
 
 @login_required
+@require_POST
 @has_access_to_my_event
 @is_editable_by_user
 def event_structures_delete(request, event_id, structure_id, event=None):
@@ -519,6 +522,7 @@ def event_report(request, event_id, event=None):
 
 
 @login_required
+@require_POST
 @has_access_to_my_event
 def event_request_evaluation(request, event_id, event=None):
     if event.is_ready_for_request_evaluation():
@@ -556,6 +560,7 @@ def event_request_evaluation(request, event_id, event=None):
 
 
 @login_required
+@require_POST
 @has_access_to_my_event
 def event_request_evaluation_cancel(request, event_id, event=None):
     if not event.evaluation_request_can_be_reviewed():
@@ -615,6 +620,7 @@ def event_clone(request, event_id, event=None):
 
 
 @login_required
+@require_POST
 @has_access_to_my_event
 def event_delete(request, event_id, event=None):
     if event.to_evaluate or event.created_by_manager:
