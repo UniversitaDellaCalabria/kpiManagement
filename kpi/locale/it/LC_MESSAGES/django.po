@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-21 10:42+0100\n"
-"PO-Revision-Date: 2025-03-21 10:43+0100\n"
+"POT-Creation-Date: 2025-03-21 10:47+0100\n"
+"PO-Revision-Date: 2025-03-21 10:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1496,6 +1496,11 @@ msgstr "Respinte"
 #: public_engagement_monitoring/templates/pem/operator/involved-structures/dashboard.html:10
 msgid "Choose the structure"
 msgstr "Scegli la struttura"
+
+#: public_engagement_monitoring/templates/pem/patronage/event.html:45
+#: public_engagement_monitoring/templates/pem/patronage/event.html:51
+msgid "patronage"
+msgstr "patrocinio"
 
 #: public_engagement_monitoring/templates/pem/patronage/event.html:64
 msgid "Do you want to reopen evaluation?"
