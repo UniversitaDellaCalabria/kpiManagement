@@ -22,3 +22,5 @@ MANAGER_OFFICE = getattr(settings, 'MANAGER_OFFICE',
 EVALUATION_TIME_DELTA = getattr(settings, 'EVALUATION_TIME_DELTA', 0)
 
 # STORAGE_TOKEN = ''  token per comunicare con le API protette di storage.portale.unical.it
+
+MANAGER_ALIAS_EMAILS = getattr(settings, 'MANAGER_ALIAS_EMAILS', [])

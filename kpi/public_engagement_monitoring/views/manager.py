@@ -443,9 +443,13 @@ def event_enable_disable(request, structure_slug, event_id, event=None):
             if not event.created_by_manager:
                 event_status = _('Disabled') if not event.is_active else _('Enabled')
                 subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, event_status)
-                body = '{} {} {}'.format(request.user, _('has change the status of the event'), '.')
+                body = '{} {}.'.format(request.user, _('has changed the status of the event'))
+                if not event.is_active:
+                    body += "\n{}: {}".format(_('Notes'), event.disabled_notes)
+
                 send_email_to_event_referents(event, subject, body)
                 send_email_to_operators(event.structure, subject, body)
+                send_email_to_managers(subject, body)
 
             log_action(user=request.user,
                        obj=event,
@@ -453,6 +457,7 @@ def event_enable_disable(request, structure_slug, event_id, event=None):
                        msg="[Operatore di Ateneo] Iniziativa riabilitata" if event.is_active else "[Operatore di Ateneo] Iniziativa disabilitata")
 
             messages.add_message(request, messages.SUCCESS, _('Event status modified successfully'))
+
             return redirect("public_engagement_monitoring:manager_event",
                             structure_slug=structure_slug,
                             event_id=event_id)

@@ -306,7 +306,9 @@ def event_evaluation(request, structure_slug, event_id):
             # email
             result = _('approved') if form.cleaned_data['success'] == 'True' else _('not approved')
             subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation completed'))
-            body = "{} {}: {}".format(request.user, _('has evaluated the event with the result'), result)
+            body = '{} {}: {}.'.format(request.user, _('has evaluated the event with the result'), result)
+            if not form.cleaned_data['success'] == 'True':
+                body += '\n{}: {}'.format(_('Notes'), form.cleaned_data['notes'])
             # invia email a referente/compilatore
             send_email_to_event_referents(event, subject, body)
 

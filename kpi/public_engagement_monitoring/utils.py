@@ -77,11 +77,13 @@ def send_email_to_patronage_operators(structure, subject, body):
     _send_email(subject=subject, body=body, recipients=recipients)
 
 
-def send_email_to_managers(subject, body):
-    recipients = OrganizationalStructureOfficeEmployee.objects.filter(employee__is_active=True,
-                                                                      office__is_active=True,
-                                                                      office__slug=MANAGER_OFFICE,
-                                                                      office__organizational_structure__is_active=True).values_list('employee__email', flat=True)
+def send_email_to_managers(subject, body, to_alias=True):
+    recipients = MANAGER_ALIAS_EMAILS
+    if not to_alias:
+        recipients = OrganizationalStructureOfficeEmployee.objects.filter(employee__is_active=True,
+                                                                          office__is_active=True,
+                                                                          office__slug=MANAGER_OFFICE,
+                                                                          office__organizational_structure__is_active=True).values_list('employee__email', flat=True)
     _send_email(subject=subject, body=body, recipients=recipients)
 
 
