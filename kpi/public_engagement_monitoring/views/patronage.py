@@ -178,9 +178,9 @@ def event_evaluation(request, structure_slug, event_id):
 
             messages.add_message(request, messages.SUCCESS, _("Patronage evaluation completed"))
 
-            log_result = "concesso" if form.cleaned_data['success'] else "negato"
+            log_result = "concesso" if form.cleaned_data['success'] == 'True' else "negato"
             msg = "[Patrocinio {}] Esito valutazione: {}".format(structure_slug, log_result)
-            if not form.cleaned_data['success']:
+            if not form.cleaned_data['success'] == 'True':
                 msg += ' {}'.format(event.patronage_granted_notes)
 
             log_action(user=request.user,
@@ -189,7 +189,7 @@ def event_evaluation(request, structure_slug, event_id):
                        msg=msg)
 
             # invia email al referente/compilatore
-            result = _('approved') if form.cleaned_data['success'] else _('not approved')
+            result = _('approved') if form.cleaned_data['success'] == 'True' else _('not approved')
             subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Patronage evaluation completed'))
             body = "{} {}: {}".format(request.user, _('has evaluated the event with the result'), result)
             send_email_to_event_referents(event, subject, body)

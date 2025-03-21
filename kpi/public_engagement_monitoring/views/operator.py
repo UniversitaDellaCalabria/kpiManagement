@@ -291,9 +291,9 @@ def event_evaluation(request, structure_slug, event_id):
             event.modified_by = request.user
             event.save()
 
-            log_result = "approvata" if form.cleaned_data['success'] else "rifiutata"
+            log_result = "approvata" if form.cleaned_data['success'] == 'True' else "rifiutata"
             msg = "[Operatore {}] Esito valutazione: {}".format(structure_slug, log_result)
-            if not form.cleaned_data['success']:
+            if not form.cleaned_data['success'] == 'True':
                 msg += ' {}'.format(event.operator_notes)
 
             log_action(user=request.user,
@@ -304,13 +304,13 @@ def event_evaluation(request, structure_slug, event_id):
             messages.add_message(request, messages.SUCCESS, _("Evaluation completed"))
 
             # email
-            result = _('approved') if form.cleaned_data['success'] else _('not approved')
+            result = _('approved') if form.cleaned_data['success'] == 'True' else _('not approved')
             subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation completed'))
             body = "{} {}: {}".format(request.user, _('has evaluated the event with the result'), result)
             # invia email a referente/compilatore
             send_email_to_event_referents(event, subject, body)
 
-            if form.cleaned_data['success']:
+            if form.cleaned_data['success'] == 'True':
                 # invia email a operatori patrocinio
                 if event.data.patronage_requested and not event.is_started():
                     send_email_to_patronage_operators(
