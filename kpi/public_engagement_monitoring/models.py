@@ -311,7 +311,7 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # False: se il monitoraggio per l'anno è stato disabilitato
         if not self.check_year():
             return False
-        # False: se non sono stati inserite le persone collegate
+        # False: se non sono stati inseriti i dati dell'iniziativa
         if not hasattr(self, 'data'):
             return False
         # if not self.data.involved_personnel.exists():
