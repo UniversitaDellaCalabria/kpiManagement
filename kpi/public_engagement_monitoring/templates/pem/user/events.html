@@ -18,7 +18,11 @@
 </div>
 {% endblock top_content %}
 
-{% block extra_th %}<th scope="col"></th>{% endblock extra_th %}
+{% block extra_th %}
+<th scope="col"></th>
+<th scope="col"></th>
+{% endblock extra_th %}
+
 {% block extra_td %}
 <td>
     <svg class="icon icon-sm icon-info" data-bs-toggle="modal" :data-bs-target="'#clone_event' + event.id" style="cursor: pointer">
@@ -46,7 +50,8 @@
           </div>
        </div>
     </div>
-
+</td>
+<td>
     <svg class="icon icon-sm icon-danger" data-bs-toggle="modal" :data-bs-target="'#delete_event' + event.id" style="cursor: pointer">
         <use xlink:href="{% static 'svg/sprites.svg' %}#it-delete"></use>
     </svg>
