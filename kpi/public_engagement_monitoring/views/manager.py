@@ -25,7 +25,7 @@ from public_engagement_monitoring.views import management
 
 @login_required
 @is_manager
-def dashboard(request):
+def dashboard(request, structure=None):
     template = 'pem/manager/dashboard.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
@@ -54,7 +54,7 @@ def dashboard(request):
 
 @login_required
 @is_manager
-def events(request, structure_slug):
+def events(request, structure_slug, structure=None):
     template = 'pem/manager/events.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
@@ -69,7 +69,7 @@ def events(request, structure_slug):
 
 @login_required
 @is_manager
-def new_event_choose_referent(request, structure_slug):
+def new_event_choose_referent(request, structure_slug, structure=None):
     request.session.pop('referent', None)
     template = 'pem/event_new.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
@@ -138,7 +138,7 @@ def new_event_choose_referent(request, structure_slug):
 
 @login_required
 @is_manager
-def new_event_basic_info(request, structure_slug):
+def new_event_basic_info(request, structure_slug, structure=None):
     # se non è stato scelto il referente nella fase iniziale
     if not request.session.get('referent'):
         messages.add_message(request, messages.ERROR, _("Event referent is mandatory"))
