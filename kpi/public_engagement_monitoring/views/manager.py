@@ -59,7 +59,7 @@ def events(request, structure_slug, structure=None):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   '#': structure_slug.upper()}
+                   '#': structure.name}
     api_url = reverse('public_engagement_monitoring:api_manager_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'api_url': api_url,
                                       'breadcrumbs': breadcrumbs,
@@ -75,7 +75,7 @@ def new_event_choose_referent(request, structure_slug, structure=None):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    '#': _("New")}
 
     if request.method == 'POST':
@@ -152,7 +152,7 @@ def new_event_basic_info(request, structure_slug, structure=None):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:manager_new_event_choose_referent', kwargs={'structure_slug': structure_slug}): _('New'),
                    '#': _('General informations')}
 
