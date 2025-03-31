@@ -133,7 +133,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="event in data.results" :class="[event.is_active ? '' : 'table-danger']">
+                                <tr v-for="event in data.results">
                                     <th scope="row">
                                         <b class="text-primary">
                                             <a :href="event.id + '/'">[[ event.title ]]</a>
