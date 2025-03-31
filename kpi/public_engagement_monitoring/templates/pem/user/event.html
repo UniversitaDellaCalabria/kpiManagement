@@ -37,7 +37,7 @@
         {% if event.has_been_rejected %}
         <li>{% trans "event rejected" %}</li>
         {% else %}
-        <li>{% trans "the initiative was uploaded without the right advance notice" %} ({% trans "at least" %} {{ evaluation_time_delta }} {% trans "days" %}) {% trans "or ex-post and has not yet ended" %}.</li>
+        <li>{% trans "event has not yet ended" %}.</li>
         {% endif %}
     </ul>
 </div>
