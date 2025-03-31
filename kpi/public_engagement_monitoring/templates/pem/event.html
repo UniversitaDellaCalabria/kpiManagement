@@ -15,7 +15,7 @@
 {% block alerts %}
 {% if not event.is_active %}
 <div class="alert alert-danger mb-5" role="alert">
-    <b>{% trans "Event disabled" %}:</b> {{ event.disabled_notes }}
+    <b>{% trans "Not eligible" %}:</b> {{ event.disabled_notes }}
 </div>
 {% endif %}
 {% if not event.check_year %}

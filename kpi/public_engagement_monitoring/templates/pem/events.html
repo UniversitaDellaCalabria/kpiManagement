@@ -119,12 +119,12 @@
                                     <th scope="col">{% trans "End" %}</th>
                                     <th scope="col">{% trans "Status" %}</th>
                                     <th scope="col">{% trans "Patronage" %}</th>
-                                    <th scope="col">{% trans "Enabled" %}</th>
+                                    <th scope="col"></th>
                                     {% block extra_th %}{% endblock extra_th %}
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="event in data.results">
+                                <tr v-for="event in data.results" :class="[event.is_active ? '' : 'table-danger']">
                                     <th scope="row">
                                         <b class="text-primary">
                                             <a :href="event.id + '/'">[[ event.title ]]</a>
@@ -199,14 +199,12 @@
                                         <span v-else>-</span>
                                     </td>
                                     <td>
-                                        <svg class="icon icon-sm icon-success" v-if="event.is_active">
-                                            <title>{% trans "Enabled" %}</title>
-                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-check-circle"></use>
-                                        </svg>
-                                        <svg class="icon icon-sm icon-danger" v-else>
-                                            <title>{% trans "Disabled" %}</title>
-                                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-ban"></use>
-                                        </svg>
+                                        <span v-if="event.is_active">
+                                            -
+                                        </span>
+                                        <span class="badge bg-danger" v-else>
+                                            {% trans "Not eligible" %}
+                                        </span>
                                     </td>
                                     {% block extra_td %}{% endblock extra_td %}
                                 </tr>
