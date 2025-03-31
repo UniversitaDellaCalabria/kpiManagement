@@ -27,4 +27,9 @@ class PublicEngagementEventList(PublicEngagementEventList):
                                    operator_evaluation_date__isnull=False)
         elif status=='created_by_manager':
             events = events.filter(created_by_manager=True)
+
+        not_eligible = self.request.query_params.get('not_eligible')
+        if not_eligible=='true':
+            events = events.filter(is_active=False)
+
         return events
