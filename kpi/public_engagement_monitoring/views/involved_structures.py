@@ -37,12 +37,12 @@ def dashboard(request, structures=None):
 
 @login_required
 @is_structure_evaluation_operator
-def events(request, structure_slug):
+def events(request, structure_slug, structure=None):
     template = 'pem/operator/involved-structures/events.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Involved structure operator'),
-                   '#': structure_slug.upper()}
+                   '#': structure.name}
     api_url = reverse('public_engagement_monitoring:api_involved_structures_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url,
@@ -51,7 +51,7 @@ def events(request, structure_slug):
 
 @login_required
 @is_structure_evaluation_operator
-def event(request, structure_slug, event_id):
+def event(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  data__involved_structure__slug=structure_slug).first()
     if not event or not event.data or not event.operator_evaluation_date:
@@ -62,7 +62,7 @@ def event(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Involved structure operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    '#': event.title}
     template = 'pem/operator/involved-structures/event.html'
 

@@ -19,19 +19,19 @@ from .. settings import *
 from .. utils import *
 
 
-def event_data(request, structure_slug, event_id, by_manager=False, event=None):
+def event_data(request, structure_slug, event_id, by_manager=False, event=None, structure=None):
     if by_manager:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Event data')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Event data')}
 
@@ -90,7 +90,7 @@ def event_data(request, structure_slug, event_id, by_manager=False, event=None):
                                       'structure_slug': structure_slug})
 
 
-def event_people(request, structure_slug, event_id, by_manager=False, event=None):
+def event_people(request, structure_slug, event_id, by_manager=False, event=None, structure=None):
     data = event.data
     template = 'pem/event_people.html'
 
@@ -98,14 +98,14 @@ def event_people(request, structure_slug, event_id, by_manager=False, event=None
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Other involved personnel')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Other involved personnel')}
 
@@ -226,7 +226,7 @@ def event_people_delete(request, structure_slug, event_id, person_id, by_manager
                     event_id=event_id)
 
 
-def event_structures(request, structure_slug, event_id, by_manager=False, event=None):
+def event_structures(request, structure_slug, event_id, by_manager=False, event=None, structure=None):
     data = event.data
     template = 'pem/event_structures.html'
     form = PublicEngagementStructureForm()
@@ -234,14 +234,14 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                        reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Other involved structures')}
     else:
         breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                        reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                        reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                       reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                        reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                        '#': _('Other involved structures')}
 
@@ -249,19 +249,19 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
         form = PublicEngagementStructureForm(request.POST)
         if form.is_valid():
             structure_id = form.cleaned_data['structure']
-            structure = OrganizationalStructure.objects.filter(pk=structure_id,
+            new_structure = OrganizationalStructure.objects.filter(pk=structure_id,
                                                                is_active=True,
                                                                is_public_engagement_enabled=True,
                                                                is_internal=True,).first()
 
-            if structure == event.structure:
+            if new_structure == event.structure:
                 messages.add_message(request, messages.ERROR,
                                      "{} {}".format(person, _('is the event referent')))
-            elif data.involved_structure.filter(pk=structure.pk).exists():
+            elif data.involved_structure.filter(pk=new_structure.pk).exists():
                 messages.add_message(request, messages.ERROR,
                                      '{} {}'.format(structure, _('already exists')))
             else:
-                data.involved_structure.add(structure)
+                data.involved_structure.add(new_structure)
                 data.modified_by = request.user
                 data.save()
                 event.modified_by = request.user
@@ -272,9 +272,9 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
                 event.save()
 
                 if by_manager:
-                    msg="[Operatore di Ateneo] Altra struttura coinvolta: aggiunto {}".format(structure)
+                    msg="[Operatore di Ateneo] Altra struttura coinvolta: aggiunto {}".format(new_structure)
                 else:
-                    msg="[Operatore {}] Altra struttura coinvolta: aggiunto {}".format(structure_slug, structure)
+                    msg="[Operatore {}] Altra struttura coinvolta: aggiunto {}".format(structure_slug, new_structure)
 
                 log_action(user=request.user,
                            obj=event,
@@ -282,7 +282,7 @@ def event_structures(request, structure_slug, event_id, by_manager=False, event=
                            msg=msg)
 
                 messages.add_message(request, messages.SUCCESS,
-                                     '{} {}'.format(structure, _('added successfully')))
+                                     '{} {}'.format(new_structure, _('added successfully')))
 
                 # invia email al referente/compilatore
                 subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Data modified'))

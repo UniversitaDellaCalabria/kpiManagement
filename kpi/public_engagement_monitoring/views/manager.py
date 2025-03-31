@@ -202,7 +202,7 @@ def new_event_basic_info(request, structure_slug):
 
 @login_required
 @is_manager
-def event(request, structure_slug, event_id):
+def event(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  structure__slug=structure_slug).first()
 
@@ -213,7 +213,7 @@ def event(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    '#': event.title}
 
     logs = LogEntry.objects.filter(content_type_id=ContentType.objects.get_for_model(event).pk,
@@ -230,11 +230,11 @@ def event(request, structure_slug, event_id):
 @login_required
 @is_manager
 @is_editable_by_manager
-def event_basic_info(request, structure_slug, event_id, event=None):
+def event_basic_info(request, structure_slug, event_id, event=None, structure=None):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                    '#': _('General informations')}
 
@@ -287,12 +287,13 @@ def event_basic_info(request, structure_slug, event_id, event=None):
 @login_required
 @is_manager
 @is_editable_by_manager
-def event_data(request, structure_slug, event_id, event=None):
+def event_data(request, structure_slug, event_id, event=None, structure=None):
     result = management.event_data(request=request,
                                    structure_slug=structure_slug,
                                    event_id=event_id,
                                    event=event,
-                                   by_manager=True)
+                                   by_manager=True,
+                                   structure=structure)
     if result == True:
         return redirect("public_engagement_monitoring:manager_event",
                         structure_slug=structure_slug,
@@ -303,12 +304,13 @@ def event_data(request, structure_slug, event_id, event=None):
 @login_required
 @is_manager
 @is_editable_by_manager
-def event_people(request, structure_slug, event_id, event=None):
+def event_people(request, structure_slug, event_id, event=None, structure=None):
     result = management.event_people(request=request,
                                      structure_slug=structure_slug,
                                      event_id=event_id,
                                      event=event,
-                                     by_manager=True)
+                                     by_manager=True,
+                                     structure=structure)
     if result == True:
         return redirect("public_engagement_monitoring:manager_event",
                         structure_slug=structure_slug,
@@ -320,7 +322,7 @@ def event_people(request, structure_slug, event_id, event=None):
 @require_POST
 @is_manager
 @is_editable_by_manager
-def event_people_delete(request, structure_slug, event_id, person_id, event=None):
+def event_people_delete(request, structure_slug, event_id, person_id, event=None, structure=None):
     result = management.event_people_delete(request=request,
                                             structure_slug=structure_slug,
                                             event_id=event_id,
@@ -337,12 +339,13 @@ def event_people_delete(request, structure_slug, event_id, person_id, event=None
 @login_required
 @is_manager
 @is_editable_by_manager
-def event_structures(request, structure_slug, event_id, event=None):
+def event_structures(request, structure_slug, event_id, event=None, structure=None):
     result = management.event_structures(request=request,
                                          structure_slug=structure_slug,
                                          event_id=event_id,
                                          event=event,
-                                         by_manager=True)
+                                         by_manager=True,
+                                         structure=structure)
     if result == True:
         return redirect("public_engagement_monitoring:manager_event",
                         structure_slug=structure_slug,
@@ -354,7 +357,7 @@ def event_structures(request, structure_slug, event_id, event=None):
 @require_POST
 @is_manager
 @is_editable_by_manager
-def event_structures_delete(request, structure_slug, event_id, structure_id, event=None):
+def event_structures_delete(request, structure_slug, event_id, structure_id, event=None, structure=None):
     result = management.event_structures_delete(request=request,
                                                 structure_slug=structure_slug,
                                                 event_id=event_id,
@@ -371,7 +374,7 @@ def event_structures_delete(request, structure_slug, event_id, structure_id, eve
 @login_required
 @is_manager
 @has_report_editable_by_manager
-def event_report(request, structure_slug, event_id):
+def event_report(request, structure_slug, event_id, structure=None):
     template = 'pem/user/event_report.html'
     event = get_object_or_404(PublicEngagementEvent, pk=event_id, structure__slug=structure_slug)
     instance = PublicEngagementEventReport.objects.filter(event=event).first()
@@ -380,7 +383,7 @@ def event_report(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                    '#': _('Monitoring data')}
 
@@ -422,14 +425,14 @@ def event_report(request, structure_slug, event_id):
 @login_required
 @is_manager
 @is_manageable_by_manager
-def event_enable_disable(request, structure_slug, event_id, event=None):
+def event_enable_disable(request, structure_slug, event_id, event=None, structure=None):
     template = 'pem/manager/event_change_status.html'
     form = PublicEngagementEventDisableEnableForm()
 
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:manager_dashboard'): _('Manager'),
-                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:manager_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:manager_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                    '#': _('Change status')}
 

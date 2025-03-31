@@ -58,12 +58,12 @@ def dashboard(request, structures=None):
 
 @login_required
 @is_structure_evaluation_operator
-def events(request, structure_slug):
+def events(request, structure_slug, structure=None):
     template = 'pem/operator/events.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                   '#': structure_slug.upper()}
+                   '#': structure.name}
     api_url = reverse('public_engagement_monitoring:api_evaluation_operator_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url,
@@ -72,7 +72,7 @@ def events(request, structure_slug):
 
 @login_required
 @is_structure_evaluation_operator
-def event(request, structure_slug, event_id):
+def event(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  structure__slug=structure_slug).first()
     if not event:
@@ -83,7 +83,7 @@ def event(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    '#': event.title}
     template = 'pem/operator/event.html'
 
@@ -99,7 +99,7 @@ def event(request, structure_slug, event_id):
 @login_required
 @require_POST
 @is_structure_evaluation_operator
-def take_event(request, structure_slug, event_id):
+def take_event(request, structure_slug, event_id, structure=None):
     event = get_object_or_404(PublicEngagementEvent,
                               pk=event_id,
                               structure__slug=structure_slug)
@@ -134,11 +134,11 @@ def take_event(request, structure_slug, event_id):
 @login_required
 @is_structure_evaluation_operator
 @is_editable_by_operator
-def event_basic_info(request, structure_slug, event_id, event=None):
+def event_basic_info(request, structure_slug, event_id, structure=None, event=None):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                    '#': _('General informations')}
 
@@ -181,11 +181,12 @@ def event_basic_info(request, structure_slug, event_id, event=None):
 @login_required
 @is_structure_evaluation_operator
 @is_editable_by_operator
-def event_data(request, structure_slug, event_id, event=None):
+def event_data(request, structure_slug, event_id, structure=None, event=None):
     result = management.event_data(request=request,
                                    structure_slug=structure_slug,
                                    event_id=event_id,
-                                   event=event)
+                                   event=event,
+                                   structure=structure)
     if result == True:
         return redirect("public_engagement_monitoring:operator_event",
                         structure_slug=structure_slug,
@@ -196,11 +197,12 @@ def event_data(request, structure_slug, event_id, event=None):
 @login_required
 @is_structure_evaluation_operator
 @is_editable_by_operator
-def event_people(request, structure_slug, event_id, event=None):
+def event_people(request, structure_slug, event_id, structure=None, event=None):
     result = management.event_people(request=request,
                                      structure_slug=structure_slug,
                                      event_id=event_id,
-                                     event=event)
+                                     event=event,
+                                     structure=structure)
     if result == True:
         return redirect("public_engagement_monitoring:operator_event",
                         structure_slug=structure_slug,
@@ -212,7 +214,7 @@ def event_people(request, structure_slug, event_id, event=None):
 @require_POST
 @is_structure_evaluation_operator
 @is_editable_by_operator
-def event_people_delete(request, structure_slug, event_id, person_id, event=None):
+def event_people_delete(request, structure_slug, event_id, person_id, structure=None, event=None):
     result = management.event_people_delete(request=request,
                                             structure_slug=structure_slug,
                                             event_id=event_id,
@@ -229,11 +231,12 @@ def event_people_delete(request, structure_slug, event_id, person_id, event=None
 @login_required
 @is_structure_evaluation_operator
 @is_editable_by_operator
-def event_structures(request, structure_slug, event_id, event=None):
+def event_structures(request, structure_slug, event_id, structure=None, event=None):
     result = management.event_structures(request=request,
                                          structure_slug=structure_slug,
                                          event_id=event_id,
-                                         event=event)
+                                         event=event,
+                                         structure=structure)
     if result == True:
         return redirect("public_engagement_monitoring:operator_event",
                         structure_slug=structure_slug,
@@ -245,7 +248,7 @@ def event_structures(request, structure_slug, event_id, event=None):
 @require_POST
 @is_structure_evaluation_operator
 @is_editable_by_operator
-def event_structures_delete(request, structure_slug, event_id, structure_id, event=None):
+def event_structures_delete(request, structure_slug, event_id, structure_id, structure=None, event=None):
     result = management.event_structures_delete(request=request,
                                                 structure_slug=structure_slug,
                                                 event_id=event_id,
@@ -261,7 +264,7 @@ def event_structures_delete(request, structure_slug, event_id, structure_id, eve
 
 @login_required
 @is_structure_evaluation_operator
-def event_evaluation(request, structure_slug, event_id):
+def event_evaluation(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  structure__slug=structure_slug).first()
 
@@ -281,7 +284,7 @@ def event_evaluation(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:operator_dashboard'): _('Structure operator'),
-                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:operator_event', kwargs={'event_id': event_id, 'structure_slug': structure_slug}): event.title,
                    '#': _('Evaluation')}
 
@@ -346,7 +349,7 @@ def event_evaluation(request, structure_slug, event_id):
 @login_required
 @require_POST
 @is_structure_evaluation_operator
-def event_reopen_evaluation(request, structure_slug, event_id):
+def event_reopen_evaluation(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.filter(pk=event_id,
                                                  structure__slug=structure_slug).first()
     if not event:

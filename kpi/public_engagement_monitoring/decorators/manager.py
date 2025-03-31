@@ -16,6 +16,11 @@ def is_manager(func_to_decorate):
         request = original_args[0]
         if user_is_manager(request.user):
             return func_to_decorate(*original_args, **original_kwargs)
+        if original_kwargs.get('structure_slug'):
+            structure = get_object_or_404(OrganizationalStructure,
+                                          slug=structure_slug,
+                                          is_active=True)
+            original_kwargs['structure'] = structure
         messages.add_message(request, messages.ERROR, _('Access denied'))
         return redirect("public_engagement_monitoring:dashboard")
     return new_func

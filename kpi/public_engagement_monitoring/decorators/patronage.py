@@ -40,6 +40,7 @@ def is_structure_patronage_operator(func_to_decorate):
         structure = get_object_or_404(OrganizationalStructure,
                                       slug=structure_slug,
                                       is_active=True)
+        original_kwargs['structure'] = structure
         if user_is_patronage_operator(user=request.user, structure=structure):
             return func_to_decorate(*original_args, **original_kwargs)
         messages.add_message(request, messages.ERROR, _('Access denied'))

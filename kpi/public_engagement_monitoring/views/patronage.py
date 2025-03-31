@@ -58,12 +58,12 @@ def dashboard(request, structures=None):
 
 @login_required
 @is_structure_patronage_operator
-def events(request, structure_slug):
+def events(request, structure_slug, structure=None):
     template = 'pem/patronage/events.html'
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   '#': structure_slug}
+                   '#': structure.name}
     api_url = reverse('public_engagement_monitoring:api_patronage_operator_events', kwargs={'structure_slug': structure_slug})
     return render(request, template, {'breadcrumbs': breadcrumbs,
                                       'api_url': api_url,
@@ -72,7 +72,7 @@ def events(request, structure_slug):
 
 @login_required
 @is_structure_patronage_operator
-def event(request, structure_slug, event_id):
+def event(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.prefetch_related('data')\
                                          .filter(pk=event_id,
                                                  structure__slug=structure_slug,
@@ -85,7 +85,7 @@ def event(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    '#': event.title}
     template = 'pem/patronage/event.html'
 
@@ -101,7 +101,7 @@ def event(request, structure_slug, event_id):
 @login_required
 @require_POST
 @is_structure_patronage_operator
-def take_event(request, structure_slug, event_id):
+def take_event(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.prefetch_related('data')\
                                          .filter(pk=event_id,
                                                  structure__slug=structure_slug,
@@ -142,7 +142,7 @@ def take_event(request, structure_slug, event_id):
 
 @login_required
 @is_structure_patronage_operator
-def event_evaluation(request, structure_slug, event_id):
+def event_evaluation(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.prefetch_related('data')\
                                          .filter(pk=event_id,
                                                  structure__slug=structure_slug,
@@ -164,7 +164,7 @@ def event_evaluation(request, structure_slug, event_id):
     breadcrumbs = {reverse('template:dashboard'): _('Dashboard'),
                    reverse('public_engagement_monitoring:dashboard'): _('Public engagement'),
                    reverse('public_engagement_monitoring:patronage_operator_dashboard'): _('Patronage operator'),
-                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): structure_slug.upper(),
+                   reverse('public_engagement_monitoring:patronage_operator_events', kwargs={'structure_slug': structure_slug}): structure.name,
                    reverse('public_engagement_monitoring:patronage_operator_event', kwargs={'structure_slug': structure_slug, 'event_id': event_id}): '{}'.format(event.title),
                    '#': _('Evaluation')}
 
@@ -213,7 +213,7 @@ def event_evaluation(request, structure_slug, event_id):
 @login_required
 @require_POST
 @is_structure_patronage_operator
-def event_reopen_evaluation(request, structure_slug, event_id):
+def event_reopen_evaluation(request, structure_slug, event_id, structure=None):
     event = PublicEngagementEvent.objects.prefetch_related('data')\
                                          .filter(pk=event_id,
                                                  structure__slug=structure_slug,
