@@ -47,7 +47,10 @@ class OrganizationalStructureOfficeAdmin(AbstractAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'organizational_structure', 'is_active')
 
-    list_filter = ('organizational_structure',
+    list_filter = ('organizational_structure__is_internal',
+                   'organizational_structure__is_visiting_enabled',
+                   'organizational_structure__is_public_engagement_enabled',
+                   'organizational_structure',
                    'is_active')
 
     list_editable = ('is_active',)
