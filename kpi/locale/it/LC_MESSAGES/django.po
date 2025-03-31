@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-31 16:00+0200\n"
-"PO-Revision-Date: 2025-03-31 16:01+0200\n"
+"PO-Revision-Date: 2025-03-31 16:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -1384,7 +1384,7 @@ msgstr "In attesa di validazione"
 
 #: public_engagement_monitoring/templates/pem/events.html:173
 msgid "Filling in progress"
-msgstr ""
+msgstr "Compilazione in corso"
 
 #: public_engagement_monitoring/templates/pem/events.html:177
 msgid "Missing data or blocked changes"

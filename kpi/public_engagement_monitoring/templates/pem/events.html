@@ -73,10 +73,10 @@
                     </div>
                 </div>
 
-                {% block custom_filters %}
                 <div class="row mt-4">
                     <div class="col-12 mt-4 mt-lg-0">
                         <fieldset>
+                            {% block custom_filters %}
                             <div class="form-check form-check-inline">
                                 <div class="toggles">
                                   <label for="toggle1">
@@ -95,10 +95,19 @@
                                   </label>
                                 </div>
                             </div>
+                            {% endblock custom_filters %}
+                            <div class="form-check form-check-inline">
+                                <div class="toggles">
+                                  <label for="toggle3">
+                                    {% trans "Not eligible (singular)" %}
+                                    <input v-model="filter_not_eligible" type="checkbox" id="toggle3" @change="not_eligible($event.target.checked)">
+                                    <span class="lever"></span>
+                                  </label>
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
                 </div>
-                {% endblock custom_filters %}
 
                 <div class="mt-5 text-end">
                     <b>{% trans "Events number" %}</b>
@@ -242,6 +251,7 @@ const app = Vue.createApp({
             additional_url_params: '',
             controller: null,
             year: null,
+            filter_not_eligible: false,
             {% block extra_vue_data %}
             filter_to_handle: false,
             filter_to_evaluate: false,
@@ -293,6 +303,13 @@ const app = Vue.createApp({
                         this.error_status = error.response.status
                     }
                 })
+        },
+        not_eligible(value) {
+            if (value) {
+                this.additional_url_params = '&not_eligible=true'
+            }
+            else this.additional_url_params = ''
+            this.getData(this.page)
         },
         {% block extra_vue_methods %}
         to_take(value) {
