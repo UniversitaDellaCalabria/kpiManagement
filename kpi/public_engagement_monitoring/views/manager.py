@@ -420,7 +420,6 @@ def event_report(request, structure_slug, event_id):
 
 
 @login_required
-@require_POST
 @is_manager
 @is_manageable_by_manager
 def event_enable_disable(request, structure_slug, event_id, event=None):
