@@ -234,14 +234,13 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
         # se l'evento deve ancora iniziare
         # si tiene conto del numero di giorni minimo
         # (settings.EVALUATION_TIME_DELTA)
-        if self.starts_in_time():
-            return True
-        # se non è rispettata questa regola allora si deve aspettare la fine dell'evento
-        # cosi da permettere il caricamento in un'unica fase
-        # dei dati di monitoraggio
-        if self.is_over() and getattr(self, 'report', None):
-            return True
-        return False
+        # ~ if self.starts_in_time():
+            # ~ return True
+        # se l'iniziativa è terminata
+        # sono obbligatori anche i dati di monitoraggio
+        if self.is_over() and not getattr(self, 'report', None):
+            return False
+        return True
 
     def evaluation_request_can_be_reviewed(self):
         """
