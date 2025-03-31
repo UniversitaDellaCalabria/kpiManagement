@@ -16,7 +16,7 @@ def is_manager(func_to_decorate):
         request = original_args[0]
         if original_kwargs.get('structure_slug'):
             structure = get_object_or_404(OrganizationalStructure,
-                                          slug=structure_slug,
+                                          slug=original_kwargs['structure_slug'],
                                           is_active=True)
             original_kwargs['structure'] = structure
         if user_is_manager(request.user):
