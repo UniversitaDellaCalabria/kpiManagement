@@ -22,7 +22,6 @@ class PublicEngagementEventList(PublicEngagementEventList):
             .filter(structure__slug=self.kwargs['structure_slug'],
                     structure__is_active=True,
                     to_evaluate=True,
-                    is_active=True,
                     data__patronage_requested=True)
 
         status = self.request.query_params.get('status')

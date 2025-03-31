@@ -20,8 +20,7 @@ class PublicEngagementEventList(PublicEngagementEventList):
             .select_related('referent', 'structure')\
             .filter(structure__slug=self.kwargs['structure_slug'],
                     structure__is_active=True,
-                    to_evaluate=True,
-                    is_active=True)
+                    to_evaluate=True)
 
         status = self.request.query_params.get('status')
         if status=='to_handle' or status=='to_evaluate':
