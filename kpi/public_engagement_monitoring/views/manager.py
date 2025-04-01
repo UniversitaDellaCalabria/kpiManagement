@@ -455,6 +455,16 @@ def event_enable_disable(request, structure_slug, event_id, event=None, structur
 
                 send_email_to_event_referents(event, subject, body)
                 send_email_to_operators(event.structure, subject, body)
+                for involved_structure in event.data.involved_structure:
+                    send_email_to_operators(
+                        involved_structure,
+                        subject,
+                        '{}: {}\n\n{}'.format(
+                            _('Notification for operators of involved structure'),
+                            involved_structure.name,
+                            body
+                        )
+                    )
                 send_email_to_managers(subject, body)
 
             log_action(user=request.user,

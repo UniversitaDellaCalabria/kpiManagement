@@ -22,7 +22,7 @@ class PublicEngagementEventList(PublicEngagementEventList):
             .select_related('referent', 'structure')\
             .filter(data__involved_personnel=self.request.user,
                     structure__is_active=True,
-                    is_active=True,
-                    operator_evaluation_date__isnull=False,
-                    operator_evaluation_success=True)
+                    # ~ is_active=True,
+                    operator_evaluation_date__isnull=False)
+                    # ~ operator_evaluation_success=True)
         return events

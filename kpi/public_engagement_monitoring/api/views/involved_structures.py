@@ -22,8 +22,8 @@ class PublicEngagementEventList(PublicEngagementEventList):
                     data__involved_structure__is_active=True,
                     structure__is_active=True,
                     to_evaluate=True,
-                    operator_evaluation_date__isnull=False,
-                    is_active=True)
+                    operator_evaluation_date__isnull=False)
+                    #is_active=True)
 
         status = self.request.query_params.get('status')
         if status=='approved':

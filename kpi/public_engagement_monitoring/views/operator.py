@@ -319,6 +319,17 @@ def event_evaluation(request, structure_slug, event_id, structure=None):
             # invia email a referente/compilatore
             send_email_to_event_referents(event, subject, body)
 
+            for involved_structure in event.data.involved_structure:
+                send_email_to_operators(
+                    involved_structure,
+                    subject,
+                    '{}: {}\n\n{}'.format(
+                        _('Notification for operators of involved structure'),
+                        involved_structure.name,
+                        body
+                    )
+                )
+
             if form.cleaned_data['success'] == 'True':
                 # invia email a operatori patrocinio
                 if event.data.patronage_requested and not event.is_started():
@@ -378,6 +389,18 @@ def event_reopen_evaluation(request, structure_slug, event_id, structure=None):
     subject = '{} - "{}" - {}'.format(_('Public engagement'), event.title, _('Evaluation reopened'))
     body = "{} {} {}".format(request.user, _('has reopened evaluation of the event'), '.')
     send_email_to_event_referents(event, subject, body)
+
+    for involved_structure in event.data.involved_structure:
+        send_email_to_operators(
+            involved_structure,
+            subject,
+            '{}: {}\n\n{}'.format(
+                _('Notification for operators of involved structure'),
+                involved_structure.name,
+                body
+            )
+        )
+
 
     if event.data.patronage_requested:
         send_email_to_patronage_operators(event.structure, subject, body)
