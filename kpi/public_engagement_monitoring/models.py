@@ -433,6 +433,8 @@ class PublicEngagementEvent(ActivableModel, CreatedModifiedBy, TimeStampedModel)
             return False
         if self.is_started():
             return False
+        if self.edited_by_manager:
+            return False
         return True
 
     def is_editable_by_manager(self):

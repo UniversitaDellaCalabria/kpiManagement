@@ -319,7 +319,7 @@ def event_evaluation(request, structure_slug, event_id, structure=None):
             # invia email a referente/compilatore
             send_email_to_event_referents(event, subject, body)
 
-            for involved_structure in event.data.involved_structure:
+            for involved_structure in event.data.involved_structure.all():
                 send_email_to_operators(
                     involved_structure,
                     subject,
@@ -390,7 +390,7 @@ def event_reopen_evaluation(request, structure_slug, event_id, structure=None):
     body = "{} {} {}".format(request.user, _('has reopened evaluation of the event'), '.')
     send_email_to_event_referents(event, subject, body)
 
-    for involved_structure in event.data.involved_structure:
+    for involved_structure in event.data.involved_structure.all():
         send_email_to_operators(
             involved_structure,
             subject,

@@ -455,7 +455,7 @@ def event_enable_disable(request, structure_slug, event_id, event=None, structur
 
                 send_email_to_event_referents(event, subject, body)
                 send_email_to_operators(event.structure, subject, body)
-                for involved_structure in event.data.involved_structure:
+                for involved_structure in event.data.involved_structure.all():
                     send_email_to_operators(
                         involved_structure,
                         subject,
