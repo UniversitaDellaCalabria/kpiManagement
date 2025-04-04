@@ -14,6 +14,9 @@ La sezione dedicata ai referenti/delegati è indicata dal box
 .. image:: images/operatore_struttura/box_home.png
 
 
+----------
+
+
 Scelta della struttura di competenza
 ************************************
 
@@ -21,6 +24,9 @@ Ogni operatore può afferire a diverse strutture. Scegliendone una, quindi,
 gestisce le iniziative collegate.
 
 .. image:: images/operatore_struttura/box_structure.png
+
+
+----------
 
 
 Validazione delle iniziative
@@ -50,6 +56,9 @@ si articola in poche basilari operazioni:
       le motivazioni della scelta.
 
 
+----------
+
+
 Gestione richiesta di patrocinio
 ********************************
 
@@ -76,6 +85,9 @@ Prevede esclusivamente:
 
       Come per la validazione, un esito negativo presuppone l'inserimento delle note che specifichino
       le motivazioni della scelta.
+
+
+----------
 
 
 Riapertura della validazione
