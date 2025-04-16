@@ -67,7 +67,7 @@
     </div>
 
     {% if compiled_by_user %}
-    <div v-if="user_is_referent == 'false'">
+    <div v-if="user_is_referent == 'false' && referent_id == ''">
     {% else %}
     <div v-if="referent_id == ''">
     {% endif %}
