@@ -53,9 +53,8 @@ def download_event_poster(request, event_id):
     data = getattr(event, 'data', None)
     if data and data.poster:
         # get folder path
-        folder_path = "{}/public-engagement/events/{}-{}".format(settings.MEDIA_ROOT,
-                                                                 event.id,
-                                                                 event.title)
+        folder_path = "{}/public-engagement/events/{}".format(settings.MEDIA_ROOT,
+                                                              event.id)
         # get file
         return download_file(folder_path, os.path.basename(data.poster.name))
     raise Http404
