@@ -139,7 +139,7 @@ const app = Vue.createApp({
         return {
             data: [],
             is_loading: false,
-            user_is_referent: 'true',
+            user_is_referent: {% if compiled_by_user %}'true'{% else %}'false'{% endif %},
             referent_id: '',
             referent_name: '',
             search_terms: '',
