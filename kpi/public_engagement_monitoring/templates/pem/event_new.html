@@ -73,8 +73,7 @@
     {% endif %}
         <div class="row form-group">
             <div class="col-md">
-                <div class="input-group">
-                    <label for="search"></label>
+                <div class="form-group">
                     <input type="text"
                            class="form-control"
                            id="search"
@@ -82,7 +81,11 @@
                            placeholder="{% trans 'Surname' %}"
                            v-model="search_terms"
                            v-on:keyup.enter="search()">
-                    <div class="input-group-append"></div>
+                    <span class="autocomplete-icon" style="background: none">
+                        <svg class="icon icon-sm">
+                            <use xlink:href="{% static 'svg/sprites.svg' %}#it-search"></use>
+                        </svg>
+                    </span>
                 </div>
             </div>
         </div>
