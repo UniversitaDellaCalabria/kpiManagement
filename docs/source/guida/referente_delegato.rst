@@ -81,9 +81,7 @@ Se l’iniziativa è terminata, il referente/delegato:
 Inserimento dati di monitoraggio
 ********************************
 
-La procedura è guidata dal relativo form ed è resa disponibile in base a
-quanto specificato nei paragrafi precedenti
-(tipologia e stato dell'iniziativa, apertura termini per l’anno di riferimento)
+La procedura è guidata dal relativo form della [“Scheda di monitoraggio PE”](documents/Scheda Monitoraggio Public Engagement 2025 - due step di rilevazione.pdf)
 
 .. image:: images/referente/buttons_monitoring.png
 
