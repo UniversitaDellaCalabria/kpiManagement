@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-16 16:22+0200\n"
-"PO-Revision-Date: 2025-04-16 16:22+0200\n"
+"POT-Creation-Date: 2025-04-16 17:30+0200\n"
+"PO-Revision-Date: 2025-04-16 17:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -108,7 +108,7 @@ msgstr ""
 #: public_engagement_management/templates/dashboard_public_engagements.html:150
 #: public_engagement_monitoring/templates/pem/dashboard.html:34
 #: public_engagement_monitoring/templates/pem/dashboard.html:84
-#: public_engagement_monitoring/templates/pem/manager/dashboard.html:43
+#: public_engagement_monitoring/templates/pem/manager/dashboard.html:51
 #: public_engagement_monitoring/templates/pem/operator/dashboard.html:43
 #: public_engagement_monitoring/templates/pem/patronage/dashboard.html:43
 #: template/templates/dashboard.html:25 template/templates/dashboard.html:47
@@ -1350,7 +1350,7 @@ msgid "Descending"
 msgstr "Decrescente"
 
 #: public_engagement_monitoring/templates/pem/events.html:83
-#: public_engagement_monitoring/templates/pem/manager/dashboard.html:27
+#: public_engagement_monitoring/templates/pem/manager/dashboard.html:35
 #: public_engagement_monitoring/templates/pem/manager/events.html:23
 #: public_engagement_monitoring/templates/pem/operator/events.html:34
 msgid "Approved (plural)"
@@ -1430,7 +1430,11 @@ msgstr ""
 "I contatori prendono in carico solo le iniziative per le quali l'anno di "
 "monitoraggio è ancora attivo"
 
-#: public_engagement_monitoring/templates/pem/manager/dashboard.html:35
+#: public_engagement_monitoring/templates/pem/manager/dashboard.html:17
+msgid "Filter by keyword..."
+msgstr "Filtra per parola chiave..."
+
+#: public_engagement_monitoring/templates/pem/manager/dashboard.html:43
 #: public_engagement_monitoring/templates/pem/manager/events.html:32
 msgid "Loaded by manager (plural)"
 msgstr "Inserite da operatore di Ateneo"
