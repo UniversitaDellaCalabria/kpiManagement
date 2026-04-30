@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 16:17+0200\n"
-"PO-Revision-Date: 2026-04-30 16:17+0200\n"
+"POT-Creation-Date: 2026-04-30 16:58+0200\n"
+"PO-Revision-Date: 2026-04-30 16:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -71,8 +71,8 @@ msgstr "Denominatore"
 #: public_engagement_monitoring/views/manager.py:454
 #: public_engagement_monitoring/views/operator.py:318
 #: public_engagement_monitoring/views/patronage.py:198
-#: visiting_management/forms.py:51
-#: visiting_management/templates/visiting.html:101
+#: visiting_management/forms.py:52
+#: visiting_management/templates/visiting.html:117
 msgid "Notes"
 msgstr "Note"
 
@@ -84,7 +84,7 @@ msgstr "Note"
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:20
 #: public_engagement_management/templates/public_engagement.html:57
 #: public_engagement_monitoring/views/manager.py:450
-#: visiting_management/forms.py:52
+#: visiting_management/forms.py:53
 #: visiting_management/templates/datatables_visiting/table_header.html:27
 #: visiting_management/templates/datatables_visiting/top_filters.html:32
 #: visiting_management/templates/visiting.html:29
@@ -211,7 +211,7 @@ msgstr ""
 
 #: detection_management/templates/datatables_detection/top_filters.html:8
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:7
-#: visiting_management/forms.py:44
+#: visiting_management/forms.py:45
 #: visiting_management/templates/datatables_visiting/table_header.html:22
 #: visiting_management/templates/edit_visiting.html:20
 msgid "From"
@@ -219,7 +219,7 @@ msgstr "Da"
 
 #: detection_management/templates/datatables_detection/top_filters.html:14
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:13
-#: visiting_management/forms.py:45
+#: visiting_management/forms.py:46
 #: visiting_management/templates/datatables_visiting/table_header.html:23
 #: visiting_management/templates/edit_visiting.html:20
 msgid "To"
@@ -716,7 +716,7 @@ msgid "Goals"
 msgstr "Obiettivi"
 
 #: public_engagement_management/views.py:126
-#: public_engagement_management/views.py:197 visiting_management/views.py:63
+#: public_engagement_management/views.py:197 visiting_management/views.py:64
 msgid "Permission denied"
 msgstr "Permesso negato"
 
@@ -812,22 +812,22 @@ msgstr "Titolo iniziativa"
 #: public_engagement_monitoring/models.py:64
 #: public_engagement_monitoring/templates/pem/events.html:60
 #: public_engagement_monitoring/templates/pem/events.html:127
-#: visiting_management/forms.py:47
+#: visiting_management/forms.py:48
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
 #: visiting_management/templates/edit_visiting.html:23
-#: visiting_management/templates/visiting.html:85
+#: visiting_management/templates/visiting.html:97
 msgid "Start"
 msgstr "Inizio"
 
 #: public_engagement_monitoring/models.py:65
 #: public_engagement_monitoring/templates/pem/events.html:61
 #: public_engagement_monitoring/templates/pem/events.html:128
-#: visiting_management/forms.py:48
+#: visiting_management/forms.py:49
 #: visiting_management/templates/datatables_visiting/table_header.html:26
 #: visiting_management/templates/datatables_visiting/top_filters.html:13
 #: visiting_management/templates/edit_visiting.html:23
-#: visiting_management/templates/visiting.html:89
+#: visiting_management/templates/visiting.html:101
 msgid "End"
 msgstr "Fine"
 
@@ -1614,9 +1614,9 @@ msgstr "Estensione del file non accettata: \"{}\". Inserisci solo {}"
 #: template/templates/base.html:22 unical_accounts/views.py:25
 #: unical_accounts/views.py:39 unical_accounts/views.py:85
 #: unical_accounts/views.py:120 unical_accounts/views.py:129
-#: visiting_management/views.py:55 visiting_management/views.py:87
-#: visiting_management/views.py:106 visiting_management/views.py:132
-#: visiting_management/views.py:178
+#: visiting_management/views.py:56 visiting_management/views.py:88
+#: visiting_management/views.py:107 visiting_management/views.py:133
+#: visiting_management/views.py:179
 msgid "Dashboard"
 msgstr "Pannello di controllo"
 
@@ -2137,7 +2137,7 @@ msgstr ""
 msgid "Femmina"
 msgstr ""
 
-#: unical_accounts/models.py:11
+#: unical_accounts/models.py:11 visiting_management/templates/visiting.html:92
 msgid "Not defined"
 msgstr "Non definito"
 
@@ -2278,49 +2278,54 @@ msgstr "Email aggiornata con successo"
 msgid "Collaboration"
 msgstr "Collaborazione"
 
-#: visiting_management/forms.py:43
+#: visiting_management/forms.py:44
 #: visiting_management/templates/visiting.html:47
 msgid "Role"
 msgstr "Ruolo"
 
-#: visiting_management/forms.py:46
+#: visiting_management/forms.py:47
 #: visiting_management/templates/visiting.html:52
 msgid "Collaborations"
 msgstr "Collaborazioni"
 
-#: visiting_management/forms.py:49
-#: visiting_management/templates/visiting.html:93
+#: visiting_management/forms.py:50
+#: visiting_management/templates/visiting.html:105
 msgid "Teaching/research/seminar hours"
 msgstr "Ore didattica/ricerca/seminari"
 
-#: visiting_management/forms.py:50
-#: visiting_management/templates/visiting.html:97
+#: visiting_management/forms.py:51
+#: visiting_management/templates/visiting.html:109
 msgid "Effective days"
 msgstr "Giorni effettivi"
 
-#: visiting_management/forms.py:53
+#: visiting_management/forms.py:54
+#: visiting_management/templates/visiting.html:113
 msgid "Document"
 msgstr "Documento"
 
-#: visiting_management/forms.py:54
+#: visiting_management/forms.py:55
 msgid "In-person activity"
 msgstr "Attività in presenza"
 
-#: visiting_management/forms.py:80 visiting_management/forms.py:82
+#: visiting_management/forms.py:83 visiting_management/forms.py:85
 msgid "The departure or arrival facility must match your home facility"
 msgstr ""
 "La struttura di partenza o quella di arrivo deve coincidere con la struttura "
 "di appartenenza"
 
-#: visiting_management/forms.py:86 visiting_management/forms.py:88
+#: visiting_management/forms.py:89 visiting_management/forms.py:91
 msgid "Structures must be different"
 msgstr "Le strutture devono essere differenti"
 
-#: visiting_management/forms.py:92 visiting_management/forms.py:94
+#: visiting_management/forms.py:95 visiting_management/forms.py:97
+msgid "Only one of the two structures must be internal"
+msgstr ""
+
+#: visiting_management/forms.py:101 visiting_management/forms.py:103
 msgid "Start date is greater than end date"
 msgstr "La data  di inizio è successiva a quella di fine"
 
-#: visiting_management/forms.py:101
+#: visiting_management/forms.py:110
 msgid "Effective days are greater than difference bewteen dates"
 msgstr ""
 "Il numero di giorni effettivi non può essere superiore alla differenza tra "
@@ -2378,11 +2383,27 @@ msgstr "Partenza"
 msgid "Destination"
 msgstr "Destinazione"
 
-#: visiting_management/views.py:154
+#: visiting_management/templates/visiting.html:85
+msgid "Activity type"
+msgstr "Tipo di attività"
+
+#: visiting_management/templates/visiting.html:88
+msgid "In-person"
+msgstr "In presenza"
+
+#: visiting_management/templates/visiting.html:90
+msgid "Online"
+msgstr "Online"
+
+#: visiting_management/templates/visiting.html:114
+msgid "Download"
+msgstr ""
+
+#: visiting_management/views.py:155
 msgid "Visiting created"
 msgstr "Visiting creato"
 
-#: visiting_management/views.py:209
+#: visiting_management/views.py:210
 msgid "Visiting edited"
 msgstr "Visiting modificato"
 
