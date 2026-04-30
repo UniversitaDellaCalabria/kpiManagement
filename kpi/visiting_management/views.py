@@ -134,7 +134,11 @@ def new_structure_visiting(request, structure_slug, structure=None):
                    reverse('visiting:structure_visitings', kwargs={'structure_slug': structure_slug}): structure.name,
                    '#': 'Nuovo' }
     if request.POST:
-        form = VisitingForm(request.POST, structure=structure)
+        form = VisitingForm(
+            data=request.POST,
+            files=request.FILES,
+            structure=structure
+        )
         if form.is_valid():
 
             visiting = _save_visiting(form=form,
@@ -186,7 +190,9 @@ def edit_structure_visiting(request, structure_slug, visiting_pk, structure=None
         form = VisitingForm(instance=visiting,
                             initial={'collab': collaborations},
                             structure=structure,
-                            data=request.POST)
+                            data=request.POST,
+                            files=request.FILES,
+                        )
         changed_field_labels = _get_changed_field_labels_from_form(form,
                                                                    form.changed_data)
         if form.is_valid():
