@@ -24,7 +24,8 @@ class VisitingForm(forms.ModelForm):
         
     class Meta:
         model = Visiting
-        fields = ['visitor',
+        fields = ['in_person',
+                  'visitor',
                   'role',
                   'from_structure',
                   'to_structure',
@@ -35,7 +36,6 @@ class VisitingForm(forms.ModelForm):
                   'didactic_hour',
                   'effective_days',
                   'document',
-                  'in_person',
                   'note',
                   'is_active',
                   ]
