@@ -4,8 +4,13 @@ from django.db import models
 from organizational_area.models import OrganizationalStructure
 
 from template.models import *
+from template.validators import *
 
 
+def visiting_doc_path(instance, filename):
+    return f'visiting/{instance.pk}/{filename}'
+
+    
 class Role(models.Model):
     role_type = models.CharField(max_length=254)
 
@@ -38,6 +43,15 @@ class Visiting(ActivableModel, CreatedModifiedBy, TimeStampedModel):
     end_date = models.DateField()
     didactic_hour = models.PositiveIntegerField()
     effective_days = models.PositiveIntegerField()
+    document = models.FileField(
+        null=True,
+        blank=False,
+        upload_to=visiting_doc_path,
+        validators=[
+            validate_file_extension,
+            validate_file_size
+        ]
+    )
     note = models.TextField(blank=True, default='')
 
     def __str__(self):

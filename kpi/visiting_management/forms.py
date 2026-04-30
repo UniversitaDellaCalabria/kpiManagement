@@ -33,6 +33,7 @@ class VisitingForm(forms.ModelForm):
                   'end_date',
                   'didactic_hour',
                   'effective_days',
+                  'document',
                   'note',
                   'is_active',
                   ]
@@ -48,6 +49,7 @@ class VisitingForm(forms.ModelForm):
             'effective_days': _('Effective days'),
             'note': _('Notes'),
             'is_active': _('Enabled'),
+            'document': _('Document'),
         }
 
         widgets = {'visitor': BootstrapItaliaAPISelectVisitorWidget,
