@@ -20,7 +20,8 @@ class VisitingForm(forms.ModelForm):
         self.structure = kwargs.pop('structure')
         super().__init__(*args, **kwargs)
         self.fields['collab'].queryset = Collaboration.objects.all()
-
+        self.fields['document'].widget.attrs['structure_slug'] = self.structure.slug
+        
     class Meta:
         model = Visiting
         fields = ['visitor',
@@ -60,7 +61,9 @@ class VisitingForm(forms.ModelForm):
                    'role': BootstrapItaliaSelectWidget,
                    'start_date': BootstrapItaliaDateWidget,
                    'end_date': BootstrapItaliaDateWidget,
-                   'note': forms.Textarea(attrs={'rows': 2})}
+                   'note': forms.Textarea(attrs={'rows': 2}),
+                   'document': CustomFileWidget
+                }
 
     class Media:
         js = ('js/textarea-autosize.js',)
@@ -87,6 +90,12 @@ class VisitingForm(forms.ModelForm):
             self.add_error('to_structure',
                            _("Structures must be different"))
 
+        if from_structure.is_internal == to_structure.is_internal:
+            self.add_error('from_structure',
+                           _("Only one of the two structures must be internal"))
+            self.add_error('to_structure',
+                           _("Only one of the two structures must be internal"))
+                           
         if start_date and end_date and start_date > end_date:
             self.add_error('start_date',
                            _("Start date is greater than end date"))

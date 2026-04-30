@@ -5,13 +5,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.utils.translation import gettext_lazy as _
 
 # from organizational_area.decorators import belongs_to_an_office
 from organizational_area.models import *
 
-from template.utils import check_user_permission_on_dashboard, log_action
+from template.utils import *
 
 from . decorators import *
 from . forms import *
@@ -220,3 +221,18 @@ def edit_structure_visiting(request, structure_slug, visiting_pk, structure=None
          'visiting': visiting}
     template = 'edit_visiting.html'
     return render(request, template, d)
+
+
+@login_required
+@can_manage_structure_visitings
+def download_document(request, structure_slug, visiting_pk, structure=None):
+    visiting = get_object_or_404(Visiting,
+                                 Q(from_structure=structure) |
+                                 Q(to_structure=structure),
+                                 pk=visiting_pk,)
+                                 
+    doc = visiting.document
+    if doc:
+        result = download_file(doc.path)
+        return result
+    raise Http404

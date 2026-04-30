@@ -82,6 +82,18 @@
             </td>
         </tr>
         <tr>
+            <th scope="row">{% trans 'Activity type' %}</th>
+            <td>
+                {% if visiting.in_person == 1 %}
+                {% trans "In-person" %}
+                {% elif visiting.in_person == 0 %}
+                {% trans "Online" %}
+                {% else %}
+                {% trans "Not defined" %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
             <th scope="row">{% trans 'Start' %}</th>
             <td>{{ visiting.start_date|date:"d/m/Y" }}</td>
         </tr>
@@ -96,6 +108,10 @@
         <tr>
             <th scope="row">{% trans 'Effective days' %}</th>
             <td>{{ visiting.effective_days }}</td>
+        </tr>
+        <tr>
+            <th scope="row">{% trans 'Document' %}</th>
+            <td><a href="{% url 'visiting:download_document' structure_slug=structure.slug visiting_pk=visiting.pk %}">{% trans "Download" %}</a></td>
         </tr>
         <tr>
             <th scope="row">{% trans 'Notes' %}</th>

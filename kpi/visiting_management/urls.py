@@ -31,4 +31,8 @@ urlpatterns = [
          structure_visiting, name='structure_visiting'),
     path(f'{prefix}/<str:structure_slug>/<str:visiting_pk>/edit/',
          edit_structure_visiting, name='edit_structure_visiting'),
+    path(f"{prefix}/<str:structure_slug>/<str:visiting_pk>/download-doc/",
+        download_document,
+        name="download_document",
+    ),
 ]
