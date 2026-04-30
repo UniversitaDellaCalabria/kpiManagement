@@ -40,6 +40,8 @@ class VisitingDTD(DjangoDatatablesServerProc):
                 self.aqs = self.aqs.filter(is_active=is_active)
             if text:
                 self.aqs = self.aqs.filter(
+                    Q(visitor__codice_fiscale__icontains=text) |
+                    Q(visitor__first_name__icontains=text) |
                     Q(visitor__last_name__icontains=text) |
                     Q(from_structure__name__icontains=text) |
                     Q(to_structure__name__icontains=text))
