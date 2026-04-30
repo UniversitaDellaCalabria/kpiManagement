@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-16 17:30+0200\n"
-"PO-Revision-Date: 2025-04-16 17:30+0200\n"
+"POT-Creation-Date: 2026-04-30 15:49+0200\n"
+"PO-Revision-Date: 2026-04-30 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -71,7 +71,7 @@ msgstr "Denominatore"
 #: public_engagement_monitoring/views/manager.py:454
 #: public_engagement_monitoring/views/operator.py:318
 #: public_engagement_monitoring/views/patronage.py:198
-#: visiting_management/forms.py:49
+#: visiting_management/forms.py:51
 #: visiting_management/templates/visiting.html:101
 msgid "Notes"
 msgstr "Note"
@@ -84,7 +84,7 @@ msgstr "Note"
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:20
 #: public_engagement_management/templates/public_engagement.html:57
 #: public_engagement_monitoring/views/manager.py:450
-#: visiting_management/forms.py:50
+#: visiting_management/forms.py:52
 #: visiting_management/templates/datatables_visiting/table_header.html:27
 #: visiting_management/templates/datatables_visiting/top_filters.html:32
 #: visiting_management/templates/visiting.html:29
@@ -112,7 +112,6 @@ msgstr ""
 #: public_engagement_monitoring/templates/pem/operator/dashboard.html:43
 #: public_engagement_monitoring/templates/pem/patronage/dashboard.html:43
 #: template/templates/dashboard.html:25 template/templates/dashboard.html:47
-#: template/templates/dashboard.html:69
 #: visiting_management/templates/dashboard_visitings.html:29
 msgid "Manage"
 msgstr "Gestisci"
@@ -212,7 +211,7 @@ msgstr ""
 
 #: detection_management/templates/datatables_detection/top_filters.html:8
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:7
-#: visiting_management/forms.py:42
+#: visiting_management/forms.py:44
 #: visiting_management/templates/datatables_visiting/table_header.html:22
 #: visiting_management/templates/edit_visiting.html:20
 msgid "From"
@@ -220,7 +219,7 @@ msgstr "Da"
 
 #: detection_management/templates/datatables_detection/top_filters.html:14
 #: public_engagement_management/templates/datatables_public_engagement/top_filters.html:13
-#: visiting_management/forms.py:43
+#: visiting_management/forms.py:45
 #: visiting_management/templates/datatables_visiting/table_header.html:23
 #: visiting_management/templates/edit_visiting.html:20
 msgid "To"
@@ -570,7 +569,7 @@ msgstr "Social engagement per struttura"
 
 #: public_engagement_management/templates/dashboard_public_engagements.html:121
 msgid "Export data in CSV"
-msgstr ""
+msgstr "Esporta dati in CSV"
 
 #: public_engagement_management/templates/datatables_public_engagement/table_header.html:20
 #: public_engagement_management/templates/public_engagement.html:71
@@ -811,7 +810,7 @@ msgstr "Titolo iniziativa"
 #: public_engagement_monitoring/models.py:64
 #: public_engagement_monitoring/templates/pem/events.html:60
 #: public_engagement_monitoring/templates/pem/events.html:127
-#: visiting_management/forms.py:45
+#: visiting_management/forms.py:47
 #: visiting_management/templates/datatables_visiting/table_header.html:25
 #: visiting_management/templates/datatables_visiting/top_filters.html:7
 #: visiting_management/templates/edit_visiting.html:23
@@ -822,7 +821,7 @@ msgstr "Inizio"
 #: public_engagement_monitoring/models.py:65
 #: public_engagement_monitoring/templates/pem/events.html:61
 #: public_engagement_monitoring/templates/pem/events.html:128
-#: visiting_management/forms.py:46
+#: visiting_management/forms.py:48
 #: visiting_management/templates/datatables_visiting/table_header.html:26
 #: visiting_management/templates/datatables_visiting/top_filters.html:13
 #: visiting_management/templates/edit_visiting.html:23
@@ -1298,7 +1297,7 @@ msgstr "Sono delegato dal referente"
 msgid "Next step"
 msgstr "Prosegui"
 
-#: public_engagement_monitoring/templates/pem/event_new.html:82
+#: public_engagement_monitoring/templates/pem/event_new.html:81
 #: public_engagement_monitoring/templates/pem/event_people.html:55
 msgid "Surname"
 msgstr "Cognome"
@@ -1620,7 +1619,6 @@ msgid "Dashboard"
 msgstr "Pannello di controllo"
 
 #: public_engagement_monitoring/views/generic.py:24
-#: template/templates/base.html:42 template/templates/dashboard.html:41
 msgid "Public Engagement"
 msgstr "Public Engagement"
 
@@ -2021,17 +2019,17 @@ msgstr ""
 msgid "Users"
 msgstr "Utenti"
 
-#: template/templates/base.html:32 template/templates/dashboard.html:63
+#: template/templates/base.html:32 template/templates/dashboard.html:41
 #: visiting_management/templates/visitings.html:8
 msgid "Visiting/Teacher mobility"
 msgstr "Visiting/Mobilità docenti"
 
-#: template/templates/base.html:47 unical_accounts/templates/account.html:10
+#: template/templates/base.html:42 unical_accounts/templates/account.html:10
 #: unical_accounts/views.py:121 unical_accounts/views.py:130
 msgid "Account"
 msgstr ""
 
-#: template/templates/base.html:58
+#: template/templates/base.html:53
 msgid "Logout"
 msgstr "Esci"
 
@@ -2056,7 +2054,7 @@ msgstr "Indicatori di performance"
 msgid "Detections data"
 msgstr "Dati dei rilevamenti"
 
-#: template/templates/dashboard.html:66
+#: template/templates/dashboard.html:44
 msgid "Data collection of indicators on incoming and outgoing teachers"
 msgstr "Raccolta dati di indicatori sui docenti in entrata e in uscita"
 
@@ -2278,41 +2276,49 @@ msgstr "Email aggiornata con successo"
 msgid "Collaboration"
 msgstr "Collaborazione"
 
-#: visiting_management/forms.py:41
+#: visiting_management/forms.py:43
 #: visiting_management/templates/visiting.html:47
 msgid "Role"
 msgstr "Ruolo"
 
-#: visiting_management/forms.py:44
+#: visiting_management/forms.py:46
 #: visiting_management/templates/visiting.html:52
 msgid "Collaborations"
 msgstr "Collaborazioni"
 
-#: visiting_management/forms.py:47
+#: visiting_management/forms.py:49
 #: visiting_management/templates/visiting.html:93
 msgid "Teaching/research/seminar hours"
 msgstr "Ore didattica/ricerca/seminari"
 
-#: visiting_management/forms.py:48
+#: visiting_management/forms.py:50
 #: visiting_management/templates/visiting.html:97
 msgid "Effective days"
 msgstr "Giorni effettivi"
 
-#: visiting_management/forms.py:76 visiting_management/forms.py:78
+#: visiting_management/forms.py:53
+msgid "Document"
+msgstr "Documento"
+
+#: visiting_management/forms.py:54
+msgid "In-person activity"
+msgstr "Attività in presenza"
+
+#: visiting_management/forms.py:80 visiting_management/forms.py:82
 msgid "The departure or arrival facility must match your home facility"
 msgstr ""
 "La struttura di partenza o quella di arrivo deve coincidere con la struttura "
 "di appartenenza"
 
-#: visiting_management/forms.py:82 visiting_management/forms.py:84
+#: visiting_management/forms.py:86 visiting_management/forms.py:88
 msgid "Structures must be different"
 msgstr "Le strutture devono essere differenti"
 
-#: visiting_management/forms.py:88 visiting_management/forms.py:90
+#: visiting_management/forms.py:92 visiting_management/forms.py:94
 msgid "Start date is greater than end date"
 msgstr "La data  di inizio è successiva a quella di fine"
 
-#: visiting_management/forms.py:97
+#: visiting_management/forms.py:101
 msgid "Effective days are greater than difference bewteen dates"
 msgstr ""
 "Il numero di giorni effettivi non può essere superiore alla differenza tra "

@@ -52,6 +52,7 @@ class Visiting(ActivableModel, CreatedModifiedBy, TimeStampedModel):
             validate_file_size
         ]
     )
+    in_person = models.BooleanField(null=True, blank=False, default=False)
     note = models.TextField(blank=True, default='')
 
     def __str__(self):

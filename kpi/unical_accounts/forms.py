@@ -12,7 +12,7 @@ class UserForm(ModelForm):
         fields = ['first_name',
                   'last_name',
                   'codice_fiscale',
-                  # 'gender',
+                  'gender',
                   'email', ]
         # labels = {'name': _('Nome'),
         # 'description': _('Descrizione'),
