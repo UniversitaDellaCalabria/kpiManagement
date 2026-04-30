@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from organizational_area.models import OrganizationalStructure
 
@@ -10,6 +11,10 @@ from template.validators import *
 def visiting_doc_path(instance, filename):
     return f'visiting/{instance.pk}/{filename}'
 
+MANUAL_BOOLEAN = [
+    (True, _('Yes')),
+    (False, _('No')),
+]
     
 class Role(models.Model):
     role_type = models.CharField(max_length=254)
@@ -52,7 +57,7 @@ class Visiting(ActivableModel, CreatedModifiedBy, TimeStampedModel):
             validate_file_size
         ]
     )
-    in_person = models.BooleanField(null=True, blank=False, default=False)
+    in_person = models.BooleanField(null=True, choices=MANUAL_BOOLEAN)
     note = models.TextField(blank=True, default='')
 
     def __str__(self):
