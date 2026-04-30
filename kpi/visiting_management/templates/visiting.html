@@ -40,6 +40,18 @@
             </td>
         </tr>
         <tr>
+            <th scope="row">{% trans 'Activity type' %}</th>
+            <td>
+                {% if visiting.in_person == 1 %}
+                {% trans "In-person" %}
+                {% elif visiting.in_person == 0 %}
+                {% trans "Online" %}
+                {% else %}
+                {% trans "Not defined" %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
             <th scope="row">{% trans 'Visitor' %}</th>
             <td>{{ visiting.visitor.first_name }} {{ visiting.visitor.last_name }} ({{ visiting.visitor.codice_fiscale }})</td>
         </tr>
@@ -81,18 +93,7 @@
                 {% endif %}
             </td>
         </tr>
-        <tr>
-            <th scope="row">{% trans 'Activity type' %}</th>
-            <td>
-                {% if visiting.in_person == 1 %}
-                {% trans "In-person" %}
-                {% elif visiting.in_person == 0 %}
-                {% trans "Online" %}
-                {% else %}
-                {% trans "Not defined" %}
-                {% endif %}
-            </td>
-        </tr>
+        
         <tr>
             <th scope="row">{% trans 'Start' %}</th>
             <td>{{ visiting.start_date|date:"d/m/Y" }}</td>
