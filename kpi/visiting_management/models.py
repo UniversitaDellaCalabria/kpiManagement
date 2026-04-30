@@ -9,7 +9,7 @@ from template.validators import *
 
 
 def visiting_doc_path(instance, filename):
-    return f'visiting/{instance.pk}/{filename}'
+    return f'visiting/{filename}'
 
 MANUAL_BOOLEAN = [
     (True, _('Yes')),

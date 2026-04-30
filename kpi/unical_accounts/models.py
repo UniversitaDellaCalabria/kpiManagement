@@ -8,7 +8,7 @@ class User(AbstractUser):
     GENDER = (
         ('M', _('Maschio')),
         ('F', _('Femmina')),
-        ('O', _('Altro')),
+        ('ND', _('Not defined')),
     )
 
     is_active = models.BooleanField(_('attivo'), default=True)
@@ -27,7 +27,7 @@ class User(AbstractUser):
                                       max_length=16,
                                       unique=True)
     gender = models.CharField(_('Genere'), choices=GENDER,
-                              max_length=12, blank=True, null=True)
+                              max_length=12, null=True)
     place_of_birth = CountryField('Luogo di nascita', max_length=30,
                                   blank=True, null=True)
     birth_date = models.DateField('Data di nascita',
