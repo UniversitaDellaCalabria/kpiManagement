@@ -62,12 +62,11 @@ def check_user_permission_on_dashboard(user, main_model, office_slug):
     return offices
 
 
-def download_file(path, nome_file):
+def download_file(file_path):
     """
     Downloads a file
     """
     mime = magic.Magic(mime=True)
-    file_path = "{}/{}".format(path, nome_file)
     content_type = mime.from_file(file_path)
 
     if os.path.exists(file_path):
