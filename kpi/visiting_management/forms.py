@@ -20,7 +20,7 @@ class VisitingForm(forms.ModelForm):
         self.structure = kwargs.pop('structure')
         super().__init__(*args, **kwargs)
         self.fields['collab'].queryset = Collaboration.objects.all()
-        self.fields['document'].widget.attrs['structure_slug'] = self.structure.slug
+        self.fields['document'].widget = CustomFileWidget(structure_slug=self.structure.slug)
         
     class Meta:
         model = Visiting
@@ -62,7 +62,7 @@ class VisitingForm(forms.ModelForm):
                    'start_date': BootstrapItaliaDateWidget,
                    'end_date': BootstrapItaliaDateWidget,
                    'note': forms.Textarea(attrs={'rows': 2}),
-                   'document': CustomFileWidget
+                   # ~ 'document': CustomFileWidget
                 }
 
     class Media:

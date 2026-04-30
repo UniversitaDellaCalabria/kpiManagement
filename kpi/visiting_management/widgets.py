@@ -40,6 +40,10 @@ class UrlValueWrapper:
 
         
 class CustomFileWidget(ClearableFileInput):
+    def __init__(self, *args, **kwargs):
+        # Estrai il parametro prima di chiamare il super()
+        self.structure_slug = kwargs.pop('structure_slug', None)
+        super().__init__(*args, **kwargs)
         
     def render(self, name, value, attrs=None, renderer=None):
         # Qui hai accesso a 'name'
@@ -57,8 +61,8 @@ class CustomFileWidget(ClearableFileInput):
                 response = reverse(
                     "visiting:download_document",
                     kwargs={
-                        "structure_slug": self.attrs.structure_slug,
-                        "pk": value.instance.visiting_pk
+                        "structure_slug": self.structure_slug,
+                        "visiting_pk": value.instance.pk
                     },
                 )
                 
