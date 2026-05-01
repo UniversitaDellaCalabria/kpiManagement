@@ -78,31 +78,32 @@ class VisitingForm(forms.ModelForm):
         end_date = cleaned_data.get('end_date')
         effective_days = cleaned_data.get('effective_days')
 
-        if from_structure and from_structure != self.structure and to_structure != self.structure:
-            self.add_error('from_structure',
-                           _("The departure or arrival facility must match your home facility"))
-            self.add_error('to_structure',
-                           _("The departure or arrival facility must match your home facility"))
-
-        if from_structure and to_structure and from_structure == to_structure:
-            self.add_error('from_structure',
-                           _("Structures must be different"))
-            self.add_error('to_structure',
-                           _("Structures must be different"))
-
-        if from_structure.is_internal == to_structure.is_internal:
-            self.add_error('from_structure',
-                           _("Only one of the two structures must be internal"))
-            self.add_error('to_structure',
-                           _("Only one of the two structures must be internal"))
+        if from_structure and to_structure:
+            if from_structure != self.structure and to_structure != self.structure:
+                self.add_error('from_structure',
+                               _("The departure or arrival facility must match your home facility"))
+                self.add_error('to_structure',
+                               _("The departure or arrival facility must match your home facility"))
                            
-        if start_date and end_date and start_date > end_date:
-            self.add_error('start_date',
-                           _("Start date is greater than end date"))
-            self.add_error('end_date',
-                           _("Start date is greater than end date"))
+            if from_structure == to_structure:
+                self.add_error('from_structure',
+                               _("Structures must be different"))
+                self.add_error('to_structure',
+                               _("Structures must be different"))
 
+            if from_structure.is_internal == to_structure.is_internal:
+                self.add_error('from_structure',
+                               _("Only one of the two structures must be internal"))
+                self.add_error('to_structure',
+                               _("Only one of the two structures must be internal"))
+                           
         if start_date and end_date:
+            if start_date > end_date:
+                self.add_error('start_date',
+                               _("Start date is greater than end date"))
+                self.add_error('end_date',
+                               _("Start date is greater than end date"))
+
             delta = end_date - start_date
             delta_days = delta.days + 1
             if effective_days > delta_days:
