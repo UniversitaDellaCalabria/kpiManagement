@@ -48,14 +48,14 @@ def new_user(request):
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
-            # gender = form.cleaned_data['gender']
+            gender = form.cleaned_data['gender']
             codice_fiscale = form.cleaned_data['codice_fiscale']
 
             User.objects.create(username=codice_fiscale,
                                 first_name=first_name,
                                 last_name=last_name,
                                 email=email,
-                                # gender=gender,
+                                gender=gender,
                                 codice_fiscale=codice_fiscale,
                                 created_by=request.user)
 
@@ -97,11 +97,7 @@ def edit_user(request, user_tax_code):
     if request.method == 'POST':
         form = UserForm(instance=user, data=request.POST)
         if form.is_valid():
-            user.first_name = form.cleaned_data['first_name']
-            user.last_name = form.cleaned_data['last_name']
-            user.email = form.cleaned_data['email']
-            user.codice_fiscale = form.cleaned_data['codice_fiscale']
-            user.save()
+            form.save()
 
             messages.add_message(request, messages.SUCCESS,
                                  _("User successfully updated"))
